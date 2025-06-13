@@ -1,44 +1,76 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import { Upload } from "lucide-react";
 import { io } from "socket.io-client";
 // import StatCard from "../components/StatCard";
 
 const EarningsPage: React.FC = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   const socketRef = useRef(null); // socketni saqlab turish uchun
   const [balance, setBalance] = useState(0);
   const [coinAmount, setCoinAmount] = useState("");
   const [currency, setCurrency] = useState("USD");
   const [coinData, setCoinData] = useState<any>();
+  const [data, setData] = useState(null);
+  const [isDepositDisabled, setIsDepositDisabled] = useState(false);
+  const [depositTimer, setDepositTimer] = useState(0);
 
-  const [withdrawalHistory] = useState([
-    {
-      id: 1,
-      amount: 500,
-      currency: "UZS",
-      date: "May 1, 2023, 07:30 PM",
-      status: "Tasdiqlangan",
-      maskedCard: "****4242",
-    },
-    {
-      id: 2,
-      amount: 300,
-      currency: "UZS",
-      date: "May 15, 2023, 02:15 PM",
-      status: "Kutilmoqda",
-      maskedCard: "****4444",
-    },
-    {
-      id: 3,
-      amount: 700,
-      currency: "UZS",
-      date: "May 20, 2023, 03:45 PM",
-      status: "Tasdiqlangan",
-      maskedCard: "****4242",
-    },
-  ]);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.error("Token topilmadi.");
+      return;
+    }
+
+    fetch("https://mlm-backend.pixl.uz/payments/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // tokenni headerga qo‘shamiz
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Ma'lumotlarni olishda xatolik yuz berdi");
+        }
+        return res.json();
+      })
+      .then((responseData) => {
+        setData(responseData);
+      })
+      .catch((err) => {
+        console.error("Xatolik:", err.message);
+      });
+  }, []);
+
+  // const [withdrawalHistory] = useState([
+  //   {
+  //     id: 1,
+  //     amount: 500,
+  //     currency: "UZS",
+  //     date: "May 1, 2023, 07:30 PM",
+  //     status: "Tasdiqlangan",
+  //     maskedCard: "****4242",
+  //   },
+  //   {
+  //     id: 2,
+  //     amount: 300,
+  //     currency: "UZS",
+  //     date: "May 15, 2023, 02:15 PM",
+  //     status: "Kutilmoqda",
+  //     maskedCard: "****4444",
+  //   },
+  //   {
+  //     id: 3,
+  //     amount: 700,
+  //     currency: "UZS",
+  //     date: "May 20, 2023, 03:45 PM",
+  //     status: "Tasdiqlangan",
+  //     maskedCard: "****4242",
+  //   },
+  // ]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -75,7 +107,6 @@ const EarningsPage: React.FC = () => {
         });
         const data = await res.json();
         setCoinData(data);
-        console.log("Coin API:", data);
       } catch (error) {
         console.error("Coin ma'lumotlarini olishda xatolik:", error);
       }
@@ -83,7 +114,25 @@ const EarningsPage: React.FC = () => {
     fetchCoinData();
   }, []);
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isDepositDisabled && depositTimer > 0) {
+      timer = setInterval(() => {
+        setDepositTimer((prev) => {
+          if (prev <= 1) {
+            setIsDepositDisabled(false);
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [isDepositDisabled, depositTimer]);
+
   const handleDeposit = () => {
+    if (isDepositDisabled) return;
     const amount = parseFloat(coinAmount || "0");
 
     if (amount > 0 && socketRef.current) {
@@ -92,9 +141,10 @@ const EarningsPage: React.FC = () => {
         how_much: amount,
       });
 
-      console.log(`📤 So‘rov yuborildi: ${amount} ${currency}`);
       setBalance((prev) => prev + amount);
       setCoinAmount("");
+      setIsDepositDisabled(true);
+      setDepositTimer(120); // 2 daqiqa = 120 sekund
     }
   };
 
@@ -106,6 +156,14 @@ const EarningsPage: React.FC = () => {
     const amount = parseFloat(coinAmount || "0");
     if (isNaN(amount)) return "";
     return (amount * selected.count).toLocaleString();
+  };
+
+  const statusStyles = {
+    SENDING:
+      "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200",
+    SUCCESS:
+      "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200",
+    CANCELLED: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200",
   };
 
   return (
@@ -125,9 +183,40 @@ const EarningsPage: React.FC = () => {
           <div className="flex space-x-4">
             <button
               onClick={handleDeposit}
-              className="bg-green-500 hover:bg-green-600 dark:text-white px-6 py-2 rounded-lg flex items-center"
+              className={`bg-green-500 hover:bg-green-600 dark:text-white px-6 py-2 rounded-lg flex items-center transition-opacity ${
+                isDepositDisabled ? "opacity-60 cursor-not-allowed" : ""
+              }`}
+              disabled={isDepositDisabled}
             >
-              <Upload className="mr-2" size={16} /> So'rov yuborish
+              <Upload className="mr-2" size={16} />
+              {isDepositDisabled ? (
+                <>
+                  <svg
+                    className="animate-spin h-4 w-4 mr-2 text-white"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                  </svg>
+                  {depositTimer > 0
+                    ? `Qayta yuborish (${depositTimer}s)`
+                    : "So'rov yuborish"}
+                </>
+              ) : (
+                "So'rov yuborish"
+              )}
             </button>
           </div>
         </div>
@@ -165,33 +254,58 @@ const EarningsPage: React.FC = () => {
       </div>
 
       {/* Tarix */}
-      <div className="dark:bg-gray-800 rounded-xl shadow-md p-6 border dark:border-gray-700">
-        <h2 className="text-xl font-semibold mb-4">Yechish tarixi</h2>
-        <div className="space-y-4">
-          {withdrawalHistory.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-center justify-between dark:bg-gray-700 border p-4 rounded-lg"
-            >
-              <div>
-                <p className="text-lg font-medium">
-                  {item.amount} {item.currency}
-                </p>
-                <p className="text-sm dark:text-gray-400">{item.date}</p>
-                <p className="text-sm dark:text-gray-500">{item.maskedCard}</p>
-              </div>
-              <span
-                className={`px-3 py-1 rounded-full text-sm ${
-                  item.status === "Tasdiqlangan"
-                    ? "bg-green-500"
-                    : "bg-yellow-500"
-                } text-white`}
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 border border-gray-200 dark:border-gray-700 max-w-full mx-auto">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
+          💳 Yechish Tarixi
+        </h2>
+
+        {data?.length === 0 ? (
+          <p className="text-gray-500 dark:text-gray-400">
+            Ma’lumotlar hozircha yo‘q yoki yuklanmoqda...
+          </p>
+        ) : (
+          <div className="space-y-4 max-w-full mx-auto mt-8">
+            {data?.map((item) => (
+              <div
+                key={item.id}
+                className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-4 rounded-lg shadow-sm flex justify-between items-start"
               >
-                {item.status}
-              </span>
-            </div>
-          ))}
-        </div>
+                <div>
+                  <p className="text-xl font-semibold text-gray-800 dark:text-white">
+                    {item.how_much} Coin
+                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    {new Date(item.to_send_date || "").toLocaleDateString(
+                      "en-US"
+                    )}
+                  </p>
+                  {item.to_checked_date && (
+                    <p className="text-sm text-gray-400 mt-1">
+                      Processed:{" "}
+                      {new Date(item.to_checked_date).toLocaleDateString(
+                        "en-US"
+                      )}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <span
+                    className={`text-sm font-medium px-3 py-1 rounded-full h-fit ${
+                      statusStyles[item.status]
+                    }`}
+                  >
+                    {item.status === "SENDING"
+                      ? "Sending"
+                      : item.status === "CANCELLED"
+                      ? "Success"
+                      : "CANCELLED"}
+                  </span>
+                  <p>{item.to_checked_date}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
