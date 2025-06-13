@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Search, Star, Coins, ShoppingCart, Eye } from "lucide-react";
+import { Search, Coins, ShoppingCart, Eye } from "lucide-react";
 import { useCart } from "../contexts/CartContext";
 
 const ProductsPage: React.FC = () => {
@@ -10,23 +10,22 @@ const ProductsPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await fetch("https://mlm-backend.pixl.uz/products");
         const data = await res.json();
-        console.log(data);
-
-        setProducts(Array.isArray(data) ? data : []); // Ensure data is an array
+        setProducts(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Mahsulotlarni olishda xatolik:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProducts();
   }, []);
-
-  console.log(products);
 
   const filteredProducts = products?.filter((product) => {
     const matchesSearch =
@@ -36,7 +35,7 @@ const ProductsPage: React.FC = () => {
       product.translations?.[0]?.description
         ?.toLowerCase()
         .includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "all"; // No category in data
+    const matchesCategory = selectedCategory === "all";
     return matchesSearch && matchesCategory;
   });
 
@@ -48,6 +47,26 @@ const ProductsPage: React.FC = () => {
       coinPrice: product.coin,
       image: product.photo_url?.[0] || null,
     });
+  };
+
+  const renderSkeletons = () => {
+    return Array.from({ length: 8 }).map((_, idx) => (
+      <div
+        key={idx}
+        className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden animate-pulse"
+      >
+        <div className="w-full h-40 bg-gray-200 dark:bg-gray-700"></div>
+        <div className="p-4 space-y-3">
+          <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-3/4"></div>
+          <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-5/6"></div>
+          <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-1/2"></div>
+          <div className="flex gap-2 mt-4">
+            <div className="h-8 bg-gray-300 dark:bg-gray-600 rounded w-full"></div>
+            <div className="h-8 bg-gray-300 dark:bg-gray-600 rounded w-full"></div>
+          </div>
+        </div>
+      </div>
+    ));
   };
 
   return (
@@ -62,25 +81,20 @@ const ProductsPage: React.FC = () => {
         </p>
       </div>
 
-      {/* Search and Filters */}
+      {/* Search */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-        <div className="flex flex-col lg:flex-row gap-4">
-          {/* Search */}
-          <div className="flex-1">
-            <div className="relative">
-              <Search
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                size={20}
-              />
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search products..."
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-              />
-            </div>
-          </div>
+        <div className="relative">
+          <Search
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            size={20}
+          />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search products..."
+            className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          />
         </div>
       </div>
 
@@ -90,7 +104,11 @@ const ProductsPage: React.FC = () => {
           All Products ({filteredProducts.length})
         </h2>
 
-        {filteredProducts.length === 0 ? (
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {renderSkeletons()}
+          </div>
+        ) : filteredProducts.length === 0 ? (
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-12 text-center">
             <div className="text-gray-400 dark:text-gray-500 mb-4">
               <Search size={48} className="mx-auto" />
@@ -134,24 +152,6 @@ const ProductsPage: React.FC = () => {
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">
                     {product.translations?.[0]?.description}
                   </p>
-
-                  {/* <div className="flex items-center mb-3">
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-3 h-3 ${
-                            i < Math.floor(product.rating || 4)
-                              ? "text-yellow-400 fill-current"
-                              : "text-gray-300 dark:text-gray-600"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-xs text-gray-600 dark:text-gray-400 ml-1">
-                      ({product.reviews || 0})
-                    </span>
-                  </div> */}
 
                   <div className="mb-3">
                     <div className="flex items-center text-yellow-600 dark:text-yellow-400">
