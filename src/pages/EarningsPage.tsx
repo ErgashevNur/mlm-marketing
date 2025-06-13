@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Upload, Download } from "lucide-react";
+import { Upload } from "lucide-react";
 import { io } from "socket.io-client";
-import StatCard from "../components/StatCard";
+// import StatCard from "../components/StatCard";
 
 const EarningsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -10,7 +10,8 @@ const EarningsPage: React.FC = () => {
   const socketRef = useRef(null); // socketni saqlab turish uchun
   const [balance, setBalance] = useState(0);
   const [coinAmount, setCoinAmount] = useState("");
-  const [currency, setCurrency] = useState("UZS");
+  const [currency, setCurrency] = useState("USD");
+  const [coinData, setCoinData] = useState<any>();
 
   const [withdrawalHistory] = useState([
     {
@@ -40,13 +41,13 @@ const EarningsPage: React.FC = () => {
   ]);
 
   useEffect(() => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtyZWVkYXNzYXNzaW4wMjNAZ21haWwuY29tIiwiaWF0IjoxNzQ5NzI3NTA2LCJleHAiOjE3NDk5MDAzMDZ9.yhFBCbtJzLEbySSTdc0J7I3fKenA1YCN8VAt92ykxpU";
+    const token = localStorage.getItem("token");
 
     const socket = io("https://mlm-backend.pixl.uz/", {
       auth: { token },
     });
 
+    // real time
     socketRef.current = socket;
 
     socket.on("connect", () => {
@@ -62,7 +63,25 @@ const EarningsPage: React.FC = () => {
     };
   }, []);
 
-  const currencies = ["UZS", "USD", "RUB"];
+  useEffect(() => {
+    // API'dan coin ma'lumotlarini olish
+    const fetchCoinData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch("https://mlm-backend.pixl.uz/coin", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await res.json();
+        setCoinData(data);
+        console.log("Coin API:", data);
+      } catch (error) {
+        console.error("Coin ma'lumotlarini olishda xatolik:", error);
+      }
+    };
+    fetchCoinData();
+  }, []);
 
   const handleDeposit = () => {
     const amount = parseFloat(coinAmount || "0");
@@ -79,6 +98,16 @@ const EarningsPage: React.FC = () => {
     }
   };
 
+  // Hisoblangan qiymatni olish uchun funksiya
+  const getCalculatedValue = () => {
+    if (!coinData || !Array.isArray(coinData)) return "";
+    const selected = coinData.find((c: any) => c.currency === currency);
+    if (!selected) return "";
+    const amount = parseFloat(coinAmount || "0");
+    if (isNaN(amount)) return "";
+    return (amount * selected.count).toLocaleString();
+  };
+
   return (
     <div className="min-h-screen dark:text-white p-6 space-y-6">
       {/* Balans */}
@@ -86,14 +115,11 @@ const EarningsPage: React.FC = () => {
         <div className="flex items-center justify-between mb-4">
           <div>
             <h1 className="text-2xl font-bold">
-              Balans:{" "}
-              <span className="text-yellow-400">
-                {balance} {currency}
-              </span>
+              Narxi:{" "}
+              <span className="text-yellow-400">{getCalculatedValue()}</span>
             </h1>
             <p className="dark:text-gray-400 text-sm">
-              Coin'ni to‘ldirish yoki yechish uchun quyidagi tugmalardan
-              foydalaning
+              Coin'ni to‘ldirish uchun quyidagi ma'lumotlarni kiriting!
             </p>
           </div>
           <div className="flex space-x-4">
@@ -101,7 +127,7 @@ const EarningsPage: React.FC = () => {
               onClick={handleDeposit}
               className="bg-green-500 hover:bg-green-600 dark:text-white px-6 py-2 rounded-lg flex items-center"
             >
-              <Upload className="mr-2" size={16} /> Pul to‘ldirish
+              <Upload className="mr-2" size={16} /> So'rov yuborish
             </button>
           </div>
         </div>
@@ -119,12 +145,22 @@ const EarningsPage: React.FC = () => {
             onChange={(e) => setCurrency(e.target.value)}
             className="w-full dark:bg-gray-700 dark:text-white border dark:border-gray-600 rounded-lg px-4 py-2"
           >
-            {currencies.map((curr) => (
-              <option key={curr} value={curr}>
-                {curr}
-              </option>
-            ))}
+            {coinData &&
+              Array.isArray(coinData) &&
+              coinData.map((curr: any) => (
+                <option key={curr.id} value={curr.currency}>
+                  {curr.currency}
+                </option>
+              ))}
           </select>
+        </div>
+        {/* Hisoblangan natija */}
+        <div className="mt-4">
+          <span className="font-semibold">
+            {coinAmount && currency && getCalculatedValue()
+              ? `${coinAmount} × ${currency} = ${getCalculatedValue()}`
+              : ""}
+          </span>
         </div>
       </div>
 
