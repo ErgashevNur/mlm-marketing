@@ -37,12 +37,13 @@ const ReferralsPage: React.FC = () => {
   }
 
   // Validate environment variable for referral key
-  const referralKey = import.meta.env.VITE_REFERAL_KEY;
+  const referralKey = "http://localhost:5173";
+  // import.meta.env.VITE_REFERAL_KEY;
   if (!referralKey) {
     console.error("VITE_REFERAL_KEY is not defined");
     return <div className="text-red-500">Error: Referral key is missing.</div>;
   }
-  const referralLink = `${referralKey}/referal/${user.id}`;
+  const referralLink = `${referralKey}/${user.id}`;
 
   // Fetch referral friends from API
   useEffect(() => {

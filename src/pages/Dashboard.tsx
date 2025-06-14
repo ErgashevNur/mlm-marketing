@@ -1,14 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Users, Coins } from "lucide-react";
+import { Users, Coins, Gift } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import StatCard from "../components/StatCard";
+import { toast } from "sonner";
+import StatisticsChart from "../components/StatisticsChart";
 
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
   const { user, claimDailyBonus } = useAuth();
-
   const userData: any = localStorage.getItem("user-data");
+  const [statistika, setStatistika] = useState([]);
+  const [allCoin, setAllCoin] = useState([]);
+
+  // get user statistika
+  const getUser = async () => {
+    try {
+      const req = await fetch("https://mlm-backend.pixl.uz/statistika/user");
+      if (req.status === 200) {
+        const res = await req.json();
+        setStatistika(res);
+      } else {
+        const errorText = await req.text();
+        throw new Error(`Xatolik: ${req.status} - ${errorText}`);
+      }
+    } catch (error) {
+      toast.error("So'rovda xatolik:", error.message);
+    }
+  };
+
+  const getTotal = async () => {
+    try {
+      const req = await fetch(
+        "https://mlm-backend.pixl.uz/statistika/statis-web"
+      );
+      if (req.status === 200) {
+        const res = await req.json();
+        setAllCoin(res);
+      } else {
+        const errorText = await req.text();
+        throw new Error(`Xatolik: ${req.status} - ${errorText}`);
+      }
+    } catch (error) {
+      toast.error("So'rovda xatolik:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+    getTotal();
+  }, []);
+
+  console.log(statistika);
+  console.log(allCoin);
 
   const recentActivities = [
     {
@@ -69,8 +113,8 @@ const Dashboard: React.FC = () => {
   // (planExpiryDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
   // );
 
-  // const canClaimBonus =
-  //   user && user.lastBonusDate !== new Date().toISOString().split("T")[0];
+  const canClaimBonus =
+    user && user.lastBonusDate !== new Date().toISOString().split("T")[0];
 
   const handleClaimBonus = () => {
     claimDailyBonus();
@@ -120,7 +164,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Daily Bonus */}
-      {/* {canClaimBonus && (
+      {canClaimBonus && (
         <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -128,9 +172,9 @@ const Dashboard: React.FC = () => {
                 <Gift className="text-white" size={24} />
               </div>
               <div>
-                <h3 className="text-lg font-semibold"> */}
-      {/* Daily Bonus Available! */}
-      {/* {t("dashboard.dailyBonusAvailable")}
+                <h3 className="text-lg font-semibold">
+                  {/* Daily Bonus Available! */}
+                  {t("dashboard.dailyBonusAvailable")}
                 </h3>
 
                 <p className="text-yellow-100">
@@ -142,13 +186,13 @@ const Dashboard: React.FC = () => {
             <button
               onClick={handleClaimBonus}
               className="px-6 py-3 bg-white text-orange-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
-            > */}
-      {/* Claim Now */}
-      {/* {t("dashboard.claimNow")} */}
-      {/* </button>
+            >
+              {/* Claim Now */}
+              {t("dashboard.claimNow")}
+            </button>
           </div>
         </div>
-      )} */}
+      )}
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -181,10 +225,11 @@ const Dashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Activity */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        {/* <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             {t("dashboard.recentActivity")}
           </h2>
+
           <div className="space-y-4">
             {recentActivities.map((activity) => (
               <div
@@ -211,7 +256,9 @@ const Dashboard: React.FC = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
+
+        <StatisticsChart />
 
         {/* Quick Actions */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">

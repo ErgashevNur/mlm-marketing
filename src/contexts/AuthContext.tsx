@@ -14,7 +14,12 @@ interface User {
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  register: (
+    name: string,
+    email: string,
+    password: string,
+    referal: number
+  ) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
   loginWithFacebook: () => Promise<void>;
   logout: () => void;
@@ -37,15 +42,45 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [userData, setUserData] = useState();
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("user-data");
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setIsLoading(false);
+          return;
+        }
 
-    setIsLoading(false);
+        const response = await fetch(
+          `${import.meta.env.VITE_API_KEY}/users/token`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setUser(data); // yoki setUser(data.user), agar API shunaqa qaytarsa
+        } else {
+          localStorage.removeItem("token"); // noto‘g‘ri token bo‘lsa tozalash
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+        localStorage.removeItem("token");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserData();
   }, []);
+
   1;
   const login = async (email: string, password: string) => {
     setIsLoading(true);
@@ -119,19 +154,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsLoading(false);
     }
   };
-  const loginWithGoogle = async () => {
-    setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const mockUser: User = {
-      id: "2",
-      name: "Google User",
-      email: "user@gmail.com",
-    };
-
-    setUser(mockUser);
-    localStorage.setItem("user-data", JSON.stringify(mockUser));
-    setIsLoading(false);
+  const loginWithGoogle = () => {
+    window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
   };
 
   const loginWithFacebook = async () => {

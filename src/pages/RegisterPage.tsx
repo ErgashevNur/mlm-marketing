@@ -13,7 +13,7 @@ const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [referal, setReferal] = useState("");
+  // const [referal, setReferal] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [timeLeft, setTimeLeft] = useState(120);
@@ -42,6 +42,11 @@ const RegisterPage: React.FC = () => {
     setIsExpired(false);
     // Optionally, call an API to resend the verification email here
   };
+
+  const referal = localStorage.getItem("referral_id");
+  console.log(referal);
+
+  console.log(name, email, password, referal);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -187,21 +192,6 @@ const RegisterPage: React.FC = () => {
                       <Eye size={20} />
                     )}
                   </button>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Referral Code (optional)
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={referal}
-                    onChange={(e) => setReferal(e.target.value)}
-                    className="w-full pl-4 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                    placeholder="Referral code"
-                  />
                 </div>
               </div>
 
