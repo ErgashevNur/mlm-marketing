@@ -96,6 +96,25 @@ const EarningsPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    const socket = io("https://mlm-backend.pixl.uz/", {
+      auth: { token },
+    });
+
+    socket.on("card_info", (data) => {
+      setData(data);
+      console.log(data);
+
+      if (Notification.permission === "granted") {
+        const notification = new Notification(data.paymentId, {
+          body: data.message,
+        });
+      }
+    });
+  }, []);
+
+  useEffect(() => {
     // API'dan coin ma'lumotlarini olish
     const fetchCoinData = async () => {
       try {
