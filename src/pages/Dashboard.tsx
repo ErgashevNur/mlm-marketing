@@ -13,7 +13,6 @@ const Dashboard: React.FC = () => {
   const [statistika, setStatistika] = useState([]);
   const [allCoin, setAllCoin] = useState([]);
 
-  // get user statistika
   const getUser = async () => {
     try {
       const req = await fetch("https://mlm-backend.pixl.uz/statistika/user");
@@ -51,60 +50,6 @@ const Dashboard: React.FC = () => {
     getTotal();
   }, []);
 
-  const recentActivities = [
-    {
-      id: 1,
-      type: "referral",
-      amount: `+10 ${t("dashboard.coin")}`,
-      time: "2 hours ago",
-      data: "11.06.2025",
-    },
-    {
-      id: 2,
-      type: "earning",
-      amount: `+10 ${t("dashboard.coin")}`,
-      time: "at 12:50 AM",
-      data: "10.06.2025",
-    },
-    {
-      id: 3,
-      type: "withdrawal",
-      amount: `+10 ${t("dashboard.coin")}`,
-      time: "at 08:20 AM",
-      data: "09.06.2025",
-    },
-    {
-      id: 4,
-      type: "purchase",
-      amount: `+10 ${t("dashboard.coin")}`,
-      time: "at 08:18 PM",
-      data: "08.06.2025",
-    },
-  ];
-
-  const quickActions = [
-    {
-      name: t("dashboard.browseProducts"),
-      href: "/dashboard/products",
-      color: "bg-blue-500 hover:bg-blue-600",
-    },
-    {
-      name: t("dashboard.inviteFriends"),
-      href: "/dashboard/referrals",
-      color: "bg-green-500 hover:bg-green-600",
-    },
-    {
-      name: t("dashboard.withdrawFunds"),
-      href: "/dashboard/withdraw",
-      color: "bg-purple-500 hover:bg-purple-600",
-    },
-    {
-      name: t("dashboard.upgradePlan"),
-      href: "/dashboard/plans",
-      color: "bg-orange-500 hover:bg-orange-600",
-    },
-  ];
-
   const canClaimBonus =
     user && user.lastBonusDate !== new Date().toISOString().split("T")[0];
 
@@ -133,7 +78,9 @@ const Dashboard: React.FC = () => {
             <p className="text-gray-600 dark:text-gray-400">
               {t("dashboard.currentPlan")}:{" "}
               <span className="font-semibold text-blue-600 dark:text-blue-400">
-                {user?.userTariff}
+                {typeof user?.userTariff === "object"
+                  ? user?.userTariff?.status || "Tarif aniqlanmagan"
+                  : user?.userTariff || "Tarif yo'q"}
               </span>
             </p>
           </div>
@@ -154,10 +101,9 @@ const Dashboard: React.FC = () => {
                 <h3 className="text-lg font-semibold">
                   {t("dashboard.dailyBonusAvailable")}
                 </h3>
-
                 <p className="text-yellow-100">
-                  {t("dashboard.claimYour")}
-                  {userData?.dailyBonus} {t("dashboard.coinsToday")}
+                  {t("dashboard.claimYour")} {userData?.dailyBonus}{" "}
+                  {t("dashboard.coinsToday")}
                 </p>
               </div>
             </div>
@@ -174,10 +120,10 @@ const Dashboard: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         <StatCard
           title={t("dashboard.yourCoin")}
-          value={user?.coin}
+          value={user?.coin || 0}
           icon={Coins}
           color="blue"
-          subtitle={`+${user?.coin} ${t("dashboard.dailyBonus")}`}
+          subtitle={`+${user?.coin || 0} ${t("dashboard.dailyBonus")}`}
         />
         <StatCard
           title={t("dashboard.totalReferrals")}
@@ -195,7 +141,28 @@ const Dashboard: React.FC = () => {
             {t("dashboard.quickActions")}
           </h2>
           <div className="grid grid-cols-2 gap-3">
-            {quickActions.map((action, index) => (
+            {[
+              {
+                name: t("dashboard.browseProducts"),
+                href: "/dashboard/products",
+                color: "bg-blue-500 hover:bg-blue-600",
+              },
+              {
+                name: t("dashboard.inviteFriends"),
+                href: "/dashboard/referrals",
+                color: "bg-green-500 hover:bg-green-600",
+              },
+              {
+                name: t("dashboard.withdrawFunds"),
+                href: "/dashboard/withdraw",
+                color: "bg-purple-500 hover:bg-purple-600",
+              },
+              {
+                name: t("dashboard.upgradePlan"),
+                href: "/dashboard/plans",
+                color: "bg-orange-500 hover:bg-orange-600",
+              },
+            ].map((action, index) => (
               <a
                 key={index}
                 href={action.href}
