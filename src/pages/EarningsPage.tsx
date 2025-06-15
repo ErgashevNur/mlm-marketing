@@ -137,7 +137,6 @@ const EarningsPage: React.FC = () => {
 
     if (amount > 0 && socketRef.current) {
       socketRef.current.emit("paymentRequest", {
-        currency,
         how_much: amount,
       });
 
