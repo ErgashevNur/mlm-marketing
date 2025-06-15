@@ -5,51 +5,71 @@ import {
   Trash2,
   Plus,
   Minus,
-  CreditCard,
   Coins,
   CheckCircle,
   ArrowRight,
+  Smile,
+  Check,
 } from "lucide-react";
 import { useCart } from "../contexts/CartContext";
 import { useAuth } from "../contexts/AuthContext";
 
 const CheckoutPage: React.FC = () => {
   const { t } = useTranslation();
-  const {
-    items,
-    updateQuantity,
-    removeFromCart,
-    clearCart,
-    getTotalPrice,
-    getTotalCoinPrice,
-  } = useCart();
+  const { items, removeFromCart } = useCart();
   const { user } = useAuth();
-  const [paymentMethod, setPaymentMethod] = useState<"card" | "coins">("card");
+
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
-
-  const handleQuantityChange = (id: string, newQuantity: number) => {
-    updateQuantity(id, newQuantity);
-  };
+  const [order, setOrder] = useState(null);
+  const [orderModal, setOrderModal] = useState(false);
 
   const handleRemoveItem = (id: string) => {
     removeFromCart(id);
   };
 
-  const handleCheckout = async () => {
-    setIsProcessing(true);
-
-    // Simulate payment processing
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    setIsProcessing(false);
-    setOrderComplete(true);
-    clearCart();
+  const openOrderModal = (userInfo) => {
+    setOrder(userInfo);
+    setOrderModal(true);
   };
 
-  const totalPrice = getTotalPrice();
-  const totalCoinPrice = getTotalCoinPrice();
-  const canPayWithCoins = user && user.coins >= totalCoinPrice;
+  const ordered = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const obj = {
+      productId: order.id,
+      contactNumber: formData.get("contactNumber"),
+      contactLink: formData.get("contactLink"),
+    };
+
+    const token = localStorage.getItem("token");
+
+    try {
+      const req = await fetch("https://mlm-backend.pixl.uz/orders-product", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(obj),
+      });
+
+      if (!req.ok) {
+        const errorText = await req.text();
+        throw new Error(`Xatolik: ${req.status} - ${errorText}`);
+      }
+
+      const res = await req.json();
+      console.log("Buyurtma muvaffaqiyatli:", res);
+      // toast.success("Buyurtma muvaffaqiyatli yuborildi!");
+    } catch (error) {
+      console.error("Buyurtma xatosi:", error.message);
+      // toast.error("Buyurtma yuborishda xatolik: " + error.message);
+    } finally {
+      setOrderModal(false);
+    }
+  };
 
   if (orderComplete) {
     return (
@@ -117,7 +137,7 @@ const CheckoutPage: React.FC = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
         {/* Cart Items */}
         <div className="lg:col-span-2 space-y-4">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
@@ -128,58 +148,49 @@ const CheckoutPage: React.FC = () => {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+                className="bg-white w-full dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6"
               >
-                <div className="flex items-center space-x-4">
+                <div className="flex w-full flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-4 sm:space-y-0">
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-20 h-20 object-cover rounded-lg"
+                    className="w-full sm:w-20 sm:h-20 h-40 object-cover rounded-lg"
                   />
 
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
                       {item.name}
                     </h3>
-                    <div className="flex items-center space-x-4 mt-2">
-                      <span className="text-lg font-bold text-gray-900 dark:text-white">
+                    <div className="flex flex-wrap items-center gap-2 mt-2">
+                      <span className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
                         ${item.price}
                       </span>
-                      <div className="flex items-center text-yellow-600 dark:text-yellow-400">
+                      <div className="flex items-center text-yellow-600 dark:text-yellow-400 text-sm">
                         <Coins size={16} className="mr-1" />
                         <span>{item.coinPrice} coins</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-3">
-                    <div className="flex items-center space-x-2">
-                      <button
-                        onClick={() =>
-                          handleQuantityChange(item.id, item.quantity - 1)
-                        }
-                        className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                      >
-                        <Minus size={16} />
-                      </button>
-                      <span className="w-12 text-center text-gray-900 dark:text-white font-medium">
-                        {item.quantity}
-                      </span>
-                      <button
-                        onClick={() =>
-                          handleQuantityChange(item.id, item.quantity + 1)
-                        }
-                        className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                      >
-                        <Plus size={16} />
-                      </button>
-                    </div>
-
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 space-y-3 sm:space-y-0 mt-2 sm:mt-0">
                     <button
                       onClick={() => handleRemoveItem(item.id)}
-                      className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                      className="p-3 text-red-600 border dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                     >
                       <Trash2 size={16} />
+                    </button>
+                    <button
+                      onClick={() => openOrderModal(item)}
+                      className="p-2 text-green-600 flex items-center gap-2 border  dark:text-green-400 hover:bg-green-200 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                    >
+                      {isProcessing ? (
+                        <div className="flex items-center">
+                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                          Processing...
+                        </div>
+                      ) : (
+                        <CheckCircle />
+                      )}
                     </button>
                   </div>
                 </div>
@@ -187,87 +198,41 @@ const CheckoutPage: React.FC = () => {
             ))}
           </div>
         </div>
-
-        {/* Order Summary */}
-        <div className="space-y-6">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-              Order Summary
-            </h2>
-
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">
-                  Subtotal
-                </span>
-                <span className="text-gray-900 dark:text-white font-medium">
-                  ${totalPrice.toFixed(2)}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">Tax</span>
-                <span className="text-gray-900 dark:text-white font-medium">
-                  ${(totalPrice * 0.1).toFixed(2)}
-                </span>
-              </div>
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
-                <div className="flex justify-between">
-                  <span className="text-lg font-semibold text-gray-900 dark:text-white">
-                    Total
-                  </span>
-                  <span className="text-lg font-bold text-gray-900 dark:text-white">
-                    ${(totalPrice * 1.1).toFixed(2)}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between mt-1">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
-                    Or pay with coins:
-                  </span>
-                  <div className="flex items-center text-yellow-600 dark:text-yellow-400">
-                    <Coins size={16} className="mr-1" />
-                    <span className="font-medium">{totalCoinPrice} coins</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* User Coins Display */}
-          {user && (
-            <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border border-yellow-200 dark:border-yellow-800 p-4">
-              <div className="flex items-center justify-between">
-                <span className="text-yellow-800 dark:text-yellow-200 font-medium">
-                  Your Coins
-                </span>
-                <div className="flex items-center text-yellow-600 dark:text-yellow-400">
-                  <Coins size={20} className="mr-2" />
-                  <span className="text-lg font-bold">
-                    {user.coins.toLocaleString()}
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Checkout Button */}
-          <button
-            onClick={handleCheckout}
-            className="w-full flex items-center justify-center px-6 py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors"
-          >
-            {isProcessing ? (
-              <div className="flex items-center">
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                Processing...
-              </div>
-            ) : (
-              <>
-                Complete Purchase
-                <ArrowRight className="ml-2" size={20} />
-              </>
-            )}
-          </button>
-        </div>
       </div>
+      {orderModal && (
+        <div className="w-[500px] max-h-80 border absolute inset-0 top-60 left-[30%] p-5 rounded-lg dark:bg-slate-800 dark:text-white bg-white">
+          <h1 className="flex items-center gap-3 text-2xl mb-5">
+            Shaxsingizni tasdiqlang !
+          </h1>
+          <form onSubmit={ordered}>
+            <label className="flex flex-col gap-3 mb-4">
+              <span className="font-bold">Contact</span>
+              <input
+                type="number"
+                name="contactNumber"
+                className="outline-none px-2 py-2 border rounded-md text-gray-950 dark:bg-transparent dark:text-white"
+                placeholder="Telefon raqamingizni kiritng...."
+              />
+            </label>
+            <label className="flex flex-col gap-3">
+              <span className="font-bold">Ijtimoiy tarmoq manzilingiz</span>
+              <input
+                type="text"
+                name="contactLink"
+                className="outline-none px-2 py-2 border rounded-md text-gray-950 dark:bg-transparent dark:text-white"
+                text-black
+                placeholder="Ijtimoiy tarmoq manzilingiz...."
+              />
+            </label>
+            <button
+              type="submit"
+              className="mt-5 flex mx-auto border dark:border-white px-10 py-2 rounded-md"
+            >
+              Send
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

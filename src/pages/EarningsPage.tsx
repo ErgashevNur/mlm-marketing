@@ -114,6 +114,10 @@ const EarningsPage: React.FC = () => {
     });
   }, []);
 
+  socket.on("card_info", (data) => {
+    console.log("Keldi:", data); // Keldi: { number: '1234 5678 9012 3456' }
+  });
+
   useEffect(() => {
     // API'dan coin ma'lumotlarini olish
     const fetchCoinData = async () => {
