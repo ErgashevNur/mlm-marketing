@@ -26,8 +26,6 @@ const ProfilePage: React.FC = () => {
     { id: "settings", name: t("profile.accountSettings"), icon: Settings },
   ];
 
-  // console.log(user?.userTariff);
-
   const planExpiryDate = new Date(user?.planExpiry || "");
 
   return (
@@ -71,14 +69,8 @@ const ProfilePage: React.FC = () => {
         <div className="p-6">
           {activeTab === "personal" && (
             <div className="space-y-6">
-              {/* Profile Info */}
               <div className="flex items-start space-x-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                  <span className="text-2xl font-bold text-white">
-                    {/* {user?.name?.charAt(0).toUpperCase()} */}
-                  </span>
-                  <img src={localStorage.getItem("avatar")} alt="" />
-                </div>
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center overflow-hidden"></div>
                 <div className="flex-1">
                   <h2 className="text-xl font-semibold text-gray-900 capitalize">
                     {user?.name}
@@ -86,14 +78,12 @@ const ProfilePage: React.FC = () => {
                   <p className="text-gray-600">{user?.email}</p>
                   <div className="flex items-center mt-2 space-x-4">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                      {user?.userTariff}
-                      Basic
+                      {user?.userTariff?.name || "Basic"}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Info Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg">
@@ -122,9 +112,9 @@ const ProfilePage: React.FC = () => {
                       <p className="text-sm font-medium text-gray-500">
                         {t("profile.referralCode")}
                       </p>
-                      <p className="text-gray-900 font-mono">
+                      <p className="text-gray-900 font-mono break-all">
                         {`${import.meta.env.VITE_REFERAL_KEY}/referal/${
-                          user.id
+                          user?.id
                         }`}
                       </p>
                     </div>
@@ -138,7 +128,9 @@ const ProfilePage: React.FC = () => {
                       <p className="text-sm font-medium text-gray-500">
                         {t("profile.currentPlan")}
                       </p>
-                      <p className="text-gray-900">{user?.userTariff}</p>
+                      <p className="text-gray-900">
+                        {user?.userTariff?.name || "Basic"}
+                      </p>
                     </div>
                   </div>
 
@@ -161,7 +153,6 @@ const ProfilePage: React.FC = () => {
           {activeTab === "settings" && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 gap-6">
-                {/* Security Settings */}
                 <div className="border border-gray-200 rounded-lg p-6">
                   <h3 className="text-lg font-medium text-gray-900 mb-4">
                     Security
@@ -186,7 +177,6 @@ const ProfilePage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Preferences */}
                 <div className="border border-gray-200 rounded-lg p-6">
                   <h3 className="text-lg font-medium text-gray-900 mb-4">
                     Preferences
