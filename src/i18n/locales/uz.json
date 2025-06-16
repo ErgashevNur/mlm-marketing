@@ -8,6 +8,7 @@
     "referrals": "Taklif qilinganlar",
     "plans": "Tariflar",
     "withdraw": "Pul yechish",
+    "products": "Mahsulotlar",
     "loading": "Yuklanmoqda...",
     "save": "Saqlash",
     "cancel": "Bekor qilish",
@@ -49,7 +50,8 @@
     "dailyBonusAvailable": "Kunlik bonus mavjud!",
     "claimYour": "Bonusingizni oling",
     "coinsToday": "tangani bugun oling",
-    "claimNow": "Hozir oling"
+    "claimNow": "Hozir oling",
+    "bonusOncePerDay": "Bonusni bir kunda faqat bir marta olish mumkin."
   },
   "profile": {
     "personalInfo": "Shaxsiy ma'lumotlar",
@@ -87,10 +89,13 @@
     "paymentStatus": "To'lov holati",
     "bonus": "Bonus",
     "paid": "To'langan",
-    "pending": "Kutilmoqda"
+    "pending": "Kutilmoqda",
+    "active": "Faol",
+    "inactive": "Nofaol"
   },
   "plans": {
     "choosePlan": "Tarifni tanlang",
+    "choosePlanDesc": "Marketing ehtiyojlaringiz uchun eng yaxshi tarifni tanlang. Barcha tariflar asosiy funksiyalarimizni o‘z ichiga oladi, lekin cheklov va bonuslari har xil.",
     "currentPlan": "Joriy tarif",
     "upgradePlan": "Tarifni yangilash",
     "planFeatures": "Tarif xususiyatlari",
@@ -113,6 +118,67 @@
     "processing": "Jarayonda",
     "completed": "Bajarildi",
     "rejected": "Rad etildi",
-    "requestDate": "So'rov sanasi"
+    "requestDate": "So'rov sanasi",
+    "success": "Bajarildi",
+    "comment": "Izoh",
+    "noComment": "Izoh mavjud emas",
+    "coinAlt": "Tanga",
+    "cardNumberMask": "{{first}} **** ****{{last}}",
+    "unknownStatus": "Noma'lum holat",
+    "showComment": "Izohni ko‘rish",
+    "close": "Yopish",
+    "statusLabel": "Holat",
+    "requestDateLabel": "So'rov sanasi",
+    "requestWithdrawDesc": "Pul yechish so‘rovi yuboring va to‘lov tarixingizni kuzating",
+    "thisMonth": "Bu oy",
+    "minWithdraw": "Minimal yechish miqdori: ${{amount}}",
+    "importantNotes": "Muhim eslatmalar:",
+    "noteProcessingTime": "Yechish 1-3 ish kuni ichida amalga oshiriladi",
+    "noteMinAmount": "Minimal yechish miqdori ${{amount}}",
+    "noteFees": "To‘lov usuliga qarab komissiya olinishi mumkin",
+    "noteCardDetails": "Karta ma'lumotlaringiz to‘g‘ri ekanligiga ishonch hosil qiling, aks holda kechikish bo‘lishi mumkin"
+  },
+  "statistics": {
+    "overview": "Statistika sharhi",
+    "lineChart": "Chiziqli grafik",
+    "barChart": "Ustunli grafik",
+    "doughnutChart": "Donut grafik",
+    "7days": "7 kun",
+    "30days": "30 kun",
+    "90days": "90 kun",
+    "1year": "1 yil",
+    "total": "Jami",
+    "average": "O'rtacha",
+    "peak": "Eng yuqori",
+    "growth": "O'sish",
+    "revenue": "Daromad",
+    "sales": "Sotuvlar",
+    "desktop": "Kompyuter",
+    "mobile": "Mobil",
+    "tablet": "Planshet",
+    "other": "Boshqa"
+  },
+  "productsPage": {
+    "discover": "Marketing muvaffaqiyatingizni oshirish uchun premium mahsulotlar va xizmatlarni kashf eting",
+    "searchPlaceholder": "Mahsulotlarni qidiring...",
+    "allProducts": "Barcha mahsulotlar",
+    "noProducts": "Mahsulotlar topilmadi",
+    "tryAdjusting": "Qidiruv so'zlari yoki filtrlarni o'zgartirib ko'ring",
+    "featured": "Tanlangan",
+    "coins": "tanga",
+    "view": "Ko‘rish",
+    "add": "Qo‘shish",
+    "product": "Mahsulot"
+  },
+  "referralsPage": {
+    "pleaseLogin": "Referallarni ko‘rish uchun iltimos, tizimga kiring.",
+    "referralKeyMissing": "Xatolik: Referal kaliti topilmadi.",
+    "failedToLoad": "Referal do‘stlarni yuklab bo‘lmadi. Iltimos, keyinroq yana urinib ko‘ring.",
+    "inviteFriendsDesc": "Do‘stlarni taklif qiling va har bir muvaffaqiyatli referal uchun bonus oling",
+    "performance": "Referal natijalari",
+    "paidReferrals": "To‘langan referallar",
+    "pendingReferrals": "Kutilayotgan referallar",
+    "friends": "do‘stlar",
+    "noReferralFriends": "Referal do‘stlar topilmadi."
   }
 }

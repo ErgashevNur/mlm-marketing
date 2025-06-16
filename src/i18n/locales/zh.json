@@ -8,6 +8,7 @@
     "referrals": "推荐",
     "plans": "计划",
     "withdraw": "提现",
+    "products": "产品",
     "loading": "加载中...",
     "save": "保存",
     "cancel": "取消",
@@ -49,7 +50,8 @@
     "dailyBonusAvailable": "每日奖励可领取！",
     "claimYour": "领取您的",
     "coinsToday": "金币吧",
-    "claimNow": "立即领取"
+    "claimNow": "立即领取",
+    "bonusOncePerDay": "每日只能领取一次奖励。"
   },
   "profile": {
     "personalInfo": "个人信息",
@@ -87,10 +89,13 @@
     "paymentStatus": "付款状态",
     "bonus": "奖金",
     "paid": "已付款",
-    "pending": "待处理"
+    "pending": "待处理",
+    "active": "激活",
+    "inactive": "未激活"
   },
   "plans": {
     "choosePlan": "选择计划",
+    "choosePlanDesc": "为您的营销需求选择最合适的计划。所有计划都包含我们的核心功能，但有不同的限制和奖励。",
     "currentPlan": "当前计划",
     "upgradePlan": "升级计划",
     "planFeatures": "计划特性",
@@ -113,6 +118,67 @@
     "processing": "处理中",
     "completed": "已完成",
     "rejected": "已拒绝",
-    "requestDate": "申请日期"
+    "requestDate": "申请日期",
+    "success": "已完成",
+    "comment": "备注",
+    "noComment": "暂无备注",
+    "coinAlt": "金币",
+    "cardNumberMask": "{{first}} **** ****{{last}}",
+    "unknownStatus": "未知状态",
+    "showComment": "查看备注",
+    "close": "关闭",
+    "statusLabel": "状态",
+    "requestDateLabel": "申请日期",
+    "requestWithdrawDesc": "申请提现并跟踪您的付款历史",
+    "thisMonth": "本月",
+    "minWithdraw": "最低提现金额：{{amount}}",
+    "importantNotes": "重要提示：",
+    "noteProcessingTime": "提现将在1-3个工作日内处理",
+    "noteMinAmount": "最低提现金额为 {{amount}}",
+    "noteFees": "根据您的支付方式可能会收取手续费",
+    "noteCardDetails": "请确保您的卡信息正确，以避免延误"
+  },
+  "statistics": {
+    "overview": "统计概览",
+    "lineChart": "折线图",
+    "barChart": "柱状图",
+    "doughnutChart": "甜甜圈图",
+    "7days": "7天",
+    "30days": "30天",
+    "90days": "90天",
+    "1year": "1年",
+    "total": "总计",
+    "average": "平均值",
+    "peak": "峰值",
+    "growth": "增长",
+    "revenue": "收入",
+    "sales": "销售额",
+    "desktop": "桌面端",
+    "mobile": "移动端",
+    "tablet": "平板",
+    "other": "其他"
+  },
+  "productsPage": {
+    "discover": "发现优质产品和服务，助力您的营销成功",
+    "searchPlaceholder": "搜索产品...",
+    "allProducts": "全部产品",
+    "noProducts": "未找到产品",
+    "tryAdjusting": "请尝试调整您的搜索词或筛选条件",
+    "featured": "精选",
+    "coins": "金币",
+    "view": "查看",
+    "add": "添加",
+    "product": "产品"
+  },
+  "referralsPage": {
+    "pleaseLogin": "请登录以查看推荐。",
+    "referralKeyMissing": "错误：缺少推荐链接。",
+    "failedToLoad": "推荐好友加载失败，请稍后再试。",
+    "inviteFriendsDesc": "邀请朋友，每成功推荐一人即可获得奖励",
+    "performance": "推荐效果",
+    "paidReferrals": "已付款推荐",
+    "pendingReferrals": "待付款推荐",
+    "friends": "好友",
+    "noReferralFriends": "未找到推荐好友。"
   }
 }

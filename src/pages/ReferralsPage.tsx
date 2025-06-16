@@ -7,8 +7,7 @@ import {
   Phone,
   CheckCircle,
   Clock,
-  DollarSign,
-  Loader,
+  BarChart2,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import StatCard from "../components/StatCard";
@@ -26,6 +25,7 @@ interface Friend {
 const ReferralsPage: React.FC = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const [ref, setRef] = useState<any>(null);
   const [copiedLink, setCopiedLink] = useState(false);
   const [referralFriends, setReferralFriends] = useState<Friend[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +33,7 @@ const ReferralsPage: React.FC = () => {
 
   // Check if user is authenticated
   if (!user) {
-    return <div className="text-red-500">Please log in to view referrals.</div>;
+    return <div className="text-red-500">{t("referralsPage.pleaseLogin")}</div>;
   }
 
   // Validate environment variable for referral key
@@ -41,7 +41,11 @@ const ReferralsPage: React.FC = () => {
   // import.meta.env.VITE_REFERAL_KEY;
   if (!referralKey) {
     console.error("VITE_REFERAL_KEY is not defined");
-    return <div className="text-red-500">Error: Referral key is missing.</div>;
+    return (
+      <div className="text-red-500">
+        {t("referralsPage.referralKeyMissing")}
+      </div>
+    );
   }
   const referralLink = `${referralKey}/${user.id}`;
 
@@ -65,35 +69,13 @@ const ReferralsPage: React.FC = () => {
         }
         const data = await res.json();
         console.log("Referral friends:", data);
-        // Normalize API response to ensure it's an array of Friend objects
-        setReferralFriends(
-          Array.isArray(data)
-            ? data.map(
-                (item: any): Friend => ({
-                  id: item.id,
-                  name: item.name || "Unknown",
-                  email: item.email || "N/A",
-                  joinDate: item.joinDate || new Date().toISOString(),
-                  status: item.status || "pending",
-                  bonus: Number(item.bonus) || 0,
-                })
-              )
-            : data.friends && Array.isArray(data.friends)
-            ? data.friends.map(
-                (item: any): Friend => ({
-                  id: item.id,
-                  name: item.name || "Unknown",
-                  email: item.email || "N/A",
-                  joinDate: item.joinDate || new Date().toISOString(),
-                  status: item.status || "pending",
-                  bonus: Number(item.bonus) || 0,
-                })
-              )
-            : []
-        );
+        setRef(data);
+
+        // Just set the API data directly, do not format/map
+        setReferralFriends(data?.data || []);
       } catch (error: any) {
         console.error("Referal do‘stlarni olishda xatolik:", error);
-        setError("Failed to load referral friends. Please try again later.");
+        setError(t("referralsPage.failedToLoad"));
         setReferralFriends([]);
       } finally {
         setIsLoading(false);
@@ -103,14 +85,15 @@ const ReferralsPage: React.FC = () => {
   }, [user.id]);
 
   // Calculate total bonuses with safety check
-  const totalBonuses = Array.isArray(referralFriends)
-    ? referralFriends.reduce((sum, friend) => sum + (friend.bonus || 0), 0)
-    : 0;
+  // const totalBonuses = Array.isArray(referralFriends)
+  //   ? referralFriends.reduce((sum, friend) => sum + (friend.bonus || 0), 0)
+  //   : 0;
 
   // Calculate paid and pending referrals
-  const paidReferrals = referralFriends.filter(
-    (friend) => friend.status === "paid"
-  ).length;
+  // const paidReferrals = referralFriends.filter(
+  //   (friend) => friend.status === "paid"
+  // ).length;
+
   const pendingReferrals = referralFriends.filter(
     (friend) => friend.status === "pending"
   ).length;
@@ -150,10 +133,11 @@ const ReferralsPage: React.FC = () => {
   // Render loading state
   if (isLoading) {
     return (
-      <div className="text-gray-500 dark:text-gray-400 max-w-[1200px] flex items-center justify-center h-screen ">
-        <h1 className="mx-auto flex gap-2 text-[25px] items-center">
-          Loading <Loader className="w-8 animate-spin" />
-        </h1>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <p className="text-gray-600 font-medium">Loading...</p>
+        </div>
       </div>
     );
   }
@@ -163,6 +147,8 @@ const ReferralsPage: React.FC = () => {
     return <div className="text-red-500">{error}</div>;
   }
 
+  console.log(referralFriends);
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -171,35 +157,37 @@ const ReferralsPage: React.FC = () => {
           {t("common.referrals")}
         </h1>
         <p className="text-gray-600 dark:text-gray-400">
-          Invite friends and earn bonuses for each successful referral
+          {t("referralsPage.inviteFriendsDesc")}
         </p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <StatCard
           title={t("referrals.totalReferrals")}
-          value={user?.totalReferrals || 0}
+          value={ref?.count}
           icon={Users}
           color="blue"
         />
-        <StatCard
-          title={t("referrals.paidReferrals")}
+        {/* <StatCard
+          title={t("referralsPage.paidReferrals")}
           value={paidReferrals}
           icon={CheckCircle}
           color="green"
-        />
+        /> */}
         <StatCard
-          title={t("referrals.pendingPayments")}
+          title={t("referralsPage.UserLevel")}
           value={pendingReferrals}
-          icon={Clock}
+          icon={BarChart2}
           color="orange"
+          subtitle="Level"
         />
         <StatCard
           title={t("referrals.bonusEarned")}
-          value={`${totalBonuses} coin`}
-          icon={DollarSign}
+          value={ref?.count}
           color="purple"
+          img="/CoinLogo.png"
+          subtitle="USDT"
         />
       </div>
 
@@ -258,7 +246,7 @@ const ReferralsPage: React.FC = () => {
         {/* Referral Stats */}
         <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Referral Performance
+            {t("referralsPage.RefPrise")}
           </h2>
 
           <div className="space-y-4">
@@ -269,34 +257,32 @@ const ReferralsPage: React.FC = () => {
                 </div>
                 <div>
                   <p className="font-medium text-gray-900 dark:text-white">
-                    Paid Referrals
+                    {t("referralsPage.paidReferrals")}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {paidReferrals} friends
-                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{}</p>
                 </div>
               </div>
-              <span className="text-lg font-bold text-green-600 dark:text-green-400">
-                ${(paidReferrals * 50).toFixed(2)}
+              <span className="text-lg font-bold flex items-center gap-1 text-green-600 dark:text-green-400">
+                <img src="/CoinLogo.png" className="w-5 h-5" />
+                {}
               </span>
             </div>
 
-            <div className="flex items-center justify-between p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
                   <Clock className="text-white" size={16} />
                 </div>
                 <div>
                   <p className="font-medium text-gray-900 dark:text-white">
-                    Pending Referrals
+                    {t("referralsPage.pendingReferrals")}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {pendingReferrals} friends
-                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{}</p>
                 </div>
               </div>
-              <span className="text-lg font-bold text-orange-600 dark:text-orange-400">
-                ${(pendingReferrals * 50).toFixed(2)}
+              <span className="text-lg font-bold text-blue-600 flex items-center gap-1 dark:text-blue-400">
+                <img src="/CoinLogo.png" className="w-5 h-5" />
+                {}
               </span>
             </div>
           </div>
@@ -334,11 +320,11 @@ const ReferralsPage: React.FC = () => {
                     colSpan={4}
                     className="py-4 px-4 text-center text-gray-500 dark:text-gray-400"
                   >
-                    No referral friends found.
+                    {t("referralsPage.noReferralFriends")}
                   </td>
                 </tr>
               ) : (
-                referralFriends.map((friend) => (
+                referralFriends.map((friend: any) => (
                   <tr
                     key={friend.id}
                     className="hover:bg-gray-50 dark:hover:bg-gray-800 transition"
@@ -346,35 +332,35 @@ const ReferralsPage: React.FC = () => {
                     <td className="py-4 px-4">
                       <div>
                         <p className="font-medium text-gray-900 dark:text-white">
-                          {friend.name}
+                          {friend.user.name}
                         </p>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {friend.email}
+                          {friend.user.email}
                         </p>
                       </div>
                     </td>
                     <td className="py-4 px-4">
                       <span className="text-sm text-gray-700 dark:text-gray-300">
-                        {new Date(friend.joinDate).toLocaleDateString()}
+                        {new Date(friend.date).toLocaleDateString()}
                       </span>
                     </td>
                     <td className="py-4 px-4">
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          friend.status === "paid"
+                          friend.user?.isActive === true
                             ? "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400"
                             : "bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-400"
                         }`}
                       >
-                        {friend.status === "paid" ? (
+                        {friend.user?.isActive === true ? (
                           <>
                             <CheckCircle className="mr-1" size={12} />
-                            {t("referrals.paid")}
+                            {t("referrals.active")}
                           </>
                         ) : (
                           <>
                             <Clock className="mr-1" size={12} />
-                            {t("referrals.pending")}
+                            {t("referrals.inactive")}
                           </>
                         )}
                       </span>
@@ -382,12 +368,12 @@ const ReferralsPage: React.FC = () => {
                     <td className="py-4 px-4 text-right">
                       <span
                         className={`text-sm font-semibold ${
-                          friend.status === "paid"
+                          friend.user?.isActive === true
                             ? "text-green-600 dark:text-green-400"
                             : "text-orange-600 dark:text-orange-400"
                         }`}
                       >
-                        ${(friend.bonus || 0).toFixed(2)}
+                        ${(friend.user.coin || 0).toFixed(2)}
                       </span>
                     </td>
                   </tr>
@@ -402,3 +388,14 @@ const ReferralsPage: React.FC = () => {
 };
 
 export default ReferralsPage;
+
+// Tarjima qilinmagan so'zlar va matnlar ro'yxati:
+// 1. Please log in to view referrals.
+// 2. Error: Referral key is missing.
+// 3. Failed to load referral friends. Please try again later.
+// 4. Invite friends and earn bonuses for each successful referral
+// 5. Referral Performance
+// 6. Paid Referrals (stat card va performance)
+// 7. Pending Referrals (stat card va performance)
+// 8. friends (performance blokida)
+// 9. No referral friends found.

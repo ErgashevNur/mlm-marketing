@@ -10,7 +10,6 @@ import {
   Sun,
   Moon,
   LogOut,
-  Coins,
   LayoutDashboard,
   Package,
   DollarSign,
@@ -68,7 +67,7 @@ const Navbar: React.FC = () => {
               <div className="w-10 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
                 <Globe className="text-white" size={20} />
               </div>
-              <span className="text-xl font-bold text-gray-900 dark:text-white">
+              <span className="text-xl hidden sm:block font-bold text-gray-900 dark:text-white">
                 MLM PLATFORM
               </span>
             </Link>
@@ -76,7 +75,7 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Navigation */}
           {user && (
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-4">
               {navigationItems.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -108,16 +107,17 @@ const Navbar: React.FC = () => {
             </button>
 
             {/* Language selector */}
-            <div className="hidden sm:block">
+            <div className="hidden md:block">
               <LanguageSelector />
             </div>
 
             {user ? (
               <>
                 {/* Coins display */}
-                <div className="flex items-center space-x-2 px-3 py-1 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
-                  <Coins
-                    className="text-yellow-600 dark:text-yellow-400"
+                <div className="hidden md:flex items-center space-x-2 px-3 py-1 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                  <img
+                    src="/CoinLogo.png"
+                    className="text-yellow-600 dark:text-yellow-400 w-5"
                     size={16}
                   />
                   <span className="text-sm font-medium text-yellow-700 dark:text-yellow-300">
@@ -201,17 +201,16 @@ const Navbar: React.FC = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="lg:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
               {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
       </div>
-
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+        <div className="lg:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {user &&
               navigationItems.map((item) => {
@@ -232,11 +231,25 @@ const Navbar: React.FC = () => {
                   </Link>
                 );
               })}
-
-            {/* Mobile language selector */}
-            <div className="px-3 py-2">
-              <LanguageSelector />
+            <div className="flex justify-between">
+              {user && (
+                <div className="flex md:hidden flex-row items-center px-3 py-1 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg mt-2 gap-3">
+                  <span className="text-sm font-medium text-yellow-700 flex dark:text-yellow-300">
+                    <img src="/CoinLogo.png" className="w-5 mr-2" alt="" />
+                    {user?.coin?.toLocaleString()}
+                  </span>
+                  <p className="font-mono font-bold text-[10px] uppercase bg-cyan-500 text-gray-800 rounded-full px-[8px] py-[2px]">
+                    USDT
+                  </p>
+                </div>
+              )}
+              {/* Mobile language selector */}
+              <div className="px-3 py-2 md:hidden">
+                <LanguageSelector />
+              </div>
             </div>
+
+            {/* Coin display after menu and language selector */}
           </div>
         </div>
       )}

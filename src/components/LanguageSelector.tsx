@@ -12,7 +12,7 @@ const LanguageSelector: React.FC = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full px-4 py-1 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:hover:bg-slate-700 rounded-lg transition-colors"
+        className="flex items-center justify-between w-full px-4 py-1 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-300 dark:hover:bg-slate-700 rounded-lg transition-colors"
       >
         <div className="flex items-center justify-center space-x-2 w-[30px]">
           <span className="text-lg">{currentLang?.flag}</span>
@@ -26,7 +26,7 @@ const LanguageSelector: React.FC = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full w-40 left-0 right-0 mt-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
+        <div className="absolute top-full w-40 left-50 right-0 mt-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
           {languages.map((language) => (
             <button
               key={language.code}

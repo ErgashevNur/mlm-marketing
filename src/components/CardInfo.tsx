@@ -1,6 +1,15 @@
-import { CheckCircle, Clock, Coins, XCircle } from "lucide-react";
+import { CheckCircle, Clock, Mail, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import React, { useState } from "react";
+import { useState } from "react";
+export interface CardInfoProps {
+  cardNumber: string;
+  fullName: string;
+  how_much: number;
+  requestDate: string;
+  status: string;
+  commend?: string;
+}
+
 export default function CardInfo({
   cardNumber,
   fullName,
@@ -8,7 +17,7 @@ export default function CardInfo({
   requestDate,
   status,
   commend,
-}) {
+}: CardInfoProps) {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
 
@@ -44,16 +53,22 @@ export default function CardInfo({
           {getStatusIcon(status)}
           <div>
             <p className="font-medium flex items-center gap-1 text-gray-900 dark:text-white">
+              <img
+                src="/CoinLogo.png"
+                className="w-4 h-4"
+                alt={t("withdraw.coinAlt")}
+              />
               {how_much}
-              <Coins className="text-yellow-400" />
             </p>
           </div>
           <div>
-            <p className="font-medium flex  flex-col gap-1 text-gray-900 dark:text-white">
+            <p className="font-medium flex flex-col gap-1 text-gray-900 dark:text-white">
               <span className="text-sm">{fullName}</span>
               <span className="text-xs">
-                {cardNumber.slice(0, 4)} **** ****
-                {cardNumber.slice(-4)}
+                {t("withdraw.cardNumberMask", {
+                  first: cardNumber.slice(0, 4),
+                  last: cardNumber.slice(-4),
+                })}
               </span>
             </p>
           </div>
@@ -65,31 +80,34 @@ export default function CardInfo({
                 status
               )}`}
             >
-              {status === "SUCCESS" && t("success")}
-              {status === "PENDING" && t("pending")}
-              {status === "CANCELLED" && t("cancelled")}
+              {status === "SUCCESS" && t("withdraw.success")}
+              {status === "PENDING" && t("withdraw.processing")}
+              {status === "CANCELLED" && t("withdraw.rejected")}
             </span>
             {requestDate && (
-              <p className="text-[10px]   bg-gray-100 text-gray-900 inline-flex items-center px-4  py-0.5 rounded-full font-medium">
+              <p className="text-[10px] bg-gray-300 text-gray-900 inline-flex items-center px-2 py-0.5 rounded-full font-medium">
+                {/* {t("withdraw.requestDateLabel")}:{" "} */}
                 {new Date(requestDate).toLocaleDateString()}
               </p>
             )}
           </div>
           <button
             type="button"
-            className="text-xs bg-blue-100 text-blue-800 inline-flex items-center px-2.5 py-0.5 rounded-full font-medium mt-2"
+            className="text-xs bg-blue-100 text-blue-800 inline-flex items-center px-3 py-0.5 rounded-full font-medium mt-2"
             onClick={() => setShowModal(true)}
+            title={t("withdraw.showComment")}
+            aria-label={t("withdraw.showComment")}
           >
-            comment
+            <Mail className="w-5" />
           </button>
         </div>
       </div>
       {/* Modal for comment */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-          <div className="bg-gray-800/95 rounded-lg p-6 max-w-xs w-full shadow-lg relative">
+        <div className="fixed bg-gray-900/50 inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white rounded-lg p-6 max-w-xs w-full shadow-lg relative">
             <button
-              className="absolute top-2 right-2 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+              className="absolute top-3 right-5 text-black hover:text-gray-700 dark:hover:text-gray-200"
               onClick={() => setShowModal(false)}
             >
               ×

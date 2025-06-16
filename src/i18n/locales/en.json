@@ -16,7 +16,8 @@
     "close": "Close",
     "copy": "Copy",
     "copied": "Copied!",
-    "share": "Share"
+    "share": "Share",
+    "required": "is required"
   },
   "auth": {
     "welcome": "Welcome to MLM Platform",
@@ -44,13 +45,14 @@
     "browseProducts": "Browse Products",
     "inviteFriends": "Invite Friends",
     "withdrawFunds": "Withdraw Funds",
-    "upgradePlans": "Upgrade Plans",
+    "upgradePlan": "Upgrade Plans",
     "bonusHistory": "Your bonus was received on",
     "coin": "coin",
     "dailyBonusAvailable": "Daily Bonus Available!",
     "claimYour": "Claim your",
     "coinsToday": "coins today",
-    "claimNow": "  Claim Now"
+    "claimNow": "Claim Now",
+    "bonusOncePerDay": "Bonus can only be claimed once per day."
   },
   "profile": {
     "personalInfo": "Personal Information",
@@ -88,10 +90,13 @@
     "paymentStatus": "Payment Status",
     "bonus": "Bonus",
     "paid": "Paid",
-    "pending": "Pending"
+    "pending": "Pending",
+    "active": "Active",
+    "inactive": "Inactive"
   },
   "plans": {
     "choosePlan": "Choose Your Plan",
+    "choosePlanDesc": "Choose the perfect plan for your marketing needs. All plans include our core features with different limits and bonuses.",
     "currentPlan": "Current Plan",
     "upgradePlan": "Upgrade Plan",
     "planFeatures": "Plan Features",
@@ -100,7 +105,16 @@
     "premium": "Premium",
     "enterprise": "Enterprise",
     "selectPlan": "Select Plan",
-    "popular": "Popular"
+    "popular": "Popular",
+    "dailyProfit": "Daily Profit",
+    "coin": "Coin",
+    "referralBonus": "Referral Bonus",
+    "term": "Term",
+    "createdAt": "Created At",
+    "language": "Language",
+    "longDescription": "Long Description",
+    "name": "Name",
+    "usage": "Usage"
   },
   "withdraw": {
     "withdrawFunds": "Withdraw Funds",
@@ -114,6 +128,67 @@
     "processing": "Processing",
     "completed": "Completed",
     "rejected": "Rejected",
-    "requestDate": "Request Date"
+    "requestDate": "Request Date",
+    "success": "Completed",
+    "comment": "Comment",
+    "noComment": "No comment available",
+    "coinAlt": "Coin",
+    "cardNumberMask": "{{first}} **** ****{{last}}",
+    "unknownStatus": "Unknown status",
+    "showComment": "Show comment",
+    "close": "Close",
+    "statusLabel": "Status",
+    "requestDateLabel": "Request date",
+    "requestWithdrawDesc": "Request withdrawals and track your payment history",
+    "thisMonth": "This Month",
+    "minWithdraw": "Minimum withdrawal: 1 USDT",
+    "importantNotes": "Important Notes:",
+    "noteProcessingTime": "Withdrawals are processed within 1-3 business days",
+    "noteMinAmount": "Minimum withdrawal amount is ${{amount}}",
+    "noteFees": "Processing fees may apply depending on your payment method",
+    "noteCardDetails": "Ensure your card details are correct to avoid delays"
+  },
+  "statistics": {
+    "overview": "Statistics Overview",
+    "lineChart": "Line Chart",
+    "barChart": "Bar Chart",
+    "doughnutChart": "Doughnut Chart",
+    "7days": "7 Days",
+    "30days": "30 Days",
+    "90days": "90 Days",
+    "1year": "1 Year",
+    "total": "Total",
+    "average": "Average",
+    "peak": "Peak",
+    "growth": "Growth",
+    "revenue": "Revenue",
+    "sales": "Sales",
+    "desktop": "Desktop",
+    "mobile": "Mobile",
+    "tablet": "Tablet",
+    "other": "Other"
+  },
+  "productsPage": {
+    "discover": "Discover premium products and services to boost your marketing success",
+    "searchPlaceholder": "Search products...",
+    "allProducts": "All Products",
+    "noProducts": "No products found",
+    "tryAdjusting": "Try adjusting your search terms or filters",
+    "featured": "Featured",
+    "coins": "coins",
+    "view": "View",
+    "add": "Add",
+    "product": "Product"
+  },
+  "referralsPage": {
+    "pleaseLogin": "Please log in to view referrals.",
+    "referralKeyMissing": "Error: Referral key is missing.",
+    "failedToLoad": "Failed to load referral friends. Please try again later.",
+    "inviteFriendsDesc": "Invite friends and earn bonuses for each successful referral",
+    "performance": "Referral Performance",
+    "paidReferrals": "Paid Referrals",
+    "pendingReferrals": "Pending Referrals",
+    "friends": "friends",
+    "noReferralFriends": "No referral friends found."
   }
 }

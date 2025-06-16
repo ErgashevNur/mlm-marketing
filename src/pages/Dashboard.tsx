@@ -9,9 +9,10 @@ import StatisticsChart from "../components/StatisticsChart";
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
   const { user, claimDailyBonus } = useAuth();
-  const userData: any = JSON.parse(localStorage.getItem("user-data") || "{}");
   const [statistika, setStatistika] = useState([]);
   const [allCoin, setAllCoin] = useState([]);
+  const [canClaimBonus, setCanClaimBonus] = useState(true);
+  // const userData: any = JSON.parse(localStorage.getItem("user-data") || "{}");
 
   const getUser = async () => {
     try {
@@ -50,12 +51,10 @@ const Dashboard: React.FC = () => {
     getTotal();
   }, []);
 
-  const canClaimBonus =
-    user && user.lastBonusDate !== new Date().toISOString().split("T")[0];
-
-  const handleClaimBonus = () => {
-    claimDailyBonus();
-  };
+  // const canClaimBonus = user && user.lastBonusDate !== new Date().toISOString().split("T")[0];
+  // const handleClaimBonus = () => {
+  //   claimDailyBonus();
+  // };
 
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -67,6 +66,60 @@ const Dashboard: React.FC = () => {
     return new Intl.DateTimeFormat("ru-RU", options).format(date);
   }
 
+  const handleClaimBonuss = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert(t("dashboard.loginFirst") || "Avval tizimga kiring.");
+      return;
+    }
+
+    try {
+      const response = await fetch("https://mlm-backend.pixl.uz/bonus/daily", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          t("dashboard.serverError", { status: response.status }) ||
+            "Server xatosi: " + response.status
+        );
+      }
+
+      const data = await response.json();
+      setCanClaimBonus(data.status);
+      console.log(t("dashboard.bonusReceivedLog"), data);
+      toast.warning(t("dashboard.bonusOncePerDay"));
+    } catch (error) {
+      console.error(t("dashboard.errorLog"), error);
+      alert(t("dashboard.bonusError") || "Bonus olishda xatolik yuz berdi.");
+    }
+  };
+
+  // useEffect(() => {
+  //   const checkBonusStatus = async () => {
+  //     const token = localStorage.getItem("token");
+  //     if (!token) return;
+  //     try {
+  //       const res = await fetch("https://mlm-backend.pixl.uz/bonus/daily", {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       });
+  //       const data = await res.json();
+  //       console.log(data);
+
+  //       setCanClaimBonus(data.status === true);
+  //     } catch {
+  //       setCanClaimBonus(false);
+  //     }
+  //   };
+  //   checkBonusStatus();
+  // }, []);
+
+  console.log(user);
+
   return (
     <div className="space-y-6">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
@@ -75,14 +128,14 @@ const Dashboard: React.FC = () => {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
               {t("dashboard.welcomeBack")}, {user?.name}! 👋
             </h1>
-            <p className="text-gray-600 dark:text-gray-400">
+            {/* <p className="text-gray-600 dark:text-gray-400">
               {t("dashboard.currentPlan")}:{" "}
               <span className="font-semibold text-blue-600 dark:text-blue-400">
                 {typeof user?.userTariff === "object"
-                  ? user?.userTariff?.status || "Tarif aniqlanmagan"
-                  : user?.userTariff || "Tarif yo'q"}
+                  ? user?.userTariff?.status || t("dashboard.planNotFound")
+                  : user?.userTariff || t("dashboard.noPlan")}
               </span>
-            </p>
+            </p> */}
           </div>
           <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
             {user?.createdAt && formatDate(user.createdAt)}
@@ -90,7 +143,7 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {canClaimBonus && (
+      {
         <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -102,20 +155,31 @@ const Dashboard: React.FC = () => {
                   {t("dashboard.dailyBonusAvailable")}
                 </h3>
                 <p className="text-yellow-100">
-                  {t("dashboard.claimYour")} {userData?.dailyBonus}{" "}
+                  {t("dashboard.claimYour")} {user?.dailyBonus ?? 0}{" "}
                   {t("dashboard.coinsToday")}
                 </p>
               </div>
             </div>
             <button
-              onClick={handleClaimBonus}
-              className="px-6 py-3 bg-white text-orange-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+              onClick={handleClaimBonuss}
+              disabled={!canClaimBonus}
+              className={`px-6 py-3 font-semibold rounded-lg transition-colors ${
+                canClaimBonus
+                  ? "bg-white text-orange-600 hover:bg-gray-100"
+                  : "bg-gray-300 text-gray-400 cursor-not-allowed"
+              }`}
+              title={
+                canClaimBonus
+                  ? ""
+                  : t("dashboard.bonusNotAvailable") ||
+                    t("dashboard.bonusNotAvailableFallback")
+              }
             >
               {t("dashboard.claimNow")}
             </button>
           </div>
         </div>
-      )}
+      }
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         <StatCard
@@ -127,7 +191,7 @@ const Dashboard: React.FC = () => {
         />
         <StatCard
           title={t("dashboard.totalReferrals")}
-          value={userData?.totalReferrals || 0}
+          value={user?.referrals?.length}
           icon={Users}
           color="purple"
         />
@@ -148,9 +212,10 @@ const Dashboard: React.FC = () => {
                 color: "bg-blue-500 hover:bg-blue-600",
               },
               {
-                name: t("dashboard.inviteFriends"),
+                name: t("common.earnings"),
                 href: "/dashboard/referrals",
                 color: "bg-green-500 hover:bg-green-600",
+                icon: <img src="/CoinLogo.png" alt="" className="w-5" />,
               },
               {
                 name: t("dashboard.withdrawFunds"),
@@ -166,9 +231,9 @@ const Dashboard: React.FC = () => {
               <a
                 key={index}
                 href={action.href}
-                className={`${action.color} text-white p-4 rounded-lg text-center font-medium transition-colors`}
+                className={`${action.color} text-white p-4 rounded-lg text-center font-medium transition-colors flex items-center gap-2 pl-3 justify-center`}
               >
-                {action.name}
+                {action.icon} {action.name}
               </a>
             ))}
           </div>

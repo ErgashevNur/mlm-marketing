@@ -14,6 +14,7 @@ import {
 } from "chart.js";
 import { Line, Bar, Doughnut } from "react-chartjs-2";
 import { TrendingUp, BarChart3, PieChart, Calendar } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 // Register Chart.js components
 ChartJS.register(
@@ -39,6 +40,7 @@ interface StatisticsChartProps {
 const StatisticsChart: React.FC<StatisticsChartProps> = ({
   className = "",
 }) => {
+  const { t } = useTranslation();
   const [activeChart, setActiveChart] = useState<ChartType>("line");
   const [timeRange, setTimeRange] = useState<TimeRange>("30d");
 
@@ -71,7 +73,7 @@ const StatisticsChart: React.FC<StatisticsChartProps> = ({
     labels,
     datasets: [
       {
-        label: "Revenue",
+        label: t("statistics.revenue"),
         data,
         borderColor: "rgb(59, 130, 246)",
         backgroundColor: "rgba(59, 130, 246, 0.1)",
@@ -91,7 +93,7 @@ const StatisticsChart: React.FC<StatisticsChartProps> = ({
     labels,
     datasets: [
       {
-        label: "Sales",
+        label: t("statistics.sales"),
         data,
         backgroundColor: "rgba(34, 197, 94, 0.8)",
         borderColor: "rgb(34, 197, 94)",
@@ -103,7 +105,12 @@ const StatisticsChart: React.FC<StatisticsChartProps> = ({
   };
 
   const doughnutData = {
-    labels: ["Desktop", "Mobile", "Tablet", "Other"],
+    labels: [
+      t("statistics.desktop"),
+      t("statistics.mobile"),
+      t("statistics.tablet"),
+      t("statistics.other"),
+    ],
     datasets: [
       {
         data: [45, 35, 15, 5],
@@ -238,16 +245,28 @@ const StatisticsChart: React.FC<StatisticsChartProps> = ({
   };
 
   const chartTypes = [
-    { type: "line" as ChartType, icon: TrendingUp, label: "Line Chart" },
-    { type: "bar" as ChartType, icon: BarChart3, label: "Bar Chart" },
-    { type: "doughnut" as ChartType, icon: PieChart, label: "Doughnut Chart" },
+    {
+      type: "line" as ChartType,
+      icon: TrendingUp,
+      label: t("statistics.lineChart"),
+    },
+    {
+      type: "bar" as ChartType,
+      icon: BarChart3,
+      label: t("statistics.barChart"),
+    },
+    {
+      type: "doughnut" as ChartType,
+      icon: PieChart,
+      label: t("statistics.doughnutChart"),
+    },
   ];
 
   const timeRanges = [
-    { value: "7d" as TimeRange, label: "7 Days" },
-    { value: "30d" as TimeRange, label: "30 Days" },
-    { value: "90d" as TimeRange, label: "90 Days" },
-    { value: "1y" as TimeRange, label: "1 Year" },
+    { value: "7d" as TimeRange, label: t("statistics.7days") },
+    { value: "30d" as TimeRange, label: t("statistics.30days") },
+    { value: "90d" as TimeRange, label: t("statistics.90days") },
+    { value: "1y" as TimeRange, label: t("statistics.1year") },
   ];
 
   return (
@@ -257,7 +276,7 @@ const StatisticsChart: React.FC<StatisticsChartProps> = ({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-4 sm:space-y-0">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Statistics Overview
+          {t("statistics.overview")}
         </h2>
 
         <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
@@ -310,7 +329,9 @@ const StatisticsChart: React.FC<StatisticsChartProps> = ({
             <p className="text-2xl font-bold text-gray-900 dark:text-white">
               {data.reduce((a, b) => a + b, 0).toLocaleString()}
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Total</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {t("statistics.total")}
+            </p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-green-600 dark:text-green-400">
@@ -318,20 +339,26 @@ const StatisticsChart: React.FC<StatisticsChartProps> = ({
                 data.reduce((a, b) => a + b, 0) / data.length
               ).toLocaleString()}
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Average</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {t("statistics.average")}
+            </p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
               {Math.max(...data).toLocaleString()}
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Peak</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {t("statistics.peak")}
+            </p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
               +{Math.round(((data[data.length - 1] - data[0]) / data[0]) * 100)}
               %
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Growth</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {t("statistics.growth")}
+            </p>
           </div>
         </div>
       </div>

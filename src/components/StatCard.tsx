@@ -4,17 +4,19 @@ import { LucideIcon } from "lucide-react";
 interface StatCardProps {
   title: string;
   value: string | number;
-  icon: LucideIcon;
+  icon?: LucideIcon | string;
   color: "blue" | "green" | "purple" | "orange" | "red";
   subtitle?: string;
+  img?: string;
 }
 
 const StatCard: React.FC<StatCardProps> = ({
   title,
   value,
-  icon: Icon,
+  icon,
   color,
   subtitle,
+  img,
 }) => {
   const colorClasses = {
     blue: "from-blue-500 to-blue-600 bg-blue-50 text-blue-600",
@@ -27,6 +29,19 @@ const StatCard: React.FC<StatCardProps> = ({
   const iconBgColor = colorClasses[color].split(" ")[2];
   const iconTextColor = colorClasses[color].split(" ")[3];
 
+  // Dynamically resolve Lucide icon if icon is a string
+  let IconComponent: LucideIcon | null = null;
+  if (typeof icon === "string") {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      IconComponent = require("lucide-react")[icon] as LucideIcon;
+    } catch {
+      IconComponent = null;
+    }
+  } else if (icon) {
+    IconComponent = icon;
+  }
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between">
@@ -34,17 +49,25 @@ const StatCard: React.FC<StatCardProps> = ({
           <p className="text-sm font-medium text-gray-600 dark:text-slate-200 mb-1">
             {title}
           </p>
-          <p className="text-2xl font-bold text-gray-900 dark:text-slate-200">
-            {value}
-          </p>
-          {subtitle && (
-            <p className="text-xs text-gray-500 dark:text-slate-200 mt-1">
-              {subtitle}
+
+          <div className="flex items-end gap-2">
+            <p className="text-2xl font-bold text-gray-900 dark:text-slate-200">
+              {value}
             </p>
-          )}
+            {subtitle && (
+              <p className="text-lg text-gray-600 dark:text-slate-200 mt-1">
+                {subtitle}
+              </p>
+            )}
+          </div>
         </div>
-        <div className={`p-3 rounded-lg ${iconBgColor}`}>
-          <Icon className={iconTextColor} size={24} />
+        <div
+          className={`p-3 rounded-lg ${iconBgColor} flex items-center gap-1`}
+        >
+          {IconComponent && (
+            <IconComponent className={iconTextColor} size={24} />
+          )}
+          {img && <img src={img} alt="" className="w-6 h-6 object-contain" />}
         </div>
       </div>
     </div>

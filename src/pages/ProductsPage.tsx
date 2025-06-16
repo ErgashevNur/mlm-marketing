@@ -74,10 +74,10 @@ const ProductsPage: React.FC = () => {
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-          {t("common.products")}
+          {t("productsPage.product")}
         </h1>
         <p className="text-gray-600 dark:text-gray-400">
-          Discover premium products and services to boost your marketing success
+          {t("productsPage.discover")}
         </p>
       </div>
 
@@ -92,7 +92,7 @@ const ProductsPage: React.FC = () => {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search products..."
+            placeholder={t("productsPage.searchPlaceholder")}
             className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
@@ -101,7 +101,7 @@ const ProductsPage: React.FC = () => {
       {/* All Products */}
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-          All Products ({filteredProducts.length})
+          {t("productsPage.allProducts")} ({filteredProducts.length})
         </h2>
 
         {loading ? (
@@ -114,10 +114,10 @@ const ProductsPage: React.FC = () => {
               <Search size={48} className="mx-auto" />
             </div>
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-              No products found
+              {t("productsPage.noProducts")}
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Try adjusting your search terms or filters
+              {t("productsPage.tryAdjusting")}
             </p>
           </div>
         ) : (
@@ -139,7 +139,7 @@ const ProductsPage: React.FC = () => {
                   {product.featured && (
                     <div className="absolute top-2 left-2">
                       <span className="bg-yellow-500 text-black px-2 py-1 rounded-full text-xs font-medium">
-                        Featured
+                        {t("productsPage.featured")}
                       </span>
                     </div>
                   )}
@@ -156,7 +156,9 @@ const ProductsPage: React.FC = () => {
                   <div className="mb-3">
                     <div className="flex items-center text-yellow-600 dark:text-yellow-400">
                       <Coins size={14} className="mr-1" />
-                      <span className="text-xs">{product.coin} coins</span>
+                      <span className="text-xs">
+                        {product.coin} {t("productsPage.coins")}
+                      </span>
                     </div>
                   </div>
 
@@ -166,14 +168,14 @@ const ProductsPage: React.FC = () => {
                       className="flex-1 flex items-center justify-center px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
                     >
                       <Eye size={14} className="mr-1" />
-                      View
+                      {t("productsPage.view")}
                     </Link>
                     <button
                       onClick={() => handleAddToCart(product)}
                       className="flex-1 flex items-center justify-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm"
                     >
                       <ShoppingCart size={14} className="mr-1" />
-                      Add
+                      {t("productsPage.add")}
                     </button>
                   </div>
                 </div>

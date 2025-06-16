@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-type Language = "en" | "ru" | "uz" | "kk" | "ky" | "tg" | "zh";
+type Language = "ru" | "en" | "uz" | "kk" | "ky" | "tg" | "zh";
 
-const lang: "string" = localStorage.getItem("i18nextLng");
+const lang: Language = (localStorage.getItem("i18nextLng") as Language) || "ru";
 
 interface LanguageContextType {
   currentLanguage: Language;
@@ -30,8 +30,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   const [currentLanguage, setCurrentLanguage] = useState<Language>(lang);
 
   const languages = [
-    { code: "en" as Language, name: "English", flag: "🇺🇸", currency: "USD" },
     { code: "uz" as Language, name: "O'zbekcha", flag: "🇺🇿", currency: "UZS" },
+    { code: "en" as Language, name: "English", flag: "🇺🇸", currency: "USD" },
     { code: "ru" as Language, name: "Русский", flag: "🇷🇺", currency: "RUB" },
     { code: "kk" as Language, name: "Қазақша", flag: "🇰🇿", currency: "KZT" },
     { code: "ky" as Language, name: "Кыргызча", flag: "🇰🇬", currency: "KGS" },
@@ -42,6 +42,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   const changeLanguage = (lang: Language) => {
     setCurrentLanguage(lang);
     i18n.changeLanguage(lang);
+    localStorage.setItem("i18nextLng", lang); // <-- Qo'shildi
     const selectedLanguage = languages.find(
       (language) => language.code === lang
     );
