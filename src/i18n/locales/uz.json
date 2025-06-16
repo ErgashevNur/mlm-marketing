@@ -170,16 +170,18 @@
     "other": "Boshqa"
   },
   "productsPage": {
-    "discover": "Marketing muvaffaqiyatingizni oshirish uchun premium mahsulotlar va xizmatlarni kashf eting",
-    "searchPlaceholder": "Mahsulotlarni qidiring...",
-    "allProducts": "Barcha mahsulotlar",
-    "noProducts": "Mahsulotlar topilmadi",
-    "tryAdjusting": "Qidiruv so'zlari yoki filtrlarni o'zgartirib ko'ring",
-    "featured": "Tanlangan",
-    "coins": "tanga",
-    "view": "Ko‘rish",
-    "add": "Qo‘shish",
-    "product": "Mahsulot"
+    "backToProducts": "Mahsulotlarga qaytish",
+    "description": "Tavsif",
+    "features": "Xususiyatlar",
+    "aboutThisProduct": "Mahsulot haqida",
+    "details": "Batafsil",
+    "usage": "Foydalanish",
+    "addToCart": "Savatga qo'shish",
+    "quantity": "Miqdori",
+    "instructor": "Instruktor",
+    "reviews": "sharhlar",
+    "productCount": "Mahsulot soni",
+    "noImage": "Rasm yo'q"
   },
   "referralsPage": {
     "pleaseLogin": "Referallarni ko‘rish uchun iltimos, tizimga kiring.",

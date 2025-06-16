@@ -172,16 +172,18 @@
     "other": "其他"
   },
   "productsPage": {
-    "discover": "发现优质产品和服务，助力您的营销成功",
-    "searchPlaceholder": "搜索产品...",
-    "allProducts": "全部产品",
-    "noProducts": "未找到产品",
-    "tryAdjusting": "请尝试调整您的搜索词或筛选条件",
-    "featured": "精选",
-    "coins": "金币",
-    "view": "查看",
-    "add": "添加",
-    "product": "产品"
+    "backToProducts": "返回产品列表",
+    "description": "产品描述",
+    "features": "产品特性",
+    "aboutThisProduct": "关于本产品",
+    "details": "详细信息",
+    "usage": "用法",
+    "addToCart": "加入购物车",
+    "quantity": "数量",
+    "instructor": "讲师",
+    "reviews": "评论",
+    "productCount": "产品数量",
+    "noImage": "无图片"
   },
   "referralsPage": {
     "pleaseLogin": "请登录以查看推荐。",

@@ -1,22 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  ArrowLeft,
-  Star,
-  Coins,
-  ShoppingCart,
-  Heart,
-  Share2,
-  CheckCircle,
-  Clock,
-  Users,
-  Award,
-} from "lucide-react";
+import { ArrowLeft, Star, ShoppingCart, CheckCircle } from "lucide-react";
 import { useCart } from "../contexts/CartContext";
 
 const ProductDetailPage: React.FC = () => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const { id } = useParams();
   const { addToCart } = useCart();
   const [selectedTab, setSelectedTab] = useState("description");
@@ -33,9 +22,11 @@ const ProductDetailPage: React.FC = () => {
 
   const [selectedImage, setSelectedImage] = useState(0);
 
+  const lgn = localStorage.getItem("i18nextLng");
+
   const translation =
     apiProduct && apiProduct.translations
-      ? apiProduct.translations.find((tr: any) => tr.language === "ru") ||
+      ? apiProduct.translations.find((tr: any) => tr.language === lgn) ||
         apiProduct.translations[0] ||
         {}
       : {};
@@ -53,8 +44,8 @@ const ProductDetailPage: React.FC = () => {
   };
 
   const tabs = [
-    { id: "description", name: "Description" },
-    { id: "features", name: "Features" },
+    { id: "description", name: t("productsPage.description") },
+    { id: "features", name: t("productsPage.features") },
   ];
 
   // Fetch product from API
@@ -79,8 +70,6 @@ const ProductDetailPage: React.FC = () => {
     fetchProduct();
   }, [id]);
 
-  console.log(apiProduct);
-
   return (
     <div className="space-y-8">
       {/* Breadcrumb */}
@@ -90,7 +79,7 @@ const ProductDetailPage: React.FC = () => {
           className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
         >
           <ArrowLeft size={16} className="mr-1" />
-          Back to Products
+          {t("productsPage.backToProducts")}
         </Link>
       </div>
 
@@ -106,7 +95,7 @@ const ProductDetailPage: React.FC = () => {
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-gray-400">
-                No Image
+                {t("productsPage.noImage")}
               </div>
             )}
           </div>
@@ -141,7 +130,8 @@ const ProductDetailPage: React.FC = () => {
               {apiProduct?.rating}
             </span>
             <span className="text-gray-600 dark:text-gray-400">
-              ({apiProduct?.rewiev ?? product.reviews} reviews)
+              ({apiProduct?.rewiev ?? product.reviews}{" "}
+              {t("productsPage.reviews")})
             </span>
           </div>
 
@@ -153,7 +143,7 @@ const ProductDetailPage: React.FC = () => {
                 size={20}
               />
               <span className="text-gray-700 dark:text-gray-300">
-                Product count: {apiProduct?.count ?? ""}
+                {t("productsPage.productCount")}: {apiProduct?.count ?? ""}
               </span>
             </div>
           </div>
@@ -174,7 +164,7 @@ const ProductDetailPage: React.FC = () => {
             {/* Quantity */}
             <div className="flex items-center space-x-4 mb-4">
               <span className="text-gray-700 dark:text-gray-300">
-                Quantity:
+                {t("productsPage.quantity")}
               </span>
               <div className="flex items-center space-x-2">
                 <button
@@ -200,14 +190,14 @@ const ProductDetailPage: React.FC = () => {
               className="w-full flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
             >
               <ShoppingCart size={20} className="mr-2" />
-              Add to Cart
+              {t("productsPage.addToCart")}
             </button>
           </div>
 
           {/* Instructor */}
           <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-              Instructor
+              {t("productsPage.instructor")}
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
               {translation.usage}
@@ -241,7 +231,7 @@ const ProductDetailPage: React.FC = () => {
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  About This Course
+                  {t("productsPage.aboutThisProduct")}
                 </h3>
                 <div className="prose dark:prose-invert max-w-none">
                   <p className="text-gray-600 dark:text-gray-100 leading-relaxed">
@@ -252,7 +242,7 @@ const ProductDetailPage: React.FC = () => {
 
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  What You'll Learn
+                  {t("productsPage.details")}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 ">
                   <p className="dark:text-gray-100">
@@ -266,7 +256,7 @@ const ProductDetailPage: React.FC = () => {
           {selectedTab === "features" && (
             <div className="flex flex-col gap-3">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                Course Features
+                {t("productsPage.features")}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <p className="dark:text-gray-100">{translation.features}</p>
@@ -274,7 +264,7 @@ const ProductDetailPage: React.FC = () => {
 
               <div className="pt-5 border-t-2 border-gray-200 dark:border-gray-700 mt-6">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  Usage
+                  {t("productsPage.usage")}
                 </h3>
                 <p className="dark:text-gray-100">{translation.usage}</p>
               </div>

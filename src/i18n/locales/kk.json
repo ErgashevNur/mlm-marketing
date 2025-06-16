@@ -172,16 +172,18 @@
     "other": "Басқа"
   },
   "productsPage": {
-    "discover": "Маркетинг жетістігіңізді арттыру үшін премиум өнімдер мен қызметтерді табыңыз",
-    "searchPlaceholder": "Өнімдерді іздеу...",
-    "allProducts": "Барлық өнімдер",
-    "noProducts": "Өнімдер табылмады",
-    "tryAdjusting": "Іздеу сөздерін немесе сүзгілерді өзгертіп көріңіз",
-    "featured": "Таңдаулы",
-    "coins": "монеталар",
-    "view": "Көру",
-    "add": "Қосу",
-    "product": "Өнім"
+    "backToProducts": "Өнімдерге оралу",
+    "description": "Сипаттама",
+    "features": "Ерекшеліктері",
+    "aboutThisProduct": "Өнім туралы",
+    "details": "Толығырақ",
+    "usage": "Қолдану",
+    "addToCart": "Себетке қосу",
+    "quantity": "Саны",
+    "instructor": "Нұсқаушы",
+    "reviews": "пікірлер",
+    "productCount": "Өнім саны",
+    "noImage": "Сурет жоқ"
   },
   "referralsPage": {
     "pleaseLogin": "Рефералдарды көру үшін алдымен кіріңіз.",

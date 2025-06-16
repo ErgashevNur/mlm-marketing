@@ -171,16 +171,18 @@
     "other": "Other"
   },
   "productsPage": {
-    "discover": "Discover premium products and services to boost your marketing success",
-    "searchPlaceholder": "Search products...",
-    "allProducts": "All Products",
-    "noProducts": "No products found",
-    "tryAdjusting": "Try adjusting your search terms or filters",
-    "featured": "Featured",
-    "coins": "coins",
-    "view": "View",
-    "add": "Add",
-    "product": "Product"
+    "backToProducts": "Back to Products",
+    "description": "Description",
+    "features": "Features",
+    "aboutThisProduct": "About This Product",
+    "details": "Details",
+    "usage": "Usage",
+    "addToCart": "Add to Cart",
+    "quantity": "Quantity",
+    "instructor": "Instructor",
+    "reviews": "reviews",
+    "productCount": "Product count",
+    "noImage": "No Image"
   },
   "referralsPage": {
     "pleaseLogin": "Please log in to view referrals.",
