@@ -105,7 +105,18 @@
     "premium": "Премиум",
     "enterprise": "Ишкана",
     "selectPlan": "Тариф тандоо",
-    "popular": "Популярдуу"
+    "popular": "Популярдуу",
+    "dailyProfit": "Күндүк киреше",
+    "coin": "Тыйын",
+    "referralBonus": "Реферал бонусу",
+    "term": "Мөөнөтү",
+    "createdAt": "Түзүлгөн күнү",
+    "language": "Тил",
+    "longDescription": "Толук сүрөттөмө",
+    "name": "Аты",
+    "usage": "Колдонуу",
+    "buyPlan": "Тарифти сатып алуу ({{coin}} тыйын)",
+    "days": "күн"
   },
   "withdraw": {
     "withdrawFunds": "Акча алуу",

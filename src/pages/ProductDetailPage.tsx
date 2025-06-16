@@ -16,118 +16,29 @@ import {
 import { useCart } from "../contexts/CartContext";
 
 const ProductDetailPage: React.FC = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const { id } = useParams();
   const { addToCart } = useCart();
   const [selectedTab, setSelectedTab] = useState("description");
   const [quantity, setQuantity] = useState(1);
 
-  // API product state
   const [apiProduct, setApiProduct] = useState<any>(null);
 
-  // Mock product data - in real app, fetch based on id
-  const product = {
-    id: id || "1",
-    name: "Digital Marketing Masterclass",
-    description:
-      "Complete course on digital marketing strategies and techniques that will help you grow your business and increase your online presence.",
-    fullDescription: `This comprehensive Digital Marketing Masterclass is designed for entrepreneurs, business owners, and marketing professionals who want to master the art of digital marketing. 
+  const product = apiProduct || {};
 
-    The course covers everything from the fundamentals of digital marketing to advanced strategies used by industry leaders. You'll learn how to create effective marketing campaigns, optimize your online presence, and drive real results for your business.
-
-    What makes this course special is its practical approach - every lesson includes real-world examples and actionable strategies you can implement immediately.`,
-    price: 99.99,
-    coinPrice: 2000,
-    images: [
-      "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800",
-      "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=800",
-      "https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&w=800",
-    ],
-    category: "courses",
-    rating: 4.8,
-    reviews: 156,
-    featured: true,
-    instructor: "Sarah Johnson",
-    duration: "12 hours",
-    lessons: 45,
-    students: 2847,
-    features: [
-      "Lifetime access to course materials",
-      "Certificate of completion",
-      "Direct access to instructor",
-      "30-day money-back guarantee",
-      "Mobile and desktop access",
-      "Downloadable resources",
-    ],
-    whatYouLearn: [
-      "Master the fundamentals of digital marketing",
-      "Create effective social media campaigns",
-      "Understand SEO and content marketing",
-      "Build and optimize landing pages",
-      "Analyze marketing metrics and ROI",
-      "Develop a comprehensive marketing strategy",
-    ],
-  };
-
-  // Fetch product from API
-  useEffect(() => {
-    if (!id) return;
-    const fetchProduct = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const res = await fetch(`https://mlm-backend.pixl.uz/product/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setApiProduct(data);
-        }
-      } catch (e) {
-        // handle error
-      }
-    };
-    fetchProduct();
-  }, [id]);
-
-  // Select translation (default: en)
-  const translation =
-    apiProduct?.translations?.find((tr: any) => tr.language === "en") ||
-    apiProduct?.translations?.[0];
-
-  // Images array
   const images =
-    apiProduct?.photo_url?.map((p: any) => p.photo_url) || product.images;
+    (apiProduct && Array.isArray(apiProduct.photo_url)
+      ? apiProduct.photo_url.map((p: any) => p.photo_url)
+      : []) || [];
 
   const [selectedImage, setSelectedImage] = useState(0);
 
-  const reviews = [
-    {
-      id: 1,
-      user: "John Smith",
-      rating: 5,
-      comment:
-        "Excellent course! Very comprehensive and practical. I was able to implement the strategies immediately.",
-      date: "2024-01-15",
-    },
-    {
-      id: 2,
-      user: "Maria Garcia",
-      rating: 5,
-      comment:
-        "The best digital marketing course I've taken. Sarah explains everything clearly and provides great examples.",
-      date: "2024-01-10",
-    },
-    {
-      id: 3,
-      user: "David Chen",
-      rating: 4,
-      comment:
-        "Great content and well-structured. Would recommend to anyone starting in digital marketing.",
-      date: "2024-01-08",
-    },
-  ];
+  const translation =
+    apiProduct && apiProduct.translations
+      ? apiProduct.translations.find((tr: any) => tr.language === "ru") ||
+        apiProduct.translations[0] ||
+        {}
+      : {};
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
@@ -144,8 +55,31 @@ const ProductDetailPage: React.FC = () => {
   const tabs = [
     { id: "description", name: "Description" },
     { id: "features", name: "Features" },
-    { id: "reviews", name: `Reviews (${product.reviews})` },
   ];
+
+  // Fetch product from API
+  useEffect(() => {
+    if (!id) return;
+    const fetchProduct = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(`https://mlm-backend.pixl.uz/products/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setApiProduct(data);
+        }
+      } catch (e) {
+        // handle error
+      }
+    };
+    fetchProduct();
+  }, [id]);
+
+  console.log(apiProduct);
 
   return (
     <div className="space-y-8">
@@ -164,11 +98,17 @@ const ProductDetailPage: React.FC = () => {
         {/* Product Images */}
         <div className="space-y-4">
           <div className="aspect-square rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
-            <img
-              src={images[selectedImage]}
-              alt={translation?.name || product.name}
-              className="w-full h-full object-cover"
-            />
+            {images.length > 0 ? (
+              <img
+                src={images[selectedImage]}
+                alt={translation?.name || product.name || ""}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-gray-400">
+                No Image
+              </div>
+            )}
           </div>
         </div>
 
@@ -176,10 +116,10 @@ const ProductDetailPage: React.FC = () => {
         <div className="space-y-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-              {translation?.name || product.name}
+              {translation?.name || product.name || ""}
             </h1>
             <p className="text-gray-600 dark:text-gray-400">
-              {translation?.description || product.description}
+              {translation?.description || product.description || ""}
             </p>
           </div>
 
@@ -198,7 +138,7 @@ const ProductDetailPage: React.FC = () => {
               ))}
             </div>
             <span className="text-lg font-medium text-gray-900 dark:text-white">
-              {apiProduct?.rating ?? product.rating}
+              {apiProduct?.rating}
             </span>
             <span className="text-gray-600 dark:text-gray-400">
               ({apiProduct?.rewiev ?? product.reviews} reviews)
@@ -208,33 +148,12 @@ const ProductDetailPage: React.FC = () => {
           {/* Course Stats */}
           <div className="grid grid-cols-2 gap-4">
             <div className="flex items-center space-x-2">
-              <Clock className="text-blue-600 dark:text-blue-400" size={20} />
-              <span className="text-gray-700 dark:text-gray-300">
-                {product.duration}
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Users className="text-green-600 dark:text-green-400" size={20} />
-              <span className="text-gray-700 dark:text-gray-300">
-                {product.students} students
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Award
-                className="text-purple-600 dark:text-purple-400"
-                size={20}
-              />
-              <span className="text-gray-700 dark:text-gray-300">
-                {product.lessons} lessons
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
               <CheckCircle
                 className="text-orange-600 dark:text-orange-400"
                 size={20}
               />
               <span className="text-gray-700 dark:text-gray-300">
-                Certificate included
+                Product count: {apiProduct?.count ?? ""}
               </span>
             </div>
           </div>
@@ -243,30 +162,12 @@ const ProductDetailPage: React.FC = () => {
           <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <div className="text-3xl font-bold text-gray-900 dark:text-white">
-                  ${apiProduct?.count ?? product.price}
-                </div>
                 <div className="flex items-center text-yellow-600 dark:text-yellow-400 mt-1">
-                  <Coins size={20} className="mr-2" />
+                  <img src="/CoinLogo.png" className="w-5 mr-2" />
                   <span className="text-lg font-medium">
-                    {apiProduct?.coin ?? product.coinPrice} coins
+                    {apiProduct?.coin ?? product.coinPrice} USDT
                   </span>
                 </div>
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <button className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                  <Heart
-                    size={20}
-                    className="text-gray-600 dark:text-gray-400"
-                  />
-                </button>
-                <button className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                  <Share2
-                    size={20}
-                    className="text-gray-600 dark:text-gray-400"
-                  />
-                </button>
               </div>
             </div>
 
@@ -278,7 +179,7 @@ const ProductDetailPage: React.FC = () => {
               <div className="flex items-center space-x-2">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-400 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors dark:text-gray-100"
                 >
                   -
                 </button>
@@ -287,7 +188,7 @@ const ProductDetailPage: React.FC = () => {
                 </span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors dark:text-gray-100"
                 >
                   +
                 </button>
@@ -309,8 +210,7 @@ const ProductDetailPage: React.FC = () => {
               Instructor
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              {product.instructor} - Digital Marketing Expert with 10+ years of
-              experience
+              {translation.usage}
             </p>
           </div>
         </div>
@@ -344,8 +244,8 @@ const ProductDetailPage: React.FC = () => {
                   About This Course
                 </h3>
                 <div className="prose dark:prose-invert max-w-none">
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                    {translation?.longDescription || product.fullDescription}
+                  <p className="text-gray-600 dark:text-gray-100 leading-relaxed">
+                    {translation?.description}
                   </p>
                 </div>
               </div>
@@ -354,90 +254,29 @@ const ProductDetailPage: React.FC = () => {
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                   What You'll Learn
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {product.whatYouLearn.map((item, index) => (
-                    <div key={index} className="flex items-start space-x-3">
-                      <CheckCircle
-                        className="text-green-500 flex-shrink-0 mt-0.5"
-                        size={16}
-                      />
-                      <span className="text-gray-600 dark:text-gray-400">
-                        {item}
-                      </span>
-                    </div>
-                  ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 ">
+                  <p className="dark:text-gray-100">
+                    {translation.longDescription}
+                  </p>
                 </div>
               </div>
             </div>
           )}
 
           {selectedTab === "features" && (
-            <div>
+            <div className="flex flex-col gap-3">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                 Course Features
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {product.features.map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <CheckCircle
-                      className="text-green-500 flex-shrink-0"
-                      size={20}
-                    />
-                    <span className="text-gray-600 dark:text-gray-400">
-                      {feature}
-                    </span>
-                  </div>
-                ))}
+                <p className="dark:text-gray-100">{translation.features}</p>
               </div>
-            </div>
-          )}
 
-          {selectedTab === "reviews" && (
-            <div className="space-y-6">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                Customer Reviews
-              </h3>
-
-              <div className="space-y-4">
-                {reviews.map((review) => (
-                  <div
-                    key={review.id}
-                    className="border-b border-gray-200 dark:border-gray-700 pb-4 last:border-b-0"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-sm font-medium">
-                            {review.user.charAt(0)}
-                          </span>
-                        </div>
-                        <span className="font-medium text-gray-900 dark:text-white">
-                          {review.user}
-                        </span>
-                      </div>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
-                        {new Date(review.date).toLocaleDateString()}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center mb-2">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-4 h-4 ${
-                            i < review.rating
-                              ? "text-yellow-400 fill-current"
-                              : "text-gray-300 dark:text-gray-600"
-                          }`}
-                        />
-                      ))}
-                    </div>
-
-                    <p className="text-gray-600 dark:text-gray-400">
-                      {review.comment}
-                    </p>
-                  </div>
-                ))}
+              <div className="pt-5 border-t-2 border-gray-200 dark:border-gray-700 mt-6">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  Usage
+                </h3>
+                <p className="dark:text-gray-100">{translation.usage}</p>
               </div>
             </div>
           )}

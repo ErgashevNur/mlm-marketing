@@ -105,7 +105,18 @@
     "premium": "Премиум",
     "enterprise": "Корхона",
     "selectPlan": "Интихоби тариф",
-    "popular": "Маъмул"
+    "popular": "Маъмул",
+    "dailyProfit": "Фоидаи ҳаррӯза",
+    "coin": "Танга",
+    "referralBonus": "Бонуси рефералӣ",
+    "term": "Мӯҳлат",
+    "createdAt": "Санаи эҷод",
+    "language": "Забон",
+    "longDescription": "Тавсифи муфассал",
+    "name": "Ном",
+    "usage": "Истифода",
+    "buyPlan": "Харидани тариф бо {{coin}} танга",
+    "days": "рӯз"
   },
   "withdraw": {
     "withdrawFunds": "Пул гирифтан",

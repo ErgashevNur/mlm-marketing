@@ -16,7 +16,8 @@
     "close": "关闭",
     "copy": "复制",
     "copied": "已复制！",
-    "share": "分享"
+    "share": "分享",
+    "required": "必填"
   },
   "auth": {
     "welcome": "欢迎来到 MLM Platform",
@@ -104,7 +105,18 @@
     "premium": "高级",
     "enterprise": "企业",
     "selectPlan": "选择计划",
-    "popular": "热门"
+    "popular": "热门",
+    "dailyProfit": "每日收益",
+    "coin": "金币",
+    "referralBonus": "推荐奖励",
+    "term": "周期",
+    "createdAt": "创建日期",
+    "language": "语言",
+    "longDescription": "详细描述",
+    "name": "名称",
+    "usage": "用法",
+    "buyPlan": "购买计划，需 {{coin}} 金币",
+    "days": "天"
   },
   "withdraw": {
     "withdrawFunds": "提现资金",
@@ -132,6 +144,7 @@
     "requestWithdrawDesc": "申请提现并跟踪您的付款历史",
     "thisMonth": "本月",
     "minWithdraw": "最低提现金额：{{amount}}",
+    "minWithdraw1": "最低提现金额：1 USDT",
     "importantNotes": "重要提示：",
     "noteProcessingTime": "提现将在1-3个工作日内处理",
     "noteMinAmount": "最低提现金额为 {{amount}}",

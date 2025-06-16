@@ -1,5 +1,6 @@
 import React from "react";
 import { X, Coins, Calendar, Gift, FileText, Target, Star } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface Translation {
   id: number;
@@ -29,6 +30,7 @@ interface PlanModalProps {
 }
 
 const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
+  const { t } = useTranslation();
   if (!isOpen) return null;
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -49,24 +51,26 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
     }
   };
 
+  const lng = localStorage.getItem("i18nextLng");
+
   const getPlanName = (): string => {
-    const ruTranslation = plan.translations?.find((t) => t.language === "ru");
-    return ruTranslation?.name || `Plan ${plan.id}`;
+    const translation = plan.translations?.find((t) => t.language === lng);
+    return translation?.name || `Plan ${plan.id}`;
   };
 
   const getPlanDescription = (): string => {
-    const ruTranslation = plan.translations?.find((t) => t.language === "ru");
-    return ruTranslation?.longDescription || "Описание недоступно";
+    const translation = plan.translations?.find((t) => t.language === lng);
+    return translation?.longDescription || t("plans.longDescription");
   };
 
   const getPlanFeatures = (): string => {
-    const ruTranslation = plan.translations?.find((t) => t.language === "ru");
-    return ruTranslation?.features || "Функции недоступны";
+    const translation = plan.translations?.find((t) => t.language === lng);
+    return translation?.features || t("plans.planFeatures");
   };
 
   const getPlanUsage = (): string => {
-    const ruTranslation = plan.translations?.find((t) => t.language === "ru");
-    return ruTranslation?.usage || "Использование недоступно";
+    const translation = plan.translations?.find((t) => t.language === lng);
+    return translation?.usage || t("plans.usage");
   };
 
   return (
@@ -99,7 +103,7 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
             </h2>
             <div className="flex items-center space-x-2">
               <Star className="w-5 h-5 text-yellow-400" />
-              <span className="text-white/90">Премиум план</span>
+              <span className="text-white/90">{t("plans.premium")}</span>
             </div>
           </div>
         </div>
@@ -111,10 +115,10 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
             <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200">
               <div className="flex items-center space-x-3 mb-2">
                 <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
-                  <Coins className="w-5 h-5 text-white" />
+                  <img src="/CoinLogo.png" className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-green-700 font-semibold">
-                  Дневная прибыль
+                  {t("plans.dailyProfit")}
                 </span>
               </div>
               <p className="text-3xl font-bold text-green-800">
@@ -125,9 +129,11 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200">
               <div className="flex items-center space-x-3 mb-2">
                 <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
-                  <Coins className="w-5 h-5 text-white" />
+                  <img src="/CoinLogo.png" className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-blue-700 font-semibold">Стоимость</span>
+                <span className="text-blue-700 font-semibold">
+                  {t("plans.coin")}
+                </span>
               </div>
               <p className="text-3xl font-bold text-blue-800">{plan.coin}</p>
             </div>
@@ -137,10 +143,12 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                 <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center">
                   <Calendar className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-purple-700 font-semibold">Срок</span>
+                <span className="text-purple-700 font-semibold">
+                  {t("plans.term")}
+                </span>
               </div>
               <p className="text-3xl font-bold text-purple-800">
-                {plan.term} дней
+                {plan.term} {t("plans.days", { count: plan.term })}
               </p>
             </div>
 
@@ -150,7 +158,7 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                   <Gift className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-orange-700 font-semibold">
-                  Реферальный бонус
+                  {t("plans.referralBonus")}
                 </span>
               </div>
               <p className="text-3xl font-bold text-orange-800">
@@ -166,7 +174,7 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                 <div className="flex items-center space-x-3 mb-4">
                   <FileText className="w-6 h-6 text-gray-600" />
                   <h3 className="text-xl font-semibold text-gray-900">
-                    Описание
+                    {t("plans.longDescription")}
                   </h3>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
@@ -178,7 +186,7 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                 <div className="flex items-center space-x-3 mb-4">
                   <Target className="w-6 h-6 text-gray-600" />
                   <h3 className="text-xl font-semibold text-gray-900">
-                    Использование
+                    {t("plans.usage")}
                   </h3>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
@@ -192,7 +200,7 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                 <div className="flex items-center space-x-3 mb-4">
                   <Star className="w-6 h-6 text-gray-600" />
                   <h3 className="text-xl font-semibold text-gray-900">
-                    Функции
+                    {t("plans.planFeatures")}
                   </h3>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
@@ -204,11 +212,11 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                 <div className="flex items-center space-x-3 mb-4">
                   <Calendar className="w-6 h-6 text-gray-600" />
                   <h3 className="text-xl font-semibold text-gray-900">
-                    Дата создания
+                    {t("plans.createdAt")}
                   </h3>
                 </div>
                 <p className="text-gray-700 text-lg font-medium">
-                  {new Date(plan.createdAt).toLocaleDateString("ru-RU", {
+                  {new Date(plan.createdAt).toLocaleDateString(lng || "en", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
@@ -224,14 +232,14 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
               onClick={onClose}
               className="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-colors"
             >
-              Закрыть
+              {t("common.close")}
             </button>
             <button
               onClick={buyPlan}
               className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
             >
-              <Coins className="w-5 h-5" />
-              <span>Купить план за {plan.coin} монет</span>
+              <img src="/CoinLogo.png" className="w-5 h-5" />
+              <span>{t("plans.buyPlan", { coin: plan.coin })}</span>
             </button>
           </div>
         </div>

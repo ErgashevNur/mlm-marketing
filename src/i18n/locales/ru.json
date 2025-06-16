@@ -104,7 +104,18 @@
     "premium": "Премиум",
     "enterprise": "Корпоративный",
     "selectPlan": "Выбрать тариф",
-    "popular": "Популярный"
+    "popular": "Популярный",
+    "dailyProfit": "Дневная прибыль",
+    "coin": "Монета",
+    "referralBonus": "Реферальный бонус",
+    "term": "Срок",
+    "createdAt": "Дата создания",
+    "language": "Язык",
+    "longDescription": "Подробное описание",
+    "name": "Название",
+    "usage": "Использование",
+    "buyPlan": "Купить план за {{coin}} монет",
+    "days": "дней"
   },
   "withdraw": {
     "withdrawFunds": "Вывод средств",

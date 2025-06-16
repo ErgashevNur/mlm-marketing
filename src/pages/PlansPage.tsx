@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  Eye,
-  Coins,
-  Calendar,
-  Sparkles,
-  Star,
-  Award,
-  Users,
-  Clock,
-} from "lucide-react";
+import { Eye, Calendar, Sparkles, Star } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import PlanModal from "../components/PlanModal";
 
 interface Translation {
@@ -33,98 +25,11 @@ interface Plan {
 }
 
 const PlansPage: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  // Mock data for demonstration
-  // const mockPlans: Plan[] = [
-  //   {
-  //     id: 1,
-  //     coin: 1000,
-  //     dailyProfit: 50,
-  //     term: 30,
-  //     referral_bonus: 100,
-  //     photo_url:
-  //       "https://images.pexels.com/photos/3943716/pexels-photo-3943716.jpeg?auto=compress&cs=tinysrgb&w=400",
-  //     createdAt: "2024-01-15T00:00:00Z",
-  //     translations: [
-  //       {
-  //         id: 1,
-  //         language: "ru",
-  //         name: "Стартовый план",
-  //         description: "Идеальный план для начинающих",
-  //         longDescription:
-  //           "Этот план предназначен для тех, кто только начинает свой путь в инвестициях",
-  //         features: "Базовые функции, поддержка 24/7",
-  //         usage: "Подходит для новичков",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 2,
-  //     coin: 5000,
-  //     dailyProfit: 300,
-  //     term: 45,
-  //     referral_bonus: 500,
-  //     photo_url:
-  //       "https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&cs=tinysrgb&w=400",
-  //     createdAt: "2024-01-20T00:00:00Z",
-  //     translations: [
-  //       {
-  //         id: 2,
-  //         language: "ru",
-  //         name: "Профессиональный план",
-  //         description: "Для опытных инвесторов",
-  //         longDescription:
-  //           "Расширенные возможности и увеличенная доходность для профессионалов",
-  //         features: "Все функции + аналитика, приоритетная поддержка",
-  //         usage: "Для опытных пользователей",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 3,
-  //     coin: 10000,
-  //     dailyProfit: 700,
-  //     term: 60,
-  //     referral_bonus: 1000,
-  //     photo_url:
-  //       "https://images.pexels.com/photos/3943723/pexels-photo-3943723.jpeg?auto=compress&cs=tinysrgb&w=400",
-  //     createdAt: "2024-01-25T00:00:00Z",
-  //     translations: [
-  //       {
-  //         id: 3,
-  //         language: "ru",
-  //         name: "Премиум план",
-  //         description: "Максимальная доходность",
-  //         longDescription:
-  //           "Эксклюзивный план с максимальной доходностью и премиум функциями",
-  //         features: "Все функции + VIP поддержка, персональный менеджер",
-  //         usage: "Для VIP клиентов",
-  //       },
-  //     ],
-  //   },
-  // ];
-
-  useEffect(() => {
-    const getPlans = async () => {
-      try {
-        setLoading(true);
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setPlans(mockPlans);
-      } catch (error) {
-        console.error("Error fetching plans:", error);
-        setPlans(mockPlans); // Fallback to mock data
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getPlans();
-  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -149,8 +54,10 @@ const PlansPage: React.FC = () => {
   };
 
   const getPlanName = (plan: Plan): string => {
-    const ruTranslation = plan.translations?.find((t) => t.language === "ru");
-    return ruTranslation?.name || `Plan ${plan.id}`;
+    const translation = plan.translations?.find(
+      (t) => t.language === i18n.language
+    );
+    return translation?.name || `Plan ${plan.id}`;
   };
 
   if (loading) {
@@ -158,7 +65,7 @@ const PlansPage: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="flex flex-col items-center space-y-4">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-          <p className="text-gray-600 font-medium">Загрузка планов...</p>
+          <p className="text-gray-600 font-medium">{t("common.loading")}</p>
         </div>
       </div>
     );
@@ -173,11 +80,10 @@ const PlansPage: React.FC = () => {
             <Sparkles className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Выберите свой план
+            {t("plans.choosePlan")}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Инвестируйте в будущее с нашими тщательно разработанными планами.
-            Каждый план создан для максимизации вашей прибыли.
+            {t("plans.choosePlanDesc")}
           </p>
         </div>
 
@@ -195,7 +101,7 @@ const PlansPage: React.FC = () => {
                 <div className="absolute top-4 right-4 z-10">
                   <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center space-x-1">
                     <Star className="w-4 h-4" />
-                    <span>Популярный</span>
+                    <span>{t("plans.popular")}</span>
                   </div>
                 </div>
               )}
@@ -227,7 +133,7 @@ const PlansPage: React.FC = () => {
                         />
                       </div>
                       <span className="text-gray-700 font-medium">
-                        Дневная прибыль
+                        {t("plans.dailyProfit")}
                       </span>
                     </div>
                     <span className="text-2xl font-bold text-green-600">
@@ -241,10 +147,12 @@ const PlansPage: React.FC = () => {
                       <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                         <Calendar className="w-4 h-4 text-blue-600" />
                       </div>
-                      <span className="text-gray-700 font-medium">Срок</span>
+                      <span className="text-gray-700 font-medium">
+                        {t("plans.term")}
+                      </span>
                     </div>
                     <span className="text-2xl font-bold text-blue-600">
-                      {plan.term} дней
+                      {plan.term} {t("plans.days", { count: plan.term })}
                     </span>
                   </div>
                 </div>
@@ -255,49 +163,11 @@ const PlansPage: React.FC = () => {
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 group-hover:shadow-lg"
                 >
                   <Eye className="w-5 h-5" />
-                  <span>Подробнее</span>
+                  <span>{t("common.view")}</span>
                 </button>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Features Section */}
-        <div className="mt-20 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
-            Почему выбирают нас?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center space-y-4">
-              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
-                <Award className="w-8 h-8 text-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900">
-                Надежность
-              </h3>
-              <p className="text-gray-600">
-                Проверенная платформа с многолетним опытом
-              </p>
-            </div>
-            <div className="flex flex-col items-center space-y-4">
-              <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center">
-                <Users className="w-8 h-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900">Поддержка</h3>
-              <p className="text-gray-600">
-                Круглосуточная техническая поддержка
-              </p>
-            </div>
-            <div className="flex flex-col items-center space-y-4">
-              <div className="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center">
-                <Clock className="w-8 h-8 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900">Скорость</h3>
-              <p className="text-gray-600">
-                Мгновенные выплаты и быстрые транзакции
-              </p>
-            </div>
-          </div>
         </div>
       </div>
 

@@ -105,7 +105,18 @@
     "premium": "Премиум",
     "enterprise": "Кәсіпорын",
     "selectPlan": "Тариф таңдау",
-    "popular": "Танымал"
+    "popular": "Танымал",
+    "dailyProfit": "Күндік табыс",
+    "coin": "Монета",
+    "referralBonus": "Реферал бонусы",
+    "term": "Мерзімі",
+    "createdAt": "Жасалған күні",
+    "language": "Тіл",
+    "longDescription": "Толық сипаттама",
+    "name": "Атауы",
+    "usage": "Қолдану",
+    "buyPlan": "Тарифті сатып алу ({{coin}} монета)",
+    "days": "күн"
   },
   "withdraw": {
     "withdrawFunds": "Ақша алу",

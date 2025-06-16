@@ -114,7 +114,9 @@
     "language": "Language",
     "longDescription": "Long Description",
     "name": "Name",
-    "usage": "Usage"
+    "usage": "Usage",
+    "buyPlan": "Buy plan for {{coin}} coins",
+    "days": "days"
   },
   "withdraw": {
     "withdrawFunds": "Withdraw Funds",

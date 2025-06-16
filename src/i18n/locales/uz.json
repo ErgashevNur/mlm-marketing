@@ -104,7 +104,18 @@
     "premium": "Premium",
     "enterprise": "Korxona",
     "selectPlan": "Tarif tanlash",
-    "popular": "Mashhur"
+    "popular": "Mashhur",
+    "dailyProfit": "Kunlik daromad",
+    "coin": "Tanga",
+    "referralBonus": "Referal bonusi",
+    "term": "Muddat",
+    "createdAt": "Yaratilgan sana",
+    "language": "Til",
+    "longDescription": "Batafsil tavsif",
+    "name": "Nomi",
+    "usage": "Foydalanish",
+    "buyPlan": "Rejani sotib olish ({{coin}} tanga)",
+    "days": "kun"
   },
   "withdraw": {
     "withdrawFunds": "Pul yechish",
