@@ -73,9 +73,9 @@ const RegisterPage: React.FC = () => {
 
   const handleGoogleLogin = async () => {
     await loginWithGoogle();
-    // const url = new URL(window.location.href);
-    // const token = url.searchParams.get("token");
-    // console.log(token);
+    const url = new URL(window.location.href);
+    const token = url.searchParams.get("token");
+    console.log(token);
   };
 
   const handleFacebookLogin = async () => {
