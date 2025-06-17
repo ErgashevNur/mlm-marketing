@@ -157,6 +157,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const loginWithGoogle = () => {
     window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
+
+    const url = new URL(window.location.href);
+    const token = url.searchParams.get("token");
+    console.log(token);
   };
 
   const loginWithFacebook = async () => {

@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-// import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { Upload } from "lucide-react";
 import { io } from "socket.io-client";
-// import StatCard from "../components/StatCard";
 
 const EarningsPage: React.FC = () => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const socketRef = useRef(null); // socketni saqlab turish uchun
   const [balance, setBalance] = useState(0);
@@ -81,30 +80,19 @@ const EarningsPage: React.FC = () => {
 
     // real time
     socketRef.current = socket;
+    console.log("Socket: ", socketRef);
 
-    socket.on("connect", () => {
-      console.log("🔌 Ulandi:", socket.id);
+    socketRef.current.on("connect", () => {
+      console.log("🔌 Ulandi:", socketRef.current.id);
     });
 
-    socket.on("roomAssigned", (data) => {
+    socketRef.current.on("roomAssigned", (data) => {
       console.log(`✅ Siz ${data.roomName} roomga qo‘shildingiz`);
     });
 
-    return () => {
-      socket.disconnect(); // komponent unmount bo‘lganda socketni uzish
-    };
-  }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    const socket = io("https://mlm-backend.pixl.uz/", {
-      auth: { token },
-    });
-
-    socket.on("card_info", (data) => {
+    socketRef.current.on("card_info", (data) => {
       setData(data);
-      console.log(data);
+      console.log("data: ", data);
 
       if (Notification.permission === "granted") {
         const notification = new Notification(data.paymentId, {
@@ -112,9 +100,10 @@ const EarningsPage: React.FC = () => {
         });
       }
     });
-    socket.on("card_info", (data) => {
-      console.log("Keldi:", data);
-    });
+
+    return () => {
+      socketRef.current.disconnect(); // komponent unmount bo‘lganda socketni uzish
+    };
   }, []);
 
   useEffect(() => {
@@ -187,6 +176,98 @@ const EarningsPage: React.FC = () => {
     CANCELLED: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200",
   };
 
+  // Withdrawal History section
+  const renderWithdrawalHistory = () => (
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-8 flex items-center gap-2">
+        <span role="img" aria-label="card">
+          💳
+        </span>
+        {t("earningsPage.historyTitle")}
+      </h2>
+
+      {!data || data?.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-12">
+          <svg
+            className="w-12 h-12 text-gray-300 dark:text-gray-600 mb-4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <rect x="3" y="7" width="18" height="13" rx="2" />
+            <path d="M3 10h18" />
+          </svg>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">
+            {t("earningsPage.noData")}
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {data?.map((item: any) => (
+            <div
+              key={item.id}
+              className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-5 shadow transition hover:shadow-lg"
+            >
+              <div className="flex-1 flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                    {item.how_much}
+                  </span>
+                  <span className="text-base text-gray-500 dark:text-gray-400 font-medium">
+                    {item.currency || t("earningsPage.coin")}
+                  </span>
+                  <span
+                    className={`ml-3 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide ${
+                      statusStyles[item.status]
+                    }`}
+                  >
+                    {item.status === "SENDING"
+                      ? t("earningsPage.statusSending")
+                      : item.status === "SUCCESS"
+                      ? t("earningsPage.statusSuccess")
+                      : t("earningsPage.statusCancelled")}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  <span>
+                    <span className="font-medium">
+                      {t("earningsPage.historyTitle")}:
+                    </span>{" "}
+                    {item.to_send_date
+                      ? new Date(item.to_send_date).toLocaleString()
+                      : "-"}
+                  </span>
+                  <span>
+                    <span className="font-medium">
+                      {t("earningsPage.processed")}:
+                    </span>{" "}
+                    {item.to_checked_date
+                      ? new Date(item.to_checked_date).toLocaleString()
+                      : "-"}
+                  </span>
+                  <span>
+                    <span className="font-medium">
+                      {t("earningsPage.statusSending")}:
+                    </span>{" "}
+                    {item.status}
+                  </span>
+                  {item.maskedCard && (
+                    <span>
+                      <span className="font-medium">Card:</span>{" "}
+                      {item.maskedCard}
+                    </span>
+                  )}
+                  <span className="text-xs text-gray-400">ID: {item.id}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <div className="min-h-screen dark:text-white p-6 space-y-6">
       {/* Balans */}
@@ -194,11 +275,11 @@ const EarningsPage: React.FC = () => {
         <div className="flex items-center justify-between mb-4">
           <div>
             <h1 className="text-2xl font-bold">
-              Narxi:{" "}
+              {t("earningsPage.title")}:{" "}
               <span className="text-yellow-400">{getCalculatedValue()}</span>
             </h1>
             <p className="dark:text-gray-400 text-sm">
-              Coin'ni to‘ldirish uchun quyidagi ma'lumotlarni kiriting!
+              {t("earningsPage.enterAmount")}
             </p>
           </div>
           <div className="flex space-x-4">
@@ -232,11 +313,11 @@ const EarningsPage: React.FC = () => {
                     />
                   </svg>
                   {depositTimer > 0
-                    ? `Qayta yuborish (${depositTimer}s)`
-                    : "So'rov yuborish"}
+                    ? `${t("earningsPage.resend")} (${depositTimer}s)`
+                    : t("earningsPage.sendRequest")}
                 </>
               ) : (
-                "So'rov yuborish"
+                t("earningsPage.sendRequest")
               )}
             </button>
           </div>
@@ -247,7 +328,7 @@ const EarningsPage: React.FC = () => {
             type="number"
             value={coinAmount}
             onChange={(e) => setCoinAmount(e.target.value)}
-            placeholder="Coin miqdorini kiriting"
+            placeholder={t("earningsPage.amountPlaceholder")}
             className="w-full dark:bg-gray-700 dark:text-white border dark:border-gray-600 rounded-lg px-4 py-2"
           />
           <select
@@ -268,66 +349,18 @@ const EarningsPage: React.FC = () => {
         <div className="mt-4">
           <span className="font-semibold">
             {coinAmount && currency && getCalculatedValue()
-              ? `${coinAmount} × ${currency} = ${getCalculatedValue()}`
+              ? t("earningsPage.calculated", {
+                  coinAmount,
+                  currency,
+                  calculatedValue: getCalculatedValue(),
+                })
               : ""}
           </span>
         </div>
       </div>
 
       {/* Tarix */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 border border-gray-200 dark:border-gray-700 max-w-full mx-auto">
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
-          💳 Yechish Tarixi
-        </h2>
-
-        {data?.length === 0 ? (
-          <p className="text-gray-500 dark:text-gray-400">
-            Ma’lumotlar hozircha yo‘q yoki yuklanmoqda...
-          </p>
-        ) : (
-          <div className="space-y-4 max-w-full mx-auto mt-8">
-            {data?.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-4 rounded-lg shadow-sm flex justify-between items-start"
-              >
-                <div>
-                  <p className="text-xl font-semibold text-gray-800 dark:text-white">
-                    {item.how_much} Coin
-                  </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {new Date(item.to_send_date || "").toLocaleDateString(
-                      "en-US"
-                    )}
-                  </p>
-                  {item.to_checked_date && (
-                    <p className="text-sm text-gray-400 mt-1">
-                      Processed:{" "}
-                      {new Date(item.to_checked_date).toLocaleDateString(
-                        "en-US"
-                      )}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <span
-                    className={`text-sm font-medium px-3 py-1 rounded-full h-fit ${
-                      statusStyles[item.status]
-                    }`}
-                  >
-                    {item.status === "SENDING"
-                      ? "Sending"
-                      : item.status === "CANCELLED"
-                      ? "Success"
-                      : "CANCELLED"}
-                  </span>
-                  <p>{item.to_checked_date}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      {renderWithdrawalHistory()}
     </div>
   );
 };

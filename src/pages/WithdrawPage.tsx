@@ -12,6 +12,9 @@ const WithdrawPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [withdrawHistory, setWithdrawHistory] = useState([]);
+  const [selectedCurrency, setSelectedCurrency] = useState("USDT");
+  const [coinData, setCoinData] = useState<any[]>([]);
+  const [calculatedValue, setCalculatedValue] = useState("");
 
   // Calculate total withdrawn coins (status: SUCCESS)
   // const totalWithdrawn = withdrawHistory
@@ -24,6 +27,7 @@ const WithdrawPage: React.FC = () => {
     const how_much = Number(formData.get("how_much"));
     const cardNumber = String(formData.get("cardNumber") || "");
     const fullName = String(formData.get("fullname") || "");
+    const currency = selectedCurrency;
 
     // Validation
     if (!how_much || how_much < 1) {
@@ -43,6 +47,7 @@ const WithdrawPage: React.FC = () => {
       how_much,
       cardNumber,
       fullName,
+      currency, // add currency to request
     };
 
     const token = localStorage.getItem("token");
@@ -96,6 +101,39 @@ const WithdrawPage: React.FC = () => {
     fetchProducts();
   }, []);
 
+  // Fetch available currencies and their rates
+  useEffect(() => {
+    const fetchCoinData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch("https://mlm-backend.pixl.uz/coin", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await res.json();
+        setCoinData(Array.isArray(data) ? data : []);
+      } catch (error) {
+        // handle error
+      }
+    };
+    fetchCoinData();
+  }, []);
+
+  // Calculate value based on selected currency and amount
+  useEffect(() => {
+    const selected = coinData.find((c) => c.currency === selectedCurrency);
+    const how_much = Number(
+      (document.querySelector('input[name="how_much"]') as HTMLInputElement)
+        ?.value || 0
+    );
+    if (selected && how_much > 0) {
+      setCalculatedValue((how_much * selected.count).toLocaleString());
+    } else {
+      setCalculatedValue("");
+    }
+  }, [selectedCurrency, coinData]);
+
   console.log(user);
 
   return (
@@ -140,7 +178,7 @@ const WithdrawPage: React.FC = () => {
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 {t("withdraw.withdrawAmount")}
               </label>
-              <div className="relative">
+              <div className="relative flex items-center gap-2">
                 <img
                   src="/CoinLogo.png"
                   className="absolute w-5 left-3 top-1/2 transform -translate-y-1/2"
@@ -153,10 +191,42 @@ const WithdrawPage: React.FC = () => {
                   placeholder="0.00"
                   min="1"
                   step="0.01"
+                  onChange={() => {
+                    // recalculate on amount change
+                    const selected = coinData.find(
+                      (c) => c.currency === selectedCurrency
+                    );
+                    const how_much = Number(
+                      (
+                        document.querySelector(
+                          'input[name="how_much"]'
+                        ) as HTMLInputElement
+                      )?.value || 0
+                    );
+                    if (selected && how_much > 0) {
+                      setCalculatedValue(
+                        (how_much * selected.count).toLocaleString()
+                      );
+                    } else {
+                      setCalculatedValue("");
+                    }
+                  }}
                 />
+                <select
+                  value={selectedCurrency}
+                  onChange={(e) => setSelectedCurrency(e.target.value)}
+                  className="ml-2 px-3 py-[15px] w-full border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                  style={{ minWidth: 80 }}
+                >
+                  {coinData.map((c) => (
+                    <option key={c.currency} value={c.currency}>
+                      {c.currency}
+                    </option>
+                  ))}
+                </select>
               </div>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                {t("withdraw.minWithdraw", { amount: 10 })}
+                ${calculatedValue} {selectedCurrency}`
               </p>
             </div>
 

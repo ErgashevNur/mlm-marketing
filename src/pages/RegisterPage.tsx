@@ -46,7 +46,7 @@ const RegisterPage: React.FC = () => {
   const referal = localStorage.getItem("referral_id");
   console.log(referal);
 
-  console.log(name, email, password, referal);
+  // console.log(name, email, password, referal);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,6 +73,9 @@ const RegisterPage: React.FC = () => {
 
   const handleGoogleLogin = async () => {
     await loginWithGoogle();
+    const url = new URL(window.location.href);
+    const token = url.searchParams.get("token");
+    console.log(token);
   };
 
   const handleFacebookLogin = async () => {
@@ -218,7 +221,7 @@ const RegisterPage: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              {/* <button
+              <button
                 onClick={handleGoogleLogin}
                 disabled={isLoading}
                 className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
@@ -244,7 +247,7 @@ const RegisterPage: React.FC = () => {
                 <span className="text-gray-700 dark:text-gray-300">
                   {t("auth.loginWithGoogle")}
                 </span>
-              </button> */}
+              </button>
 
               {/* <button
                 onClick={handleFacebookLogin}

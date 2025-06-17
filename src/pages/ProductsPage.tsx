@@ -27,12 +27,16 @@ const ProductsPage: React.FC = () => {
     fetchProducts();
   }, []);
 
+  const lng = localStorage.getItem("i18nextLng") || "en";
+
   const filteredProducts = products?.filter((product) => {
+    const translation =
+      product.translations?.find((tr: any) => tr.language === lng) ||
+      product.translations?.[0] ||
+      {};
     const matchesSearch =
-      product.translations?.[0]?.name
-        ?.toLowerCase()
-        .includes(searchTerm.toLowerCase()) ||
-      product.translations?.[0]?.description
+      translation?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      translation?.description
         ?.toLowerCase()
         .includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "all";
@@ -40,9 +44,13 @@ const ProductsPage: React.FC = () => {
   });
 
   const handleAddToCart = (product: any) => {
+    const translation =
+      product.translations?.find((tr: any) => tr.language === lng) ||
+      product.translations?.[0] ||
+      {};
     addToCart({
       id: product.id,
-      name: product.translations?.[0]?.name || "Unnamed Product",
+      name: translation?.name || "Unnamed Product",
       price: product.coin,
       coinPrice: product.coin,
       image: product.photo_url?.[0] || null,
@@ -122,65 +130,71 @@ const ProductsPage: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow"
-              >
-                <div className="relative">
-                  <img
-                    src={
-                      product.photo_url?.[0]?.photo_url ||
-                      "https://via.placeholder.com/400x200"
-                    }
-                    alt={product.translations?.[0]?.name}
-                    className="w-full h-40 object-cover"
-                  />
-                  {product.featured && (
-                    <div className="absolute top-2 left-2">
-                      <span className="bg-yellow-500 text-black px-2 py-1 rounded-full text-xs font-medium">
-                        {t("productsPage.featured")}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                <div className="p-4">
-                  <h3 className="text-md font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
-                    {product.translations?.[0]?.name}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">
-                    {product.translations?.[0]?.description}
-                  </p>
-
-                  <div className="mb-3">
-                    <div className="flex items-center text-yellow-600 dark:text-yellow-400">
-                      <Coins size={14} className="mr-1" />
-                      <span className="text-xs">
-                        {product.coin} {t("productsPage.coins")}
-                      </span>
-                    </div>
+            {filteredProducts.map((product) => {
+              const translation =
+                product.translations?.find((tr: any) => tr.language === lng) ||
+                product.translations?.[0] ||
+                {};
+              return (
+                <div
+                  key={product.id}
+                  className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow"
+                >
+                  <div className="relative">
+                    <img
+                      src={
+                        product.photo_url?.[0]?.photo_url ||
+                        "https://via.placeholder.com/400x200"
+                      }
+                      alt={translation?.name}
+                      className="w-full h-40 object-cover"
+                    />
+                    {product.featured && (
+                      <div className="absolute top-2 left-2">
+                        <span className="bg-yellow-500 text-black px-2 py-1 rounded-full text-xs font-medium">
+                          {t("productsPage.featured")}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
-                  <div className="flex gap-2">
-                    <Link
-                      to={`/dashboard/products/${product.id}`}
-                      className="flex-1 flex items-center justify-center px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
-                    >
-                      <Eye size={14} className="mr-1" />
-                      {t("productsPage.view")}
-                    </Link>
-                    <button
-                      onClick={() => handleAddToCart(product)}
-                      className="flex-1 flex items-center justify-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm"
-                    >
-                      <ShoppingCart size={14} className="mr-1" />
-                      {t("productsPage.add")}
-                    </button>
+                  <div className="p-4">
+                    <h3 className="text-md font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
+                      {translation?.name}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">
+                      {translation?.description}
+                    </p>
+
+                    <div className="mb-3">
+                      <div className="flex items-center text-yellow-600 dark:text-yellow-400">
+                        <Coins size={14} className="mr-1" />
+                        <span className="text-xs">
+                          {product.coin} {t("productsPage.coins")}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <Link
+                        to={`/dashboard/products/${product.id}`}
+                        className="flex-1 flex items-center justify-center px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
+                      >
+                        <Eye size={14} className="mr-1" />
+                        {t("productsPage.view")}
+                      </Link>
+                      <button
+                        onClick={() => handleAddToCart(product)}
+                        className="flex-1 flex items-center justify-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm"
+                      >
+                        <ShoppingCart size={14} className="mr-1" />
+                        {t("productsPage.add")}
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

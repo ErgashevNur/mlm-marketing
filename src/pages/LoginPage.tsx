@@ -117,7 +117,7 @@ const LoginPage: React.FC = () => {
           </div>
 
           {/* Social login buttons */}
-          <div className="space-y-3">
+          {/* <div className="space-y-3">
             <button
               onClick={handleGoogleLogin}
               disabled={isLoading}
@@ -154,7 +154,7 @@ const LoginPage: React.FC = () => {
               </svg>
               {t("auth.loginWithFacebook")}
             </button>
-          </div>
+          </div> */}
 
           {/* Footer */}
           <div className="mt-6 text-center">

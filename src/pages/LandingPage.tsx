@@ -1,17 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   ArrowRight,
-  Star,
   Users,
   TrendingUp,
   Shield,
   Globe,
-  Coins,
   Gift,
   Zap,
-  CheckCircle,
 } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
 import Navbar from "../components/Navbar";
@@ -22,71 +19,72 @@ const LandingPage: React.FC = () => {
 
   const features = [
     {
-      icon: Coins,
-      title: "Earn Coins Daily",
-      description: "Get daily coin bonuses based on your subscription plan",
+      icon: () => <img src="/CoinLogo.png" alt="USDT" className="w-5 h-5" />,
+      title: t("landing.earnCoinsDaily"),
+      description: t("landing.earnCoinsDailyDesc"),
     },
     {
       icon: Users,
-      title: "Referral System",
-      description:
-        "Invite friends and earn bonuses for each successful referral",
+      title: t("landing.referralSystem"),
+      description: t("landing.referralSystemDesc"),
     },
     {
       icon: TrendingUp,
-      title: "Track Earnings",
-      description:
-        "Monitor your daily, monthly, and total earnings in real-time",
+      title: t("landing.trackEarnings"),
+      description: t("landing.trackEarningsDesc"),
     },
     {
       icon: Shield,
-      title: "Secure Platform",
-      description:
-        "Your data and transactions are protected with enterprise-grade security",
+      title: t("landing.securePlatform"),
+      description: t("landing.securePlatformDesc"),
     },
     {
       icon: Globe,
-      title: "Multi-Language",
-      description: "Available in 7 languages to serve users worldwide",
+      title: t("landing.multiLanguage"),
+      description: t("landing.multiLanguageDesc"),
     },
     {
       icon: Gift,
-      title: "Premium Products",
-      description: "Access exclusive products and services with your coins",
+      title: t("landing.premiumProducts"),
+      description: t("landing.premiumProductsDesc"),
     },
   ];
 
-  const plans = [
-    {
-      name: "Basic",
-      price: 29,
-      coinBonus: 50,
-      features: ["50 coins daily", "Basic products access", "Email support"],
-    },
-    {
-      name: "Premium",
-      price: 59,
-      coinBonus: 100,
-      features: [
-        "100 coins daily",
-        "Premium products access",
-        "Priority support",
-        "Exclusive bonuses",
-      ],
-      popular: true,
-    },
-    {
-      name: "Enterprise",
-      price: 99,
-      coinBonus: 200,
-      features: [
-        "200 coins daily",
-        "All products access",
-        "Dedicated support",
-        "Custom features",
-      ],
-    },
-  ];
+  // const plans = [
+  //   {
+  //     name: t("plans.basic"),
+  //     price: 29,
+  //     coinBonus: 50,
+  //     features: [
+  //       t("landing.coinsDaily", { count: 50 }),
+  //       t("productsPage.product") + " " + t("landing.aboutThisProduct"),
+  //       t("landing.support") || "Email support",
+  //     ],
+  //   },
+  //   {
+  //     name: t("plans.premium"),
+  //     price: 59,
+  //     coinBonus: 100,
+  //     features: [
+  //       t("landing.coinsDaily", { count: 100 }),
+  //       t("productsPage.product") + " " + t("landing.premiumProducts"),
+  //       t("landing.support") || "Priority support",
+  //       t("landing.exclusiveBonuses") || "Exclusive bonuses",
+  //     ],
+  //     popular: true,
+  //   },
+  //   {
+  //     name: t("plans.enterprise"),
+  //     price: 99,
+  //     coinBonus: 200,
+  //     features: [
+  //       t("landing.coinsDaily", { count: 200 }),
+  //       t("productsPage.allProducts"),
+  //       t("landing.dedicatedSupport") || "Dedicated support",
+  //       t("landing.customFeatures") || "Custom features",
+  //     ],
+  //   },
+  // ];
 
   return (
     <div className={`min-h-screen ${isDarkMode ? "dark" : ""}`}>
@@ -99,26 +97,25 @@ const LandingPage: React.FC = () => {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
             <div className="text-center">
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                Welcome to <span className="text-yellow-400">MLM PLATFORM</span>
+                {t("landing.welcome")}{" "}
+                <span className="text-yellow-400">{t("landing.platform")}</span>
               </h1>
               <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
-                The ultimate marketing platform where you earn coins daily,
-                refer friends, and access premium products with our custom
-                currency system.
+                {t("landing.heroDesc")}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   to="/register"
                   className="inline-flex items-center px-8 py-4 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-lg transition-colors"
                 >
-                  Get Started
+                  {t("landing.getStarted")}
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
                 <Link
                   to="/login"
                   className="inline-flex items-center px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg backdrop-blur-sm transition-colors"
                 >
-                  Sign In
+                  {t("landing.signIn")}
                 </Link>
               </div>
             </div>
@@ -130,11 +127,10 @@ const LandingPage: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Why Choose MLM PLATFORM?
+                {t("landing.whyChoose")}
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                Discover the features that make our platform the best choice for
-                earning and growing your income.
+                {t("landing.whyDesc")}
               </p>
             </div>
 
@@ -165,105 +161,20 @@ const LandingPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Pricing Section */}
-        {/* <section className="py-24 bg-white dark:bg-gray-900">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Choose Your Plan
-              </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                Select the perfect plan and start earning coins daily. Upgrade
-                anytime to unlock more benefits.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {plans.map((plan, index) => (
-                <div
-                  key={index}
-                  className={`relative bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border-2 transition-all hover:shadow-md ${
-                    plan.popular
-                      ? "border-blue-500 ring-2 ring-blue-100 dark:ring-blue-900/20"
-                      : "border-gray-200 dark:border-gray-700"
-                  }`}
-                >
-                  {plan.popular && (
-                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                      <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                        Most Popular
-                      </span>
-                    </div>
-                  )}
-
-                  <div className="text-center mb-6">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                      {plan.name}
-                    </h3>
-                    <div className="mb-4">
-                      <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                        ${plan.price}
-                      </span>
-                      <span className="text-gray-500 dark:text-gray-400">
-                        /month
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-center space-x-2 text-yellow-600 dark:text-yellow-400">
-                      <Coins size={20} />
-                      <span className="font-semibold">
-                        {plan.coinBonus} coins daily
-                      </span>
-                    </div>
-                  </div>
-
-                  <ul className="space-y-3 mb-8">
-                    {plan.features.map((feature, featureIndex) => (
-                      <li
-                        key={featureIndex}
-                        className="flex items-center space-x-3"
-                      >
-                        <CheckCircle
-                          className="text-green-500 flex-shrink-0"
-                          size={16}
-                        />
-                        <span className="text-gray-600 dark:text-gray-300">
-                          {feature}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    to="/register"
-                    className={`w-full py-3 px-4 rounded-lg font-semibold text-center block transition-colors ${
-                      plan.popular
-                        ? "bg-blue-600 hover:bg-blue-700 text-white"
-                        : "bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white"
-                    }`}
-                  >
-                    Get Started
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section> */}
-
         {/* CTA Section */}
         <section className="py-24 bg-gradient-to-r from-blue-600 to-purple-600">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Ready to Start Earning?
+              {t("landing.readyToStart")}
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Join thousands of users who are already earning coins daily and
-              building their income with MLM PLATFORM.
+              {t("landing.ctaDesc")}
             </p>
             <Link
               to="/register"
               className="inline-flex items-center px-8 py-4 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-lg transition-colors"
             >
-              Start Earning Today
+              {t("landing.startEarningToday")}
               <Zap className="ml-2" size={20} />
             </Link>
           </div>
@@ -278,23 +189,22 @@ const LandingPage: React.FC = () => {
                   <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
                     <Globe className="text-white" size={20} />
                   </div>
-                  <span className="text-xl font-bold">MLM PLATFORM</span>
+                  <span className="text-xl font-bold">
+                    {t("landing.platform")}
+                  </span>
                 </div>
-                <p className="text-gray-400">
-                  The ultimate marketing platform for earning and growing your
-                  income.
-                </p>
+                <p className="text-gray-400">{t("landing.heroDesc")}</p>
               </div>
 
               <div>
-                <h3 className="font-semibold mb-4">Platform</h3>
+                <h3 className="font-semibold mb-4">{t("landing.platform")}</h3>
                 <ul className="space-y-2 text-gray-400">
                   <li>
                     <Link
                       to="/dashboard"
                       className="hover:text-white transition-colors"
                     >
-                      Dashboard
+                      {t("landing.dashboard")}
                     </Link>
                   </li>
                   <li>
@@ -302,7 +212,7 @@ const LandingPage: React.FC = () => {
                       to="/dashboard/products"
                       className="hover:text-white transition-colors"
                     >
-                      Products
+                      {t("landing.products")}
                     </Link>
                   </li>
                   <li>
@@ -310,49 +220,49 @@ const LandingPage: React.FC = () => {
                       to="/dashboard/plans"
                       className="hover:text-white transition-colors"
                     >
-                      Plans
+                      {t("landing.plans")}
                     </Link>
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="font-semibold mb-4">Support</h3>
+                <h3 className="font-semibold mb-4">{t("landing.support")}</h3>
                 <ul className="space-y-2 text-gray-400">
                   <li>
                     <a href="#" className="hover:text-white transition-colors">
-                      Help Center
+                      {t("landing.helpCenter")}
                     </a>
                   </li>
                   <li>
                     <a href="#" className="hover:text-white transition-colors">
-                      Contact Us
+                      {t("landing.contactUs")}
                     </a>
                   </li>
                   <li>
                     <a href="#" className="hover:text-white transition-colors">
-                      FAQ
+                      {t("landing.faq")}
                     </a>
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="font-semibold mb-4">Legal</h3>
+                <h3 className="font-semibold mb-4">{t("landing.legal")}</h3>
                 <ul className="space-y-2 text-gray-400">
                   <li>
                     <a href="#" className="hover:text-white transition-colors">
-                      Privacy Policy
+                      {t("landing.privacyPolicy")}
                     </a>
                   </li>
                   <li>
                     <a href="#" className="hover:text-white transition-colors">
-                      Terms of Service
+                      {t("landing.termsOfService")}
                     </a>
                   </li>
                   <li>
                     <a href="#" className="hover:text-white transition-colors">
-                      Cookie Policy
+                      {t("landing.cookiePolicy")}
                     </a>
                   </li>
                 </ul>
@@ -360,7 +270,7 @@ const LandingPage: React.FC = () => {
             </div>
 
             <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-              <p>&copy; 2024 MLM PLATFORM. All rights reserved.</p>
+              <p>&copy; 2024 MLM PLATFORM. {t("landing.copyright")}</p>
             </div>
           </div>
         </footer>
