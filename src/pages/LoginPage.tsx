@@ -117,7 +117,7 @@ const LoginPage: React.FC = () => {
           </div>
 
           {/* Social login buttons */}
-          {/* <div className="space-y-3">
+          <div className="space-y-3">
             <button
               onClick={handleGoogleLogin}
               disabled={isLoading}
@@ -144,7 +144,7 @@ const LoginPage: React.FC = () => {
               {t("auth.loginWithGoogle")}
             </button>
 
-            <button
+            {/*   <button
               onClick={handleFacebookLogin}
               disabled={isLoading}
               className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
@@ -154,7 +154,8 @@ const LoginPage: React.FC = () => {
               </svg>
               {t("auth.loginWithFacebook")}
             </button>
-          </div> */}
+             */}
+          </div>
 
           {/* Footer */}
           <div className="mt-6 text-center">
