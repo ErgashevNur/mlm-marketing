@@ -158,9 +158,35 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const loginWithGoogle = () => {
     window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
 
-    // const url = new URL(window.location.href);
-    // const token = url.searchParams.get("token");
-    // console.log(token);
+    // try {
+    //   const response = await fetch(
+    //     `https://mlm-backend.pixl.uz/referal/google/${id}`,
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
+
+    //   const data = await response.json();
+
+    //   if (!response.ok) {
+    //     throw new Error(data.message || "Registration failed");
+    //   }
+
+    //   toast.success(
+    //     data.message ||
+    //       "Registration successful! Please check your email to verify your account."
+    //   );
+    //   // setUser(data);
+    //   return data; // Return the API response data
+    // } catch (error: any) {
+    //   toast.error(error.message || "Registration failed");
+    //   throw error; // Re-throw the error for handleSubmit to catch
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   const loginWithFacebook = async () => {
