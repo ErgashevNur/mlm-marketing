@@ -119,7 +119,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     name: string,
     email: string,
     password: string,
-    referal?: string
+    referal?: Number
   ) => {
     setIsLoading(true);
     try {
