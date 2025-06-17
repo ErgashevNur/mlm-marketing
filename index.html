@@ -25,7 +25,7 @@
 
       const url = new URL(window.location.href);
       const token = url.searchParams.get("token");
-      localStorage.setItem("token");
+      localStorage.setItem("token", token);
       // console.log(token);
     </script>
 
