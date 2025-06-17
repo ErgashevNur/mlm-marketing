@@ -155,7 +155,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const loginWithGoogle = () => {
+  const loginWithGoogle = async () => {
     window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
 
     // try {
@@ -179,7 +179,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     //     data.message ||
     //       "Registration successful! Please check your email to verify your account."
     //   );
-    //   // setUser(data);
+    //   setUser(data);
     //   return data; // Return the API response data
     // } catch (error: any) {
     //   toast.error(error.message || "Registration failed");

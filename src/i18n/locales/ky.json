@@ -32,7 +32,7 @@
   },
   "dashboard": {
     "welcomeBack": "Кош келдиңиз",
-    "yourCoin": "Сиздин тыйыныңыз",
+    "yourCoin": "Сиздин USDT-ңыз",
     "totalEarnings": "Жалпы киреше",
     "todayEarnings": "Бүгүнкү киреше",
     "totalReferrals": "Жалпы рефералдар",
@@ -47,10 +47,10 @@
     "withdrawFunds": "Акча алуу",
     "upgradePlan": "Тарифти жаңыртуу",
     "bonusHistory": "Бонусуңуз кабыл алынды",
-    "coin": "тыйын",
+    "coin": "USDT",
     "dailyBonusAvailable": "Күнүмдүк бонус жеткиликтүү!",
     "claimYour": "Бонусуңузду алыңыз",
-    "coinsToday": "тыйынды бүгүн алыңыз",
+    "coinsToday": "USDT-ны бүгүн алыңыз",
     "claimNow": "Азыр алыңыз",
     "bonusOncePerDay": "Бонус күнүнө бир гана жолу алса болот.",
     "planNotFound": "Тариф табылган жок",
@@ -117,7 +117,7 @@
     "selectPlan": "Тариф тандоо",
     "popular": "Популярдуу",
     "dailyProfit": "Күндүк киреше",
-    "coin": "Тыйын",
+    "coin": "USDT",
     "referralBonus": "Реферал бонусу",
     "term": "Мөөнөтү",
     "createdAt": "Түзүлгөн күнү",
@@ -125,7 +125,7 @@
     "longDescription": "Толук сүрөттөмө",
     "name": "Аты",
     "usage": "Колдонуу",
-    "buyPlan": "Тарифти сатып алуу ({{coin}} тыйын)",
+    "buyPlan": "Тарифти сатып алуу ({{coin}} USDT)",
     "days": "күн"
   },
   "withdraw": {
@@ -201,7 +201,7 @@
     "noProducts": "Продукттар табылган жок",
     "tryAdjusting": "Издөө сөздөрүн же фильтрлерди өзгөртүп көрүңүз",
     "featured": "Тандалган",
-    "coins": "тыйындар",
+    "coins": "USDT",
     "view": "Көрүү",
     "add": "Кошуу"
   },
@@ -223,16 +223,23 @@
     "resend": "Кайра жөнөтүү",
     "calculating": "Эсептелүүдө...",
     "amountPlaceholder": "Coin суммасын киргизиңиз",
+    "coinAmount": "Coin суммасы",
+    "amount": "Суммасы",
     "currency": "Валюта",
-    "calculated": "{{coinAmount}} × {{currency}} = {{calculatedValue}}",
+    "orderSummary": "Буйрутма маалыматы",
     "historyTitle": "Алуу тарыхы",
     "noData": "Маалыматтар азырынча жок же жүктөлүүдө...",
-    "coin": "Coin",
+    "coin": "USDT",
     "processed": "Иштелип чыкты",
     "statusSending": "Жөнөтүлүүдө",
     "statusSuccess": "Ийгиликтүү",
     "statusCancelled": "Жокко чыгарылды",
-    "productCount": "Продукт саны"
+    "productCount": "Продукт саны",
+    "requested": "Суралган",
+    "processedLabel": "Иштелип чыкты",
+    "card": "Карта",
+    "transactionId": "Транзакция ID",
+    "trackActivity": "Сатууну көзөмөлдөңүз"
   },
   "landing": {
     "welcome": "Кош келдиңиз",
@@ -274,5 +281,11 @@
     "termsOfService": "Колдонуу шарттары",
     "cookiePolicy": "Cookie саясаты",
     "copyright": "Бардык укуктар корголгон."
+  },
+  "trading": {
+    "dashboard": "Башкаруу панели",
+    "purchaseCoins": "Coin сатып алуу",
+    "selectCurrency": "Валютаны тандаңыз",
+    "totalValue": "Жалпы сумма"
   }
 }

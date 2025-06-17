@@ -19,7 +19,6 @@ import PlansPage from "./pages/PlansPage";
 import WithdrawPage from "./pages/WithdrawPage";
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
-import CheckoutPage from "./pages/CheckoutPage";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./i18n/config";
@@ -69,10 +68,6 @@ function App() {
                             <Route
                               path="/products/:id"
                               element={<ProductDetailPage />}
-                            />
-                            <Route
-                              path="/checkout"
-                              element={<CheckoutPage />}
                             />
                           </Routes>
                         </Layout>

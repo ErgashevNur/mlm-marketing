@@ -31,7 +31,7 @@
   },
   "dashboard": {
     "welcomeBack": "Xush kelibsiz",
-    "yourCoin": "Sizning tangangiz",
+    "yourCoin": "Sizning USDT'ingiz",
     "totalEarnings": "Umumiy daromad",
     "todayEarnings": "Bugungi daromad",
     "totalReferrals": "Jami referallar",
@@ -46,10 +46,10 @@
     "withdrawFunds": "Pul yechish",
     "upgradePlan": "Tarifni yangilash",
     "bonusHistory": "Bonusingiz qabul qilindi",
-    "coin": "tanga",
+    "coin": "USDT",
     "dailyBonusAvailable": "Kunlik bonus mavjud!",
     "claimYour": "Bonusingizni oling",
-    "coinsToday": "tanga bugun",
+    "coinsToday": "USDT bugun",
     "claimNow": "Hozir oling",
     "bonusOncePerDay": "Bonusni faqat kuniga bir marta olish mumkin.",
     "planNotFound": "Tarif topilmadi",
@@ -116,7 +116,7 @@
     "selectPlan": "Tarif tanlash",
     "popular": "Mashhur",
     "dailyProfit": "Kunlik daromad",
-    "coin": "Tanga",
+    "coin": "USDT",
     "referralBonus": "Referal bonusi",
     "term": "Muddat",
     "createdAt": "Yaratilgan sana",
@@ -124,7 +124,7 @@
     "longDescription": "Batafsil tavsif",
     "name": "Nomi",
     "usage": "Foydalanish",
-    "buyPlan": "Rejani sotib olish ({{coin}} tanga)",
+    "buyPlan": "Rejani sotib olish ({{coin}} USDT)",
     "days": "kun"
   },
   "withdraw": {
@@ -199,7 +199,7 @@
     "noProducts": "Mahsulotlar topilmadi",
     "tryAdjusting": "Qidiruv so'zlari yoki filtrlarni o'zgartirib ko'ring",
     "featured": "Tavsiya etilgan",
-    "coins": "tanga",
+    "coins": "USDT",
     "view": "Ko‘rish",
     "add": "Qo‘shish"
   },
@@ -221,16 +221,23 @@
     "resend": "Qayta yuborish",
     "calculating": "Hisoblanmoqda...",
     "amountPlaceholder": "Coin miqdorini kiriting",
+    "coinAmount": "Coin miqdori",
+    "amount": "Miqdori",
     "currency": "Valyuta",
-    "calculated": "{{coinAmount}} × {{currency}} = {{calculatedValue}}",
+    "orderSummary": "Buyurtma tafsilotlari",
     "historyTitle": "Yechish tarixi",
     "noData": "Ma’lumotlar hozircha yo‘q yoki yuklanmoqda...",
-    "coin": "Coin",
+    "coin": "USDT",
     "processed": "Qayta ishlangan",
     "statusSending": "Yuborilmoqda",
     "statusSuccess": "Muvaffaqiyatli",
     "statusCancelled": "Bekor qilindi",
-    "productCount": "Mahsulot soni"
+    "productCount": "Mahsulot soni",
+    "requested": "So‘ralgan",
+    "processedLabel": "Qayta ishlangan",
+    "card": "Karta",
+    "transactionId": "Tranzaksiya ID",
+    "trackActivity": "Savdo faoliyatingizni kuzatib boring"
   },
   "landing": {
     "welcome": "Xush kelibsiz",
@@ -272,5 +279,11 @@
     "termsOfService": "Foydalanish shartlari",
     "cookiePolicy": "Cookie siyosati",
     "copyright": "Barcha huquqlar himoyalangan."
+  },
+  "trading": {
+    "dashboard": "Boshqaruv paneli",
+    "purchaseCoins": "Coin sotib olish",
+    "selectCurrency": "Valyutani tanlang",
+    "totalValue": "Umumiy qiymat"
   }
 }

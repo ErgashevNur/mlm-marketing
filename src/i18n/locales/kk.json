@@ -32,7 +32,7 @@
   },
   "dashboard": {
     "welcomeBack": "Қош келдіңіз",
-    "yourCoin": "Сіздің монетаңыз",
+    "yourCoin": "Сіздің USDT-ңыз",
     "totalEarnings": "Жалпы табыс",
     "todayEarnings": "Бүгінгі табыс",
     "totalReferrals": "Барлық рефералдар",
@@ -117,7 +117,7 @@
     "selectPlan": "Тариф таңдау",
     "popular": "Танымал",
     "dailyProfit": "Күндік табыс",
-    "coin": "Монета",
+    "coin": "USDT",
     "referralBonus": "Реферал бонусы",
     "term": "Мерзімі",
     "createdAt": "Жасалған күні",
@@ -125,7 +125,7 @@
     "longDescription": "Толық сипаттама",
     "name": "Атауы",
     "usage": "Қолдану",
-    "buyPlan": "Тарифті сатып алу ({{coin}} монета)",
+    "buyPlan": "Тарифті сатып алу ({{coin}} USDT)",
     "days": "күн"
   },
   "withdraw": {
@@ -201,7 +201,7 @@
     "noProducts": "Өнімдер табылмады",
     "tryAdjusting": "Іздеу сөздерін немесе сүзгілерді өзгертіп көріңіз",
     "featured": "Таңдаулы",
-    "coins": "монеталар",
+    "coins": "USDT",
     "view": "Көру",
     "add": "Қосу"
   },
@@ -223,16 +223,23 @@
     "resend": "Қайта жіберу",
     "calculating": "Есептелуде...",
     "amountPlaceholder": "Coin мөлшерін енгізіңіз",
+    "coinAmount": "Coin мөлшері",
+    "amount": "Сомасы",
     "currency": "Валюта",
-    "calculated": "{{coinAmount}} × {{currency}} = {{calculatedValue}}",
+    "orderSummary": "Тапсырыс мәліметі",
     "historyTitle": "Алу тарихы",
     "noData": "Деректер әлі жоқ немесе жүктелуде...",
-    "coin": "Coin",
+    "coin": "USDT",
     "processed": "Өңделді",
     "statusSending": "Жіберілуде",
     "statusSuccess": "Сәтті",
     "statusCancelled": "Бас тартылды",
-    "productCount": "Өнім саны"
+    "productCount": "Өнім саны",
+    "requested": "Сұралды",
+    "processedLabel": "Өңделді",
+    "card": "Карта",
+    "transactionId": "Транзакция ID",
+    "trackActivity": "Сауда әрекетіңізді қадағалаңыз"
   },
   "landing": {
     "welcome": "Қош келдіңіз",
@@ -274,5 +281,11 @@
     "termsOfService": "Пайдалану шарттары",
     "cookiePolicy": "Cookie саясаты",
     "copyright": "Барлық құқықтар қорғалған."
+  },
+  "trading": {
+    "dashboard": "Басқару панелі",
+    "purchaseCoins": "Coin сатып алу",
+    "selectCurrency": "Валютаны таңдаңыз",
+    "totalValue": "Жалпы құны"
   }
 }

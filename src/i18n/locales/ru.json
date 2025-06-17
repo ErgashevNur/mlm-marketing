@@ -31,7 +31,7 @@
   },
   "dashboard": {
     "welcomeBack": "С возвращением",
-    "yourCoin": "Ваши монеты",
+    "yourCoin": "Ваши USDT",
     "totalEarnings": "Общий доход",
     "todayEarnings": "Доход за сегодня",
     "totalReferrals": "Всего рефералов",
@@ -46,10 +46,10 @@
     "withdrawFunds": "Вывести средства",
     "upgradePlan": "Обновить тариф",
     "bonusHistory": "Ваш бонус был получен",
-    "coin": "монета",
+    "coin": "USDT",
     "dailyBonusAvailable": "Доступен ежедневный бонус!",
     "claimYour": "Получите свой",
-    "coinsToday": "монет сегодня",
+    "coinsToday": "USDT сегодня",
     "claimNow": "Получить сейчас",
     "bonusOncePerDay": "Бонус можно получить только раз в день.",
     "planNotFound": "Тариф не найден",
@@ -116,7 +116,7 @@
     "selectPlan": "Выбрать тариф",
     "popular": "Популярный",
     "dailyProfit": "Дневная прибыль",
-    "coin": "Монета",
+    "coin": "USDT",
     "referralBonus": "Реферальный бонус",
     "term": "Срок",
     "createdAt": "Дата создания",
@@ -124,7 +124,7 @@
     "longDescription": "Подробное описание",
     "name": "Название",
     "usage": "Использование",
-    "buyPlan": "Купить план за {{coin}} монет",
+    "buyPlan": "Купить план за {{coin}} USDT",
     "days": "дней"
   },
   "withdraw": {
@@ -199,7 +199,7 @@
     "noProducts": "Продукты не найдены",
     "tryAdjusting": "Попробуйте изменить поисковые слова или фильтры",
     "featured": "Рекомендуемое",
-    "coins": "монеты",
+    "coins": "USDT",
     "view": "Просмотр",
     "add": "Добавить"
   },
@@ -221,16 +221,23 @@
     "resend": "Отправить повторно",
     "calculating": "Вычисление...",
     "amountPlaceholder": "Введите сумму монет",
+    "coinAmount": "Сумма монет",
+    "amount": "Сумма",
     "currency": "Валюта",
-    "calculated": "{{coinAmount}} × {{currency}} = {{calculatedValue}}",
+    "orderSummary": "Сводка заказа",
     "historyTitle": "История вывода",
     "noData": "Данных пока нет или идет загрузка...",
-    "coin": "Монета",
+    "coin": "USDT",
     "processed": "Обработано",
     "statusSending": "Отправляется",
     "statusSuccess": "Успешно",
     "statusCancelled": "Отменено",
-    "productCount": "Количество продукта"
+    "productCount": "Количество продукта",
+    "requested": "Запрошено",
+    "processedLabel": "Обработано",
+    "card": "Карта",
+    "transactionId": "ID транзакции",
+    "trackActivity": "Отслеживайте свою торговую активность"
   },
   "landing": {
     "welcome": "Добро пожаловать в",
@@ -272,5 +279,11 @@
     "termsOfService": "Условия использования",
     "cookiePolicy": "Политика использования файлов cookie",
     "copyright": "Все права защищены."
+  },
+  "trading": {
+    "dashboard": "Панель",
+    "purchaseCoins": "Купить монеты",
+    "selectCurrency": "Выберите валюту",
+    "totalValue": "Итоговая сумма"
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
-import { X, Coins, Calendar, Gift, FileText, Target, Star } from "lucide-react";
+import { X, Calendar, Gift, FileText, Target, Star } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 interface Translation {
   id: number;
@@ -39,15 +40,30 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
     }
   };
 
-  const buyPlan = async () => {
+  const buyPlan = async (obj: any) => {
+    const res = {
+      tariff_id: Number(obj.id),
+    };
+
+    const token = localStorage.getItem("token");
     try {
-      // Mock purchase logic
-      console.log(`Purchasing plan ${plan.id}`);
-      alert("План успешно приобретен!");
-      onClose();
+      const response = await fetch("https://mlm-backend.pixl.uz/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(res),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Xatolik: ${response.statusText}`);
+      }
+
+      await response.json();
+      toast.success("Buyurtma muvaffaqiyatli yuborildi!");
     } catch (error) {
-      console.error("Error purchasing plan:", error);
-      alert("Ошибка при покупке плана");
+      toast.error("Your coin is too low");
     }
   };
 
@@ -103,7 +119,7 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
             </h2>
             <div className="flex items-center space-x-2">
               <Star className="w-5 h-5 text-yellow-400" />
-              <span className="text-white/90">{t("plans.premium")}</span>
+              <span className="text-white/90"> {getPlanName()}</span>
             </div>
           </div>
         </div>
@@ -235,7 +251,9 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
               {t("common.close")}
             </button>
             <button
-              onClick={buyPlan}
+              onClick={() => {
+                buyPlan(plan);
+              }}
               className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
             >
               <img src="/CoinLogo.png" className="w-5 h-5" />

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Search, Coins, ShoppingCart, Eye } from "lucide-react";
 import { useCart } from "../contexts/CartContext";
+import { toast } from "sonner";
 
 const ProductsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -12,6 +13,8 @@ const ProductsPage: React.FC = () => {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const [order, setOrder] = useState(null);
+  const [orderModal, setOrderModal] = useState(false);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -27,34 +30,57 @@ const ProductsPage: React.FC = () => {
     fetchProducts();
   }, []);
 
-  const lng = localStorage.getItem("i18nextLng") || "en";
+  const ordered = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const obj = {
+      productId: order.id,
+      contactNumber: formData.get("contactNumber"),
+      contactLink: formData.get("contactLink"),
+    };
+
+    const token = localStorage.getItem("token");
+
+    try {
+      const req = await fetch("https://mlm-backend.pixl.uz/orders-product", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(obj),
+      });
+
+      if (!req.ok) {
+        const errorText = await req.text();
+        throw new Error(`Xatolik: ${req.status} - ${errorText}`);
+      }
+
+      await req.json();
+      toast.success("Buyurtma muvaffaqiyatli yuborildi!");
+    } catch (error) {
+      toast.error("Buyurtma yuborishda xatolik: " + error.message);
+    } finally {
+      setOrderModal(false);
+    }
+  };
 
   const filteredProducts = products?.filter((product) => {
-    const translation =
-      product.translations?.find((tr: any) => tr.language === lng) ||
-      product.translations?.[0] ||
-      {};
     const matchesSearch =
-      translation?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      translation?.description
+      product.translations?.[0]?.name
+        ?.toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      product.translations?.[0]?.description
         ?.toLowerCase()
         .includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "all";
     return matchesSearch && matchesCategory;
   });
 
-  const handleAddToCart = (product: any) => {
-    const translation =
-      product.translations?.find((tr: any) => tr.language === lng) ||
-      product.translations?.[0] ||
-      {};
-    addToCart({
-      id: product.id,
-      name: translation?.name || "Unnamed Product",
-      price: product.coin,
-      coinPrice: product.coin,
-      image: product.photo_url?.[0] || null,
-    });
+  const openOrderModal = (userInfo) => {
+    setOrder(userInfo);
+    setOrderModal(true);
   };
 
   const renderSkeletons = () => {
@@ -109,7 +135,7 @@ const ProductsPage: React.FC = () => {
       {/* All Products */}
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-          {t("productsPage.allProducts")} ({filteredProducts.length})
+          AllProducts ({filteredProducts.length})
         </h2>
 
         {loading ? (
@@ -130,71 +156,112 @@ const ProductsPage: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map((product) => {
-              const translation =
-                product.translations?.find((tr: any) => tr.language === lng) ||
-                product.translations?.[0] ||
-                {};
-              return (
-                <div
-                  key={product.id}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow"
-                >
-                  <div className="relative">
-                    <img
-                      src={
-                        product.photo_url?.[0]?.photo_url ||
-                        "https://via.placeholder.com/400x200"
-                      }
-                      alt={translation?.name}
-                      className="w-full h-40 object-cover"
-                    />
-                    {product.featured && (
-                      <div className="absolute top-2 left-2">
-                        <span className="bg-yellow-500 text-black px-2 py-1 rounded-full text-xs font-medium">
-                          {t("productsPage.featured")}
-                        </span>
-                      </div>
-                    )}
+            {filteredProducts.map((product) => (
+              <div
+                key={product.id}
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow"
+              >
+                <div className="relative">
+                  <img
+                    src={
+                      product.photo_url?.[0]?.photo_url ||
+                      "https://via.placeholder.com/400x200"
+                    }
+                    alt={product.translations?.[0]?.name}
+                    className="w-full h-40 object-cover"
+                  />
+                  {product.featured && (
+                    <div className="absolute top-2 left-2">
+                      <span className="bg-yellow-500 text-black px-2 py-1 rounded-full text-xs font-medium">
+                        {t("productsPage.featured")}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-4">
+                  <h3 className="text-md font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
+                    {product.translations?.[0]?.name}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">
+                    {product.translations?.[0]?.description}
+                  </p>
+
+                  <div className="mb-3">
+                    <div className="flex items-center text-yellow-600 dark:text-yellow-400">
+                      <Coins size={14} className="mr-1" />
+                      <span className="text-xs">{product.coin} coins</span>
+                    </div>
                   </div>
 
-                  <div className="p-4">
-                    <h3 className="text-md font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
-                      {translation?.name}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">
-                      {translation?.description}
-                    </p>
-
-                    <div className="mb-3">
-                      <div className="flex items-center text-yellow-600 dark:text-yellow-400">
-                        <Coins size={14} className="mr-1" />
-                        <span className="text-xs">
-                          {product.coin} {t("productsPage.coins")}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2">
-                      <Link
-                        to={`/dashboard/products/${product.id}`}
-                        className="flex-1 flex items-center justify-center px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
-                      >
-                        <Eye size={14} className="mr-1" />
-                        {t("productsPage.view")}
-                      </Link>
-                      <button
-                        onClick={() => handleAddToCart(product)}
-                        className="flex-1 flex items-center justify-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm"
-                      >
-                        <ShoppingCart size={14} className="mr-1" />
-                        {t("productsPage.add")}
-                      </button>
-                    </div>
+                  <div className="flex gap-2">
+                    <Link
+                      to={`/dashboard/products/${product.id}`}
+                      className="flex-1 flex items-center justify-center px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
+                    >
+                      <Eye size={14} className="mr-1" />
+                      view
+                    </Link>
+                    <Link
+                      // to="/dashboard/checkout"
+                      onClick={() => {
+                        openOrderModal(product);
+                      }}
+                      className="flex-1 flex items-center justify-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm"
+                    >
+                      <ShoppingCart size={14} className="mr-1" />
+                      buy
+                    </Link>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
+          </div>
+        )}
+        {orderModal && (
+          <div className="w-[420px] h-[350px] border border-gray-200 dark:border-gray-700 absolute inset-0 top-60 left-1/2 -translate-x-1/2 p-6 rounded-2xl shadow-xl bg-white dark:bg-slate-900 text-gray-900 dark:text-white">
+            <h1 className="flex items-center gap-3 text-2xl font-semibold mb-6">
+              Shaxsingizni tasdiqlang!
+            </h1>
+            <form onSubmit={ordered} className="space-y-5">
+              <div className="flex flex-col gap-2">
+                <label className="font-medium">Telefon raqamingiz</label>
+                <input
+                  type="number"
+                  name="contactNumber"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Telefon raqamingizni kiriting..."
+                  required
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="font-medium">
+                  Ijtimoiy tarmoq manzilingiz
+                </label>
+                <input
+                  type="text"
+                  name="contactLink"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Manzilingizni kiriting..."
+                  required
+                />
+              </div>
+              <div className="pt-4 flex items-center w-full gap-3">
+                <button
+                  type="submit"
+                  className="w-full bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold py-2 rounded-lg shadow-sm"
+                >
+                  Yuborish
+                </button>
+                <button
+                  type="submit"
+                  onClick={() => setOrderModal(false)}
+                  className="w-full bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold py-2 rounded-lg shadow-sm"
+                >
+                  Bekor qilish
+                </button>
+              </div>
+            </form>
           </div>
         )}
       </div>

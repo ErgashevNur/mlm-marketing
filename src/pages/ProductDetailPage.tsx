@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, Star, ShoppingCart, CheckCircle } from "lucide-react";
+import { ArrowLeft, Star, CheckCircle } from "lucide-react";
 import { useCart } from "../contexts/CartContext";
+import { toast } from "sonner";
 
 const ProductDetailPage: React.FC = () => {
   const { t } = useTranslation();
@@ -63,8 +64,8 @@ const ProductDetailPage: React.FC = () => {
           const data = await res.json();
           setApiProduct(data);
         }
-      } catch (e) {
-        // handle error
+      } catch (e: any) {
+        toast.error(e.message);
       }
     };
     fetchProduct();
@@ -160,38 +161,6 @@ const ProductDetailPage: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            {/* Quantity */}
-            <div className="flex items-center space-x-4 mb-4">
-              <span className="text-gray-700 dark:text-gray-300">
-                {t("productsPage.quantity")}
-              </span>
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-400 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors dark:text-gray-100"
-                >
-                  -
-                </button>
-                <span className="w-12 text-center text-gray-900 dark:text-white font-medium">
-                  {quantity}
-                </span>
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors dark:text-gray-100"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-
-            <button
-              onClick={handleAddToCart}
-              className="w-full flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
-            >
-              <ShoppingCart size={20} className="mr-2" />
-              {t("productsPage.addToCart")}
-            </button>
           </div>
 
           {/* Instructor */}

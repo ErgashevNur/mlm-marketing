@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import StatCard from "../components/StatCard";
+import { toast } from "sonner";
 
 // Define the Friend interface for type safety
 interface Friend {
@@ -30,6 +31,7 @@ const ReferralsPage: React.FC = () => {
   const [referralFriends, setReferralFriends] = useState<Friend[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [referals, setReferals] = useState([]);
 
   // Check if user is authenticated
   if (!user) {
@@ -130,6 +132,31 @@ const ReferralsPage: React.FC = () => {
     window.open(`https://wa.me/?text=${message}`, "_blank");
   };
 
+  // Get referals
+
+  const getReferals = async () => {
+    const token = localStorage.getItem("token");
+    await fetch("https://mlm-backend.pixl.uz/referal-level", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setReferals(res);
+      })
+      .catch(({ message }) => {
+        toast.error(message);
+      });
+  };
+
+  useEffect(() => {
+    getReferals();
+  }, []);
+
   // Render loading state
   if (isLoading) {
     return (
@@ -147,34 +174,26 @@ const ReferralsPage: React.FC = () => {
     return <div className="text-red-500">{error}</div>;
   }
 
-  console.log(referralFriends);
-
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 sm:p-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
           {t("common.referrals")}
         </h1>
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
           {t("referralsPage.inviteFriendsDesc")}
         </p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <StatCard
           title={t("referrals.totalReferrals")}
           value={ref?.count}
           icon={Users}
           color="blue"
         />
-        {/* <StatCard
-          title={t("referralsPage.paidReferrals")}
-          value={paidReferrals}
-          icon={CheckCircle}
-          color="green"
-        /> */}
         <StatCard
           title={t("referralsPage.UserLevel")}
           value={pendingReferrals}
@@ -191,15 +210,15 @@ const ReferralsPage: React.FC = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Referral Link */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">
             {t("referrals.referralLink")}
           </h2>
 
           <div className="space-y-4">
-            <div className="flex items-center space-x-2 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border dark:border-gray-700">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border dark:border-gray-700">
               <input
                 type="text"
                 value={referralLink}
@@ -208,7 +227,7 @@ const ReferralsPage: React.FC = () => {
               />
               <button
                 onClick={copyReferralLink}
-                className="flex items-center px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
+                className="flex items-center justify-center px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
               >
                 {copiedLink ? (
                   <>
@@ -224,7 +243,7 @@ const ReferralsPage: React.FC = () => {
               </button>
             </div>
 
-            <div className="flex space-x-3">
+            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
               <button
                 onClick={shareOnTelegram}
                 className="flex-1 flex items-center justify-center px-4 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors"
@@ -244,59 +263,67 @@ const ReferralsPage: React.FC = () => {
         </div>
 
         {/* Referral Stats */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            {t("referralsPage.RefPrise")}
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            {t("referrals.referalevel")}
           </h2>
 
-          <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                  <CheckCircle className="text-white" size={16} />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    {t("referralsPage.paidReferrals")}
-                  </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{}</p>
-                </div>
-              </div>
-              <span className="text-lg font-bold flex items-center gap-1 text-green-600 dark:text-green-400">
-                <img src="/CoinLogo.png" className="w-5 h-5" />
-                {}
-              </span>
-            </div>
-
-            <div className="flex items-center justify-between p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                  <Clock className="text-white" size={16} />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    {t("referralsPage.pendingReferrals")}
-                  </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{}</p>
-                </div>
-              </div>
-              <span className="text-lg font-bold text-blue-600 flex items-center gap-1 dark:text-blue-400">
-                <img src="/CoinLogo.png" className="w-5 h-5" />
-                {}
-              </span>
+          <div className="overflow-x-auto">
+            <div className="max-h-[360px] overflow-y-auto rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+              <table className="min-w-full text-sm divide-y divide-gray-200 dark:divide-gray-700">
+                <thead className="bg-gray-100 dark:bg-gray-800 sticky top-0 z-10">
+                  <tr>
+                    <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      #
+                    </th>
+                    <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      {t("referrals.count")}
+                    </th>
+                    <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      {t("referrals.prize")}
+                    </th>
+                    <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      {t("referrals.level")}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+                  {referals.map(({ id, count, prize, level }, index) => (
+                    <tr
+                      key={id}
+                      className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                    >
+                      <td className="px-6 py-4 text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                        {index + 1}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-white">
+                          {count}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                        {prize}
+                      </td>
+                      <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                        {level}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
 
       {/* Referral Friends List */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6">
           {t("referrals.invitedFriends")}
         </h2>
 
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-200 dark:border-gray-700">
                 <th className="text-left py-3 px-4 font-medium text-gray-500 dark:text-gray-400">
@@ -330,14 +357,12 @@ const ReferralsPage: React.FC = () => {
                     className="hover:bg-gray-50 dark:hover:bg-gray-800 transition"
                   >
                     <td className="py-4 px-4">
-                      <div>
-                        <p className="font-medium text-gray-900 dark:text-white">
-                          {friend.user.name}
-                        </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {friend.user.email}
-                        </p>
-                      </div>
+                      <p className="font-medium text-gray-900 dark:text-white">
+                        {friend.user.name}
+                      </p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        {friend.user.email}
+                      </p>
                     </td>
                     <td className="py-4 px-4">
                       <span className="text-sm text-gray-700 dark:text-gray-300">
@@ -347,12 +372,12 @@ const ReferralsPage: React.FC = () => {
                     <td className="py-4 px-4">
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          friend.user?.isActive === true
+                          friend.user?.isActive
                             ? "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400"
                             : "bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-400"
                         }`}
                       >
-                        {friend.user?.isActive === true ? (
+                        {friend.user?.isActive ? (
                           <>
                             <CheckCircle className="mr-1" size={12} />
                             {t("referrals.active")}
@@ -368,7 +393,7 @@ const ReferralsPage: React.FC = () => {
                     <td className="py-4 px-4 text-right">
                       <span
                         className={`text-sm font-semibold ${
-                          friend.user?.isActive === true
+                          friend.user?.isActive
                             ? "text-green-600 dark:text-green-400"
                             : "text-orange-600 dark:text-orange-400"
                         }`}
@@ -388,14 +413,3 @@ const ReferralsPage: React.FC = () => {
 };
 
 export default ReferralsPage;
-
-// Tarjima qilinmagan so'zlar va matnlar ro'yxati:
-// 1. Please log in to view referrals.
-// 2. Error: Referral key is missing.
-// 3. Failed to load referral friends. Please try again later.
-// 4. Invite friends and earn bonuses for each successful referral
-// 5. Referral Performance
-// 6. Paid Referrals (stat card va performance)
-// 7. Pending Referrals (stat card va performance)
-// 8. friends (performance blokida)
-// 9. No referral friends found.

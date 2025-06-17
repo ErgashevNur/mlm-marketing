@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import {
   Globe,
   User,
-  ShoppingCart,
   Menu,
   X,
   Sun,
@@ -20,14 +19,12 @@ import {
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
-import { useCart } from "../contexts/CartContext";
 import LanguageSelector from "./LanguageSelector";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
   const { isDarkMode, toggleTheme } = useTheme();
-  const { getItemCount } = useCart();
   const location = useLocation();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -114,31 +111,16 @@ const Navbar: React.FC = () => {
             {user ? (
               <>
                 {/* Coins display */}
-                <div className="hidden md:flex items-center space-x-2 px-3 py-1 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                <div className="hidden min-w-16 md:flex items-center space-x-2 px-3 py-1 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
                   <img
                     src="/CoinLogo.png"
                     className="text-yellow-600 dark:text-yellow-400 w-5"
-                    size={16}
                   />
                   <span className="text-sm font-medium text-yellow-700 dark:text-yellow-300">
                     {user?.coin?.toLocaleString()}
                   </span>
                 </div>
 
-                {/* Cart */}
-                <Link
-                  to="/dashboard/checkout"
-                  className="relative p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <ShoppingCart className="dark:text-slate-200" size={20} />
-                  {getItemCount() > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                      {getItemCount()}
-                    </span>
-                  )}
-                </Link>
-
-                {/* User menu */}
                 <div className="relative">
                   <button
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
@@ -149,9 +131,6 @@ const Navbar: React.FC = () => {
                         {user.name?.charAt(0).toUpperCase()}
                       </span>
                     </div>
-                    {/* <span className="hidden sm:block text-sm font-medium text-gray-700 dark:text-gray-300">
-                      {user.name}
-                    </span> */}
                     <ChevronDown
                       className={`transform transition-transform dark:text-slate-200 ${
                         isUserMenuOpen ? "rotate-180" : ""

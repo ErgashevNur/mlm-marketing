@@ -32,7 +32,7 @@
   },
   "dashboard": {
     "welcomeBack": "欢迎回来",
-    "yourCoin": "您的金币",
+    "yourCoin": "您的USDT",
     "totalEarnings": "总收入",
     "todayEarnings": "今日收入",
     "totalReferrals": "总推荐人数",
@@ -47,10 +47,10 @@
     "withdrawFunds": "提现",
     "upgradePlan": "升级套餐",
     "bonusHistory": "您的奖励已到账",
-    "coin": "金币",
+    "coin": "USDT",
     "dailyBonusAvailable": "每日奖励可领取！",
     "claimYour": "领取您的",
-    "coinsToday": "金币吧",
+    "coinsToday": "USDT吧",
     "claimNow": "立即领取",
     "bonusOncePerDay": "每日只能领取一次奖励。",
     "planNotFound": "未找到套餐",
@@ -117,7 +117,7 @@
     "selectPlan": "选择计划",
     "popular": "热门",
     "dailyProfit": "每日收益",
-    "coin": "金币",
+    "coin": "USDT",
     "referralBonus": "推荐奖励",
     "term": "周期",
     "createdAt": "创建日期",
@@ -125,7 +125,7 @@
     "longDescription": "详细描述",
     "name": "名称",
     "usage": "用法",
-    "buyPlan": "购买计划，需 {{coin}} 金币",
+    "buyPlan": "购买计划，需 {{coin}} USDT",
     "days": "天"
   },
   "withdraw": {
@@ -201,7 +201,7 @@
     "noProducts": "未找到产品",
     "tryAdjusting": "请尝试调整您的搜索词或筛选条件",
     "featured": "精选",
-    "coins": "金币",
+    "coins": "USDT",
     "view": "查看",
     "add": "添加"
   },
@@ -223,16 +223,23 @@
     "resend": "重新发送",
     "calculating": "计算中...",
     "amountPlaceholder": "请输入金币数量",
+    "coinAmount": "金币数量",
+    "amount": "数量",
     "currency": "货币",
-    "calculated": "{{coinAmount}} × {{currency}} = {{calculatedValue}}",
+    "orderSummary": "订单摘要",
     "historyTitle": "提现历史",
     "noData": "暂无数据或正在加载...",
-    "coin": "金币",
+    "coin": "USDT",
     "processed": "已处理",
     "statusSending": "发送中",
     "statusSuccess": "成功",
     "statusCancelled": "已取消",
-    "productCount": "产品数量"
+    "productCount": "产品数量",
+    "requested": "已请求",
+    "processedLabel": "已处理",
+    "card": "卡",
+    "transactionId": "交易ID",
+    "trackActivity": "跟踪您的交易活动"
   },
   "landing": {
     "welcome": "欢迎来到",
@@ -274,5 +281,11 @@
     "termsOfService": "服务条款",
     "cookiePolicy": "Cookie政策",
     "copyright": "版权所有."
+  },
+  "trading": {
+    "dashboard": "仪表盘",
+    "purchaseCoins": "购买金币",
+    "selectCurrency": "选择货币",
+    "totalValue": "总价值"
   }
 }

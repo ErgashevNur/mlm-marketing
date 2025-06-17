@@ -32,7 +32,7 @@
   },
   "dashboard": {
     "welcomeBack": "Хуш омадед",
-    "yourCoin": "Тангаи шумо",
+    "yourCoin": "USDT-и шумо",
     "totalEarnings": "Ҳамаги даромад",
     "todayEarnings": "Даромади имрӯз",
     "totalReferrals": "Ҳамаги рефералҳо",
@@ -47,10 +47,10 @@
     "withdrawFunds": "Пул гирифтан",
     "upgradePlan": "Навсозии тариф",
     "bonusHistory": "Бонуси шумо қабул шуд",
-    "coin": "танга",
+    "coin": "USDT",
     "dailyBonusAvailable": "Бонуси ҳаррӯза дастрас аст!",
     "claimYour": "Бонуси худро гиред",
-    "coinsToday": "тангаро имрӯз гиред",
+    "coinsToday": "USDT-ро имрӯз гиред",
     "claimNow": "Ҳозир гиред",
     "bonusOncePerDay": "Бонусро танҳо як маротиба дар як рӯз гирифтан мумкин аст.",
     "planNotFound": "Тариф ёфт нашуд",
@@ -117,7 +117,7 @@
     "selectPlan": "Интихоби тариф",
     "popular": "Маъмул",
     "dailyProfit": "Фоидаи ҳаррӯза",
-    "coin": "Танга",
+    "coin": "USDT",
     "referralBonus": "Бонуси рефералӣ",
     "term": "Мӯҳлат",
     "createdAt": "Санаи эҷод",
@@ -125,7 +125,7 @@
     "longDescription": "Тавсифи муфассал",
     "name": "Ном",
     "usage": "Истифода",
-    "buyPlan": "Харидани тариф бо {{coin}} танга",
+    "buyPlan": "Харидани тариф бо {{coin}} USDT",
     "days": "рӯз"
   },
   "withdraw": {
@@ -201,7 +201,7 @@
     "noProducts": "Маҳсулотҳо ёфт нашуданд",
     "tryAdjusting": "Калимаҳои ҷустуҷӯ ё филтрҳоро тағйир диҳед",
     "featured": "Тавсияшаванда",
-    "coins": "танга",
+    "coins": "USDT",
     "view": "Дидан",
     "add": "Илова кардан"
   },
@@ -223,16 +223,23 @@
     "resend": "Боз фиристодан",
     "calculating": "Ҳисоб шуда истодааст...",
     "amountPlaceholder": "Миқдори Coin-ро ворид кунед",
+    "coinAmount": "Миқдори Coin",
+    "amount": "Миқдор",
     "currency": "Асъор",
-    "calculated": "{{coinAmount}} × {{currency}} = {{calculatedValue}}",
+    "orderSummary": "Тафсилоти фармоиш",
     "historyTitle": "Таърихи гирифтани пул",
     "noData": "Маълумот ҳоло нест ё бор шуда истодааст...",
-    "coin": "Coin",
+    "coin": "USDT",
     "processed": "Коркард шуд",
     "statusSending": "Фиристода мешавад",
     "statusSuccess": "Муваффақият",
     "statusCancelled": "Бекор шуд",
-    "productCount": "Миқдори маҳсулот"
+    "productCount": "Миқдори маҳсулот",
+    "requested": "Дархост шуд",
+    "processedLabel": "Коркард шуд",
+    "card": "Корт",
+    "transactionId": "ID транзаксия",
+    "trackActivity": "Фаъолияти савдои худро пайгирӣ кунед"
   },
   "landing": {
     "welcome": "Хуш омадед",
@@ -274,5 +281,11 @@
     "termsOfService": "Шартҳои истифода",
     "cookiePolicy": "Сиёсати кукиҳо",
     "copyright": "Ҳамаи ҳуқуқҳо ҳифз шудаанд."
+  },
+  "trading": {
+    "dashboard": "Панели идоракунӣ",
+    "purchaseCoins": "Хариди Coin",
+    "selectCurrency": "Асъорро интихоб кунед",
+    "totalValue": "Арзиши умумӣ"
   }
 }

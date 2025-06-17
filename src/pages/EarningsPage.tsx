@@ -1,7 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Upload } from "lucide-react";
+import {
+  CheckCircle,
+  Clock,
+  CreditCard,
+  TrendingUp,
+  Upload,
+  XCircle,
+  History,
+} from "lucide-react";
 import { io } from "socket.io-client";
+import { toast } from "sonner";
 
 const EarningsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -11,9 +20,14 @@ const EarningsPage: React.FC = () => {
   const [coinAmount, setCoinAmount] = useState("");
   const [currency, setCurrency] = useState("USD");
   const [coinData, setCoinData] = useState<any>();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [isDepositDisabled, setIsDepositDisabled] = useState(false);
   const [depositTimer, setDepositTimer] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalData, setModalData] = useState<any>(null);
+  const [cardNum, setCardNum] = useState();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [paymentId, setPaymentId] = useState();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -37,39 +51,21 @@ const EarningsPage: React.FC = () => {
         return res.json();
       })
       .then((responseData) => {
-        setData(responseData);
+        // Ensure data is always an array
+        if (Array.isArray(responseData)) {
+          setData(responseData);
+        } else if (responseData && Array.isArray(responseData.data)) {
+          setData(responseData.data);
+        } else if (responseData) {
+          setData([responseData]);
+        } else {
+          setData([]);
+        }
       })
       .catch((err) => {
         console.error("Xatolik:", err.message);
       });
   }, []);
-
-  // const [withdrawalHistory] = useState([
-  //   {
-  //     id: 1,
-  //     amount: 500,
-  //     currency: "UZS",
-  //     date: "May 1, 2023, 07:30 PM",
-  //     status: "Tasdiqlangan",
-  //     maskedCard: "****4242",
-  //   },
-  //   {
-  //     id: 2,
-  //     amount: 300,
-  //     currency: "UZS",
-  //     date: "May 15, 2023, 02:15 PM",
-  //     status: "Kutilmoqda",
-  //     maskedCard: "****4444",
-  //   },
-  //   {
-  //     id: 3,
-  //     amount: 700,
-  //     currency: "UZS",
-  //     date: "May 20, 2023, 03:45 PM",
-  //     status: "Tasdiqlangan",
-  //     maskedCard: "****4242",
-  //   },
-  // ]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -87,12 +83,16 @@ const EarningsPage: React.FC = () => {
     });
 
     socketRef.current.on("roomAssigned", (data) => {
-      console.log(`✅ Siz ${data.roomName} roomga qo‘shildingiz`);
+      console.log(`✅ Siz ${data} roomga qo‘shildingiz`);
+      toast.success(`You have been connected to room ${data}.`);
     });
 
     socketRef.current.on("card_info", (data) => {
-      setData(data);
-      console.log("data: ", data);
+      setModalData(data);
+      setIsModalOpen(true);
+      setCardNum(data);
+      console.log("data: ", data.paymentId);
+      setPaymentId(data.paymentId);
 
       if (Notification.permission === "granted") {
         const notification = new Notification(data.paymentId, {
@@ -148,7 +148,8 @@ const EarningsPage: React.FC = () => {
 
     if (amount > 0 && socketRef.current) {
       socketRef.current.emit("paymentRequest", {
-        how_much: amount,
+        how_much: coinAmount,
+        currency: currency,
       });
 
       setBalance((prev) => prev + amount);
@@ -176,191 +177,444 @@ const EarningsPage: React.FC = () => {
     CANCELLED: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200",
   };
 
-  // Withdrawal History section
-  const renderWithdrawalHistory = () => (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-8 flex items-center gap-2">
-        <span role="img" aria-label="card">
-          💳
-        </span>
-        {t("earningsPage.historyTitle")}
-      </h2>
+  const handleFileUpload = async () => {
+    if (!selectedFile) return;
+    const token = localStorage.getItem("token");
+    const formData = new FormData();
+    formData.append("file", selectedFile);
 
-      {!data || data?.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-12">
-          <svg
-            className="w-12 h-12 text-gray-300 dark:text-gray-600 mb-4"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <rect x="3" y="7" width="18" height="13" rx="2" />
-            <path d="M3 10h18" />
-          </svg>
-          <p className="text-gray-500 dark:text-gray-400 text-lg">
-            {t("earningsPage.noData")}
-          </p>
-        </div>
-      ) : (
-        <div className="space-y-6">
-          {data?.map((item: any) => (
-            <div
-              key={item.id}
-              className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-5 shadow transition hover:shadow-lg"
-            >
-              <div className="flex-1 flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                    {item.how_much}
-                  </span>
-                  <span className="text-base text-gray-500 dark:text-gray-400 font-medium">
-                    {item.currency || t("earningsPage.coin")}
-                  </span>
-                  <span
-                    className={`ml-3 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide ${
-                      statusStyles[item.status]
-                    }`}
-                  >
-                    {item.status === "SENDING"
-                      ? t("earningsPage.statusSending")
-                      : item.status === "SUCCESS"
-                      ? t("earningsPage.statusSuccess")
-                      : t("earningsPage.statusCancelled")}
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  <span>
-                    <span className="font-medium">
-                      {t("earningsPage.historyTitle")}:
-                    </span>{" "}
-                    {item.to_send_date
-                      ? new Date(item.to_send_date).toLocaleString()
-                      : "-"}
-                  </span>
-                  <span>
-                    <span className="font-medium">
-                      {t("earningsPage.processed")}:
-                    </span>{" "}
-                    {item.to_checked_date
-                      ? new Date(item.to_checked_date).toLocaleString()
-                      : "-"}
-                  </span>
-                  <span>
-                    <span className="font-medium">
-                      {t("earningsPage.statusSending")}:
-                    </span>{" "}
-                    {item.status}
-                  </span>
-                  {item.maskedCard && (
-                    <span>
-                      <span className="font-medium">Card:</span>{" "}
-                      {item.maskedCard}
-                    </span>
-                  )}
-                  <span className="text-xs text-gray-400">ID: {item.id}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+    try {
+      // 1. Upload image to /upload/single
+      const uploadRes = await fetch(
+        "https://mlm-backend.pixl.uz/upload/single",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+      const uploadData = await uploadRes.json();
+      // Assume the uploaded image URL is in uploadData.url or uploadData.photo_url
+      const imageUrl = uploadData.url || uploadData.photo_url;
+
+      console.log(imageUrl);
+
+      if (!imageUrl) {
+        toast.error("Rasm URL topilmadi!");
+        return;
+      }
+
+      // 2. Send image URL to /payments/scrinshot
+      const scrinshotRes = await fetch(
+        "https://mlm-backend.pixl.uz/payments/scrinshot",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            photoUrl: imageUrl,
+            paymentId,
+          }),
+        }
+      );
+
+      if (!scrinshotRes.ok) {
+        toast.error("Rasmni yuborishda xatolik yuz berdi!");
+        return;
+      }
+
+      toast.success("Rasm muvaffaqiyatli yuborildi!");
+      setSelectedFile(null);
+      setIsModalOpen(false);
+    } catch (error) {
+      toast.error("Rasm yuklashda xatolik yuz berdi!");
+      console.error("Upload error:", error);
+    }
+  };
+
+  // const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     setSelectedFile(file);
+  //     const photo_url = URL.createObjectURL(file);
+  //     setCommonFields((prev) => ({ ...prev, photo_url: [{ photo_url }] }));
+  //   }
+  // }
+
+  // e.preventDefault();
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     toast.error("No authentication token found.");
+  //     return;
+  //   }
+
+  //   try {
+  //     let uploadedPhotoUrl = commonFields.photo_url;
+
+  //     // Faqat yangi rasm tanlangan bo‘lsa yuklanadi
+  //     if (selectedFile) {
+  //       const formData = new FormData();
+  //       formData.append("file", selectedFile);
+
+  //       const uploadRes = await fetch(
+  //         "https://mlm-backend.pixl.uz/upload/single",
+  //         {
+  //           method: "POST",
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //           body: formData,
+  //         }
+  //       );
+
+  //       const res = await uploadRes.json();
+  //       uploadedPhotoUrl = res.url;
+  //     }
+
+  //     const payload = {
+  //       rating: Number(commonFields.rating),
+  //       rewiev: Number(commonFields.rewiev),
+  //       count: Number(commonFields.count),
+  //       coin: Number(commonFields.coin),
+  //       photo_url: [
+  //         {
+  //           photo_url: uploadedPhotoUrl,
+  //         },
+  //       ],
+  //       translations: Object.entries(translations).map(([lang, data]) => ({
+  //         language: lang,
+  //         ...data,
+  //       })),
+  //     };
+
+  //     const url =
+  //       mode === "edit"
+  //         ? `https://mlm-backend.pixl.uz/products/${editingId}`
+  //         : "https://mlm-backend.pixl.uz/products";
+
+  //     const method = mode === "edit" ? "PATCH" : "POST";
+
+  //     await fetch(url, {
+  //       method,
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(payload),
+  //     });
+
+  //     toast.success(mode === "edit" ? "Product updated" : "Product added");
+  //     fetchTariffs();
+
+  //     // Forma tozalansin
+  //     setCommonFields({
+  //       rating: 0,
+  //       rewiev: 0,
+  //       count: 0,
+  //       coin: 0,
+  //       photo_url: "",
+  //     });
+  //     setTranslations({});
+  //     setEditingId(null);
+  //     setMode("add");
+  //     setSelectedFile(null);
+  //     setOpeFormModal(false);
+  //   } catch (err) {
+  //     toast.error("Save error");
+  //     console.error(err);
+  //   }
+  // }
+
+  // https://mlm-backend.pixl.uz/payments/scrinshot
 
   return (
-    <div className="min-h-screen dark:text-white p-6 space-y-6">
-      {/* Balans */}
-      <div className="dark:bg-gray-800 rounded-xl shadow-md p-6 border dark:border-gray-700">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-2xl font-bold">
-              {t("earningsPage.title")}:{" "}
-              <span className="text-yellow-400">{getCalculatedValue()}</span>
-            </h1>
-            <p className="dark:text-gray-400 text-sm">
-              {t("earningsPage.enterAmount")}
-            </p>
+    <div className="min-h-screen text-gray-900 dark:text-white">
+      {/* Header */}
+      <div className="bg-white/10 dark:bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-20 z-10 rounded-3xl">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                <img src="/CoinLogo.png" className="w-6 h-6" />
+              </div>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                {t("trading.dashboard")}
+              </h1>
+            </div>
           </div>
-          <div className="flex space-x-4">
-            <button
-              onClick={handleDeposit}
-              className={`bg-green-500 hover:bg-green-600 dark:text-white px-6 py-2 rounded-lg flex items-center transition-opacity ${
-                isDepositDisabled ? "opacity-60 cursor-not-allowed" : ""
-              }`}
-              disabled={isDepositDisabled}
-            >
-              <Upload className="mr-2" size={16} />
-              {isDepositDisabled ? (
-                <>
-                  <svg
-                    className="animate-spin h-4 w-4 mr-2 text-white"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                      fill="none"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                    />
-                  </svg>
-                  {depositTimer > 0
-                    ? `${t("earningsPage.resend")} (${depositTimer}s)`
-                    : t("earningsPage.sendRequest")}
-                </>
-              ) : (
-                t("earningsPage.sendRequest")
-              )}
-            </button>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="number"
-            value={coinAmount}
-            onChange={(e) => setCoinAmount(e.target.value)}
-            placeholder={t("earningsPage.amountPlaceholder")}
-            className="w-full dark:bg-gray-700 dark:text-white border dark:border-gray-600 rounded-lg px-4 py-2"
-          />
-          <select
-            value={currency}
-            onChange={(e) => setCurrency(e.target.value)}
-            className="w-full dark:bg-gray-700 dark:text-white border dark:border-gray-600 rounded-lg px-4 py-2"
-          >
-            {coinData &&
-              Array.isArray(coinData) &&
-              coinData.map((curr: any) => (
-                <option key={curr.id} value={curr.currency}>
-                  {curr.currency}
-                </option>
-              ))}
-          </select>
-        </div>
-        {/* Hisoblangan natija */}
-        <div className="mt-4">
-          <span className="font-semibold">
-            {coinAmount && currency && getCalculatedValue()
-              ? t("earningsPage.calculated", {
-                  coinAmount,
-                  currency,
-                  calculatedValue: getCalculatedValue(),
-                })
-              : ""}
-          </span>
         </div>
       </div>
 
-      {/* Tarix */}
-      {renderWithdrawalHistory()}
+      <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
+        {/* Trading Card */}
+        <div className="bg-white/10 dark:bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 p-8 shadow-2xl">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-2xl flex items-center justify-center">
+              <TrendingUp className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                {t("trading.purchaseCoins")}
+              </h2>
+              <p className="text-gray-700 dark:text-white/70">
+                {t("earningsPage.enterAmount")}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Input Section */}
+            <div className="space-y-6 p-6 border border-white/20 rounded-2xl">
+              <div className="space-y-3">
+                <label className="block text-gray-900 dark:text-white font-medium">
+                  {t("earningsPage.coinAmount")}
+                </label>
+                <input
+                  type="number"
+                  value={coinAmount}
+                  onChange={(e) => setCoinAmount(e.target.value)}
+                  placeholder={t("earningsPage.amountPlaceholder")}
+                  className="w-full bg-white/10 dark:bg-gray-800 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                />
+              </div>
+
+              <div className="pb-7 space-y-3">
+                <label className="block text-gray-900 dark:text-white font-medium">
+                  {t("trading.selectCurrency")}
+                </label>
+                <select
+                  value={currency}
+                  onChange={(e) => setCurrency(e.target.value)}
+                  className="w-full bg-white/10 dark:bg-gray-800 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                >
+                  {coinData?.map((curr: any) => (
+                    <option
+                      key={curr.id}
+                      value={curr.currency}
+                      className="bg-slate-800"
+                    >
+                      {curr.currency}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <button
+                onClick={handleDeposit}
+                disabled={isDepositDisabled}
+                className={`w-full bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-2xl flex items-center justify-center gap-3 transition-all duration-200 transform hover:scale-[1.02] shadow-lg ${
+                  isDepositDisabled
+                    ? "opacity-60 cursor-not-allowed hover:scale-100"
+                    : ""
+                }`}
+              >
+                {isDepositDisabled ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    {depositTimer > 0
+                      ? `${t("earningsPage.resend")} (${depositTimer}s)`
+                      : t("earningsPage.sendRequest")}
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-5 h-5" />
+                    {t("earningsPage.sendRequest")}
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* Calculation Section */}
+            <div className="rounded-2xl p-6 border border-white/20">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                {t("earningsPage.orderSummary")}
+              </h3>
+              <div className="space-y-4 flex flex-col pt-2 gap-10">
+                <div className="flex justify-between items-center py-2 pb-5 border-b-[1px]">
+                  <span className="text-gray-700 dark:text-white/70">
+                    {t("earningsPage.amount")}
+                  </span>
+                  <span className="text-gray-900 dark:text-white font-medium">
+                    {coinAmount} USDT {currency}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center py-2 pb-5 border-b-[1px]">
+                  <span className="text-gray-700 dark:text-white/70">
+                    {t("earningsPage.currency")}
+                  </span>
+                  <span className="text-gray-900 dark:text-white font-medium">
+                    {currency}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl px-4">
+                  <span className="text-gray-900 dark:text-white font-semibold">
+                    {t("trading.totalValue")}
+                  </span>
+                  <span className="text-2xl font-bold text-yellow-400">
+                    {getCalculatedValue()}
+                  </span>
+
+                  {/* <h1>{cardNum?.cardNumber}</h1> */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Transaction History */}
+        <div className="bg-white/10 dark:bg-gray-800 backdrop-blur-md rounded-3xl border border-white/20 p-8 shadow-2xl">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center">
+              <History className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                {t("earningsPage.historyTitle")}
+              </h2>
+              <p className="text-gray-700 dark:text-white/70">
+                {t("earningsPage.trackActivity")}
+              </p>
+            </div>
+          </div>
+
+          {!Array.isArray(data) || data.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-16">
+              <div className="w-20 h-20 bg-white/10 dark:bg-gray-900 rounded-3xl flex items-center justify-center mb-6">
+                <CreditCard className="w-10 h-10 text-gray-400 dark:text-white/50" />
+              </div>
+              <p className="text-gray-700 dark:text-white/70 text-lg">
+                {t("earningsPage.noData")}
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {data.map((item: any) => (
+                <div
+                  key={item.id}
+                  className="bg-white/5 dark:bg-gray-900 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 dark:hover:bg-gray-800 transition-all duration-200 hover:transform hover:scale-[1.01]"
+                >
+                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <img src="/CoinLogo.png" className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                            {item.how_much}
+                          </span>
+                          <span className="text-gray-700 dark:text-white/70 font-medium">
+                            {item.currency}
+                          </span>
+                          <span
+                            className={`px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide ${
+                              statusStyles[item.status]
+                            }`}
+                          >
+                            {item.status === "SENDING" && (
+                              <div className="flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                {t("earningsPage.statusSending")}
+                              </div>
+                            )}
+                            {item.status === "SUCCESS" && (
+                              <div className="flex items-center gap-1">
+                                <CheckCircle className="w-3 h-3" />
+                                {t("earningsPage.statusSuccess")}
+                              </div>
+                            )}
+                            {item.status === "CANCELLED" && (
+                              <div className="flex items-center gap-1">
+                                <XCircle className="w-3 h-3" />
+                                {t("earningsPage.statusCancelled")}
+                              </div>
+                            )}
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap gap-4 text-sm text-gray-700 dark:text-white/60">
+                          <span>
+                            <span className="font-medium">Requested:</span>{" "}
+                            {item.to_send_date
+                              ? new Date(item.to_send_date).toLocaleString()
+                              : "-"}
+                          </span>
+                          <span>
+                            <span className="font-medium">Processed:</span>{" "}
+                            {item.to_checked_date
+                              ? new Date(item.to_checked_date).toLocaleString()
+                              : "-"}
+                          </span>
+                          {item.maskedCard && (
+                            <span>
+                              <span className="font-medium">Card:</span>{" "}
+                              {item.maskedCard}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right lg:text-left">
+                      <div className="text-xs text-gray-400 dark:text-white/40">
+                        Transaction ID
+                      </div>
+                      <div className="text-gray-700 dark:text-white/60 font-mono">
+                        {item.id}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-xl shadow-lg w-96 relative">
+            <button
+              className="absolute top-2 right-3 text-xl font-bold"
+              onClick={() => setIsModalOpen(false)}
+            >
+              ×
+            </button>
+            <h2 className="text-lg font-semibold mb-2">Ma'lumot keldi!</h2>
+            {modalData ? (
+              <div>
+                <p>
+                  Card Number:{" "}
+                  {cardNum?.cardNumber
+                    ? cardNum.cardNumber.replace(/(.{4})/g, "$1 ").trim()
+                    : ""}
+                </p>
+                <input
+                  type="file"
+                  onChange={(e) =>
+                    setSelectedFile(
+                      e.target.files && e.target.files[0]
+                        ? e.target.files[0]
+                        : null
+                    )
+                  }
+                />
+                <button
+                  className="mt-3 px-4 py-2 bg-blue-600 text-white rounded"
+                  onClick={handleFileUpload}
+                  disabled={!selectedFile}
+                >
+                  Rasmni yuklash
+                </button>
+              </div>
+            ) : (
+              <p>Yuklanmoqda...</p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
