@@ -1,4 +1,3 @@
-// src/App.tsx
 import {
   BrowserRouter as Router,
   Routes,
@@ -27,9 +26,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { Toaster } from "sonner";
 import BonusHistory from "./components/BonusHistory";
 import AuthCallback from "./components/AuthCallback";
+import OauthToken from "./components/OauthToken";
 
 import "./i18n/config";
-import OauthToken from "./components/OauthToken";
 
 function App() {
   return (
@@ -46,7 +45,7 @@ function App() {
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegisterPage />} />
 
-                  {/* ✅ OAuth callback route must be outside protected layout */}
+                  {/* OAuth callbacks - outside dashboard */}
                   <Route path="/auth/callback" element={<AuthCallback />} />
                   <Route path="/oauth-success" element={<OauthToken />} />
 
@@ -73,7 +72,7 @@ function App() {
                     <Route path="bonusHistory" element={<BonusHistory />} />
                   </Route>
 
-                  {/* Catch-all route */}
+                  {/* Not found */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </Router>
