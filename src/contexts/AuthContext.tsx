@@ -1,4 +1,6 @@
+// src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import { toast } from "sonner";
 
 interface User {
@@ -18,7 +20,7 @@ interface AuthContextType {
     name: string,
     email: string,
     password: string,
-    referal: number
+    referal?: string
   ) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
   loginWithFacebook: () => Promise<void>;
@@ -31,7 +33,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
@@ -40,22 +42,24 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user-data"))
+  ); // ✅ To'g'rilangang
   const fetchUserData = async () => {
+    console.log("asdadadad");
+
     try {
       const token =
         localStorage.getItem("token") || sessionStorage.getItem("token2");
       if (!token) {
-        setIsLoading(false);
+        setIsLoading(true);
         return;
       }
 
       const response = await fetch(
         `${import.meta.env.VITE_API_KEY}/users/token`,
         {
-          method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -63,15 +67,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       const data = await response.json();
-
       if (response.ok) {
-        setUser(data);
-        // yoki setUser(data.user), agar API shunaqa qaytarsa
+        const user = data.user || data.data?.user || data; // 👈 Formatga qarab
+        setUser(user);
       } else {
-        throw new Error(response.statusText);
+        throw new Error("Token check failed");
       }
     } catch (error) {
-      console.error("Fetch error:", error);
+      console.error("Auth check error:", error);
+      setUser(null);
     } finally {
       setIsLoading(false);
     }
@@ -84,7 +88,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const response = await fetch(
+      const res = await fetch(
         `${import.meta.env.VITE_API_KEY}/authorization/login`,
         {
           method: "POST",
@@ -95,26 +99,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         }
       );
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || "Login failed");
-      }
+      if (!res.ok) throw new Error(data.message || "Login failed");
+
+      console.log(data.message);
 
       setUser(data.data.user);
-
       localStorage.setItem("token", data.token);
       sessionStorage.setItem("token2", data.token);
-
-      localStorage.setItem("user-data", JSON.stringify(data.data.user));
       toast.success(data.message);
+      <Navigate to={"/dashboard"} />;
     } catch (error: any) {
-      toast.error(error.message || "An error occurred");
+      toast.error(error.message || "Login error");
     } finally {
       setIsLoading(false);
     }
   };
-  // rester
+
   const register = async (
     name: string,
     email: string,
@@ -123,8 +125,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   ) => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        "https://mlm-backend.pixl.uz/authorization/register",
+      const res = await fetch(
+        `${import.meta.env.VITE_API_KEY}/authorization/register`,
         {
           method: "POST",
           headers: {
@@ -134,21 +136,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         }
       );
 
-      const data = await response.json();
-      localStorage.setItem("email", email); // Store email on success
+      const data = await res.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || "Registration failed");
-      }
+      if (!res.ok) throw new Error(data.message || "Registration failed");
 
-      toast.success(
-        data.message ||
-          "Registration successful! Please check your email to verify your account."
-      );
-      setUser(data);
+      toast.success(data.message || "Registration successful!");
+      localStorage.setItem("email", email);
+      setUser(data.data?.user || null); // agar mavjud bo‘lsa
     } catch (error: any) {
-      toast.error(error.message || "Registration failed");
-      throw error; // Re-throw the error for handleSubmit to catch
+      toast.error(error.message || "Registration error");
     } finally {
       setIsLoading(false);
     }
@@ -156,61 +152,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const loginWithGoogle = async () => {
     window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
-    const url = new URL(window.location.href);
-    const token = url.searchParams.get("token");
-    console.log(token);
-
-    // setIsLoading(true); // setIsLoading(true);
-    // try {
-    // } catch (error: any) {
-    //   console.error("Google login error:", error);
-    //   toast.error(error.message || "Google login failed");
-    // } finally {
-    //   setIsLoading(false);
-    // }
   };
 
   const loginWithFacebook = async () => {
-    window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
-    const url = new URL(window.location.href);
-    const token = url.searchParams.get("token");
-    console.log(token);
+    window.location.href = "https://mlm-backend.pixl.uz/authorization/facebook";
+  };
 
-    // setIsLoading(true); // setIsLoading(true);
-    // try {
-    // } catch (error: any) {
-    //   console.error("Google login error:", error);
-    //   toast.error(error.message || "Google login failed");
-    // } finally {
-    //   setIsLoading(false);
-    // }
+  const logout = () => {
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token2");
+    localStorage.removeItem("user-data");
+    setUser(null);
   };
 
   const claimDailyBonus = () => {
     if (user) {
-      toast.success("Daily bonus claimed!");
+      toast.success("Bonus claimed!");
     } else {
-      toast.error("You must be logged in to claim the bonus");
+      toast.error("Log in first");
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("user-data");
-    localStorage.removeItem("token");
-    sessionStorage.removeItem("token2");
-    setUser(null); // foydalanuvchini ham tozalash
-  };
-
-  const value = {
-    user,
-    login,
-    register,
-    loginWithGoogle,
-    loginWithFacebook,
-    logout,
-    isLoading,
-    claimDailyBonus,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        register,
+        loginWithGoogle,
+        loginWithFacebook,
+        logout,
+        isLoading,
+        claimDailyBonus,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };

@@ -21,6 +21,8 @@ const Dashboard: React.FC = () => {
   //   sendBackend();
   // }, []);
 
+  
+
   console.log(statistika);
 
   const getUser = async () => {
@@ -245,6 +247,13 @@ const Dashboard: React.FC = () => {
                 {action.icon} {action.name}
               </a>
             ))}
+          </div>
+
+          <div>
+            <p>hi</p>
+            <p>himoyalangan</p>
+            <p>himoyalangan</p>
+            <p>himoyalangan</p>
           </div>
         </div>
       </div>

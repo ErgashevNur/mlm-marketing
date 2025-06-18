@@ -1,3 +1,4 @@
+// App.tsx
 import {
   BrowserRouter as Router,
   Routes,
@@ -42,45 +43,28 @@ function App() {
 
                   {/* Protected routes */}
                   <Route
-                    path="/dashboard/*"
+                    path="/dashboard"
                     element={
                       <ProtectedRoute>
-                        <Layout>
-                          <Routes>
-                            <Route path="/" element={<Dashboard />} />
-                            <Route path="/profile" element={<ProfilePage />} />
-                            <Route
-                              path="/earnings"
-                              element={<EarningsPage />}
-                            />
-                            <Route
-                              path="/referrals"
-                              element={<ReferralsPage />}
-                            />
-                            <Route path="/plans" element={<PlansPage />} />
-                            <Route
-                              path="/withdraw"
-                              element={<WithdrawPage />}
-                            />
-                            <Route
-                              path="/products"
-                              element={<ProductsPage />}
-                            />
-                            <Route
-                              path="/products/:id"
-                              element={<ProductDetailPage />}
-                            />
-                            <Route
-                              path="/bonusHistory"
-                              element={<BonusHistory />}
-                            />
-                          </Routes>
-                        </Layout>
+                        <Layout />
                       </ProtectedRoute>
                     }
-                  />
+                  >
+                    <Route index element={<Dashboard />} />
+                    <Route path="profile" element={<ProfilePage />} />
+                    <Route path="earnings" element={<EarningsPage />} />
+                    <Route path="referrals" element={<ReferralsPage />} />
+                    <Route path="plans" element={<PlansPage />} />
+                    <Route path="withdraw" element={<WithdrawPage />} />
+                    <Route path="products" element={<ProductsPage />} />
+                    <Route
+                      path="products/:id"
+                      element={<ProductDetailPage />}
+                    />
+                    <Route path="bonusHistory" element={<BonusHistory />} />
+                  </Route>
 
-                  {/* Redirect to landing page */}
+                  {/* Catch all */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </Router>

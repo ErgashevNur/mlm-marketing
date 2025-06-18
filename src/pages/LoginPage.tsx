@@ -13,9 +13,11 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  if (user) {
-    return <Navigate to="/dashboard" replace />;
-  }
+  // if (!user) {
+  //   <Navigate to={<LoginPage />} />;
+  // }
+
+  console.log(user);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,10 +26,6 @@ const LoginPage: React.FC = () => {
 
   const handleGoogleLogin = async () => {
     await loginWithGoogle();
-  };
-
-  const handleFacebookLogin = async () => {
-    await loginWithFacebook();
   };
 
   return (
