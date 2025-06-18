@@ -154,7 +154,7 @@ const WithdrawPage: React.FC = () => {
           title={t("withdraw.availableBalance")}
           icon={Wallet}
           color="blue"
-          value={user.coin}
+          value={user?.coin}
           subtitle="USTD"
         />
         <StatCard

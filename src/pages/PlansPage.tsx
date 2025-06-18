@@ -137,7 +137,7 @@ const PlansPage: React.FC = () => {
                       </span>
                     </div>
                     <span className="text-2xl font-bold text-green-600">
-                      {plan.dailyProfit}
+                      {plan.dailyProfit} <span className="text-[13px]">USDT</span>
                     </span>
                   </div>
 

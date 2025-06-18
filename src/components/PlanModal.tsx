@@ -138,7 +138,7 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                 </span>
               </div>
               <p className="text-3xl font-bold text-green-800">
-                {plan.dailyProfit}
+                {plan.dailyProfit} <span className="text-xs">USDT</span>
               </p>
             </div>
 
@@ -151,7 +151,9 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                   {t("plans.coin")}
                 </span>
               </div>
-              <p className="text-3xl font-bold text-blue-800">{plan.coin}</p>
+              <p className="text-3xl font-bold flex items-center gap-2 text-blue-800">
+                {plan.coin} <span className="text-xs">USDT</span>
+              </p>
             </div>
 
             <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border border-purple-200">
@@ -178,7 +180,7 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                 </span>
               </div>
               <p className="text-3xl font-bold text-orange-800">
-                {plan.referral_bonus}
+                {plan.referral_bonus} <span className="text-xs">USDT</span>
               </p>
             </div>
           </div>
