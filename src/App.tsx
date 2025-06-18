@@ -48,6 +48,7 @@ function App() {
 
                   {/* ✅ OAuth callback route must be outside protected layout */}
                   <Route path="/auth/callback" element={<AuthCallback />} />
+                  <Route path="/oauth-success" element={<OauthToken />} />
 
                   {/* Protected routes */}
                   <Route
@@ -70,7 +71,6 @@ function App() {
                       element={<ProductDetailPage />}
                     />
                     <Route path="bonusHistory" element={<BonusHistory />} />
-                    <Route path="/oauth-success" element={<OauthToken />} />
                   </Route>
 
                   {/* Catch-all route */}
