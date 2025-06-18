@@ -1,4 +1,4 @@
-// App.tsx
+// src/App.tsx
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,6 +9,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CartProvider } from "./contexts/CartContext";
+
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -20,11 +21,14 @@ import PlansPage from "./pages/PlansPage";
 import WithdrawPage from "./pages/WithdrawPage";
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
+
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
-import "./i18n/config";
 import { Toaster } from "sonner";
 import BonusHistory from "./components/BonusHistory";
+import AuthCallback from "./components/AuthCallback";
+
+import "./i18n/config";
 
 function App() {
   return (
@@ -40,6 +44,9 @@ function App() {
                   <Route path="/" element={<LandingPage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegisterPage />} />
+                  
+                  {/* ✅ OAuth callback route must be outside protected layout */}
+                  <Route path="/auth/callback" element={<AuthCallback />} />
 
                   {/* Protected routes */}
                   <Route
@@ -57,14 +64,11 @@ function App() {
                     <Route path="plans" element={<PlansPage />} />
                     <Route path="withdraw" element={<WithdrawPage />} />
                     <Route path="products" element={<ProductsPage />} />
-                    <Route
-                      path="products/:id"
-                      element={<ProductDetailPage />}
-                    />
+                    <Route path="products/:id" element={<ProductDetailPage />} />
                     <Route path="bonusHistory" element={<BonusHistory />} />
                   </Route>
 
-                  {/* Catch all */}
+                  {/* Catch-all route */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </Router>

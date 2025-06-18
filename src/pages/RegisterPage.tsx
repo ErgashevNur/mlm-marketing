@@ -44,7 +44,6 @@ const RegisterPage: React.FC = () => {
   };
 
   const referal = localStorage.getItem("referral_id");
-  console.log(typeof referal);
 
   // console.log(name, email, password, referal);
 

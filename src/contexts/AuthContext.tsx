@@ -1,6 +1,4 @@
-// src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
 import { toast } from "sonner";
 
 interface User {
@@ -15,6 +13,7 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
   login: (email: string, password: string) => Promise<void>;
   register: (
     name: string,
@@ -22,8 +21,8 @@ interface AuthContextType {
     password: string,
     referal?: string
   ) => Promise<void>;
-  loginWithGoogle: () => Promise<void>;
-  loginWithFacebook: () => Promise<void>;
+  loginWithGoogle: () => void;
+  loginWithFacebook: () => void;
   logout: () => void;
   isLoading: boolean;
   claimDailyBonus: () => void;
@@ -43,17 +42,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user-data"))
-  ); // ✅ To'g'rilangang
-  const fetchUserData = async () => {
-    console.log("asdadadad");
+  const [user, setUser] = useState<User | null>(
+    JSON.parse(localStorage.getItem("user-data") || "null")
+  );
 
+  const fetchUserData = async () => {
     try {
+      setIsLoading(true);
       const token =
         localStorage.getItem("token") || sessionStorage.getItem("token2");
       if (!token) {
-        setIsLoading(true);
         return;
       }
 
@@ -68,8 +66,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       const data = await response.json();
       if (response.ok) {
-        const user = data.user || data.data?.user || data; // 👈 Formatga qarab
+        const user = data.user || data.data?.user || data;
         setUser(user);
+        localStorage.setItem("user-data", JSON.stringify(user));
       } else {
         throw new Error("Token check failed");
       }
@@ -100,14 +99,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.message || "Login failed");
-
-      console.log(data.message);
 
       setUser(data.data.user);
       localStorage.setItem("token", data.token);
       sessionStorage.setItem("token2", data.token);
+      localStorage.setItem("user-data", JSON.stringify(data.data.user));
       toast.success(data.message);
     } catch (error: any) {
       toast.error(error.message || "Login error");
@@ -136,12 +133,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.message || "Registration failed");
 
       toast.success(data.message || "Registration successful!");
       localStorage.setItem("email", email);
-      setUser(data.data?.user || null); // agar mavjud bo‘lsa
+      setUser(data.data?.user || null);
+      localStorage.setItem("user-data", JSON.stringify(data.data.user));
     } catch (error: any) {
       toast.error(error.message || "Registration error");
     } finally {
@@ -150,13 +147,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const loginWithGoogle = async () => {
-    window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
-      
+    // const id = localStorage.getItem("referral_id");
+    // fetch("https://mlm-backend.pixl.uz/authorization/google")
+    //   .then(console.log)
+    //   .catch(console.log);
+
+    try {
+      window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
+    } catch (error: any) {
+      toast.error(error.message || "Registration failed");
+      throw error; // Re-throw the error for handleSubmit to catch
+    } finally {
+      setIsLoading(false);
+    }
+
+    console.log(window.location.pathname.href);
   };
 
-  const loginWithFacebook = async () => {
-    window.location.href = "https://mlm-backend.pixl.uz/authorization/facebook";
-  };
+  // const loginWithFacebook = () => {
+  //   window.location.href = `${
+  //     import.meta.env.VITE_API_KEY
+  //   }/authorization/facebook`;
+  // };
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -177,10 +189,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     <AuthContext.Provider
       value={{
         user,
+        setUser,
         login,
         register,
         loginWithGoogle,
-        loginWithFacebook,
         logout,
         isLoading,
         claimDailyBonus,
