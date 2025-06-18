@@ -29,6 +29,7 @@ import BonusHistory from "./components/BonusHistory";
 import AuthCallback from "./components/AuthCallback";
 
 import "./i18n/config";
+import OauthToken from "./components/OauthToken";
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
                       element={<ProductDetailPage />}
                     />
                     <Route path="bonusHistory" element={<BonusHistory />} />
+                    <Route path="/oauth-success" element={<OauthToken />} />
                   </Route>
 
                   {/* Catch-all route */}
