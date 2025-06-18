@@ -13,9 +13,9 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // if (!user) {
-  //   <Navigate to={<LoginPage />} />;
-  // }
+  if (user) {
+    return <Navigate to={"/dashboard"} />;
+  }
 
   console.log(user);
 

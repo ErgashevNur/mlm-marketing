@@ -109,7 +109,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       localStorage.setItem("token", data.token);
       sessionStorage.setItem("token2", data.token);
       toast.success(data.message);
-      <Navigate to={"/dashboard"} />;
     } catch (error: any) {
       toast.error(error.message || "Login error");
     } finally {
@@ -152,6 +151,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const loginWithGoogle = async () => {
     window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
+      
   };
 
   const loginWithFacebook = async () => {
