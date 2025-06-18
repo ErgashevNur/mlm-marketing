@@ -190,7 +190,7 @@ const ProductsPage: React.FC = () => {
                   <div className="mb-3">
                     <div className="flex items-center text-yellow-600 dark:text-yellow-400">
                       <Coins size={14} className="mr-1" />
-                      <span className="text-xs">{product.coin} coins</span>
+                      <span className="text-xs">{product.coin} <span className="text-[9px]">USDT</span></span>
                     </div>
                   </div>
 
