@@ -188,9 +188,16 @@ const ProductsPage: React.FC = () => {
                   </p>
 
                   <div className="mb-3">
-                    <div className="flex items-center text-yellow-600 dark:text-yellow-400">
-                      <Coins size={14} className="mr-1" />
-                      <span className="text-xs">{product.coin} <span className="text-[9px]">USDT</span></span>
+                    <div className="flex gap-2 items-center text-yellow-600 dark:text-yellow-400">
+                      <img
+                        width={15}
+                        height={15}
+                        src={import.meta.env.VITE_LOGO}
+                        alt=""
+                      />
+                      <span className="text-xs">
+                        {product.coin} <span className="text-[9px]">USDT</span>
+                      </span>
                     </div>
                   </div>
 
