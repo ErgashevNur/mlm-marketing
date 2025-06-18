@@ -245,21 +245,21 @@ const StatisticsChart: React.FC<StatisticsChartProps> = ({
   };
 
   const chartTypes = [
-    {
-      type: "line" as ChartType,
-      icon: TrendingUp,
-      label: t("statistics.lineChart"),
-    },
-    {
-      type: "bar" as ChartType,
-      icon: BarChart3,
-      label: t("statistics.barChart"),
-    },
-    {
-      type: "doughnut" as ChartType,
-      icon: PieChart,
-      label: t("statistics.doughnutChart"),
-    },
+// {
+//   type: "line" as ChartType,
+//   icon: TrendingUp,
+//   label: t("statistics.lineChart"),
+// },
+    // {
+    //   type: "bar" as ChartType,
+    //   icon: BarChart3,
+    //   label: t("statistics.barChart"),
+    // },
+    // {
+    //   type: "doughnut" as ChartType,
+    //   icon: PieChart,
+    //   label: t("statistics.doughnutChart"),
+    // },
   ];
 
   const timeRanges = [

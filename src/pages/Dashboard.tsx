@@ -21,8 +21,6 @@ const Dashboard: React.FC = () => {
   //   sendBackend();
   // }, []);
 
-  
-
   console.log(statistika);
 
   const getUser = async () => {
@@ -211,7 +209,7 @@ const Dashboard: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <StatisticsChart />
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-white dark:bg-gray-800 h-[230px] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             {t("dashboard.quickActions")}
           </h2>
@@ -248,12 +246,24 @@ const Dashboard: React.FC = () => {
               </a>
             ))}
           </div>
-
-          <div>
-            <p>hi</p>
-            <p>himoyalangan</p>
-            <p>himoyalangan</p>
-            <p>himoyalangan</p>
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
+            <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+              {statistika.map((data: any, index: number) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between border border-gray-300 rounded-xl px-3 py-2 dark:text-slate-100 dark:border-gray-600"
+                >
+                  <span className="truncate max-w-[120px] sm:max-w-none">
+                    {data.email}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    {data.coin}
+                    <img src="/CoinLogo.png" className="w-5 h-5" />
+                    <span className="hidden sm:inline">USDT</span>
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
