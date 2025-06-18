@@ -29,7 +29,6 @@ import BonusHistory from "./components/BonusHistory";
 import AuthCallback from "./components/AuthCallback";
 
 import "./i18n/config";
-import OauthSuccess from "./components/OauthSuccess";
 
 function App() {
   return (
