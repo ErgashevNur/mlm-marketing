@@ -97,7 +97,7 @@ const LandingPage: React.FC = () => {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
             <div className="text-center">
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                {t("landing.welcome")}{" "}
+                {t("landing.welcome")} {import.meta.env.VITE_KEY_IMG}
                 <span className="text-yellow-400">{t("landing.platform")}</span>
               </h1>
               <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
