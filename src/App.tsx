@@ -29,6 +29,7 @@ import BonusHistory from "./components/BonusHistory";
 import AuthCallback from "./components/AuthCallback";
 
 import "./i18n/config";
+import OauthSuccess from "./components/OauthSuccess";
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
                   <Route path="/" element={<LandingPage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegisterPage />} />
-                  
+
                   {/* ✅ OAuth callback route must be outside protected layout */}
                   <Route path="/auth/callback" element={<AuthCallback />} />
 
@@ -64,8 +65,12 @@ function App() {
                     <Route path="plans" element={<PlansPage />} />
                     <Route path="withdraw" element={<WithdrawPage />} />
                     <Route path="products" element={<ProductsPage />} />
-                    <Route path="products/:id" element={<ProductDetailPage />} />
+                    <Route
+                      path="products/:id"
+                      element={<ProductDetailPage />}
+                    />
                     <Route path="bonusHistory" element={<BonusHistory />} />
+                    <Route path="/oauth-success" element={<OauthSuccess />} />
                   </Route>
 
                   {/* Catch-all route */}
