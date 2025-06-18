@@ -137,14 +137,6 @@ const Dashboard: React.FC = () => {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
               {t("dashboard.welcomeBack")}, {user?.name}! 👋
             </h1>
-            {/* <p className="text-gray-600 dark:text-gray-400">
-              {t("dashboard.currentPlan")}:{" "}
-              <span className="font-semibold text-blue-600 dark:text-blue-400">
-                {typeof user?.userTariff === "object"
-                  ? user?.userTariff?.status || t("dashboard.planNotFound")
-                  : user?.userTariff || t("dashboard.noPlan")}
-              </span>
-            </p> */}
           </div>
           <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
             {user?.createdAt && formatDate(user.createdAt)}
@@ -152,43 +144,41 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {
-        <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl p-6 text-white">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                <Gift className="text-white" size={24} />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold">
-                  {t("dashboard.dailyBonusAvailable")}
-                </h3>
-                <p className="text-yellow-100">
-                  {t("dashboard.claimYour")} {user?.dailyBonus ?? 0}{" "}
-                  {t("dashboard.coinsToday")}
-                </p>
-              </div>
+      <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl p-6 text-white">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+              <Gift className="text-white" size={24} />
             </div>
-            <button
-              onClick={handleClaimBonuss}
-              disabled={!canClaimBonus}
-              className={`px-6 py-3 font-semibold rounded-lg transition-colors ${
-                canClaimBonus
-                  ? "bg-white text-orange-600 hover:bg-gray-100"
-                  : "bg-gray-300 text-gray-400 cursor-not-allowed"
-              }`}
-              title={
-                canClaimBonus
-                  ? ""
-                  : t("dashboard.bonusNotAvailable") ||
-                    t("dashboard.bonusNotAvailableFallback")
-              }
-            >
-              {t("dashboard.claimNow")}
-            </button>
+            <div>
+              <h3 className="text-lg font-semibold">
+                {t("dashboard.dailyBonusAvailable")}
+              </h3>
+              <p className="text-yellow-100">
+                {t("dashboard.claimYour")} {user?.dailyBonus ?? 0}{" "}
+                {t("dashboard.coinsToday")}
+              </p>
+            </div>
           </div>
+          <button
+            onClick={handleClaimBonuss}
+            disabled={!canClaimBonus}
+            className={`px-6 py-3 font-semibold rounded-lg transition-colors ${
+              canClaimBonus
+                ? "bg-white text-orange-600 hover:bg-gray-100"
+                : "bg-gray-300 text-gray-400 cursor-not-allowed"
+            }`}
+            title={
+              canClaimBonus
+                ? ""
+                : t("dashboard.bonusNotAvailable") ||
+                  t("dashboard.bonusNotAvailableFallback")
+            }
+          >
+            {t("dashboard.claimNow")}
+          </button>
         </div>
-      }
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         <StatCard
@@ -206,59 +196,75 @@ const Dashboard: React.FC = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <StatisticsChart />
-
-        <div className="bg-white dark:bg-gray-800 h-[230px] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            {t("dashboard.quickActions")}
-          </h2>
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              {
-                name: t("dashboard.browseProducts"),
-                href: "/dashboard/products",
-                color: "bg-blue-500 hover:bg-blue-600",
-              },
-              {
-                name: t("common.earnings"),
-                href: "/dashboard/referrals",
-                color: "bg-green-500 hover:bg-green-600",
-                icon: <img src="/CoinLogo.png" alt="" className="w-5" />,
-              },
-              {
-                name: t("dashboard.withdrawFunds"),
-                href: "/dashboard/withdraw",
-                color: "bg-purple-500 hover:bg-purple-600",
-              },
-              {
-                name: t("dashboard.upgradePlan"),
-                href: "/dashboard/plans",
-                color: "bg-orange-500 hover:bg-orange-600",
-              },
-            ].map((action, index) => (
-              <a
-                key={index}
-                href={action.href}
-                className={`${action.color} text-white p-4 rounded-lg text-center font-medium transition-colors flex items-center gap-2 pl-3 justify-center`}
-              >
-                {action.icon} {action.name}
-              </a>
-            ))}
+      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Chap tomon: Statistics Chart */}
+        <div className="lg:col-span-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 h-full">
+            <StatisticsChart />
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
-            <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+        </div>
+
+        {/* O'ng tomon: Quick Actions + User Statistics */}
+        <div className="lg:col-span-6 flex flex-col justify-between gap-6 h-full">
+          {/* Quick Actions */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              {t("dashboard.quickActions")}
+            </h2>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                {
+                  name: t("dashboard.browseProducts"),
+                  href: "/dashboard/products",
+                  color: "bg-blue-500 hover:bg-blue-600",
+                },
+                {
+                  name: t("common.earnings"),
+                  href: "/dashboard/referrals",
+                  color: "bg-green-500 hover:bg-green-600",
+                  icon: <img src="/CoinLogo.png" alt="" className="w-5" />,
+                },
+                {
+                  name: t("dashboard.withdrawFunds"),
+                  href: "/dashboard/withdraw",
+                  color: "bg-purple-500 hover:bg-purple-600",
+                },
+                {
+                  name: t("dashboard.upgradePlan"),
+                  href: "/dashboard/plans",
+                  color: "bg-orange-500 hover:bg-orange-600",
+                },
+              ].map((action, index) => (
+                <a
+                  key={index}
+                  href={action.href}
+                  className={`flex items-center justify-center gap-2 rounded-lg text-white font-semibold p-4 transition-all ${action.color} hover:scale-[1.02]`}
+                >
+                  {action.icon}
+                  <span className="text-sm sm:text-base">{action.name}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Statistika */}
+          <div className="scroll-container bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 flex-1 overflow-auto max-h-[330px]">
+            <div className="grid gap-3">
               {statistika.map((data: any, index: number) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between border border-gray-300 rounded-xl px-3 py-2 dark:text-slate-100 dark:border-gray-600"
+                  className="flex items-center justify-between bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-3 shadow-sm hover:shadow-md transition"
                 >
-                  <span className="truncate max-w-[120px] sm:max-w-none">
+                  <span className="text-sm sm:text-base font-medium text-gray-800 dark:text-gray-100 truncate max-w-[50%]">
                     {data.email}
                   </span>
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-2 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200">
                     {data.coin}
-                    <img src="/CoinLogo.png" className="w-5 h-5" />
+                    <img
+                      src="/CoinLogo.png"
+                      alt="coin"
+                      className="w-5 h-5 object-contain"
+                    />
                     <span className="hidden sm:inline">USDT</span>
                   </span>
                 </div>
