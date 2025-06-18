@@ -118,7 +118,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsLoading(false);
     }
   };
-
   // rester
   const register = async (
     name: string,
@@ -160,15 +159,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const loginWithGoogle = async () => {
-    setIsLoading(true);
-    try {
-      window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
-    } catch (error: any) {
-      console.error("Google login error:", error);
-      toast.error(error.message || "Google login failed");
-    } finally {
-      setIsLoading(false);
-    }
+    window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
+    // setIsLoading(true);
+    // try {
+    // } catch (error: any) {
+    //   console.error("Google login error:", error);
+    //   toast.error(error.message || "Google login failed");
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   const loginWithFacebook = async () => {
