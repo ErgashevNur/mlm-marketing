@@ -21,13 +21,24 @@
 
           localStorage.setItem("referral_id", Number(lastSegment));
         }
+
+        // console.log(window.location.pathname.href);
+        localStorage.setItem("data", window.location.pathname.href);
       })();
 
-      // const url = new URL(window.location.href);
-      // const token = url.searchParams.get("token");
-      // localStorage.setItem("token", token);
-      // sessionStorage.setItem("token2", token);
-      // console.log(token);
+      //  useEffect(() => {
+      //   const params = new URLSearchParams(window.location.search);
+      //   const token = params.get("token");
+
+      //   if (token) {
+      //     localStorage.setItem("token", token);
+      //     console.log("Token saqlandi:", token);
+      //   } else {
+      //     console.warn("Token topilmadi URLda.");
+      //   }
+      // }, []);
+
+      console.log();
 
       localStorage.setItem("i18nextLng", "ru");
     </script>
