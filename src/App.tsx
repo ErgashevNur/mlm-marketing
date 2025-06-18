@@ -70,7 +70,6 @@ function App() {
                       element={<ProductDetailPage />}
                     />
                     <Route path="bonusHistory" element={<BonusHistory />} />
-                    <Route path="/oauth-success" element={<OauthSuccess />} />
                   </Route>
 
                   {/* Catch-all route */}
