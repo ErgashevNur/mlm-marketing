@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Mail, Lock, Eye, EyeOff, Globe, User, MailIcon } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, User, MailIcon } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
 

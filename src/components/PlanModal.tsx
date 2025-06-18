@@ -40,7 +40,7 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
     }
   };
 
-  const buyPlan = async (obj: any) => {
+  const buyPlan = async (obj) => {
     const res = {
       tariff_id: Number(obj.id),
     };

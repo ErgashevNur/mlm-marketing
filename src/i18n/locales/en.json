@@ -17,7 +17,8 @@
     "copy": "Copy",
     "copied": "Copied!",
     "share": "Share",
-    "required": "is required"
+    "required": "is required",
+    "bonusHistory": "History"
   },
   "auth": {
     "welcome": "Welcome to ",
@@ -101,7 +102,11 @@
     "paid": "Paid",
     "pending": "Pending",
     "active": "Active",
-    "inactive": "Inactive"
+    "inactive": "Inactive",
+    "referalevel": "Referal Level",
+    "count": "Count",
+    "prize": "Prize",
+    "level": "Level"
   },
   "plans": {
     "choosePlan": "Choose Your Plan",

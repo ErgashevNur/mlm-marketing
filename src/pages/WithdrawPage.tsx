@@ -241,7 +241,7 @@ const WithdrawPage: React.FC = () => {
                 />
                 <input
                   name="cardNumber"
-                 type="number"
+                  type="number"
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder={t("withdraw.cardNumber")}
                   maxLength={16}

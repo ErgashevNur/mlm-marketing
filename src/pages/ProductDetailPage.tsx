@@ -64,7 +64,7 @@ const ProductDetailPage: React.FC = () => {
           const data = await res.json();
           setApiProduct(data);
         }
-      } catch (e: any) {
+      } catch (e) {
         toast.error(e.message);
       }
     };

@@ -17,7 +17,8 @@
     "copy": "Көчүрүү",
     "copied": "Көчүрүлдү!",
     "share": "Бөлүшүү",
-    "required": "талап кылынат"
+    "required": "талап кылынат",
+    "bonusHistory": "Tарыхы"
   },
   "auth": {
     "welcome": "MLM Platform-га кош келдиңиз",
@@ -102,7 +103,11 @@
     "paid": "Төлөндү",
     "pending": "Күтүүдө",
     "active": "Активдүү",
-    "inactive": "Активдүү эмес"
+    "inactive": "Активдүү эмес",
+    "referalevel": "Реферал деңгээли",
+    "count": "Саны",
+    "prize": "Байге",
+    "level": "Деңгээл"
   },
   "plans": {
     "choosePlan": "Тарифти тандаңыз",

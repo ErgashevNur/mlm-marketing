@@ -16,7 +16,8 @@
     "close": "Yopish",
     "copy": "Nusxalash",
     "copied": "Nusxalandi!",
-    "share": "Ulashish"
+    "share": "Ulashish",
+    "bonusHistory": "Tarixlar"
   },
   "auth": {
     "welcome": "MLM Platform ga xush kelibsiz",
@@ -101,7 +102,11 @@
     "paid": "To'langan",
     "pending": "Kutilmoqda",
     "active": "Faol",
-    "inactive": "Nofaol"
+    "inactive": "Nofaol",
+    "referalevel": "Referal darajasi",
+    "count": "Soni",
+    "prize": "Sovrin",
+    "level": "Daraja"
   },
   "plans": {
     "choosePlan": "Tarifni tanlang",

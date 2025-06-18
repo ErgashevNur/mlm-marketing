@@ -80,11 +80,7 @@ const Navbar: React.FC = () => {
               to={user ? "/dashboard" : "/"}
               className="flex items-center space-x-3"
             >
-              <img
-                className="w-10 h-10"
-                src={import.meta.env.VITE_LOGO}
-                alt=""
-              />
+              <img className="w-10 h-10" src={import.meta.env.VITE_LOGO} alt="" />
               <span className="text-sm hidden sm:block font-bold text-gray-900 dark:text-white">
                 {import.meta.env.VITE_KEY_IMG}
               </span>

@@ -103,7 +103,11 @@
     "paid": "已付款",
     "pending": "待处理",
     "active": "激活",
-    "inactive": "未激活"
+    "inactive": "未激活",
+    "referalevel": "推荐等级",
+    "count": "计数",
+    "prize": "奖品",
+    "level": "等级"
   },
   "plans": {
     "choosePlan": "选择计划",

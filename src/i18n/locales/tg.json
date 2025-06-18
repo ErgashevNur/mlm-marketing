@@ -17,7 +17,8 @@
     "copy": "Нусха бардоштан",
     "copied": "Нусха бардошта шуд!",
     "share": "Мубодила",
-    "required": "маҷбурӣ"
+    "required": "маҷбурӣ",
+    "bonusHistory": "Бонус"
   },
   "auth": {
     "welcome": "Ба MLM Platform хуш омадед",
@@ -102,7 +103,11 @@
     "paid": "Пардохташуда",
     "pending": "Дар интизор",
     "active": "Фаол",
-    "inactive": "Ғайрифаол"
+    "inactive": "Ғайрифаол",
+    "referalevel": "Сатҳи роҳнамоӣ yoki Дараҷаи роҳнамоӣ",
+    "count": "Шумора",
+    "prize": "Мукофот",
+    "level": "Дараҷа"
   },
   "plans": {
     "choosePlan": "Тарифро интихоб кунед",

@@ -12,7 +12,7 @@ const LanguageSelector: React.FC = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full px-4 py-1 text-sm font-medium text-gray-700  hover:bg-gray-300 dark:hover:bg-slate-700 rounded-lg transition-colors"
+        className="flex items-center justify-between w-full px-4 py-1 text-sm font-medium text-gray-700 hover:bg-gray-300 dark:hover:bg-slate-700 rounded-lg transition-colors"
       >
         <div className="flex items-center justify-center space-x-2 w-[30px]">
           <span className="text-lg">{currentLang?.flag}</span>

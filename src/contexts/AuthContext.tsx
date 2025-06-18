@@ -45,13 +45,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const fetchUserData = async () => {
     try {
-      const token = sessionStorage.getItem("token2");
+      const token =
+        localStorage.getItem("token") || sessionStorage.getItem("token2");
       if (!token) {
         setIsLoading(false);
         return;
       }
-
-      console.log(token);
 
       const response = await fetch(
         `${import.meta.env.VITE_API_KEY}/users/token`,
@@ -64,7 +63,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       const data = await response.json();
-      console.log(response);
 
       if (response.ok) {
         setUser(data);

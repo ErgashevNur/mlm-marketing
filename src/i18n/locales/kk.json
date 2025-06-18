@@ -17,7 +17,8 @@
     "copy": "Көшіру",
     "copied": "Көшірілді!",
     "share": "Бөлісу",
-    "required": "міндетті"
+    "required": "міндетті",
+    "bonusHistory": "Tарихы"
   },
   "auth": {
     "welcome": "MLM Platform-ға қош келдіңіз",
@@ -102,7 +103,11 @@
     "paid": "Төленді",
     "pending": "Күтуде",
     "active": "Белсенді",
-    "inactive": "Белсенді емес"
+    "inactive": "Белсенді емес",
+    "referalevel": "Реферал деңгейі",
+    "count": "Саны",
+    "prize": "Сыйлық",
+    "level": "Деңгей"
   },
   "plans": {
     "choosePlan": "Тарифты таңдаңыз",

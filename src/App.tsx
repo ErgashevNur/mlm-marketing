@@ -23,7 +23,7 @@ import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./i18n/config";
 import { Toaster } from "sonner";
-import BonusHistory from "./pages/HistoryPage";
+import BonusHistory from "./components/BonusHistory";
 
 function App() {
   return (
