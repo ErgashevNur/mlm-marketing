@@ -18,7 +18,7 @@ interface AuthContextType {
     name: string,
     email: string,
     password: string,
-    referal: number
+    referal?: number
   ) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
   loginWithFacebook: () => Promise<void>;
@@ -42,12 +42,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [userData, setUserData] = useState();
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
+        const storedUser = localStorage.getItem("user-data");
+
+        // Agar token yo‘q, lekin user-data mavjud bo‘lsa, uni qayta o‘qish
+        if (!token && storedUser) {
+          setUser(JSON.parse(storedUser));
+          setIsLoading(false);
+          return;
+        }
+
         if (!token) {
           setIsLoading(false);
           return;
@@ -64,15 +72,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         );
 
         const data = await response.json();
+        console.log("API response:", data);
 
         if (response.ok) {
-          setUser(data); // yoki setUser(data.user), agar API shunaqa qaytarsa
+          const userData = data.user || data;
+          setUser(userData);
+          localStorage.setItem("user-data", JSON.stringify(userData));
         } else {
-          localStorage.removeItem("token"); // noto‘g‘ri token bo‘lsa tozalash
+          console.error(
+            "API error:",
+            data.message || "Failed to fetch user data"
+          );
+          // localStorage.removeItem("token");
+          localStorage.removeItem("user-data");
         }
       } catch (error) {
         console.error("Fetch error:", error);
-        localStorage.removeItem("token");
+        // localStorage.removeItem("token");
+        localStorage.removeItem("user-data");
       } finally {
         setIsLoading(false);
       }
@@ -81,7 +98,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     fetchUserData();
   }, []);
 
-  1;
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
@@ -102,11 +118,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         throw new Error(data.message || "Login failed");
       }
 
-      setUser(data.data.user);
-
+      const userData = data.data.user || data.user;
+      setUser(userData);
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user-data", JSON.stringify(data.data.user));
-      toast.success(data.message);
+      localStorage.setItem("user-data", JSON.stringify(userData));
+      console.log("Stored user-data:", userData);
+      toast.success(data.message || "Login successful");
     } catch (error: any) {
       toast.error(error.message || "An error occurred");
     } finally {
@@ -114,15 +131,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  // rester
   const register = async (
     name: string,
     email: string,
     password: string,
-    referal?: Number
+    referal?: number
   ) => {
     setIsLoading(true);
     try {
+      const body: any = { name, email, password };
+      if (referal !== undefined) {
+        body.referal = referal; // referal number sifatida yuboriladi
+      }
+
       const response = await fetch(
         "https://mlm-backend.pixl.uz/authorization/register",
         {
@@ -130,53 +151,74 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name, email, password, referal }),
+          body: JSON.stringify(body),
         }
       );
 
       const data = await response.json();
-      localStorage.setItem("email", email); // Store email on success
+      localStorage.setItem("email", email);
 
       if (!response.ok) {
         throw new Error(data.message || "Registration failed");
       }
 
+      const userData = data.user || data;
+      setUser(userData);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user-data", JSON.stringify(userData));
+      console.log("Stored user-data:", userData);
       toast.success(
         data.message ||
           "Registration successful! Please check your email to verify your account."
       );
-      setUser(data);
-      return data; // Return the API response data
+      return data;
     } catch (error: any) {
       toast.error(error.message || "Registration failed");
-      throw error; // Re-throw the error for handleSubmit to catch
+      throw error;
     } finally {
       setIsLoading(false);
     }
   };
 
-  const loginWithGoogle = () => {
-    window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
+  const loginWithGoogle = async () => {
+    setIsLoading(true);
+    try {
+      window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
+    } catch (error: any) {
+      toast.error(error.message || "Google login failed");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const loginWithFacebook = async () => {
     setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    const mockUser: User = {
-      id: "3",
-      name: "Facebook User",
-      email: "user@facebook.com",
-    };
-
-    setUser(mockUser);
-    localStorage.setItem("user-data", JSON.stringify(mockUser));
-    setIsLoading(false);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const mockUser: User = {
+        id: "3",
+        name: "Facebook User",
+        email: "user@facebook.com",
+        createdAt: Date.now(),
+        coin: 0,
+        userTariff: "free",
+      };
+      setUser(mockUser);
+      localStorage.setItem("user-data", JSON.stringify(mockUser));
+      toast.success("Facebook login successful");
+    } catch (error: any) {
+      toast.error(error.message || "Facebook login failed");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const claimDailyBonus = () => {
     if (user) {
       // Custom bonus logic goes here
+      toast.success("Daily bonus claimed!");
+    } else {
+      toast.error("You must be logged in to claim the bonus");
     }
   };
 
@@ -184,7 +226,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setUser(null);
     localStorage.removeItem("user-data");
     localStorage.removeItem("token");
-    // navigate("/login");
+    localStorage.removeItem("email");
+    toast.success("Logged out successfully");
   };
 
   const value = {

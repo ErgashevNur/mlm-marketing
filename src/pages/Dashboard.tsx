@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Users, Coins, Gift, CheckCheck } from "lucide-react";
+import { Users, Coins, Gift } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import StatCard from "../components/StatCard";
 import { toast } from "sonner";
@@ -9,22 +9,25 @@ import StatisticsChart from "../components/StatisticsChart";
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
   const { user, claimDailyBonus } = useAuth();
-  const [allCoin, setAllCoin] = useState([]);
-  const [refCount, setResCount] = useState();
   const [statistika, setStatistika] = useState([]);
+  const [allCoin, setAllCoin] = useState([]);
   const [canClaimBonus, setCanClaimBonus] = useState(true);
   // const userData: any = JSON.parse(localStorage.getItem("user-data") || "{}");
 
-  console.log(allCoin);
-  console.log(claimDailyBonus);
+  // useEffect(() => {
+  //   const sendBackend = async (id) => {
+  //     console.log(id);
+  //   };
+  //   sendBackend();
+  // }, []);
+
+  console.log(statistika);
 
   const getUser = async () => {
     try {
       const req = await fetch("https://mlm-backend.pixl.uz/statistika/user");
       if (req.status === 200) {
         const res = await req.json();
-        console.log(res);
-
         setStatistika(res);
       } else {
         const errorText = await req.text();
@@ -105,22 +108,24 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const checkBonusStatus = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) return;
-      try {
-        const res = await fetch("https://mlm-backend.pixl.uz/referal/user", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        setResCount(data);
-      } catch (error: any) {
-        toast.error(error);
-      }
-    };
-    checkBonusStatus();
-  }, []);
+  // useEffect(() => {
+  //   const checkBonusStatus = async () => {
+  //     const token = localStorage.getItem("token");
+  //     if (!token) return;
+  //     try {
+  //       const res = await fetch("https://mlm-backend.pixl.uz/bonus/daily", {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       });
+  //       const data = await res.json();
+  //       console.log(data);
+
+  //       setCanClaimBonus(data.status === true);
+  //     } catch {
+  //       setCanClaimBonus(false);
+  //     }
+  //   };
+  //   checkBonusStatus();
+  // }, []);
 
   console.log(user);
 
@@ -195,7 +200,7 @@ const Dashboard: React.FC = () => {
         />
         <StatCard
           title={t("dashboard.totalReferrals")}
-          value={refCount?.count}
+          value={user?.referrals?.length}
           icon={Users}
           color="purple"
         />
@@ -204,76 +209,42 @@ const Dashboard: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <StatisticsChart />
 
-        <div className="flex flex-col gap-2">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              {t("dashboard.quickActions")}
-            </h2>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                {
-                  name: t("dashboard.browseProducts"),
-                  href: "/dashboard/products",
-                  color: "bg-blue-500 hover:bg-blue-600",
-                },
-                {
-                  name: t("common.earnings"),
-                  href: "/dashboard/earnings",
-                  color: "bg-green-500 hover:bg-green-600",
-                  icon: <img src="/CoinLogo.png" alt="" className="w-5" />,
-                },
-                {
-                  name: t("dashboard.withdrawFunds"),
-                  href: "/dashboard/withdraw",
-                  color: "bg-purple-500 hover:bg-purple-600",
-                },
-                {
-                  name: t("dashboard.upgradePlan"),
-                  href: "/dashboard/plans",
-                  color: "bg-orange-500 hover:bg-orange-600",
-                },
-              ].map((action, index) => (
-                <a
-                  key={index}
-                  href={action.href}
-                  className={`${action.color} text-white p-4 rounded-lg text-center font-medium transition-colors flex items-center gap-2 pl-3 justify-center`}
-                >
-                  {action.icon} {action.name}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl max-h-[330px] shadow-sm border border-gray-200 dark:border-gray-700 p-6 overflow-y-auto">
-            <h3 className="dark:text-white flex items-center gap-2 mb-5 text-xl font-medium">
-              <span className="rounded-full border-green-800 border-2 w-8 h-8 flex items-center justify-center">
-                <CheckCheck className="w-5" />
-              </span>
-              {t("dashboard.activeUsers")}
-            </h3>
-            {statistika.map((item: any) => {
-              // Email mask: first 2 letters + **** + domain
-              const email = item.email || "";
-              const atIdx = email.indexOf("@");
-              const maskedEmail =
-                atIdx > 2
-                  ? email.slice(0, 2) + "*************" + email.slice(atIdx)
-                  : email;
-              return (
-                <div
-                  key={item.email}
-                  className="flex items-center justify-between border border-gray-300 dark:text-gray-100 dark:bg-slate-900 py-3 px-4 mb-3 rounded-xl text-xs"
-                >
-                  <p>{maskedEmail}</p>
-                  <span className="flex items-center gap-3">
-                    <img src="/CoinLogo.png" className="w-5 h-5" /> {item.coin}{" "}
-                    <span className="text-xs font-mono bg-cyan-400 px-2 py-[2px] rounded-full text-black">
-                      USDT
-                    </span>
-                  </span>
-                </div>
-              );
-            })}
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            {t("dashboard.quickActions")}
+          </h2>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              {
+                name: t("dashboard.browseProducts"),
+                href: "/dashboard/products",
+                color: "bg-blue-500 hover:bg-blue-600",
+              },
+              {
+                name: t("common.earnings"),
+                href: "/dashboard/referrals",
+                color: "bg-green-500 hover:bg-green-600",
+                icon: <img src="/CoinLogo.png" alt="" className="w-5" />,
+              },
+              {
+                name: t("dashboard.withdrawFunds"),
+                href: "/dashboard/withdraw",
+                color: "bg-purple-500 hover:bg-purple-600",
+              },
+              {
+                name: t("dashboard.upgradePlan"),
+                href: "/dashboard/plans",
+                color: "bg-orange-500 hover:bg-orange-600",
+              },
+            ].map((action, index) => (
+              <a
+                key={index}
+                href={action.href}
+                className={`${action.color} text-white p-4 rounded-lg text-center font-medium transition-colors flex items-center gap-2 pl-3 justify-center`}
+              >
+                {action.icon} {action.name}
+              </a>
+            ))}
           </div>
         </div>
       </div>

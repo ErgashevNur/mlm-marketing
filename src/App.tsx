@@ -23,6 +23,7 @@ import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./i18n/config";
 import { Toaster } from "sonner";
+import BonusHistory from "./pages/HistoryPage";
 
 function App() {
   return (
@@ -68,6 +69,10 @@ function App() {
                             <Route
                               path="/products/:id"
                               element={<ProductDetailPage />}
+                            />
+                            <Route
+                              path="/bonusHistory"
+                              element={<BonusHistory />}
                             />
                           </Routes>
                         </Layout>

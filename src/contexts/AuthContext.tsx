@@ -42,46 +42,49 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [userData, setUserData] = useState();
+
+  const fetchUserData = async () => {
+    try {
+      const token =
+        localStorage.getItem("token") === null &&
+        sessionStorage.getItem("token2");
+      if (!token) {
+        setIsLoading(false);
+        return;
+      }
+
+      console.log(token);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_KEY}/users/token`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log(response);
+
+      if (response.ok) {
+        setUser(data);
+        // yoki setUser(data.user), agar API shunaqa qaytarsa
+      } else {
+        throw new Error(response.statusText);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          setIsLoading(false);
-          return;
-        }
-
-        const response = await fetch(
-          `${import.meta.env.VITE_API_KEY}/users/token`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        const data = await response.json();
-
-        if (response.ok) {
-          setUser(data); // yoki setUser(data.user), agar API shunaqa qaytarsa
-        } else {
-          localStorage.removeItem("token"); // noto‘g‘ri token bo‘lsa tozalash
-        }
-      } catch (error) {
-        console.error("Fetch error:", error);
-        localStorage.removeItem("token");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchUserData();
   }, []);
 
-  1;
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
@@ -105,6 +108,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setUser(data.data.user);
 
       localStorage.setItem("token", data.token);
+      sessionStorage.setItem("token2", data.token);
+
       localStorage.setItem("user-data", JSON.stringify(data.data.user));
       toast.success(data.message);
     } catch (error: any) {
@@ -146,7 +151,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           "Registration successful! Please check your email to verify your account."
       );
       setUser(data);
-      return data; // Return the API response data
     } catch (error: any) {
       toast.error(error.message || "Registration failed");
       throw error; // Re-throw the error for handleSubmit to catch
@@ -156,37 +160,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const loginWithGoogle = async () => {
-    window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
-
-    // try {
-    //   const response = await fetch(
-    //     `https://mlm-backend.pixl.uz/referal/google/${id}`,
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-
-    //   const data = await response.json();
-
-    //   if (!response.ok) {
-    //     throw new Error(data.message || "Registration failed");
-    //   }
-
-    //   toast.success(
-    //     data.message ||
-    //       "Registration successful! Please check your email to verify your account."
-    //   );
-    //   setUser(data);
-    //   return data; // Return the API response data
-    // } catch (error: any) {
-    //   toast.error(error.message || "Registration failed");
-    //   throw error; // Re-throw the error for handleSubmit to catch
-    // } finally {
-    //   setIsLoading(false);
-    // }
+    setIsLoading(true);
+    try {
+      window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
+    } catch (error: any) {
+      console.error("Google login error:", error);
+      toast.error(error.message || "Google login failed");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const loginWithFacebook = async () => {
@@ -206,15 +188,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const claimDailyBonus = () => {
     if (user) {
-      // Custom bonus logic goes here
+      toast.success("Daily bonus claimed!");
+    } else {
+      toast.error("You must be logged in to claim the bonus");
     }
   };
 
   const logout = () => {
-    setUser(null);
     localStorage.removeItem("user-data");
     localStorage.removeItem("token");
-    // navigate("/login");
+    sessionStorage.removeItem("token2");
+    setUser(null); // foydalanuvchini ham tozalash
   };
 
   const value = {

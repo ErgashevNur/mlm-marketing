@@ -44,7 +44,7 @@ const RegisterPage: React.FC = () => {
   };
 
   const referal = localStorage.getItem("referral_id");
-  console.log(referal);
+  console.log(typeof referal);
 
   // console.log(name, email, password, referal);
 
@@ -88,9 +88,11 @@ const RegisterPage: React.FC = () => {
         <div className="max-w-[550px] w-full space-y-8">
           <div className="bg-white w-full dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
             <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <Globe className="text-white" size={32} />
-              </div>
+              <img
+                className="w-14  h-14 mx-auto my-5"
+                src={import.meta.env.VITE_LOGO}
+                alt=""
+              />
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                 {t("auth.signUp")}
               </h2>

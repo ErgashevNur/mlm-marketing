@@ -20,7 +20,7 @@
     "required": "is required"
   },
   "auth": {
-    "welcome": "Welcome to MLM Platform",
+    "welcome": "Welcome to ",
     "subtitle": "Your Marketing Platform",
     "email": "Email",
     "password": "Password",

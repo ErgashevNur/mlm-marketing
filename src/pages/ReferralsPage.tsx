@@ -398,7 +398,7 @@ const ReferralsPage: React.FC = () => {
                             : "text-orange-600 dark:text-orange-400"
                         }`}
                       >
-                        ${(friend.user.coin || 0).toFixed(2)}
+                        {friend.coin || 0}
                       </span>
                     </td>
                   </tr>
