@@ -163,6 +163,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const url = new URL(window.location.href);
     const token = url.searchParams.get("token");
     console.log(token);
+
+    // setIsLoading(true); // setIsLoading(true);
+    // try {
+    // } catch (error: any) {
+    //   console.error("Google login error:", error);
+    //   toast.error(error.message || "Google login failed");
+    // } finally {
+    //   setIsLoading(false);
+    // }
+  };
+
+  const loginWithFacebook = async () => {
+    window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
+    const url = new URL(window.location.href);
+    const token = url.searchParams.get("token");
+    console.log(token);
+
     // setIsLoading(true); // setIsLoading(true);
     // try {
     // } catch (error: any) {
