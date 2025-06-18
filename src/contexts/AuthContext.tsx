@@ -45,9 +45,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const fetchUserData = async () => {
     try {
-      const token =
-        localStorage.getItem("token") === null &&
-        sessionStorage.getItem("token2");
+      const token = sessionStorage.getItem("token2");
       if (!token) {
         setIsLoading(false);
         return;
