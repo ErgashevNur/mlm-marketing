@@ -188,7 +188,7 @@ const ProductsPage: React.FC = () => {
                   </p>
 
                   <div className="mb-3">
-                    <div className="flex gap-2 items-center text-yellow-600 dark:text-yellow-400">
+                    <div className="flex gap-2c items-center text-yellow-600 dark:text-yellow-400">
                       <img
                         width={15}
                         height={15}
