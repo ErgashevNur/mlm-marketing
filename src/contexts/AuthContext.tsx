@@ -161,7 +161,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsLoading(false);
     }
 
-    localStorage.setItem("data", window.location.pathname.href);
+    localStorage.setItem("data", window.location.href);
   };
 
   // const loginWithFacebook = () => {
