@@ -13,44 +13,10 @@ const Dashboard: React.FC = () => {
   const [statistika, setStatistika] = useState([]);
   const [canClaimBonus, setCanClaimBonus] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  // const [tarifData, setTarifData] = useState();
 
-  // const userData: any = JSON.parse(localStorage.getItem("user-data") || "{}");
 
-  // useEffect(() => {
-  //   const sendBackend = async (id) => {
-  //     console.log(id);
-  //   };
-  //   sendBackend();
-  // }, []);
 
-  // const tariffIds = user.userTariff.map((tariff: any) => tariff.tariff_id);
-  // console.log(tariffIds);
 
-  // const getTarifData: any = async () => {
-  //   const token = localStorage.getItem("token");
-
-  //   try {
-  //     const req = fetch(`${import.meta.env.VITE_API_KEY}/tariff/${tariffIds}`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     const data: any = await req.json();
-  //     console.log(data);
-
-  //     setTarifData(data);
-  //     console.log(tarifData);
-  //   } catch {
-  //     toast.error("xatolik ; )");
-  //   } finally {
-  //     toast("Hello World");
-  //   }
-  // };
-
-  console.log(user);
 
   const userLevel = JSON.parse(localStorage.getItem("UserLevel"));
 
