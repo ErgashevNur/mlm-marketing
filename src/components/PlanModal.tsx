@@ -156,20 +156,6 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border border-purple-200">
-              <div className="flex items-center space-x-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center">
-                  <Calendar className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-purple-700 font-semibold">
-                  {t("plans.term")}
-                </span>
-              </div>
-              <p className="text-3xl font-bold text-purple-800">
-                {plan.term} {t("plans.days", { count: plan.term })}
-              </p>
-            </div>
-
             <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border border-orange-200">
               <div className="flex items-center space-x-3 mb-2">
                 <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center">
@@ -181,6 +167,20 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
               </div>
               <p className="text-3xl font-bold text-orange-800">
                 {plan.referral_bonus} <span className="text-xs">USDT</span>
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border border-purple-200">
+              <div className="flex items-center space-x-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-purple-700 font-semibold">
+                  {t("plans.term")}
+                </span>
+              </div>
+              <p className="text-3xl font-bold text-purple-800">
+                {plan.term} {t("plans.days", { count: plan.term })}
               </p>
             </div>
           </div>
