@@ -73,7 +73,6 @@ const ReferralsPage: React.FC = () => {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
         const data = await res.json();
-        console.log("Referral friends:", data);
         setRef(data);
 
         // Just set the API data directly, do not format/map
@@ -88,16 +87,6 @@ const ReferralsPage: React.FC = () => {
     };
     fetchReferralFriends();
   }, [user.id]);
-
-  // Calculate total bonuses with safety check
-  // const totalBonuses = Array.isArray(referralFriends)
-  //   ? referralFriends.reduce((sum, friend) => sum + (friend.bonus || 0), 0)
-  //   : 0;
-
-  // Calculate paid and pending referrals
-  // const paidReferrals = referralFriends.filter(
-  //   (friend) => friend.status === "paid"
-  // ).length;
 
   const pendingReferrals = referralFriends.filter(
     (friend) => friend.status === "pending"

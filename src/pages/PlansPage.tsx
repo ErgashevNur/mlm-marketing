@@ -36,9 +36,7 @@ const PlansPage: React.FC = () => {
       try {
         const res = await fetch("https://mlm-backend.pixl.uz/tariff");
         const data = await res.json();
-        console.log(data);
         setPlans(data);
-        // setProducts(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Mahsulotlarni olishda xatolik:", error);
       } finally {
@@ -137,7 +135,8 @@ const PlansPage: React.FC = () => {
                       </span>
                     </div>
                     <span className="text-2xl font-bold text-green-600">
-                      {plan.dailyProfit} <span className="text-[13px]">USDT</span>
+                      {plan.dailyProfit}{" "}
+                      <span className="text-[13px]">USDT</span>
                     </span>
                   </div>
 

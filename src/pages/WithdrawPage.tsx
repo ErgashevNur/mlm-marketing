@@ -16,10 +16,33 @@ const WithdrawPage: React.FC = () => {
   const [coinData, setCoinData] = useState<any[]>([]);
   const [calculatedValue, setCalculatedValue] = useState("");
 
-  // Calculate total withdrawn coins (status: SUCCESS)
-  // const totalWithdrawn = withdrawHistory
-  //   .filter((w) => w.status === "SUCCESS")
-  //   .reduce((sum, w) => sum + (w.how_much || 0), 0);
+  const [minimumValue, setMinimumValue] = useState(null);
+
+  const isEnoughCoin = user.coin < (minimumValue?.minValue ?? 0);
+
+  const minimum = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("https://mlm-backend.pixl.uz/min-take-off", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Minimum qiymatni olishda xatolik yuz berdi");
+      }
+
+      const data = await response.json();
+      setMinimumValue(data);
+    } catch (error) {
+      console.error("Xatolik:", error);
+    }
+  };
+
+  useEffect(() => {
+    minimum();
+  }, []);
 
   const handleWithdrawSubmit = async (e: any) => {
     e.preventDefault();
@@ -91,7 +114,6 @@ const WithdrawPage: React.FC = () => {
         });
 
         const data = await req.json();
-        console.log(data);
         setWithdrawHistory(data);
       } catch (error) {
         toast.error("Error fetching products:", error);
@@ -101,7 +123,6 @@ const WithdrawPage: React.FC = () => {
     fetchProducts();
   }, []);
 
-  // Fetch available currencies and their rates
   useEffect(() => {
     const fetchCoinData = async () => {
       try {
@@ -120,7 +141,6 @@ const WithdrawPage: React.FC = () => {
     fetchCoinData();
   }, []);
 
-  // Calculate value based on selected currency and amount
   useEffect(() => {
     const selected = coinData.find((c) => c.currency === selectedCurrency);
     const how_much = Number(
@@ -133,8 +153,6 @@ const WithdrawPage: React.FC = () => {
       setCalculatedValue("");
     }
   }, [selectedCurrency, coinData]);
-
-  console.log(user);
 
   return (
     <div className="space-y-6">
@@ -278,6 +296,7 @@ const WithdrawPage: React.FC = () => {
             </div>
 
             <button
+              disabled={isEnoughCoin}
               type="submit"
               className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >

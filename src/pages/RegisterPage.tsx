@@ -30,7 +30,35 @@ const RegisterPage: React.FC = () => {
   const [isActive, setIsActive] = useState(false);
   const [canResend, setCanResend] = useState(false);
 
+<<<<<<< HEAD
   const referal: any = localStorage.getItem("referral_id");
+=======
+
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      setIsExpired(true);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timeLeft]);
+
+  const formattedTime = `${Math.floor(timeLeft / 60)}:${(timeLeft % 60)
+    .toString()
+    .padStart(2, "0")}`;
+
+  const handleResend = () => {
+    setTimeLeft(120);
+    setIsExpired(false);
+    // Optionally, call an API to resend the verification email here
+  };
+
+  const referal = localStorage.getItem("referral_id");
+>>>>>>> 9f5614d (M)
 
   // console.log(name, email, password, referal);
 

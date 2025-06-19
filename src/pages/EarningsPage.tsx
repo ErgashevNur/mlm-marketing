@@ -76,15 +76,6 @@ const EarningsPage: React.FC = () => {
 
     // real time
     socketRef.current = socket;
-    console.log("Socket: ", socketRef);
-
-    socketRef.current.on("connect", () => {
-      console.log(t("earningsPage.connected"), socketRef.current.id);
-    });
-
-    socketRef.current.on("roomAssigned", (data) => {
-      console.log(t("earningsPage.joinedRoom", { data }));
-    });
 
     socketRef.current.on("card_info", (data) => {
       setModalData(data);

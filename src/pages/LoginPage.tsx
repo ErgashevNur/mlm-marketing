@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
@@ -17,6 +17,8 @@ const LoginPage: React.FC = () => {
   }
 
   console.log(user);
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

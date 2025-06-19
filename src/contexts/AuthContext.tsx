@@ -67,7 +67,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       const data = await response.json();
       if (response.ok) {
-        const user = data.user || data.data?.user || data;
+        localStorage.setItem("UserLevel", JSON.stringify(data.referalLevel));
+        const user = data.data || data.data?.user || data;
         setUser(user);
         localStorage.setItem("user-data", JSON.stringify(user));
       } else {
@@ -100,6 +101,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       const data = await res.json();
+      console.log();
+
       if (!res.ok) throw new Error(data.message || "Login failed");
 
       setUser(data.data.user);
@@ -134,7 +137,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       const data = await res.json();
+<<<<<<< HEAD
       if (!res.ok) throw new Error(data.message);
+=======
+
+      if (!res.ok) throw new Error(data.message || "Registration failed");
+>>>>>>> 9f5614d (M)
 
       toast.success(data.message || "Registration successful!");
       localStorage.setItem("email", email);
@@ -148,11 +156,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const loginWithGoogle = async () => {
+<<<<<<< HEAD
     // const id = localStorage.getItem("referral_id");
     // fetch(`${import.meta.env.VITE_API_KEY}/authorization/google`)
     //   .then(console.log)
     //   .catch(console.log);
 
+=======
+>>>>>>> 9f5614d (M)
     try {
       window.location.href = `${
         import.meta.env.VITE_API_KEY
@@ -169,12 +180,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     // code written by_codenur
     // referal with google
   };
-
-  // const loginWithFacebook = () => {
-  //   window.location.href = `${
-  //     import.meta.env.VITE_API_KEY
-  //   }/authorization/facebook`;
-  // };
 
   const logout = () => {
     localStorage.removeItem("token");

@@ -12,6 +12,7 @@ const Dashboard: React.FC = () => {
   const [allCoin, setAllCoin] = useState([]);
   const [statistika, setStatistika] = useState([]);
   const [canClaimBonus, setCanClaimBonus] = useState(true);
+<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
   // const [tarifData, setTarifData] = useState();
 
@@ -49,6 +50,10 @@ const Dashboard: React.FC = () => {
   //     toast("Hello World");
   //   }
   // };
+=======
+
+  const userLevel = JSON.parse(localStorage.getItem("UserLevel"));
+>>>>>>> 9f5614d (M)
 
   const getUser = async () => {
     try {
@@ -89,11 +94,6 @@ const Dashboard: React.FC = () => {
     getTotal();
     // getTarifData();
   }, []);
-
-  // const canClaimBonus = user && user.lastBonusDate !== new Date().toISOString().split("T")[0];
-  // const handleClaimBonus = () => {
-  //   claimDailyBonus();
-  // };
 
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -143,6 +143,7 @@ const Dashboard: React.FC = () => {
     // claimDailyBonus();
   };
 
+<<<<<<< HEAD
   function maskEmail(email: any) {
     if (!email || email.length < 3) return email;
 
@@ -212,13 +213,18 @@ const Dashboard: React.FC = () => {
   //   checkBonusStatus();
   // }, []);
 
+=======
+>>>>>>> 9f5614d (M)
   return (
     <div className="space-y-6">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
-              {t("dashboard.welcomeBack")}, {user?.name}! 👋
+              <div className="flex flex-col gap-2">
+                <h1>{userLevel.prize} </h1>
+                {t("dashboard.welcomeBack")}, {user?.name}!
+              </div>
             </h1>
           </div>
           <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
