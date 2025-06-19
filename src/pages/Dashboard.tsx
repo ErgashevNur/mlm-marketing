@@ -133,7 +133,7 @@ const Dashboard: React.FC = () => {
       const data = await response.json();
       setCanClaimBonus(data.status);
       // console.log(t("dashboard.bonusReceivedLog"), data);
-      toast.warning(t("dashboard.bonusOncePerDay"));
+      toast.warning(data.status);
     } catch (error) {
       // console.error(t("dashboard.errorLog"), error);
       alert(t("dashboard.bonusError") || "Bonus olishda xatolik yuz berdi.");
@@ -197,7 +197,7 @@ const Dashboard: React.FC = () => {
           <div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
               <div className="flex flex-col gap-2">
-                <h1>{userLevel.prize} </h1>
+                <h1>{userLevel?.prize} </h1>
                 {t("dashboard.welcomeBack")}, {user?.name}!
               </div>
             </h1>
