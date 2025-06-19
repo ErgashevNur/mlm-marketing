@@ -30,9 +30,7 @@ const RegisterPage: React.FC = () => {
   const [isActive, setIsActive] = useState(false);
   const [canResend, setCanResend] = useState(false);
 
-<<<<<<< HEAD
   const referal: any = localStorage.getItem("referral_id");
-=======
 
   useEffect(() => {
     if (timeLeft <= 0) {
@@ -57,17 +55,13 @@ const RegisterPage: React.FC = () => {
     // Optionally, call an API to resend the verification email here
   };
 
-  const referal = localStorage.getItem("referral_id");
->>>>>>> 9f5614d (M)
-
-  // console.log(name, email, password, referal);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert(t("auth.passwordsDoNotMatch"));
       return;
     }
+    const referal = localStorage.getItem("referral_id");
 
     try {
       setShowModal(true);
@@ -335,9 +329,7 @@ const RegisterPage: React.FC = () => {
               <h1 className="text-2xl font-bold text-gray-800 mb-2">
                 {t("auth.verifyEmailTitle")}
               </h1>
-              <p className="text-gray-600">
-                {t("auth.verificationCodeSent")}
-              </p>
+              <p className="text-gray-600">{t("auth.verificationCodeSent")}</p>
 
               <a
                 href="https://mail.google.com/"
@@ -359,9 +351,7 @@ const RegisterPage: React.FC = () => {
                 </span>
               </div>
               <p className="text-sm text-gray-500 mt-2">
-                {timeLeft > 0
-                  ? t("auth.codeExpiresIn")
-                  : t("auth.timeExpired")}
+                {timeLeft > 0 ? t("auth.codeExpiresIn") : t("auth.timeExpired")}
               </p>
             </div>
 

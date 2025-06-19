@@ -12,7 +12,6 @@ const Dashboard: React.FC = () => {
   const [allCoin, setAllCoin] = useState([]);
   const [statistika, setStatistika] = useState([]);
   const [canClaimBonus, setCanClaimBonus] = useState(true);
-<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
   // const [tarifData, setTarifData] = useState();
 
@@ -50,10 +49,8 @@ const Dashboard: React.FC = () => {
   //     toast("Hello World");
   //   }
   // };
-=======
 
   const userLevel = JSON.parse(localStorage.getItem("UserLevel"));
->>>>>>> 9f5614d (M)
 
   const getUser = async () => {
     try {
@@ -143,7 +140,6 @@ const Dashboard: React.FC = () => {
     // claimDailyBonus();
   };
 
-<<<<<<< HEAD
   function maskEmail(email: any) {
     if (!email || email.length < 3) return email;
 
@@ -165,23 +161,23 @@ const Dashboard: React.FC = () => {
 
   const googleRefSistem = async () => {
     try {
-      const googleRefId =await localStorage.getItem("referral_id");
+      const googleRefId = await localStorage.getItem("referral_id");
       const token = localStorage.getItem("token");
 
-     if(googleRefId){
-          const res = await fetch(
-        `${import.meta.env.VITE_API_KEY}/referal/google/${googleRefId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
- 
-      console.log(res)
-     }
+      if (googleRefId) {
+        const res = await fetch(
+          `${import.meta.env.VITE_API_KEY}/referal/google/${googleRefId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        console.log(res);
+      }
 
       localStorage.removeItem("referral_id");
     } catch (error: any) {
@@ -194,27 +190,6 @@ const Dashboard: React.FC = () => {
 
   googleRefSistem();
 
-  // useEffect(() => {
-  //   const checkBonusStatus = async () => {
-  //     const token = localStorage.getItem("token");
-  //     if (!token) return;
-  //     try {
-  //       const res = await fetch(`${import.meta.env.VITE_API_KEY}/bonus/daily`, {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       });
-  //       const data = await res.json();
-  //       console.log(data);
-
-  //       setCanClaimBonus(data.status === true);
-  //     } catch {
-  //       setCanClaimBonus(false);
-  //     }
-  //   };
-  //   checkBonusStatus();
-  // }, []);
-
-=======
->>>>>>> 9f5614d (M)
   return (
     <div className="space-y-6">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
