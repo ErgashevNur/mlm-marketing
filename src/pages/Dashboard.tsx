@@ -14,10 +14,6 @@ const Dashboard: React.FC = () => {
   const [canClaimBonus, setCanClaimBonus] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-
-
-
-
   const userLevel = JSON.parse(localStorage.getItem("UserLevel"));
 
   const getUser = async () => {
@@ -144,8 +140,9 @@ const Dashboard: React.FC = () => {
           }
         );
       }
+      console.log(googleRefId);
 
-      localStorage.removeItem("referral_id");
+      // localStorage.removeItem("referral_id");
     } catch (error: any) {
       // console.error("Google referral xatolik:", error);
       toast.error(error.message || "Kutilmagan xatolik");
