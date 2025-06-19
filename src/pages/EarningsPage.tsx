@@ -272,15 +272,15 @@ const EarningsPage: React.FC = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {/* Input Section */}
-            <div className="space-y-6 p-4 sm:p-6 border border-white/20 rounded-2xl">
-              <div className="space-y-2 sm:space-y-3">
+            <div className="space-y-4 sm:space-y-6 p-3 sm:p-6 border border-white/20 rounded-2xl">
+              <div className="space-y-1.5 sm:space-y-3">
                 <label className="block text-sm sm:text-base text-gray-900 dark:text-white font-medium">
                   {t("trading.selectCurrency")}
                 </label>
                 <select
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
-                  className="w-full bg-white/10 dark:bg-gray-800 border border-y-indigo-600 border-x-indigo-600 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                  className="w-full bg-white/10 dark:bg-gray-800 border border-indigo-600 rounded-xl sm:rounded-2xl px-3 py-2 sm:px-6 sm:py-4 text-sm sm:text-base text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
                 >
                   {coinData?.map((curr: any) => (
                     <option
@@ -293,7 +293,8 @@ const EarningsPage: React.FC = () => {
                   ))}
                 </select>
               </div>
-              <div className="space-y-2 sm:space-y-3">
+
+              <div className="space-y-1.5 sm:space-y-3">
                 <label className="block text-sm sm:text-base text-gray-900 dark:text-white font-medium">
                   {t("earningsPage.coinAmount")}
                 </label>
@@ -306,14 +307,14 @@ const EarningsPage: React.FC = () => {
                   value={coinAmount}
                   onChange={(e) => setCoinAmount(e.target.value)}
                   placeholder={t("earningsPage.amountPlaceholder")}
-                  className="w-full bg-white/10 dark:bg-gray-800 border border-y-indigo-600 border-x-indigo-600 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                  className="w-full bg-white/10 dark:bg-gray-800 border border-indigo-600 rounded-xl sm:rounded-2xl px-3 py-2 sm:px-6 sm:py-4 text-sm sm:text-base text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
                 />
               </div>
 
               <button
                 onClick={handleDeposit}
                 disabled={isDepositDisabled}
-                className={`w-full bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-2xl flex items-center justify-center gap-3 transition-all duration-200 transform ${
+                className={`w-full bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-bold text-sm sm:text-base py-2.5 sm:py-4 px-4 sm:px-8 rounded-xl sm:rounded-2xl flex items-center justify-center gap-2 sm:gap-3 transition-all duration-200 transform ${
                   isDepositDisabled
                     ? "opacity-60 cursor-not-allowed hover:scale-100"
                     : "hover:scale-[1.02] shadow-lg"
