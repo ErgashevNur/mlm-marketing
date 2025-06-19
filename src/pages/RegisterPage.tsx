@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Mail, Lock, Eye, EyeOff, User, MailIcon } from "lucide-react";
+import {
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  User,
+  MailIcon,
+  Clock,
+  RefreshCw,
+} from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
 
@@ -16,49 +25,29 @@ const RegisterPage: React.FC = () => {
   // const [referal, setReferal] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(120);
-  const [isExpired, setIsExpired] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(180); // 3 daqiqa = 180 soniya
+  const [isActive, setIsActive] = useState(false);
+  const [canResend, setCanResend] = useState(false);
 
-  useEffect(() => {
-    if (timeLeft <= 0) {
-      setIsExpired(true);
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [timeLeft]);
-
-  const formattedTime = `${Math.floor(timeLeft / 60)}:${(timeLeft % 60)
-    .toString()
-    .padStart(2, "0")}`;
-
-  const handleResend = () => {
-    setTimeLeft(120);
-    setIsExpired(false);
-    // Optionally, call an API to resend the verification email here
-  };
-
-  const referal = localStorage.getItem("referral_id");
+  const referal: any = localStorage.getItem("referral_id");
 
   // console.log(name, email, password, referal);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      alert(t("auth.passwordsDoNotMatch"));
       return;
     }
-    try {
-      const response = await register(name, email, password, referal);
-      console.log(response.message);
 
+    try {
+      setShowModal(true);
+      console.log(1);
+      const response: any = await register(name, email, password, referal);
+
+      console.log(response.message);
       if (response.message === "success") {
-        setShowModal(true);
         console.log(1);
       } else {
         setShowModal(false);
@@ -66,9 +55,49 @@ const RegisterPage: React.FC = () => {
       }
     } catch (error) {
       // Error handling is managed by the register function via toast
-      setShowModal(false);
     }
   };
+
+  const formatTime = (seconds: any) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+  };
+
+  // Taymerni boshlash
+  const startTimer = () => {
+    setTimeLeft(180);
+    setIsActive(true);
+    setCanResend(false);
+  };
+
+  const resendEmail = () => {
+    // Bu yerda email yuborish logikasi bo'ladi
+    alert("Email qayta yuborildi!");
+    startTimer();
+  };
+
+  // Taymer effekti
+  useEffect(() => {
+    let interval: any = null;
+
+    if (isActive && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft((prevTime) => {
+          if (prevTime <= 1) {
+            setIsActive(false);
+            setCanResend(true);
+            return 0;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+    } else if (!isActive && timeLeft !== 0) {
+      clearInterval(interval);
+    }
+
+    return () => clearInterval(interval);
+  }, [isActive, timeLeft]);
 
   const handleGoogleLogin = async () => {
     await loginWithGoogle();
@@ -77,9 +106,9 @@ const RegisterPage: React.FC = () => {
     // console.log(token);
   };
 
-  const handleFacebookLogin = async () => {
-    await loginWithFacebook();
-  };
+  // const handleFacebookLogin = async () => {
+  //   await loginWithFacebook();
+  // };
 
   return (
     <div className={`min-h-screen ${isDarkMode ? "dark" : ""}`}>
@@ -96,14 +125,14 @@ const RegisterPage: React.FC = () => {
                 {t("auth.signUp")}
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                Create your account and start earning
+                {t("auth.createAccountPrompt")}
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Full Name
+                  {t("auth.fullName")}
                 </label>
                 <div className="relative">
                   <User
@@ -115,7 +144,7 @@ const RegisterPage: React.FC = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                    placeholder="Your name"
+                    placeholder={t("auth.yourNamePlaceholder")}
                     required
                   />
                 </div>
@@ -135,7 +164,7 @@ const RegisterPage: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                    placeholder="Your@mail.ru"
+                    placeholder={t("auth.emailPlaceholder")}
                     required
                   />
                 </div>
@@ -170,7 +199,7 @@ const RegisterPage: React.FC = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Confirm Password
+                  {t("auth.confirmPassword")}
                 </label>
                 <div className="relative">
                   <Lock
@@ -202,6 +231,7 @@ const RegisterPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isLoading}
+                onClick={startTimer}
                 className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
                 {isLoading ? t("common.loading") : t("auth.signUp")}
@@ -215,7 +245,7 @@ const RegisterPage: React.FC = () => {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
-                    or
+                    {t("common.or")}
                   </span>
                 </div>
               </div>
@@ -249,33 +279,16 @@ const RegisterPage: React.FC = () => {
                   {t("auth.loginWithGoogle")}
                 </span>
               </button>
-
-              {/* <button
-                onClick={handleFacebookLogin}
-                disabled={isLoading}
-                className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                <svg
-                  className="w-5 h-5 mr-3"
-                  fill="#1877F2"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-                <span className="text-gray-700 dark:text-gray-300">
-                  {t("auth.loginWithFacebook")}
-                </span>
-              </button> */}
             </div>
 
             <div className="mt-6 text-center">
               <span className="text-sm text-gray-600 dark:text-gray-400">
-                Already have an account?{" "}
+                {t("auth.alreadyHaveAccount")}{" "}
                 <Link
                   to="/login"
                   className="text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 font-medium"
                 >
-                  Sign in
+                  {t("auth.signIn")}
                 </Link>
               </span>
             </div>
@@ -284,38 +297,89 @@ const RegisterPage: React.FC = () => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white w-full h-screen flex items-center justify-center">
-          <div className="w-[550px] h-[400px] bg-white text-black rounded-lg p-5 shadow-md flex flex-col items-center justify-center space-y-4">
-            <h1 className="text-3xl font-bold">Ro'yxatdan o'tish</h1>
-            <p className="text-lg">
-              Tasdiqlash kodi yuborildi. Qolgan vaqt: {formattedTime}
-            </p>
-            <button
-              onClick={() => setShowModal(false)}
-              className="w-52 h-10 rounded-md bg-gray-500/30 hover:bg-gray-600/50"
-            >
-              Ma'lumot qayta kiritish
-            </button>
-            <button
-              onClick={handleResend}
-              disabled={!isExpired}
-              className={`w-52 h-10 rounded ${
-                isExpired
-                  ? "bg-blue-600 text-white hover:bg-blue-700"
-                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
-              }`}
-            >
-              Qayta yuborish
-            </button>
-            <a
-              href="https://mail.google.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex gap-2 bg-blue-600 px-[39px] text-white rounded-md py-2 hover:bg-blue-700"
-            >
-              <MailIcon className="w-5" />
-              Emailga kirish
-            </a>
+        <div className="fixed inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
+            {/* Email icon */}
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+                <Mail className="w-8 h-8 text-blue-600" />
+              </div>
+              <h1 className="text-2xl font-bold text-gray-800 mb-2">
+                {t("auth.verifyEmailTitle")}
+              </h1>
+              <p className="text-gray-600">
+                {t("auth.verificationCodeSent")}
+              </p>
+
+              <a
+                href="https://mail.google.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex gap-2 bg-blue-600 px-[39px] text-white rounded-md py-2 hover:bg-blue-700 mt-4 justify-center"
+              >
+                <MailIcon className="w-5" />
+                {t("auth.openEmail")}
+              </a>
+            </div>
+
+            {/* Timer display */}
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center bg-gray-50 rounded-lg p-4 min-w-[120px]">
+                <Clock className="w-5 h-5 text-gray-500 mr-2" />
+                <span className="text-2xl font-mono font-bold text-gray-800">
+                  {formatTime(timeLeft)}
+                </span>
+              </div>
+              <p className="text-sm text-gray-500 mt-2">
+                {timeLeft > 0
+                  ? t("auth.codeExpiresIn")
+                  : t("auth.timeExpired")}
+              </p>
+            </div>
+
+            {/* Action buttons */}
+            <div className="space-y-3">
+              {!isActive && timeLeft === 180 && (
+                <button
+                  onClick={startTimer}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                >
+                  <Clock className="w-4 h-4 mr-2" />
+                  {t("auth.startTimer")}
+                </button>
+              )}
+
+              {canResend && (
+                <button
+                  onClick={resendEmail}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  {t("auth.resendEmail")}
+                </button>
+              )}
+
+              {isActive && (
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                  <p className="text-sm text-yellow-800 text-center">
+                    ⏳ {t("auth.emailSentConfirmation")}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Instructions */}
+            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+              <h3 className="font-medium text-gray-800 mb-2">
+                {t("auth.instructionsTitle")}
+              </h3>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• {t("auth.instruction1")}</li>
+                <li>• {t("auth.instruction2")}</li>
+                <li>• {t("auth.instruction3")}</li>
+                <li>• {t("auth.instruction4")}</li>
+              </ul>
+            </div>
           </div>
         </div>
       )}

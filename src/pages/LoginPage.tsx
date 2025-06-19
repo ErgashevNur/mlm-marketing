@@ -7,8 +7,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
-  const { user, login, loginWithGoogle, isLoading } =
-    useAuth();
+  const { user, login, loginWithGoogle, isLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
