@@ -102,7 +102,10 @@ export default function BonusHistory() {
       const data = await response.json();
       setHistoryUser(data);
     } catch (error) {
-      toast.error("Bonus history olishda xatolik: " + (error instanceof Error ? error.message : String(error)));
+      toast.error(
+        "Bonus history olishda xatolik: " +
+          (error instanceof Error ? error.message : String(error))
+      );
       return null;
     }
   };
@@ -129,7 +132,10 @@ export default function BonusHistory() {
       const data = await response.json();
       setHistoryReferal(data);
     } catch (error) {
-      toast.error("Bonus history olishda xatolik: " + (error instanceof Error ? error.message : String(error)));
+      toast.error(
+        "Bonus history olishda xatolik: " +
+          (error instanceof Error ? error.message : String(error))
+      );
       return null;
     }
   };
@@ -156,7 +162,10 @@ export default function BonusHistory() {
       const data = await response.json();
       setHistoryProducts(data);
     } catch (error) {
-      toast.error("Bonus history olishda xatolik: " + (error instanceof Error ? error.message : String(error)));
+      toast.error(
+        "Bonus history olishda xatolik: " +
+          (error instanceof Error ? error.message : String(error))
+      );
       return null;
     }
   };
@@ -183,7 +192,10 @@ export default function BonusHistory() {
       const data = await response.json();
       setHistoryPlans(data);
     } catch (error) {
-      toast.error("Bonus history olishda xatolik: " + (error instanceof Error ? error.message : String(error)));
+      toast.error(
+        "Bonus history olishda xatolik: " +
+          (error instanceof Error ? error.message : String(error))
+      );
       return null;
     }
   };
@@ -409,7 +421,9 @@ export default function BonusHistory() {
                     {/* Product Info Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
                       <div className="flex items-center gap-1">
-                        <p className="text-gray-500 dark:text-gray-400">{t("historyPage.id")}:</p>
+                        <p className="text-gray-500 dark:text-gray-400">
+                          {t("historyPage.id")}:
+                        </p>
                         <p>{order.main_products.id}</p>
                       </div>
                       <div className="flex items-center gap-1">
@@ -528,7 +542,9 @@ export default function BonusHistory() {
                         <p className="text-gray-500 dark:text-gray-400">
                           {t("historyPage.term")}
                         </p>
-                        <p>{plan.tariff.term} {t("historyPage.days")}</p>
+                        <p>
+                          {plan.tariff.term} {t("historyPage.days")}
+                        </p>
                       </div>
                       <div>
                         <p className="text-gray-500 dark:text-gray-400">
@@ -562,7 +578,8 @@ export default function BonusHistory() {
                       <div className="flex items-center gap-1">
                         <CalendarCheck size={14} />
                         <span>
-                          {t("historyPage.endTime")}: {new Date(plan.end_time).toLocaleDateString()}
+                          {t("historyPage.endTime")}:{" "}
+                          {new Date(plan.end_time).toLocaleDateString()}
                         </span>
                       </div>
                       <div className="flex items-center gap-1">
@@ -583,7 +600,9 @@ export default function BonusHistory() {
                             : "bg-red-100 text-red-700 dark:bg-red-800/20 dark:text-red-300"
                         }`}
                       >
-                        {plan.status ? t("historyPage.active") : t("historyPage.completed")}
+                        {plan.status
+                          ? t("historyPage.active")
+                          : t("historyPage.completed")}
                       </span>
                     </div>
                   </div>
