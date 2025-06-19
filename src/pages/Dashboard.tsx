@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Users, Coins, Gift } from "lucide-react";
+import { Users, Gift } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import StatCard from "../components/StatCard";
 import { toast } from "sonner";
@@ -9,9 +9,11 @@ import StatisticsChart from "../components/StatisticsChart";
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
   const { user, claimDailyBonus } = useAuth();
-  const [statistika, setStatistika] = useState([]);
   const [allCoin, setAllCoin] = useState([]);
+  const [statistika, setStatistika] = useState([]);
   const [canClaimBonus, setCanClaimBonus] = useState(true);
+  // const [tarifData, setTarifData] = useState();
+
   // const userData: any = JSON.parse(localStorage.getItem("user-data") || "{}");
 
   // useEffect(() => {
@@ -21,11 +23,37 @@ const Dashboard: React.FC = () => {
   //   sendBackend();
   // }, []);
 
-  console.log(statistika);
+  // const tariffIds = user.userTariff.map((tariff: any) => tariff.tariff_id);
+  // console.log(tariffIds);
+
+  // const getTarifData: any = async () => {
+  //   const token = localStorage.getItem("token");
+
+  //   try {
+  //     const req = fetch(`${import.meta.env.VITE_API_KEY}/tariff/${tariffIds}`, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     const data: any = await req.json();
+  //     console.log(data);
+
+  //     setTarifData(data);
+  //     console.log(tarifData);
+  //   } catch {
+  //     toast.error("xatolik ; )");
+  //   } finally {
+  //     toast("Hello World");
+  //   }
+  // };
 
   const getUser = async () => {
     try {
-      const req = await fetch("https://mlm-backend.pixl.uz/statistika/user");
+      const req = await fetch(
+        `${import.meta.env.VITE_API_KEY}/statistika/user`
+      );
       if (req.status === 200) {
         const res = await req.json();
         setStatistika(res);
@@ -41,7 +69,7 @@ const Dashboard: React.FC = () => {
   const getTotal = async () => {
     try {
       const req = await fetch(
-        "https://mlm-backend.pixl.uz/statistika/statis-web"
+        `${import.meta.env.VITE_API_KEY}/statistika/statis-web`
       );
       if (req.status === 200) {
         const res = await req.json();
@@ -58,6 +86,7 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     getUser();
     getTotal();
+    // getTarifData();
   }, []);
 
   // const canClaimBonus = user && user.lastBonusDate !== new Date().toISOString().split("T")[0];
@@ -83,13 +112,16 @@ const Dashboard: React.FC = () => {
     }
 
     try {
-      const response = await fetch("https://mlm-backend.pixl.uz/bonus/daily", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_KEY}/bonus/daily`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(
@@ -100,20 +132,41 @@ const Dashboard: React.FC = () => {
 
       const data = await response.json();
       setCanClaimBonus(data.status);
-      console.log(t("dashboard.bonusReceivedLog"), data);
+      // console.log(t("dashboard.bonusReceivedLog"), data);
       toast.warning(t("dashboard.bonusOncePerDay"));
     } catch (error) {
-      console.error(t("dashboard.errorLog"), error);
+      // console.error(t("dashboard.errorLog"), error);
       alert(t("dashboard.bonusError") || "Bonus olishda xatolik yuz berdi.");
     }
+
+    // claimDailyBonus();
   };
+
+  function maskEmail(email: any) {
+    if (!email || email.length < 3) return email;
+
+    const atIndex = email.indexOf("@");
+    if (atIndex === -1) return email;
+
+    const username = email.substring(0, atIndex);
+    const domain = email.substring(atIndex);
+
+    if (username.length <= 3) {
+      return email; // Agar username 3 ta yoki kamroq harf bo'lsa, o'zgartirmaslik
+    }
+
+    const visiblePart = username.substring(0, 3);
+    const hiddenPart = "*".repeat(username.length - 3);
+
+    return visiblePart + hiddenPart + domain;
+  }
 
   // useEffect(() => {
   //   const checkBonusStatus = async () => {
   //     const token = localStorage.getItem("token");
   //     if (!token) return;
   //     try {
-  //       const res = await fetch("https://mlm-backend.pixl.uz/bonus/daily", {
+  //       const res = await fetch(`${import.meta.env.VITE_API_KEY}/bonus/daily`, {
   //         headers: { Authorization: `Bearer ${token}` },
   //       });
   //       const data = await res.json();
@@ -126,8 +179,6 @@ const Dashboard: React.FC = () => {
   //   };
   //   checkBonusStatus();
   // }, []);
-
-  console.log(user);
 
   return (
     <div className="space-y-6">
@@ -184,7 +235,7 @@ const Dashboard: React.FC = () => {
         <StatCard
           title={t("dashboard.yourCoin")}
           value={user?.coin || 0}
-          icon={Coins}
+          img={"/CoinLogo.png"}
           color="blue"
           subtitle={`+${user?.coin || 0} ${t("dashboard.dailyBonus")}`}
         />
@@ -256,7 +307,7 @@ const Dashboard: React.FC = () => {
                   className="flex items-center justify-between bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-3 shadow-sm hover:shadow-md transition"
                 >
                   <span className="text-sm sm:text-base font-medium text-gray-800 dark:text-gray-100 truncate max-w-[50%]">
-                    {data.email}
+                    {maskEmail(data.email)}
                   </span>
                   <span className="flex items-center gap-2 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200">
                     {data.coin}

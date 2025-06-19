@@ -133,14 +133,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Registration failed");
+      if (!res.ok) throw new Error(data.message);
 
       toast.success(data.message || "Registration successful!");
       localStorage.setItem("email", email);
-      setUser(data.data?.user || null);
-      localStorage.setItem("user-data", JSON.stringify(data.data.user));
+      // setUser(data.data?.user || null);
+      // localStorage.setItem("user-data", JSON.stringify(data.data.user));
     } catch (error: any) {
-      toast.error(error.message || "Registration error");
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -148,14 +148,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const loginWithGoogle = async () => {
     // const id = localStorage.getItem("referral_id");
-    // fetch("https://mlm-backend.pixl.uz/authorization/google")
+    // fetch(`${import.meta.env.VITE_API_KEY}/authorization/google`)
     //   .then(console.log)
     //   .catch(console.log);
 
     try {
-      window.location.href = "https://mlm-backend.pixl.uz/authorization/google";
+      window.location.href = `${
+        import.meta.env.VITE_API_KEY
+      }/authorization/google`;
     } catch (error: any) {
-      toast.error(error.message || "Registration failed");
+      toast.warning(error.message || "Registration failed");
       throw error; // Re-throw the error for handleSubmit to catch
     } finally {
       setIsLoading(false);
@@ -178,7 +180,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const claimDailyBonus = () => {
-    if (user) {
+    if (user?.userTariff.status) {
       toast.success("Bonus claimed!");
     } else {
       toast.error("Log in first");

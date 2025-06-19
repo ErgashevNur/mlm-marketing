@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  Globe,
   User,
   Menu,
   X,
@@ -71,7 +70,7 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+    <nav className="bg-white px-16 dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-4">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
@@ -80,7 +79,11 @@ const Navbar: React.FC = () => {
               to={user ? "/dashboard" : "/"}
               className="flex items-center space-x-3"
             >
-              <img className="w-10 h-10" src={import.meta.env.VITE_LOGO} alt="" />
+              <img
+                className="w-10 h-10"
+                src={import.meta.env.VITE_LOGO}
+                alt=""
+              />
               <span className="text-sm hidden sm:block font-bold text-gray-900 dark:text-white">
                 {import.meta.env.VITE_KEY_IMG}
               </span>
@@ -127,7 +130,7 @@ const Navbar: React.FC = () => {
               <>
                 <div className="hidden md:flex items-center space-x-2 px-3 py-1 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
                   <img src="/CoinLogo.png" className="w-5" />
-                  <span className="text-sm font-medium text-yellow-700 dark:text-yellow-300">
+                  <span className="text-sm font-medium text-yellow-700 dark:text-yellow-300 px-1">
                     {user?.coin?.toLocaleString()}
                   </span>
                 </div>

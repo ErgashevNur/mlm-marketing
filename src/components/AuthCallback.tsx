@@ -20,7 +20,7 @@ export default function AuthCallback() {
         localStorage.setItem("token", token);
         sessionStorage.setItem("token2", token);
 
-        const res = await fetch(`https://mlm-backend.pixl.uz/users/token`, {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/users/token`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
