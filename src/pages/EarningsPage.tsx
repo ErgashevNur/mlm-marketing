@@ -84,7 +84,6 @@ const EarningsPage: React.FC = () => {
 
     socketRef.current.on("roomAssigned", (data) => {
       console.log(t("earningsPage.joinedRoom", { data }));
-      toast.success(t("earningsPage.connectedToRoom", { data }));
     });
 
     socketRef.current.on("card_info", (data) => {
@@ -236,101 +235,6 @@ const EarningsPage: React.FC = () => {
     }
   };
 
-  // const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     setSelectedFile(file);
-  //     const photo_url = URL.createObjectURL(file);
-  //     setCommonFields((prev) => ({ ...prev, photo_url: [{ photo_url }] }));
-  //   }
-  // }
-
-  // e.preventDefault();
-  //   const token = localStorage.getItem("token");
-  //   if (!token) {
-  //     toast.error("No authentication token found.");
-  //     return;
-  //   }
-
-  //   try {
-  //     let uploadedPhotoUrl = commonFields.photo_url;
-
-  //     // Faqat yangi rasm tanlangan bo‘lsa yuklanadi
-  //     if (selectedFile) {
-  //       const formData = new FormData();
-  //       formData.append("file", selectedFile);
-
-  //       const uploadRes = await fetch(
-  //         "https://mlm-backend.pixl.uz/upload/single",
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //           body: formData,
-  //         }
-  //       );
-
-  //       const res = await uploadRes.json();
-  //       uploadedPhotoUrl = res.url;
-  //     }
-
-  //     const payload = {
-  //       rating: Number(commonFields.rating),
-  //       rewiev: Number(commonFields.rewiev),
-  //       count: Number(commonFields.count),
-  //       coin: Number(commonFields.coin),
-  //       photo_url: [
-  //         {
-  //           photo_url: uploadedPhotoUrl,
-  //         },
-  //       ],
-  //       translations: Object.entries(translations).map(([lang, data]) => ({
-  //         language: lang,
-  //         ...data,
-  //       })),
-  //     };
-
-  //     const url =
-  //       mode === "edit"
-  //         ? `https://mlm-backend.pixl.uz/products/${editingId}`
-  //         : "https://mlm-backend.pixl.uz/products";
-
-  //     const method = mode === "edit" ? "PATCH" : "POST";
-
-  //     await fetch(url, {
-  //       method,
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(payload),
-  //     });
-
-  //     toast.success(mode === "edit" ? "Product updated" : "Product added");
-  //     fetchTariffs();
-
-  //     // Forma tozalansin
-  //     setCommonFields({
-  //       rating: 0,
-  //       rewiev: 0,
-  //       count: 0,
-  //       coin: 0,
-  //       photo_url: "",
-  //     });
-  //     setTranslations({});
-  //     setEditingId(null);
-  //     setMode("add");
-  //     setSelectedFile(null);
-  //     setOpeFormModal(false);
-  //   } catch (err) {
-  //     toast.error("Save error");
-  //     console.error(err);
-  //   }
-  // }
-
-  // https://mlm-backend.pixl.uz/payments/scrinshot
-
   return (
     <div className="min-h-screen text-gray-900 dark:text-white">
       {/* Header */}
@@ -351,65 +255,68 @@ const EarningsPage: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
         {/* Trading Card */}
-        <div className="bg-white/10 dark:bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 p-8 shadow-2xl">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-2xl flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-white" />
+        <div className="bg-white/10 dark:bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 p-4 sm:p-6 md:p-8 shadow-2xl w-full max-w-6xl mx-auto">
+          <div className="flex items-center gap-3 mb-6 sm:mb-8">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-2xl flex items-center justify-center">
+              <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                 {t("trading.purchaseCoins")}
               </h2>
-              <p className="text-gray-700 dark:text-white/70">
+              <p className="text-sm sm:text-base text-gray-700 dark:text-white/70">
                 {t("earningsPage.enterAmount")}
               </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {/* Input Section */}
-            <div className="space-y-6 p-6 border border-white/20 rounded-2xl">
-              <div className="space-y-3">
-                <label className="block text-gray-900 dark:text-white font-medium">
-                  {t("earningsPage.coinAmount")}
-                </label>
-                <input
-                  type="number"
-                  value={coinAmount}
-                  onChange={(e) => setCoinAmount(e.target.value)}
-                  placeholder={t("earningsPage.amountPlaceholder")}
-                  className="w-full bg-white/10 border border-gray-400 dark:bg-gray-800 border border-gray-500 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                />
-              </div>
-
-              <div className="pb-7 space-y-3">
-                <label className="block text-gray-900 dark:text-white font-medium">
+            <div className="space-y-6 p-4 sm:p-6 border border-white/20 rounded-2xl">
+              <div className="space-y-2 sm:space-y-3">
+                <label className="block text-sm sm:text-base text-gray-900 dark:text-white font-medium">
                   {t("trading.selectCurrency")}
                 </label>
                 <select
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
-                  className="w-full bg-white/10 border border-gray-400 dark:bg-gray-800 border border-gray-500 pr-3 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="w-full bg-white/10 dark:bg-gray-800 border border-y-indigo-600 border-x-indigo-600 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
                 >
                   {coinData?.map((curr: any) => (
                     <option
                       key={curr.id}
                       value={curr.currency}
-                      className="bg-slate-800"
+                      className="bg-gray-800 text-white"
                     >
                       {curr.currency}
                     </option>
                   ))}
                 </select>
               </div>
+              <div className="space-y-2 sm:space-y-3">
+                <label className="block text-sm sm:text-base text-gray-900 dark:text-white font-medium">
+                  {t("earningsPage.coinAmount")}
+                </label>
+                <input
+                  type={
+                    ["USDT", "BITCOIN", "TONCOIN"].includes(currency)
+                      ? "text"
+                      : "number"
+                  }
+                  value={coinAmount}
+                  onChange={(e) => setCoinAmount(e.target.value)}
+                  placeholder={t("earningsPage.amountPlaceholder")}
+                  className="w-full bg-white/10 dark:bg-gray-800 border border-y-indigo-600 border-x-indigo-600 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                />
+              </div>
 
               <button
                 onClick={handleDeposit}
                 disabled={isDepositDisabled}
-                className={`w-full bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-2xl flex items-center justify-center gap-3 transition-all duration-200 transform hover:scale-[1.02] shadow-lg ${
+                className={`w-full bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-2xl flex items-center justify-center gap-3 transition-all duration-200 transform ${
                   isDepositDisabled
                     ? "opacity-60 cursor-not-allowed hover:scale-100"
-                    : ""
+                    : "hover:scale-[1.02] shadow-lg"
                 }`}
               >
                 {isDepositDisabled ? (
@@ -429,21 +336,21 @@ const EarningsPage: React.FC = () => {
             </div>
 
             {/* Calculation Section */}
-            <div className="rounded-2xl p-6 border border-white/20">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="rounded-2xl p-4 sm:p-6 border border-white/20">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 {t("earningsPage.orderSummary")}
               </h3>
-              <div className="space-y-4 flex flex-col pt-2 gap-10">
-                <div className="flex justify-between items-center py-2 pb-5 border-b-[1px]">
-                  <span className="text-gray-700 dark:text-white/70">
+              <div className="space-y-4 flex flex-col pt-2">
+                <div className="flex justify-between items-center py-2 border-b">
+                  <span className="text-gray-700 dark:text-white/70 text-sm sm:text-base">
                     {t("earningsPage.amount")}
                   </span>
                   <span className="text-gray-900 dark:text-white font-medium">
                     {coinAmount} USDT {currency}
                   </span>
                 </div>
-                <div className="flex justify-between items-center py-2 pb-5 border-b-[1px]">
-                  <span className="text-gray-700 dark:text-white/70">
+                <div className="flex justify-between items-center py-2 border-b">
+                  <span className="text-gray-700 dark:text-white/70 text-sm sm:text-base">
                     {t("earningsPage.currency")}
                   </span>
                   <span className="text-gray-900 dark:text-white font-medium">
@@ -454,11 +361,9 @@ const EarningsPage: React.FC = () => {
                   <span className="text-gray-900 dark:text-white font-semibold">
                     {t("trading.totalValue")}
                   </span>
-                  <span className="text-2xl font-bold text-yellow-400">
+                  <span className="text-xl sm:text-2xl font-bold">
                     {getCalculatedValue()}
                   </span>
-
-                  {/* <h1>{cardNum?.cardNumber}</h1> */}
                 </div>
               </div>
             </div>
@@ -466,27 +371,27 @@ const EarningsPage: React.FC = () => {
         </div>
 
         {/* Transaction History */}
-        <div className="bg-white/10 dark:bg-gray-800 backdrop-blur-md rounded-3xl border border-white/20 p-8 shadow-2xl">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center">
-              <History className="w-6 h-6 text-white" />
+        <div className="bg-white/10 dark:bg-gray-800 backdrop-blur-md rounded-3xl border border-white/20 p-4 sm:p-6 md:p-8 shadow-2xl w-full max-w-6xl mx-auto">
+          <div className="flex items-center gap-3 mb-6 sm:mb-8">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center">
+              <History className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                 {t("earningsPage.historyTitle")}
               </h2>
-              <p className="text-gray-700 dark:text-white/70">
+              <p className="text-sm sm:text-base text-gray-700 dark:text-white/70">
                 {t("earningsPage.trackActivity")}
               </p>
             </div>
           </div>
 
           {!Array.isArray(data) || data.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-16">
-              <div className="w-20 h-20 bg-white/10 dark:bg-gray-900 rounded-3xl flex items-center justify-center mb-6">
-                <CreditCard className="w-10 h-10 text-gray-400 dark:text-white/50" />
+            <div className="flex flex-col items-center justify-center py-10 sm:py-16 text-center">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/10 dark:bg-gray-900 rounded-3xl flex items-center justify-center mb-4 sm:mb-6">
+                <CreditCard className="w-8 h-8 sm:w-10 sm:h-10 text-gray-400 dark:text-white/50" />
               </div>
-              <p className="text-gray-700 dark:text-white/70 text-lg">
+              <p className="text-base sm:text-lg text-gray-700 dark:text-white/70">
                 {t("earningsPage.noData")}
               </p>
             </div>
@@ -495,16 +400,19 @@ const EarningsPage: React.FC = () => {
               {data.map((item: any) => (
                 <div
                   key={item.id}
-                  className="bg-white/5 dark:bg-gray-900 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 dark:hover:bg-gray-800 transition-all duration-200 hover:transform hover:scale-[1.01]"
+                  className="bg-white/5 dark:bg-gray-900 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-6 hover:bg-white/10 dark:hover:bg-gray-800 transition-all duration-200 hover:scale-[1.01]"
                 >
-                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <img src="/CoinLogo.png" className="w-6 h-6" />
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                        <img
+                          src="/CoinLogo.png"
+                          className="w-5 h-5 sm:w-6 sm:h-6"
+                        />
                       </div>
                       <div>
-                        <div className="flex items-center gap-3 mb-2">
-                          <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                        <div className="flex items-center flex-wrap gap-2 sm:gap-3 mb-2">
+                          <span className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                             {item.how_much}
                           </span>
                           <span className="text-gray-700 dark:text-white/70 font-medium">
@@ -537,31 +445,37 @@ const EarningsPage: React.FC = () => {
                         </div>
                         <div className="flex flex-wrap gap-4 text-sm text-gray-700 dark:text-white/60">
                           <span>
-                            <span className="font-medium">{t("earningsPage.requested")}:</span>{" "}
+                            <span className="font-medium">
+                              {t("earningsPage.requested")}:
+                            </span>{" "}
                             {item.to_send_date
                               ? new Date(item.to_send_date).toLocaleString()
                               : "-"}
                           </span>
                           <span>
-                            <span className="font-medium">{t("earningsPage.processed")}:</span>{" "}
+                            <span className="font-medium">
+                              {t("earningsPage.processed")}:
+                            </span>{" "}
                             {item.to_checked_date
                               ? new Date(item.to_checked_date).toLocaleString()
                               : "-"}
                           </span>
                           {item.maskedCard && (
                             <span>
-                              <span className="font-medium">{t("earningsPage.card")}:</span>{" "}
+                              <span className="font-medium">
+                                {t("earningsPage.card")}:
+                              </span>{" "}
                               {item.maskedCard}
                             </span>
                           )}
                         </div>
                       </div>
                     </div>
-                    <div className="text-right lg:text-left">
+                    <div className="text-left lg:text-right">
                       <div className="text-xs text-gray-400 dark:text-white/40">
                         {t("earningsPage.transactionId")}
                       </div>
-                      <div className="text-gray-700 dark:text-white/60 font-mono">
+                      <div className="text-gray-700 dark:text-white/60 font-mono break-all">
                         {item.id}
                       </div>
                     </div>
@@ -582,7 +496,9 @@ const EarningsPage: React.FC = () => {
             >
               ×
             </button>
-            <h2 className="text-lg font-semibold mb-2">{t("earningsPage.dataReceived")}</h2>
+            <h2 className="text-lg font-semibold mb-2">
+              {t("earningsPage.dataReceived")}
+            </h2>
             {modalData ? (
               <div>
                 <p>
