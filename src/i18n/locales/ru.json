@@ -17,7 +17,9 @@
     "copy": "Копировать",
     "copied": "Скопировано!",
     "share": "Поделиться",
-    "bonusHistory": "История бонусов"
+    "bonusHistory": "История бонусов",
+    "view": "Подробнее",
+    "success": "Заказ успешно отправлен!"
   },
   "auth": {
     "welcome": "Добро пожаловать в MLM Platform",
@@ -122,7 +124,7 @@
     "selectPlan": "Выбрать тариф",
     "popular": "Популярный",
     "dailyProfit": "Дневная прибыль",
-    "coin": "USDT",
+    "coin": "cost",
     "referralBonus": "Реферальный бонус",
     "term": "Срок",
     "createdAt": "Дата создания",
@@ -130,7 +132,7 @@
     "longDescription": "Подробное описание",
     "name": "Название",
     "usage": "Использование",
-    "buyPlan": "Купить план за {{coin}} USDT",
+    "buyPlan": "Активация {{coin}} USDT",
     "days": "дней"
   },
   "withdraw": {

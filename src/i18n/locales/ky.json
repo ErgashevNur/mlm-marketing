@@ -18,7 +18,9 @@
     "copied": "Көчүрүлдү!",
     "share": "Бөлүшүү",
     "required": "талап кылынат",
-    "bonusHistory": "Tарыхы"
+    "bonusHistory": "Tарыхы",
+    "view": "Толугураак",
+    "success": "Буйрутма ийгиликтүү жөнөтүлдү!"
   },
   "auth": {
     "welcome": "MLM Platform-га кош келдиңиз",
@@ -123,7 +125,7 @@
     "selectPlan": "Тариф тандоо",
     "popular": "Популярдуу",
     "dailyProfit": "Күндүк киреше",
-    "coin": "USDT",
+    "coin": "cost",
     "referralBonus": "Реферал бонусу",
     "term": "Мөөнөтү",
     "createdAt": "Түзүлгөн күнү",
@@ -131,7 +133,7 @@
     "longDescription": "Толук сүрөттөмө",
     "name": "Аты",
     "usage": "Колдонуу",
-    "buyPlan": "Тарифти сатып алуу ({{coin}} USDT)",
+    "buyPlan": "Иштетүү ({{coin}} USDT)",
     "days": "күн"
   },
   "withdraw": {

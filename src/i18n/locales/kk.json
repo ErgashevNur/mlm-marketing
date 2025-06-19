@@ -18,7 +18,9 @@
     "copied": "Көшірілді!",
     "share": "Бөлісу",
     "required": "міндетті",
-    "bonusHistory": "Tарихы"
+    "bonusHistory": "Tарихы",
+    "view": "Толығырақ",
+    "success": "Тапсырыс сәтті жіберілді!"
   },
   "auth": {
     "welcome": "MLM Platform-ға қош келдіңіз",
@@ -123,7 +125,7 @@
     "selectPlan": "Тариф таңдау",
     "popular": "Танымал",
     "dailyProfit": "Күндік табыс",
-    "coin": "USDT",
+    "coin": "cost",
     "referralBonus": "Реферал бонусы",
     "term": "Мерзімі",
     "createdAt": "Жасалған күні",
@@ -131,7 +133,7 @@
     "longDescription": "Толық сипаттама",
     "name": "Атауы",
     "usage": "Қолдану",
-    "buyPlan": "Тарифті сатып алу ({{coin}} USDT)",
+    "buyPlan": "Белсендіру ({{coin}} USDT)",
     "days": "күн"
   },
   "withdraw": {

@@ -17,7 +17,9 @@
     "copy": "Nusxalash",
     "copied": "Nusxalandi!",
     "share": "Ulashish",
-    "bonusHistory": "Tarixlar"
+    "bonusHistory": "Tarixlar",
+    "view": "Batafsil",
+    "success": "Buyurtma muvaffaqiyatli yuborildi!"
   },
   "auth": {
     "welcome": "MLM Platform ga xush kelibsiz",
@@ -122,7 +124,7 @@
     "selectPlan": "Tarif tanlash",
     "popular": "Mashhur",
     "dailyProfit": "Kunlik daromad",
-    "coin": "USDT",
+    "coin": "cost",
     "referralBonus": "Referal bonusi",
     "term": "Muddat",
     "createdAt": "Yaratilgan sana",
@@ -130,7 +132,7 @@
     "longDescription": "Batafsil tavsif",
     "name": "Nomi",
     "usage": "Foydalanish",
-    "buyPlan": "Rejani sotib olish ({{coin}} USDT)",
+    "buyPlan": "Faollashtirish ({{coin}} USDT)",
     "days": "kun"
   },
   "withdraw": {

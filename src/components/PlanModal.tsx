@@ -61,7 +61,7 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
       }
 
       await response.json();
-      toast.success("Buyurtma muvaffaqiyatli yuborildi!");
+      toast.success(t("common.success"));
     } catch (error) {
       toast.error("Your coin is too low");
     }

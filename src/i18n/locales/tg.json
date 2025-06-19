@@ -18,7 +18,9 @@
     "copied": "Нусха бардошта шуд!",
     "share": "Мубодила",
     "required": "маҷбурӣ",
-    "bonusHistory": "Бонус"
+    "bonusHistory": "Бонус",
+    "view": "Тафсилот бештар",
+    "success": "Дархост бо муваффақият фиристода шуд!"
   },
   "auth": {
     "welcome": "Ба MLM Platform хуш омадед",
@@ -123,7 +125,7 @@
     "selectPlan": "Интихоби тариф",
     "popular": "Маъмул",
     "dailyProfit": "Фоидаи ҳаррӯза",
-    "coin": "USDT",
+    "coin": "cost",
     "referralBonus": "Бонуси рефералӣ",
     "term": "Мӯҳлат",
     "createdAt": "Санаи эҷод",
@@ -131,7 +133,7 @@
     "longDescription": "Тавсифи муфассал",
     "name": "Ном",
     "usage": "Истифода",
-    "buyPlan": "Харидани тариф бо {{coin}} USDT",
+    "buyPlan": "Фаъолсозӣ {{coin}} USDT",
     "days": "рӯз"
   },
   "withdraw": {

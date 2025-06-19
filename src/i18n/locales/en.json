@@ -18,7 +18,9 @@
     "copied": "Copied!",
     "share": "Share",
     "required": "is required",
-    "bonusHistory": "History"
+    "bonusHistory": "History",
+    "view": "More details",
+    "success": "Order successfully submitted!"
   },
   "auth": {
     "welcome": "Welcome to ",
@@ -122,7 +124,7 @@
     "selectPlan": "Select Plan",
     "popular": "Popular",
     "dailyProfit": "Daily Profit",
-    "coin": "USDT",
+    "coin": "cost",
     "referralBonus": "Referral Bonus",
     "term": "Term",
     "createdAt": "Created At",
@@ -130,7 +132,7 @@
     "longDescription": "Long Description",
     "name": "Name",
     "usage": "Usage",
-    "buyPlan": "Buy plan for {{coin}} USDT",
+    "buyPlan": "Activation {{coin}} USDT",
     "days": "days"
   },
   "withdraw": {
