@@ -8,8 +8,6 @@ import {
   Hash,
   Settings,
   Key,
-  Bell,
-  Moon,
   Copy,
   CheckCircle,
   X,
@@ -51,6 +49,7 @@ const ProfilePage: React.FC = () => {
 
   const changePassword = async (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
     const obj = {
       oldPassword: String(formData.get("oldPassword")),
@@ -64,7 +63,33 @@ const ProfilePage: React.FC = () => {
       e.target[target]?.focus();
       toast.error(message);
     } else {
-      console.log(obj);
+      try {
+        const res = await fetch(
+          "https://mlm-backend.pixl.uz/users/up-password",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify({
+              password: obj.newPassword,
+            }),
+          }
+        );
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          toast.error(data.message || "Parolni yangilashda xatolik yuz berdi");
+          return;
+        }
+
+        toast.success("Parol muvaffaqiyatli yangilandi!");
+        setISModal(false);
+      } catch (err) {
+        toast.error("Tarmoqda xatolik: " + err.message);
+      }
     }
   };
 
@@ -244,10 +269,6 @@ const ProfilePage: React.FC = () => {
                           className="text-gray-400 dark:text-white"
                           size={20}
                         />
-                        <Key
-                          className="text-gray-400 dark:text-white"
-                          size={20}
-                        />
                         <div>
                           <p className="font-medium dark:text-white text-gray-900">
                             {t("profile.changePassword")}
@@ -273,9 +294,9 @@ const ProfilePage: React.FC = () => {
 
       {/* Update user password */}
       {isModal && (
-        <div className="w-full h-screen fixed top-[-20px] backdrop-blur left-0 flex items-center justify-center bg-white/70 z-50 dark:bg-gray-900/0 dark:text-white ">
-          <div className="w-[400px] h-auto border dark:border-gray-500 rounded-md bg-white dark:bg-transparent p-5">
-            <h1 className="text-xl font-semibold w-full flex items-center mb-5 justify-between">
+        <div className="w-full h-screen fixed top-[-20px] backdrop-blur left-0 flex items-center justify-center bg-white/70 z-50 dark:bg-gray-900/0 dark:text-white">
+          <div className="w-[90%] sm:w-[400px] h-auto border dark:border-gray-500 rounded-md bg-white dark:bg-transparent p-4 sm:p-5">
+            <h1 className="text-lg sm:text-xl font-semibold w-full flex items-center mb-4 sm:mb-5 justify-between">
               Change your password
               <X onClick={() => setISModal(false)} className="cursor-pointer" />
             </h1>
@@ -283,17 +304,17 @@ const ProfilePage: React.FC = () => {
               onSubmit={changePassword}
               className="flex w-full flex-col gap-4 items-start"
             >
-              <label className="flex w-full flex-col gap-3 items-start">
-                <span>Eski parolni kiriting*</span>
+              <label className="flex w-full flex-col gap-2 items-start">
+                <span className="text-sm">Eski parolni kiriting*</span>
                 <div className="relative w-full flex items-center gap-2">
                   <input
                     type={showOld ? "text" : "password"}
                     name="oldPassword"
-                    className="w-full  p-[5px] rounded-[6px] placeholder:text-sm outline-none px-2 bg-transparent dark:text-white text-black border dark:border-gray-500"
+                    className="w-full p-[6px] rounded-[6px] placeholder:text-sm outline-none px-2 bg-transparent dark:text-white text-black border dark:border-gray-500"
                     placeholder="Eski parolni kiritng..."
                   />
                   <span
-                    className="absolute right-3 cursor-pointer w-[5%]"
+                    className="absolute right-3 cursor-pointer"
                     onClick={() => setShowOld(!showOld)}
                   >
                     {showOld ? <EyeOff size={14} /> : <Eye size={14} />}
@@ -301,17 +322,17 @@ const ProfilePage: React.FC = () => {
                 </div>
               </label>
 
-              <label className="flex w-full flex-col gap-3 items-start">
-                <span>Yangi parolni kiriting*</span>
+              <label className="flex w-full flex-col gap-2 items-start">
+                <span className="text-sm">Yangi parolni kiriting*</span>
                 <div className="relative w-full flex items-center gap-2">
                   <input
                     type={showNew ? "text" : "password"}
                     name="newPassword"
-                    className="w-full  p-[5px] rounded-[6px] placeholder:text-sm outline-none px-2 bg-transparent dark:text-white text-black border dark:border-gray-500"
+                    className="w-full p-[6px] rounded-[6px] placeholder:text-sm outline-none px-2 bg-transparent dark:text-white text-black border dark:border-gray-500"
                     placeholder="Yangi parolni kiritng..."
                   />
                   <span
-                    className="absolute right-3 cursor-pointer w-[5%]"
+                    className="absolute right-3 cursor-pointer"
                     onClick={() => setShowNew(!showNew)}
                   >
                     {showNew ? <EyeOff size={14} /> : <Eye size={14} />}
@@ -319,17 +340,17 @@ const ProfilePage: React.FC = () => {
                 </div>
               </label>
 
-              <label className="flex w-full flex-col gap-3 items-start">
-                <span>Yangi parolni tasdiqlang*</span>
+              <label className="flex w-full flex-col gap-2 items-start">
+                <span className="text-sm">Yangi parolni tasdiqlang*</span>
                 <div className="relative w-full flex items-center gap-2">
                   <input
                     type={showConfirm ? "text" : "password"}
                     name="confirmPassword"
-                    className="w-full  p-[5px] rounded-[6px] placeholder:text-sm outline-none px-2 bg-transparent dark:text-white text-black border dark:border-gray-500"
+                    className="w-full p-[6px] rounded-[6px] placeholder:text-sm outline-none px-2 bg-transparent dark:text-white text-black border dark:border-gray-500"
                     placeholder="Yangi parolni tasdiqlang..."
                   />
                   <span
-                    className="absolute right-3 cursor-pointer w-[5%]"
+                    className="absolute right-3 cursor-pointer"
                     onClick={() => setShowConfirm(!showConfirm)}
                   >
                     {showConfirm ? <EyeOff size={14} /> : <Eye size={14} />}
@@ -339,7 +360,7 @@ const ProfilePage: React.FC = () => {
 
               <button
                 type="submit"
-                className="flex items-center gap-3 mx-auto border dark:border-gray-500 px-10 py-1 rounded-[6px]"
+                className="flex items-center gap-2 mx-auto border dark:border-gray-500 px-6 py-2 text-sm rounded-[6px]"
               >
                 Send <Send size={15} />
               </button>
