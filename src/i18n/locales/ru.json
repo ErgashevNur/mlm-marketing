@@ -241,7 +241,8 @@
     "paidReferrals": "Оплаченные рефералы",
     "pendingReferrals": "Ожидающие рефералы",
     "friends": "друзья",
-    "noReferralFriends": "Реферальные друзья не найдены."
+    "noReferralFriends": "Реферальные друзья не найдены.",
+    "UserLevel": "Уровень пользователя"
   },
   "earningsPage": {
     "title": "Цена",

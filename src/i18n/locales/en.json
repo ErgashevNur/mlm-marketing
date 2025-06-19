@@ -241,7 +241,8 @@
     "paidReferrals": "Paid Referrals",
     "pendingReferrals": "Pending Referrals",
     "friends": "friends",
-    "noReferralFriends": "No referral friends found."
+    "noReferralFriends": "No referral friends found.",
+    "UserLevel": "User Level"
   },
   "earningsPage": {
     "title": "Price",

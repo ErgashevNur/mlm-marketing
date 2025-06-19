@@ -241,7 +241,8 @@
     "paidReferrals": "To'langan referallar",
     "pendingReferrals": "Kutilayotgan referallar",
     "friends": "do'stlar",
-    "noReferralFriends": "Referal do'stlar topilmadi."
+    "noReferralFriends": "Referal do'stlar topilmadi.",
+    "UserLevel": "Foydalanuvchi darajasi"
   },
   "earningsPage": {
     "title": "Narxi",

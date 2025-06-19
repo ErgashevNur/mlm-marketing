@@ -131,7 +131,8 @@
     "minCount": "Миқдори ҳадди ақал",
     "levelName": "Ҷоиза",
     "level": "Сатҳ",
-    "maxCount": "Миқдори ҳадди аксар"
+    "maxCount": "Миқдори ҳадди аксар",
+    "UserLevel": "Сатҳи истифодабаранда"
   },
   "plans": {
     "choosePlan": "Тарифро интихоб кунед",
@@ -243,7 +244,8 @@
     "paidReferrals": "Рефералҳои пардохташуда",
     "pendingReferrals": "Рефералҳои интизорӣ",
     "friends": "дӯстон",
-    "noReferralFriends": "Дӯстон бо реферал ёфт нашуданд."
+    "noReferralFriends": "Дӯстон бо реферал ёфт нашуданд.",
+    "UserLevel": "Сатҳи истифодабаранда"
   },
   "earningsPage": {
     "title": "Нарх",
