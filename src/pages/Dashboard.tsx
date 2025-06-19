@@ -123,9 +123,41 @@ const Dashboard: React.FC = () => {
     return visiblePart + hiddenPart + domain;
   }
 
+  // const googleRefSistem = async () => {
+  //   try {
+  //     const googleRefId = await localStorage.getItem("referral_id");
+  //     const token = localStorage.getItem("token");
+
+  //     if (googleRefId) {
+  //       const res = await fetch(
+  //         `${import.meta.env.VITE_API_KEY}/referal/google/${googleRefId}`,
+  //         {
+  //           method: "GET",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       console.log(res);
+  //     }
+
+  //     console.log(googleRefId);
+
+  //     // localStorage.removeItem("referral_id");
+  //   } catch (error: any) {
+  //     // console.error("Google referral xatolik:", error);
+  //     toast.error(error.message || "Kutilmagan xatolik");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // googleRefSistem();
+
   const googleRefSistem = async () => {
     try {
-      const googleRefId = await localStorage.getItem("referral_id");
+      const googleRefId = localStorage.getItem("referral_id");
       const token = localStorage.getItem("token");
 
       if (googleRefId) {
@@ -134,26 +166,33 @@ const Dashboard: React.FC = () => {
           {
             method: "GET",
             headers: {
-              "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
+            redirect: "follow", // 🔁 redirectni qo‘shdik
           }
         );
-        console.log(res);
+
+        if (res.redirected) {
+          console.warn("Redirect qilingan:", res.url);
+        }
+
+        const data = await res.json();
+        console.log("Referral javobi:", data);
       }
 
-      console.log(googleRefId);
+      console.log("Referral ID:", googleRefId);
 
       // localStorage.removeItem("referral_id");
     } catch (error: any) {
-      // console.error("Google referral xatolik:", error);
       toast.error(error.message || "Kutilmagan xatolik");
     } finally {
       setIsLoading(false);
     }
   };
 
-  googleRefSistem();
+  useEffect(() => {
+    googleRefSistem();
+  }, []);
 
   return (
     <div className="space-y-6">
