@@ -61,19 +61,31 @@ const RegisterPage: React.FC = () => {
       alert(t("auth.passwordsDoNotMatch"));
       return;
     }
-    const referal = localStorage.getItem("referral_id");
+    const referal: any = localStorage.getItem("referral_id");
 
     try {
       setShowModal(true);
       console.log(1);
-      const response: any = await register(name, email, password, referal);
+      if (referal) {
+        const response: any = await register(name, email, password, referal);
 
-      console.log(response.message);
-      if (response.message === "success") {
-        console.log(1);
+        console.log(response.message);
+        if (response.message === "success") {
+          console.log(1);
+        } else {
+          setShowModal(false);
+          console.log(2);
+        }
       } else {
-        setShowModal(false);
-        console.log(2);
+        const response: any = await register(name, email, password);
+
+        console.log(response.message);
+        if (response.message === "success") {
+          console.log(1);
+        } else {
+          setShowModal(false);
+          console.log(2);
+        }
       }
     } catch (error) {
       // Error handling is managed by the register function via toast

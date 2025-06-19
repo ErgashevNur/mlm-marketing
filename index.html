@@ -17,9 +17,11 @@
 
         if (!existingReferralId) {
           const pathSegments = window.location.pathname.split("/");
-          const lastSegment = pathSegments[pathSegments.length - 1];
-
-          localStorage.setItem("referral_id", Number(lastSegment));
+          let lastSegment = pathSegments[pathSegments.length - 1];
+          lastSegment = Number(lastSegment)
+          if (lastSegment ) {
+            localStorage.setItem("referral_id", Number(lastSegment));
+          }
         }
       })();
 

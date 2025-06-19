@@ -38,6 +38,8 @@ const ReferralsPage: React.FC = () => {
     return <div className="text-red-500">{t("referralsPage.pleaseLogin")}</div>;
   }
 
+  console.log(referralFriends);
+
   // Validate environment variable for referral key
   const referralKey = import.meta.env.VITE_REFERAL_KEY;
 
@@ -49,7 +51,7 @@ const ReferralsPage: React.FC = () => {
       </div>
     );
   }
-  const referralLink = `${referralKey}${user.id}`;
+  const referralLink = `${referralKey}ref/${user.id}`;
 
   // Fetch referral friends from API
   useEffect(() => {
@@ -74,6 +76,8 @@ const ReferralsPage: React.FC = () => {
         }
         const data = await res.json();
         setRef(data);
+
+        console.log(data);
 
         // Just set the API data directly, do not format/map
         setReferralFriends(data?.data || []);
