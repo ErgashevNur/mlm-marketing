@@ -12,6 +12,7 @@ const Dashboard: React.FC = () => {
   const [allCoin, setAllCoin] = useState([]);
   const [statistika, setStatistika] = useState([]);
   const [canClaimBonus, setCanClaimBonus] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   // const [tarifData, setTarifData] = useState();
 
   // const userData: any = JSON.parse(localStorage.getItem("user-data") || "{}");
@@ -160,6 +161,56 @@ const Dashboard: React.FC = () => {
 
     return visiblePart + hiddenPart + domain;
   }
+
+  const googleRefSistem = async () => {
+    try {
+      const googleRefId = localStorage.getItem("referral_id");
+      const token = localStorage.getItem("token");
+      const isReferralUsed = localStorage.getItem("referral_used");
+
+      if (isReferralUsed === "true") {
+        console.log("Referral allaqachon ishlatilgan");
+        return;
+      }
+
+      if (!token || !googleRefId) {
+        console.log("Token yoki referral ID mavjud emas");
+        return;
+      }
+
+      setIsLoading(true);
+
+      const res = await fetch(
+        `${import.meta.env.VITE_API_KEY}/referal/google/${googleRefId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Xatolik yuz berdi");
+      }
+
+      console.log("Google referral muvaffaqiyatli:", data);
+      toast.success(data.message);
+
+      localStorage.setItem("referral_used", "true");
+      localStorage.removeItem("referral_id");
+    } catch (error: any) {
+      console.error("Google referral xatolik:", error);
+      toast.error(error.message || "Kutilmagan xatolik");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  googleRefSistem();
 
   // useEffect(() => {
   //   const checkBonusStatus = async () => {
