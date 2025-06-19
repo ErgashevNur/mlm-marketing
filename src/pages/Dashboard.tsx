@@ -164,23 +164,11 @@ const Dashboard: React.FC = () => {
 
   const googleRefSistem = async () => {
     try {
-      const googleRefId = localStorage.getItem("referral_id");
+      const googleRefId =await localStorage.getItem("referral_id");
       const token = localStorage.getItem("token");
-      const isReferralUsed = localStorage.getItem("referral_used");
 
-      if (isReferralUsed === "true") {
-        console.log("Referral allaqachon ishlatilgan");
-        return;
-      }
-
-      if (!token || !googleRefId) {
-        console.log("Token yoki referral ID mavjud emas");
-        return;
-      }
-
-      setIsLoading(true);
-
-      const res = await fetch(
+     if(googleRefId){
+          const res = await fetch(
         `${import.meta.env.VITE_API_KEY}/referal/google/${googleRefId}`,
         {
           method: "GET",
@@ -190,17 +178,10 @@ const Dashboard: React.FC = () => {
           },
         }
       );
+ 
+      console.log(res)
+     }
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Xatolik yuz berdi");
-      }
-
-      console.log("Google referral muvaffaqiyatli:", data);
-      toast.success(data.message);
-
-      localStorage.setItem("referral_used", "true");
       localStorage.removeItem("referral_id");
     } catch (error: any) {
       console.error("Google referral xatolik:", error);
