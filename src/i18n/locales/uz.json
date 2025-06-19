@@ -103,10 +103,11 @@
     "pending": "Kutilmoqda",
     "active": "Faol",
     "inactive": "Nofaol",
-    "referalevel": "Referal darajasi",
-    "count": "Soni",
-    "prize": "Sovrin",
-    "level": "Daraja"
+    "referalevel": "Referal daraja",
+    "minCount": "Minimal soni",
+    "levelName": "Sovrin",
+    "level": "Daraja",
+    "maxCount": "Maksimal soni"
   },
   "plans": {
     "choosePlan": "Tarifni tanlang",

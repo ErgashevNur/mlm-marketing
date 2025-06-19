@@ -270,42 +270,48 @@ const ReferralsPage: React.FC = () => {
 
           <div className="overflow-x-auto">
             <div className="max-h-[360px] overflow-y-auto rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-              <table className="min-w-full text-sm divide-y divide-gray-200 dark:divide-gray-700">
+              <table className="w-[550px] text-[10px] divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-100 dark:bg-gray-800 sticky top-0 z-10">
                   <tr>
                     <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       #
                     </th>
                     <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      {t("referrals.count")}
-                    </th>
-                    <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      {t("referrals.prize")}
-                    </th>
-                    <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       {t("referrals.level")}
+                    </th>
+                    <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      {t("referrals.minCount")}
+                    </th>
+                    <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      {t("referrals.maxCount")}
+                    </th>
+                    <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      {t("referrals.levelName")}
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
-                  {referals.map(({ id, count, prize, level }, index) => (
+                  {referals.map(({ id, count, prize, level, maxCount }) => (
                     <tr
                       key={id}
-                      className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                      className="hover:bg-gray-50text-xs dark:hover:bg-gray-800 transition-colors"
                     >
-                      <td className="px-6 py-4 text-gray-900 dark:text-gray-100 whitespace-nowrap">
-                        {index + 1}
+                      <td className="px-6 py-4text-xs text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                        {id}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-white">
+                      <td className="px-6 py-4text-xs text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                        {level}
+                      </td>
+                      <td className="px-6 py-4text-xs text-xs text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                        {prize}
+                      </td>
+                      <td className="px-6 py-4text-xs whitespace-nowrap">
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold">
                           {count}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                        {prize}
-                      </td>
-                      <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
-                        {level}
+                        {maxCount}
                       </td>
                     </tr>
                   ))}

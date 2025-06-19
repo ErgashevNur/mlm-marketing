@@ -105,9 +105,10 @@
     "active": "激活",
     "inactive": "未激活",
     "referalevel": "推荐等级",
-    "count": "计数",
-    "prize": "奖品",
-    "level": "等级"
+    "minCount": "最小数量",
+    "levelName": "奖品",
+    "level": "等级",
+    "maxCount": "最大数量"
   },
   "plans": {
     "choosePlan": "选择计划",

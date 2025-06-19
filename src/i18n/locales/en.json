@@ -103,10 +103,11 @@
     "pending": "Pending",
     "active": "Active",
     "inactive": "Inactive",
-    "referalevel": "Referal Level",
-    "count": "Count",
-    "prize": "Prize",
-    "level": "Level"
+    "referalevel": "Referal level",
+    "minCount": "Minimum count",
+    "levelName": "Level name",
+    "level": "Level",
+    "maxCount": "Maximum count"
   },
   "plans": {
     "choosePlan": "Choose Your Plan",
