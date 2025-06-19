@@ -50,6 +50,8 @@ const Dashboard: React.FC = () => {
   //   }
   // };
 
+  console.log(user);
+
   const userLevel = JSON.parse(localStorage.getItem("UserLevel"));
 
   const getUser = async () => {
@@ -176,12 +178,12 @@ const Dashboard: React.FC = () => {
           }
         );
 
-        console.log(res);
+        // console.log(res);
       }
 
       localStorage.removeItem("referral_id");
     } catch (error: any) {
-      console.error("Google referral xatolik:", error);
+      // console.error("Google referral xatolik:", error);
       toast.error(error.message || "Kutilmagan xatolik");
     } finally {
       setIsLoading(false);
