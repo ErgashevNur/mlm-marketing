@@ -22,7 +22,7 @@ interface AuthContextType {
     referal?: string
   ) => Promise<void>;
   loginWithGoogle: () => void;
-  googleRefSistem: () => void;
+  // googleRefSistem: () => void;
   loginWithFacebook: () => void;
   logout: () => void;
   isLoading: boolean;
