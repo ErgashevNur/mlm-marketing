@@ -33,7 +33,7 @@ const EarningsPage: React.FC = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      console.error("Token topilmadi.");
+      console.error(t("earningsPage.tokenNotFound"));
       return;
     }
 
@@ -46,7 +46,7 @@ const EarningsPage: React.FC = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Ma'lumotlarni olishda xatolik yuz berdi");
+          throw new Error(t("earningsPage.errorFetchingData"));
         }
         return res.json();
       })
@@ -63,7 +63,7 @@ const EarningsPage: React.FC = () => {
         }
       })
       .catch((err) => {
-        console.error("Xatolik:", err.message);
+        console.error(t("earningsPage.error"), err.message);
       });
   }, []);
 
@@ -79,12 +79,12 @@ const EarningsPage: React.FC = () => {
     console.log("Socket: ", socketRef);
 
     socketRef.current.on("connect", () => {
-      console.log("🔌 Ulandi:", socketRef.current.id);
+      console.log(t("earningsPage.connected"), socketRef.current.id);
     });
 
     socketRef.current.on("roomAssigned", (data) => {
-      console.log(`✅ Siz ${data} roomga qo‘shildingiz`);
-      toast.success(`You have been connected to room ${data}.`);
+      console.log(t("earningsPage.joinedRoom", { data }));
+      toast.success(t("earningsPage.connectedToRoom", { data }));
     });
 
     socketRef.current.on("card_info", (data) => {
@@ -119,7 +119,7 @@ const EarningsPage: React.FC = () => {
         const data = await res.json();
         setCoinData(data);
       } catch (error) {
-        console.error("Coin ma'lumotlarini olishda xatolik:", error);
+        console.error(t("earningsPage.errorFetchingCoinData"), error);
       }
     };
     fetchCoinData();
@@ -202,7 +202,7 @@ const EarningsPage: React.FC = () => {
       console.log(imageUrl);
 
       if (!imageUrl) {
-        toast.error("Rasm URL topilmadi!");
+        toast.error(t("earningsPage.imageUrlNotFound"));
         return;
       }
 
@@ -223,15 +223,15 @@ const EarningsPage: React.FC = () => {
       );
 
       if (!scrinshotRes.ok) {
-        toast.error("Rasmni yuborishda xatolik yuz berdi!");
+        toast.error(t("earningsPage.errorSendingImage"));
         return;
       }
 
-      toast.success("Rasm muvaffaqiyatli yuborildi!");
+      toast.success(t("earningsPage.imageSentSuccessfully"));
       setSelectedFile(null);
       setIsModalOpen(false);
     } catch (error) {
-      toast.error("Rasm yuklashda xatolik yuz berdi!");
+      toast.error(t("earningsPage.imageUploadError"));
       console.error("Upload error:", error);
     }
   };
@@ -378,7 +378,7 @@ const EarningsPage: React.FC = () => {
                   value={coinAmount}
                   onChange={(e) => setCoinAmount(e.target.value)}
                   placeholder={t("earningsPage.amountPlaceholder")}
-                  className="w-full bg-white/10 dark:bg-gray-800 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="w-full bg-white/10 border border-gray-400 dark:bg-gray-800 border border-gray-500 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                 />
               </div>
 
@@ -389,7 +389,7 @@ const EarningsPage: React.FC = () => {
                 <select
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
-                  className="w-full bg-white/10 dark:bg-gray-800 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="w-full bg-white/10 border border-gray-400 dark:bg-gray-800 border border-gray-500 pr-3 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                 >
                   {coinData?.map((curr: any) => (
                     <option
@@ -537,20 +537,20 @@ const EarningsPage: React.FC = () => {
                         </div>
                         <div className="flex flex-wrap gap-4 text-sm text-gray-700 dark:text-white/60">
                           <span>
-                            <span className="font-medium">Requested:</span>{" "}
+                            <span className="font-medium">{t("earningsPage.requested")}:</span>{" "}
                             {item.to_send_date
                               ? new Date(item.to_send_date).toLocaleString()
                               : "-"}
                           </span>
                           <span>
-                            <span className="font-medium">Processed:</span>{" "}
+                            <span className="font-medium">{t("earningsPage.processed")}:</span>{" "}
                             {item.to_checked_date
                               ? new Date(item.to_checked_date).toLocaleString()
                               : "-"}
                           </span>
                           {item.maskedCard && (
                             <span>
-                              <span className="font-medium">Card:</span>{" "}
+                              <span className="font-medium">{t("earningsPage.card")}:</span>{" "}
                               {item.maskedCard}
                             </span>
                           )}
@@ -559,7 +559,7 @@ const EarningsPage: React.FC = () => {
                     </div>
                     <div className="text-right lg:text-left">
                       <div className="text-xs text-gray-400 dark:text-white/40">
-                        Transaction ID
+                        {t("earningsPage.transactionId")}
                       </div>
                       <div className="text-gray-700 dark:text-white/60 font-mono">
                         {item.id}
@@ -582,11 +582,11 @@ const EarningsPage: React.FC = () => {
             >
               ×
             </button>
-            <h2 className="text-lg font-semibold mb-2">Ma'lumot keldi!</h2>
+            <h2 className="text-lg font-semibold mb-2">{t("earningsPage.dataReceived")}</h2>
             {modalData ? (
               <div>
                 <p>
-                  Card Number:{" "}
+                  {t("earningsPage.cardNumber")}:{" "}
                   {cardNum?.cardNumber
                     ? cardNum.cardNumber.replace(/(.{4})/g, "$1 ").trim()
                     : ""}
@@ -606,11 +606,11 @@ const EarningsPage: React.FC = () => {
                   onClick={handleFileUpload}
                   disabled={!selectedFile}
                 >
-                  Rasmni yuklash
+                  {t("earningsPage.uploadImage")}
                 </button>
               </div>
             ) : (
-              <p>Yuklanmoqda...</p>
+              <p>{t("earningsPage.loading")}</p>
             )}
           </div>
         </div>

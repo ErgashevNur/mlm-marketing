@@ -1,5 +1,4 @@
 import {
-  ArrowBigDown,
   BadgeCheck,
   CalendarCheck,
   ChevronDown,
@@ -10,17 +9,76 @@ import {
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
+
+// Type definitions for the data structures
+interface HistoryUser {
+  id: number;
+  userId: number;
+  date: string;
+  coin: number;
+}
+
+interface HistoryReferral {
+  id: number;
+  coin: number;
+  date: string;
+  user: {
+    name: string;
+    email: string;
+    role: string;
+  };
+}
+
+interface HistoryProduct {
+  id: number;
+  user: {
+    name: string;
+    email: string;
+  };
+  isChecked: string;
+  main_products: {
+    id: number;
+    rating: number;
+    count: number;
+    rewiev: number;
+    coin: number;
+  };
+  contactNumber: string;
+  contactLink: string;
+  orderedAt: string;
+}
+
+interface HistoryPlan {
+  id: number;
+  user: {
+    name: string;
+  };
+  tariff: {
+    id: number;
+    photo_url: string;
+    term: number;
+    dailyProfit: number;
+    referral_bonus: number;
+    coin: number;
+  };
+  start_time: string;
+  end_time: string;
+  lastBonusDate: string;
+  status: boolean;
+}
 
 export default function BonusHistory() {
+  const { t } = useTranslation();
   const [openBonusModal, setOpenBonusModal] = useState(false);
   const [openReferralModal, setOpenReferralModal] = useState(false);
   const [openProductsModal, setOpenProductsModal] = useState(false);
   const [openTariffsModal, setOpenTariffsModal] = useState(false);
 
-  const [historyUser, setHistoryUser] = useState([]);
-  const [historyReferal, setHistoryReferal] = useState([]);
-  const [historyProducts, setHistoryProducts] = useState([]);
-  const [historyPlans, setHistoryPlans] = useState([]);
+  const [historyUser, setHistoryUser] = useState<HistoryUser[]>([]);
+  const [historyReferal, setHistoryReferal] = useState<HistoryReferral[]>([]);
+  const [historyProducts, setHistoryProducts] = useState<HistoryProduct[]>([]);
+  const [historyPlans, setHistoryPlans] = useState<HistoryPlan[]>([]);
 
   const getBonusUser = async () => {
     const token = localStorage.getItem("token");
@@ -32,7 +90,7 @@ export default function BonusHistory() {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json", // ixtiyoriy, lekin tavsiya qilinadi
+            "Content-Type": "application/json",
           },
         }
       );
@@ -44,7 +102,7 @@ export default function BonusHistory() {
       const data = await response.json();
       setHistoryUser(data);
     } catch (error) {
-      toast.error("Bonus history olishda xatolik:", error);
+      toast.error("Bonus history olishda xatolik: " + (error instanceof Error ? error.message : String(error)));
       return null;
     }
   };
@@ -59,7 +117,7 @@ export default function BonusHistory() {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json", // ixtiyoriy, lekin tavsiya qilinadi
+            "Content-Type": "application/json",
           },
         }
       );
@@ -71,7 +129,7 @@ export default function BonusHistory() {
       const data = await response.json();
       setHistoryReferal(data);
     } catch (error) {
-      toast.error("Bonus history olishda xatolik:", error);
+      toast.error("Bonus history olishda xatolik: " + (error instanceof Error ? error.message : String(error)));
       return null;
     }
   };
@@ -86,7 +144,7 @@ export default function BonusHistory() {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json", // ixtiyoriy, lekin tavsiya qilinadi
+            "Content-Type": "application/json",
           },
         }
       );
@@ -98,10 +156,11 @@ export default function BonusHistory() {
       const data = await response.json();
       setHistoryProducts(data);
     } catch (error) {
-      toast.error("Bonus history olishda xatolik:", error);
+      toast.error("Bonus history olishda xatolik: " + (error instanceof Error ? error.message : String(error)));
       return null;
     }
   };
+
   const getPlans = async () => {
     const token = localStorage.getItem("token");
 
@@ -112,7 +171,7 @@ export default function BonusHistory() {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json", // ixtiyoriy, lekin tavsiya qilinadi
+            "Content-Type": "application/json",
           },
         }
       );
@@ -124,7 +183,7 @@ export default function BonusHistory() {
       const data = await response.json();
       setHistoryPlans(data);
     } catch (error) {
-      toast.error("Bonus history olishda xatolik:", error);
+      toast.error("Bonus history olishda xatolik: " + (error instanceof Error ? error.message : String(error)));
       return null;
     }
   };
@@ -173,7 +232,7 @@ export default function BonusHistory() {
             onClick={handleToggleBonus}
             className="dark:text-white flex items-center justify-center gap-2 border dark:border-gray-600 rounded-md py-2 px-10 text-lg sm:text-2xl font-normal w-full"
           >
-            Bonuses{" "}
+            {t("historyPage.bonuses")}
             <ChevronDown
               className={`transform transition-transform dark:text-slate-200 ${
                 openBonusModal ? "rotate-180" : ""
@@ -196,14 +255,14 @@ export default function BonusHistory() {
               <div className="text-sm flex flex-col gap-4 overflow-auto max-h-80 text-gray-700 h-auto py-1 dark:text-white">
                 {historyUser.length === 0 ? (
                   <div className="text-center">
-                    <p>Not found</p>
+                    <p>{t("historyPage.notFound")}</p>
                   </div>
                 ) : (
                   historyUser.map(({ id, userId, date, coin }) => (
                     <div key={id} className="flex items-center justify-between">
                       <div className="flex items-center gap-5">
                         <p className="text-lg font-semibold flex items-center gap-3 text-gray-800 dark:text-white">
-                          ID-{userId}
+                          {t("historyPage.id")}-{userId}
                         </p>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                           {moment(date).format("YYYY-MM-DD HH:mm")}
@@ -211,7 +270,7 @@ export default function BonusHistory() {
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-bold text-green-600">
-                          {coin} coin
+                          {coin} <span>USDT</span>
                         </p>
                       </div>
                     </div>
@@ -231,7 +290,7 @@ export default function BonusHistory() {
             onClick={handleToggleReferral}
             className="border dark:border-gray-600 flex items-center justify-center gap-2 dark:text-white rounded-md py-2 px-6 sm:px-10 text-lg sm:text-2xl font-normal w-full"
           >
-            Bonuses received from referrals{" "}
+            {t("historyPage.bonusesFromReferrals")}{" "}
             <ChevronDown
               className={`transform transition-transform dark:text-slate-200 ${
                 openReferralModal ? "rotate-180" : ""
@@ -254,7 +313,7 @@ export default function BonusHistory() {
               <div className="text-sm text-gray-700 dark:text-white flex flex-col gap-4 overflow-auto max-h-[350px] sm:max-h-[450px] lg:max-h-[500px] py-1">
                 {historyReferal.length === 0 ? (
                   <div className="text-center text-gray-500 dark:text-gray-400">
-                    <p>Not found</p>
+                    <p>{t("historyPage.notFound")}</p>
                   </div>
                 ) : (
                   historyReferal.map(({ id, coin, date, user }) => (
@@ -283,7 +342,7 @@ export default function BonusHistory() {
                           {user.role.toLowerCase()}
                         </span>
                         <div className="text-xl font-bold text-green-600 dark:text-green-400 mt-1">
-                          {coin.toLocaleString()} coin
+                          {coin.toLocaleString()} {t("historyPage.coin")}
                         </div>
                       </div>
                     </div>
@@ -300,7 +359,7 @@ export default function BonusHistory() {
             onClick={handleToggleProducts}
             className="border flex items-center gap-2 justify-center dark:border-gray-600 dark:text-white rounded-md py-2 px-6 sm:px-10 text-lg sm:text-2xl font-normal w-full"
           >
-            Purchased Products{" "}
+            {t("historyPage.purchasedProducts")}{" "}
             <ChevronDown
               className={`transform transition-transform dark:text-slate-200 ${
                 openProductsModal ? "rotate-180" : ""
@@ -350,7 +409,7 @@ export default function BonusHistory() {
                     {/* Product Info Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
                       <div className="flex items-center gap-1">
-                        <p className="text-gray-500 dark:text-gray-400">ID:</p>
+                        <p className="text-gray-500 dark:text-gray-400">{t("historyPage.id")}:</p>
                         <p>{order.main_products.id}</p>
                       </div>
                       <div className="flex items-center gap-1">
@@ -358,19 +417,19 @@ export default function BonusHistory() {
                       </div>
                       <div className="flex items-center gap-1">
                         <p className="text-gray-500 dark:text-gray-400">
-                          Soni:
+                          {t("historyPage.count")}:
                         </p>
                         <p>{order.main_products.count}</p>
                       </div>
                       <div className="flex items-center gap-1">
                         <p className="text-gray-500 dark:text-gray-400">
-                          Sharhlar:
+                          {t("historyPage.reviews")}:
                         </p>
                         <p>{order.main_products.rewiev}</p>
                       </div>
                       <div className="flex items-center gap-1">
                         <p className="text-gray-500 dark:text-gray-400">
-                          Coin:
+                          {t("historyPage.coin")}:
                         </p>
                         <p>{order.main_products.coin} 🪙</p>
                       </div>
@@ -420,7 +479,7 @@ export default function BonusHistory() {
             onClick={handleToggleTariffs}
             className="border dark:border-gray-600 flex items-center gap-2 justify-center dark:text-white rounded-md py-2 px-6 sm:px-10 text-lg sm:text-2xl font-normal w-full"
           >
-            Purchased Tariffs{" "}
+            {t("historyPage.purchasedTariffs")}{" "}
             <ChevronDown
               className={`transform transition-transform dark:text-slate-200 ${
                 openTariffsModal ? "rotate-180" : ""
@@ -450,12 +509,12 @@ export default function BonusHistory() {
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-3">
                       <img
                         src={plan.tariff.photo_url}
-                        alt="Tarif rasmi"
+                        alt={t("historyPage.tariffImage")}
                         className="w-16 h-16 object-cover rounded-md border dark:border-gray-600"
                       />
                       <div>
                         <h3 className="font-semibold text-gray-900 dark:text-white">
-                          Tarif #{plan.tariff.id}
+                          {t("historyPage.tariff")} #{plan.tariff.id}
                         </h3>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                           {plan.user.name}
@@ -467,25 +526,25 @@ export default function BonusHistory() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 text-sm text-gray-800 dark:text-gray-200">
                       <div>
                         <p className="text-gray-500 dark:text-gray-400">
-                          Muddati
+                          {t("historyPage.term")}
                         </p>
-                        <p>{plan.tariff.term} kun</p>
+                        <p>{plan.tariff.term} {t("historyPage.days")}</p>
                       </div>
                       <div>
                         <p className="text-gray-500 dark:text-gray-400">
-                          Kunlik daromad
+                          {t("historyPage.dailyProfit")}
                         </p>
                         <p>+{plan.tariff.dailyProfit} 🪙</p>
                       </div>
                       <div>
                         <p className="text-gray-500 dark:text-gray-400">
-                          Referral bonus
+                          {t("historyPage.referralBonus")}
                         </p>
                         <p>{plan.tariff.referral_bonus}%</p>
                       </div>
                       <div>
                         <p className="text-gray-500 dark:text-gray-400">
-                          Narxi
+                          {t("historyPage.price")}
                         </p>
                         <p>{plan.tariff.coin} 🪙</p>
                       </div>
@@ -496,20 +555,20 @@ export default function BonusHistory() {
                       <div className="flex items-center gap-1">
                         <Clock size={14} />
                         <span>
-                          Boshlanish:{" "}
+                          {t("historyPage.startTime")}:{" "}
                           {new Date(plan.start_time).toLocaleDateString()}
                         </span>
                       </div>
                       <div className="flex items-center gap-1">
                         <CalendarCheck size={14} />
                         <span>
-                          Tugash: {new Date(plan.end_time).toLocaleDateString()}
+                          {t("historyPage.endTime")}: {new Date(plan.end_time).toLocaleDateString()}
                         </span>
                       </div>
                       <div className="flex items-center gap-1">
                         <BadgeCheck size={14} />
                         <span>
-                          Oxirgi bonus:{" "}
+                          {t("historyPage.lastBonusDate")}:{" "}
                           {new Date(plan.lastBonusDate).toLocaleString()}
                         </span>
                       </div>
@@ -524,7 +583,7 @@ export default function BonusHistory() {
                             : "bg-red-100 text-red-700 dark:bg-red-800/20 dark:text-red-300"
                         }`}
                       >
-                        {plan.status ? "Active" : "Completed"}
+                        {plan.status ? t("historyPage.active") : t("historyPage.completed")}
                       </span>
                     </div>
                   </div>
