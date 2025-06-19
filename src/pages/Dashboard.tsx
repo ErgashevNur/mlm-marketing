@@ -177,8 +177,6 @@ const Dashboard: React.FC = () => {
             },
           }
         );
-
-        // console.log(res);
       }
 
       localStorage.removeItem("referral_id");
