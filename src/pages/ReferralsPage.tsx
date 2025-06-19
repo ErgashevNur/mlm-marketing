@@ -61,11 +61,14 @@ const ReferralsPage: React.FC = () => {
         if (!token) {
           throw new Error("No authentication token found");
         }
-        const res = await fetch("https://mlm-backend.pixl.uz/referal/user", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_KEY}/referal/user`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
@@ -306,7 +309,7 @@ const ReferralsPage: React.FC = () => {
                         {prize}
                       </td>
                       <td className="px-6 py-4text-xs whitespace-nowrap">
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold">
+                        <span className="inline-flex items-center px-2 text-black dark:text-slate-200 py-1 rounded-full text-xs font-semibold">
                           {count}
                         </span>
                       </td>

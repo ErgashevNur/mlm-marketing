@@ -8,7 +8,7 @@ import StatisticsChart from "../components/StatisticsChart";
 
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
-  const { user, claimDailyBonus } = useAuth();
+  const { user, claimDailyBonus, googleRefSistem } = useAuth();
   const [allCoin, setAllCoin] = useState([]);
   const [statistika, setStatistika] = useState([]);
   const [canClaimBonus, setCanClaimBonus] = useState(true);
@@ -160,6 +160,8 @@ const Dashboard: React.FC = () => {
 
     return visiblePart + hiddenPart + domain;
   }
+
+  googleRefSistem();
 
   // useEffect(() => {
   //   const checkBonusStatus = async () => {

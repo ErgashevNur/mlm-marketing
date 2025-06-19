@@ -22,6 +22,7 @@ interface AuthContextType {
     referal?: string
   ) => Promise<void>;
   loginWithGoogle: () => void;
+  googleRefSistem: () => void;
   loginWithFacebook: () => void;
   logout: () => void;
   isLoading: boolean;
@@ -164,6 +165,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     localStorage.setItem("data", window.location.href);
+
+    // code written by_codenur
+    // referal with google
+  };
+
+  const googleRefSistem = async () => {
+    const googleRefId: any = localStorage.getItem("referral_id");
+    const token = localStorage.getItem("token");
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_KEY}/referal/google/${googleRefId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+      console.log(data);
+
+      toast.success(data.message);
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // const loginWithFacebook = () => {
