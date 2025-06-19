@@ -139,7 +139,9 @@ const Dashboard: React.FC = () => {
             },
           }
         );
+        console.log(res);
       }
+
       console.log(googleRefId);
 
       // localStorage.removeItem("referral_id");
