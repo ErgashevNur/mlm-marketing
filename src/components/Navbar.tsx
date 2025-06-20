@@ -70,27 +70,21 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <nav className="bg-white px-16 dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-4">
-        <div className="flex justify-between h-16 items-center">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link
-              to={user ? "/dashboard" : "/"}
-              className="flex items-center space-x-3"
-            >
+    <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 shadow-md">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-16">
+        <div className="flex justify-between items-center h-16 w-full">
+          {/* Left: Logo */}
+          <div className="flex items-center flex-shrink-0">
+            <Link to={user ? "/dashboard" : "/"}>
               <img
-                className="w-10 h-10"
+                className="w-10 h-10 object-contain"
                 src={import.meta.env.VITE_LOGO}
-                alt=""
+                alt="Logo"
               />
-              <span className="text-sm hidden sm:block font-bold text-gray-900 dark:text-white">
-                {import.meta.env.VITE_KEY_IMG}
-              </span>
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Center: Desktop navigation */}
           {user && (
             <div className="hidden lg:flex items-center space-x-4">
               {navigationItems.map((item) => {
@@ -113,8 +107,8 @@ const Navbar: React.FC = () => {
             </div>
           )}
 
-          {/* Right side buttons */}
-          <div className="flex items-center space-x-4">
+          {/* Right: Actions */}
+          <div className="flex items-center space-x-2">
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -135,6 +129,7 @@ const Navbar: React.FC = () => {
                   </span>
                 </div>
 
+                {/* Profile Dropdown */}
                 <div className="relative" ref={menuRef}>
                   <button
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
@@ -154,7 +149,7 @@ const Navbar: React.FC = () => {
                   </button>
 
                   {isUserMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1">
+                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50">
                       <Link
                         to="/dashboard/profile"
                         onClick={() => setIsUserMenuOpen(false)}
@@ -175,7 +170,7 @@ const Navbar: React.FC = () => {
                 </div>
               </>
             ) : (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
                 <Link
                   to="/login"
                   className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
@@ -191,7 +186,7 @@ const Navbar: React.FC = () => {
               </div>
             )}
 
-            {/* Mobile Menu Toggle */}
+            {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -202,7 +197,7 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation Drawer */}
       {isMobileMenuOpen && (
         <div
           ref={menuRef}
@@ -229,7 +224,6 @@ const Navbar: React.FC = () => {
                 );
               })}
 
-            {/* Coin + Language on mobile */}
             {user && (
               <div className="flex items-center justify-between bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-2">
                 <span className="text-sm font-medium text-yellow-700 flex items-center dark:text-yellow-300">
