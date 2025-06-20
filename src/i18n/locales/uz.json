@@ -251,7 +251,7 @@
     "resend": "Qayta yuborish",
     "calculating": "Hisoblanmoqda...",
     "amountPlaceholder": "USDT miqdorini kiriting",
-    "coinAmount": "USDT miqdori",
+    "coinAmount": "Kerakli USDT miqdorini kiriting.",
     "amount": "Miqdori",
     "currency": "Valyuta",
     "orderSummary": "Buyurtma tafsilotlari",
@@ -317,7 +317,7 @@
   "trading": {
     "dashboard": "Boshqaruv paneli",
     "purchaseCoins": "USDT sotib olish",
-    "selectCurrency": "Valyutani tanlang",
+    "selectCurrency": "Sizga qulay pul birligini tanlang.",
     "totalValue": "Umumiy qiymat"
   },
   "historyPage": {

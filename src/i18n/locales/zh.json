@@ -254,7 +254,7 @@
     "resend": "重新发送",
     "calculating": "计算中...",
     "amountPlaceholder": "请输入金币数量",
-    "coinAmount": "金币数量",
+    "coinAmount": "请输入所需的 USDT 数量",
     "amount": "数量",
     "currency": "货币",
     "orderSummary": "订单摘要",
@@ -320,7 +320,7 @@
   "trading": {
     "dashboard": "仪表盘",
     "purchaseCoins": "购买金币",
-    "selectCurrency": "选择货币",
+    "selectCurrency": "请选择适合您的货币",
     "totalValue": "总价值"
   },
   "historyPage": {

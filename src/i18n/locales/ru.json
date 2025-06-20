@@ -250,8 +250,8 @@
     "sendRequest": "Отправить запрос",
     "resend": "Отправить повторно",
     "calculating": "Вычисление...",
-    "amountPlaceholder": "Введите сумму USDT",
-    "coinAmount": "Сумма USDT",
+    "amountPlaceholder": "Введите сумму монет",
+    "coinAmount": "Сумма монет",
     "amount": "Сумма",
     "currency": "Валюта",
     "orderSummary": "Сводка заказа",
@@ -316,7 +316,7 @@
   },
   "trading": {
     "dashboard": "Панель",
-    "purchaseCoins": "Купить USDT",
+    "purchaseCoins": "Купить монеты",
     "selectCurrency": "Выберите валюту",
     "totalValue": "Итоговая сумма"
   },

@@ -253,7 +253,7 @@
     "resend": "Қайта жіберу",
     "calculating": "Есептелуде...",
     "amountPlaceholder": "Coin мөлшерін енгізіңіз",
-    "coinAmount": "USDT мөлшері",
+    "coinAmount": "Қажетті USDT мөлшерін енгізіңіз.",
     "amount": "Сомасы",
     "currency": "Валюта",
     "orderSummary": "Тапсырыс мәліметі",
@@ -315,7 +315,7 @@
   "trading": {
     "dashboard": "Басқару панелі",
     "purchaseCoins": "USDT сатып алу",
-    "selectCurrency": "Валютаны таңдаңыз",
+    "selectCurrency": "Сізге ыңғайлы валютаны таңдаңыз.",
     "totalValue": "Жалпы құны"
   },
   "historyPage": {

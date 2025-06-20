@@ -251,7 +251,7 @@
     "resend": "Resend",
     "calculating": "Calculating...",
     "amountPlaceholder": "Enter USDT amount",
-    "coinAmount": "USDT Amount",
+    "coinAmount": "Enter the required amount of USDT.",
     "amount": "Amount",
     "currency": "Currency",
     "orderSummary": "Order Summary",
@@ -316,7 +316,7 @@
   "trading": {
     "dashboard": "Dashboard",
     "purchaseCoins": "Purchase USDT",
-    "selectCurrency": "Select Currency",
+    "selectCurrency": "Choose the currency that is convenient for you.",
     "totalValue": "Total Value"
   },
   "historyPage": {

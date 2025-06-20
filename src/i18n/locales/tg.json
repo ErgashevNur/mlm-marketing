@@ -254,7 +254,7 @@
     "resend": "Боз фиристодан",
     "calculating": "Ҳисоб шуда истодааст...",
     "amountPlaceholder": "Миқдори Coin-ро ворид кунед",
-    "coinAmount": "Миқдори USDT",
+    "coinAmount": "Миқдори лозими USDT-ро ворид кунед.",
     "amount": "Миқдор",
     "currency": "Асъор",
     "orderSummary": "Тафсилоти фармоиш",
@@ -320,7 +320,7 @@
   "trading": {
     "dashboard": "Панели идоракунӣ",
     "purchaseCoins": "Хариди USDT",
-    "selectCurrency": "Асъорро интихоб кунед",
+    "selectCurrency": "Асъори барои шумо мувофиқро интихоб кунед.",
     "totalValue": "Арзиши умумӣ"
   },
   "historyPage": {

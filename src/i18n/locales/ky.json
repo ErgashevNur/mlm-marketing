@@ -253,7 +253,7 @@
     "resend": "Кайра жөнөтүү",
     "calculating": "Эсептелүүдө...",
     "amountPlaceholder": "Coin суммасын киргизиңиз",
-    "coinAmount": "USDT суммасы",
+    "coinAmount": "Керектүү USDT суммасын киргизиңиз.",
     "amount": "Суммасы",
     "currency": "Валюта",
     "orderSummary": "Буйрутма маалыматы",
@@ -315,7 +315,7 @@
   "trading": {
     "dashboard": "Башкаруу панели",
     "purchaseCoins": "USDT сатып алуу",
-    "selectCurrency": "Валютаны тандаңыз",
+    "selectCurrency": "Сизге ыңгайлуу валюта тандаңыз.",
     "totalValue": "Жалпы сумма"
   },
   "historyPage": {
