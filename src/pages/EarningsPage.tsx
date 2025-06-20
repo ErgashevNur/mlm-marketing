@@ -12,6 +12,7 @@ import {
   FileText,
   Camera,
   Copy,
+  Ban,
 } from "lucide-react";
 import { io } from "socket.io-client";
 import { toast } from "sonner";
@@ -151,7 +152,7 @@ const EarningsPage: React.FC = () => {
       setBalance((prev) => prev + amount);
       setCoinAmount("");
       setIsDepositDisabled(true);
-      setDepositTimer(120); // 2 daqiqa = 120 sekund
+      setDepositTimer(240); // 2 daqiqa = 120 sekund
     }
 
     setWarn(true);
@@ -175,68 +176,6 @@ const EarningsPage: React.FC = () => {
       "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200",
     CANCELLED: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200",
   };
-
-  // const handleFileUpload = async () => {
-  //   if (!selectedFile) return;
-  //   const token = localStorage.getItem("token");
-  //   const formData = new FormData();
-  //   formData.append("file", selectedFile);
-
-  //   try {
-  //     // 1. Upload image to /upload/single
-  //     const uploadRes = await fetch(
-  //       "https://mlm-backend.pixl.uz/upload/single",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         body: formData,
-  //       }
-  //     );
-  //     const uploadData = await uploadRes.json();
-  //     // Assume the uploaded image URL is in uploadData.url or uploadData.photo_url
-  //     const imageUrl = uploadData.url || uploadData.photo_url;
-
-  //     console.log(imageUrl);
-
-  //     if (!imageUrl) {
-  //       toast.error(t("earningsPage.imageUrlNotFound"));
-  //       return;
-  //     }
-
-  //     // 2. Send image URL to /payments/scrinshot
-  //     const scrinshotRes = await fetch(
-  //       "https://mlm-backend.pixl.uz/payments/scrinshot",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           photoUrl: imageUrl,
-  //           paymentId,
-  //         }),
-  //       }
-  //     );
-
-  //     if (!scrinshotRes.ok) {
-  //       toast.error(t("earningsPage.errorSendingImage"));
-  //       return;
-  //     }
-
-  //     toast.success(t("earningsPage.imageSentSuccessfully"));
-  //     setSelectedFile(null);
-  //     setIsModalOpen(false);
-  //   } catch (error) {
-  //     toast.error(t("earningsPage.imageUploadError"));
-  //     console.error("Upload error:", error);
-  //   }
-  // };
-
-  //
-  //
 
   const [isUploading, setIsUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -267,7 +206,6 @@ const EarningsPage: React.FC = () => {
     setIsUploading(true); // loading ko‘rsatish
 
     try {
-      // 1. Faylni serverga yuklash
       const uploadRes = await fetch(
         "https://mlm-backend.pixl.uz/upload/single",
         {
@@ -288,7 +226,6 @@ const EarningsPage: React.FC = () => {
         return;
       }
 
-      // 2. Image URL ni serverga yuborish
       const scrinshotRes = await fetch(
         "https://mlm-backend.pixl.uz/payments/scrinshot",
         {
@@ -312,7 +249,6 @@ const EarningsPage: React.FC = () => {
 
       toast.success(t("earningsPage.imageSentSuccessfully"));
 
-      // Holatlarni tozalash va modalni yopish
       setSelectedFile(null);
       setUploadSuccess(true); // success bo‘lishi uchun
       setIsUploading(false);
@@ -366,10 +302,17 @@ const EarningsPage: React.FC = () => {
         toast.error("Nusxalashda xatolik yuz berdi");
       });
   }
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDisabled(false);
+    }, 240000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <div className="min-h-screen text-gray-900 dark:text-white">
-      {/* Header */}
       <div className="bg-white/10 dark:bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-20 z-10 rounded-3xl">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -386,7 +329,6 @@ const EarningsPage: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
-        {/* Trading Card */}
         <div className="bg-white/10 dark:bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 p-4 sm:p-6 md:p-8 shadow-2xl w-full max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-6 sm:mb-8">
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-2xl flex items-center justify-center">
@@ -403,7 +345,6 @@ const EarningsPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-            {/* Input Section */}
             <div className="space-y-4 sm:space-y-6 p-3 sm:p-6 border border-white/20 rounded-2xl">
               <div className="space-y-1.5 sm:space-y-3">
                 <label className="block text-sm sm:text-base text-gray-900 dark:text-white font-medium">
@@ -437,6 +378,7 @@ const EarningsPage: React.FC = () => {
                       : "number"
                   }
                   value={coinAmount}
+                  required
                   onChange={(e) => setCoinAmount(e.target.value)}
                   placeholder={t("earningsPage.amountPlaceholder")}
                   className="w-full bg-white/10 dark:bg-gray-800 border border-indigo-600 rounded-xl sm:rounded-2xl px-3 py-2 sm:px-6 sm:py-4 text-sm sm:text-base text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
@@ -445,7 +387,7 @@ const EarningsPage: React.FC = () => {
 
               <button
                 onClick={handleDeposit}
-                disabled={isDepositDisabled}
+                disabled={isDepositDisabled || !coinAmount.trim()}
                 className={`w-full bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-bold text-sm sm:text-base py-2.5 sm:py-4 px-4 sm:px-8 rounded-xl sm:rounded-2xl flex items-center justify-center gap-2 sm:gap-3 transition-all duration-200 transform ${
                   isDepositDisabled
                     ? "opacity-60 cursor-not-allowed hover:scale-100"
@@ -620,55 +562,9 @@ const EarningsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* {isModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-xl shadow-lg w-96 relative">
-            <button
-              className="absolute top-2 right-3 text-xl font-bold"
-              onClick={() => setIsModalOpen(false)}
-            >
-              ×
-            </button>
-            <h2 className="text-lg font-semibold mb-2">
-              {t("earningsPage.dataReceived")}
-            </h2>
-            {modalData ? (
-              <div>
-                <p>
-                  {t("earningsPage.cardNumber")}:{" "}
-                  {cardNum?.cardNumber
-                    ? cardNum.cardNumber.replace(/(.{4})/g, "$1 ").trim()
-                    : ""}
-                </p>
-                <input
-                  type="file"
-                  onChange={(e) =>
-                    setSelectedFile(
-                      e.target.files && e.target.files[0]
-                        ? e.target.files[0]
-                        : null
-                    )
-                  }
-                />
-                <button
-                  className="mt-3 px-4 py-2 bg-blue-600 text-white rounded"
-                  onClick={handleFileUpload}
-                  disabled={!selectedFile}
-                >
-                  {t("earningsPage.uploadImage")}
-                </button>
-              </div>
-            ) : (
-              <p>{t("earningsPage.loading")}</p>
-            )}
-          </div>
-        </div>
-      )} */}
-
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md relative transform transition-all duration-300 scale-100">
-            {/* Modal Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-100">
               <h2 className="text-xl font-semibold text-gray-900">
                 Payment Verification
@@ -841,10 +737,11 @@ const EarningsPage: React.FC = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-30">
           <div className="border relative bg-slate-300 p-16 text-center rounded-2xl">
             <button
+              disabled={disabled}
               className="absolute right-5 top-5"
               onClick={() => setWarn(false)}
             >
-              <X />
+              {disabled ? <Ban /> : <X />}
             </button>
             <h2>
               <strong>{t("earningsPage.warnTitle")}</strong>{" "}
@@ -855,6 +752,30 @@ const EarningsPage: React.FC = () => {
               <br />
               {t("earningsPage.warnAutoMessage")}
             </p>
+
+            <button
+              onClick={handleDeposit}
+              disabled={isDepositDisabled}
+              className={`w-full bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-bold text-sm sm:text-base py-2.5 sm:py-4 px-4 sm:px-8 rounded-xl sm:rounded-2xl flex items-center justify-center gap-2 sm:gap-3 transition-all duration-200 transform mt-8 ${
+                isDepositDisabled
+                  ? "opacity-60 cursor-not-allowed hover:scale-100"
+                  : "hover:scale-[1.02] shadow-lg"
+              }`}
+            >
+              {isDepositDisabled ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  {depositTimer > 0
+                    ? `${t("earningsPage.resend")} (${depositTimer}s)`
+                    : t("earningsPage.sendRequest")}
+                </>
+              ) : (
+                <>
+                  <Upload className="w-5 h-5" />
+                  {t("earningsPage.sendRequest")}
+                </>
+              )}
+            </button>
           </div>
         </div>
       )}
