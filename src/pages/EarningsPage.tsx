@@ -8,6 +8,10 @@ import {
   Upload,
   XCircle,
   History,
+  X,
+  FileText,
+  Camera,
+  Copy,
 } from "lucide-react";
 import { io } from "socket.io-client";
 import { toast } from "sonner";
@@ -28,6 +32,7 @@ const EarningsPage: React.FC = () => {
   const [cardNum, setCardNum] = useState();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [paymentId, setPaymentId] = useState();
+  const [warn, setWarn] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -80,6 +85,7 @@ const EarningsPage: React.FC = () => {
     socketRef.current.on("card_info", (data) => {
       setModalData(data);
       setIsModalOpen(true);
+      setWarn(false);
       setCardNum(data);
       console.log("data: ", data.paymentId);
       setPaymentId(data.paymentId);
@@ -147,6 +153,9 @@ const EarningsPage: React.FC = () => {
       setIsDepositDisabled(true);
       setDepositTimer(120); // 2 daqiqa = 120 sekund
     }
+
+    setWarn(true);
+    // "Iltimos sahifadan chiqib ketmang aks holda aperatsiya bekor qilinadi!!!"
   };
 
   // Hisoblangan qiymatni olish uchun funksiya
@@ -167,14 +176,98 @@ const EarningsPage: React.FC = () => {
     CANCELLED: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200",
   };
 
+  // const handleFileUpload = async () => {
+  //   if (!selectedFile) return;
+  //   const token = localStorage.getItem("token");
+  //   const formData = new FormData();
+  //   formData.append("file", selectedFile);
+
+  //   try {
+  //     // 1. Upload image to /upload/single
+  //     const uploadRes = await fetch(
+  //       "https://mlm-backend.pixl.uz/upload/single",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //         body: formData,
+  //       }
+  //     );
+  //     const uploadData = await uploadRes.json();
+  //     // Assume the uploaded image URL is in uploadData.url or uploadData.photo_url
+  //     const imageUrl = uploadData.url || uploadData.photo_url;
+
+  //     console.log(imageUrl);
+
+  //     if (!imageUrl) {
+  //       toast.error(t("earningsPage.imageUrlNotFound"));
+  //       return;
+  //     }
+
+  //     // 2. Send image URL to /payments/scrinshot
+  //     const scrinshotRes = await fetch(
+  //       "https://mlm-backend.pixl.uz/payments/scrinshot",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           photoUrl: imageUrl,
+  //           paymentId,
+  //         }),
+  //       }
+  //     );
+
+  //     if (!scrinshotRes.ok) {
+  //       toast.error(t("earningsPage.errorSendingImage"));
+  //       return;
+  //     }
+
+  //     toast.success(t("earningsPage.imageSentSuccessfully"));
+  //     setSelectedFile(null);
+  //     setIsModalOpen(false);
+  //   } catch (error) {
+  //     toast.error(t("earningsPage.imageUploadError"));
+  //     console.error("Upload error:", error);
+  //   }
+  // };
+
+  //
+  //
+
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedFile(null);
+    setUploadSuccess(false);
+    setIsUploading(false);
+  };
+
+  const handleFileSelect = (file: File) => {
+    if (
+      file &&
+      (file.type.startsWith("image/") || file.type === "application/pdf")
+    ) {
+      setSelectedFile(file);
+    }
+  };
+
   const handleFileUpload = async () => {
     if (!selectedFile) return;
+
     const token = localStorage.getItem("token");
     const formData = new FormData();
     formData.append("file", selectedFile);
 
+    setIsUploading(true); // loading ko‘rsatish
+
     try {
-      // 1. Upload image to /upload/single
+      // 1. Faylni serverga yuklash
       const uploadRes = await fetch(
         "https://mlm-backend.pixl.uz/upload/single",
         {
@@ -185,18 +278,17 @@ const EarningsPage: React.FC = () => {
           body: formData,
         }
       );
-      const uploadData = await uploadRes.json();
-      // Assume the uploaded image URL is in uploadData.url or uploadData.photo_url
-      const imageUrl = uploadData.url || uploadData.photo_url;
 
-      console.log(imageUrl);
+      const uploadData = await uploadRes.json();
+      const imageUrl = uploadData.url || uploadData.photo_url;
 
       if (!imageUrl) {
         toast.error(t("earningsPage.imageUrlNotFound"));
+        setIsUploading(false);
         return;
       }
 
-      // 2. Send image URL to /payments/scrinshot
+      // 2. Image URL ni serverga yuborish
       const scrinshotRes = await fetch(
         "https://mlm-backend.pixl.uz/payments/scrinshot",
         {
@@ -214,17 +306,66 @@ const EarningsPage: React.FC = () => {
 
       if (!scrinshotRes.ok) {
         toast.error(t("earningsPage.errorSendingImage"));
+        setIsUploading(false);
         return;
       }
 
       toast.success(t("earningsPage.imageSentSuccessfully"));
+
+      // Holatlarni tozalash va modalni yopish
       setSelectedFile(null);
-      setIsModalOpen(false);
+      setUploadSuccess(true); // success bo‘lishi uchun
+      setIsUploading(false);
+
+      setTimeout(() => {
+        handleCloseModal();
+      }, 1500);
     } catch (error) {
-      toast.error(t("earningsPage.imageUploadError"));
       console.error("Upload error:", error);
+      toast.error(t("earningsPage.imageUploadError"));
+      setIsUploading(false);
     }
   };
+
+  const formatCardNumber = (cardNumber: string) => {
+    return cardNumber.replace(/(.{4})/g, "$1 ").trim();
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(false);
+
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      handleFileSelect(files[0]);
+    }
+  };
+
+  function handleCopyCardNumber(cardNumber: string) {
+    if (!cardNumber) return;
+
+    navigator.clipboard
+      .writeText(cardNumber)
+      .then(() => {
+        // Muvaffaqiyatli nusxalandi
+        toast.success("Karta raqami nusxalandi!");
+      })
+      .catch((err) => {
+        // Xatolik yuz berdi
+        console.error("Nusxalab bo'lmadi:", err);
+        toast.error("Nusxalashda xatolik yuz berdi");
+      });
+  }
 
   return (
     <div className="min-h-screen text-gray-900 dark:text-white">
@@ -479,7 +620,7 @@ const EarningsPage: React.FC = () => {
         </div>
       </div>
 
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-xl shadow-lg w-96 relative">
             <button
@@ -520,6 +661,200 @@ const EarningsPage: React.FC = () => {
             ) : (
               <p>{t("earningsPage.loading")}</p>
             )}
+          </div>
+        </div>
+      )} */}
+
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md relative transform transition-all duration-300 scale-100">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-100">
+              <h2 className="text-xl font-semibold text-gray-900">
+                Payment Verification
+              </h2>
+              <button
+                onClick={handleCloseModal}
+                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors duration-200"
+              >
+                <X className="w-4 h-4 text-gray-600" />
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6">
+              {modalData ? (
+                <div className="space-y-6">
+                  {/* Card Information */}
+                  <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-4 text-white">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <CreditCard className="w-5 h-5" />
+                      <span className="text-sm font-medium opacity-90">
+                        Payment Card
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="font-mono text-lg tracking-wider">
+                        {/* {formatCardNumber(modalData.cardNumber)} */}
+                        {t("earningsPage.card")} <br />
+                        {cardNum?.cardNumber
+                          ? cardNum.cardNumber.replace(/(.{4})/g, "$1 ").trim()
+                          : ""}
+                      </div>
+
+                      <button
+                        onClick={() =>
+                          handleCopyCardNumber(cardNum?.cardNumber || "")
+                        }
+                        className="ml-4 p-2 bg-white/20 hover:bg-white/30 rounded-lg transition"
+                        title="Copy to clipboard"
+                      >
+                        <Copy className="w-5 h-5 text-white" />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* File Upload Section */}
+                  {!uploadSuccess ? (
+                    <div className="space-y-4">
+                      <h3 className="font-medium text-gray-900">
+                        Отправить чек
+                      </h3>
+
+                      {/* Drag & Drop Zone */}
+                      <div
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={handleDrop}
+                        className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 ${
+                          isDragOver
+                            ? "border-blue-400 bg-blue-50"
+                            : selectedFile
+                            ? "border-green-400 bg-green-50"
+                            : "border-gray-300 hover:border-gray-400"
+                        }`}
+                      >
+                        {selectedFile ? (
+                          <div className="space-y-3">
+                            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                              <FileText className="w-6 h-6 text-green-600" />
+                            </div>
+                            <div>
+                              <p className="font-medium text-gray-900">
+                                {selectedFile.name}
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                {(selectedFile.size / 1024 / 1024).toFixed(2)}{" "}
+                                MB
+                              </p>
+                            </div>
+                            <button
+                              onClick={() => setSelectedFile(null)}
+                              className="text-sm text-red-600 hover:text-red-700"
+                            >
+                              Remove file
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="space-y-3">
+                            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
+                              {isDragOver ? (
+                                <Upload className="w-6 h-6 text-blue-600" />
+                              ) : (
+                                <Camera className="w-6 h-6 text-gray-400" />
+                              )}
+                            </div>
+                            <div>
+                              <p className="font-medium text-gray-900">
+                                {isDragOver
+                                  ? "Drop your file here"
+                                  : "Drag & drop your file"}
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                or click to browse (JPG, PNG)
+                              </p>
+                            </div>
+                            <input
+                              type="file"
+                              accept="image/*,.pdf"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) handleFileSelect(file);
+                              }}
+                              className="absolute top-64 left-28 inset-0 w-full h-[35%] opacity-0 cursor-pointer"
+                            />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Upload Button */}
+                      <button
+                        onClick={handleFileUpload}
+                        disabled={!selectedFile || isUploading}
+                        className={`w-full py-3 px-4 rounded-xl font-medium transition-all duration-200 ${
+                          !selectedFile || isUploading
+                            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                            : "bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl"
+                        }`}
+                      >
+                        {isUploading ? (
+                          <div className="flex items-center justify-center space-x-2">
+                            <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+                            <span>Uploading...</span>
+                          </div>
+                        ) : (
+                          "Upload Document"
+                        )}
+                      </button>
+                    </div>
+                  ) : (
+                    /* Success State */
+                    <div className="text-center py-8">
+                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <CheckCircle className="w-8 h-8 text-green-600" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        Upload Successful!
+                      </h3>
+                      <p className="text-gray-600">
+                        Your document has been uploaded and is being processed.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                /* Loading State */
+                <div className="text-center py-8">
+                  <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="text-gray-600">
+                    Loading payment information...
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* warning message page, page written by_codenur */}
+      {warn && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-30">
+          <div className="border relative bg-slate-300 p-16 text-center rounded-2xl">
+            <button
+              className="absolute right-5 top-5"
+              onClick={() => setWarn(false)}
+            >
+              <X />
+            </button>
+            <h2>
+              <strong>{t("earningsPage.warnTitle")}</strong>{" "}
+              {t("earningsPage.warnSubtitle")}
+            </h2>
+            <p>
+              <span>{t("earningsPage.warnStay")}</span>
+              <br />
+              {t("earningsPage.warnAutoMessage")}
+            </p>
           </div>
         </div>
       )}

@@ -250,8 +250,8 @@
     "sendRequest": "Отправить запрос",
     "resend": "Отправить повторно",
     "calculating": "Вычисление...",
-    "amountPlaceholder": "Введите сумму монет",
-    "coinAmount": "Сумма монет",
+    "amountPlaceholder": "Введите сумму USDT",
+    "coinAmount": "Сумма USDT",
     "amount": "Сумма",
     "currency": "Валюта",
     "orderSummary": "Сводка заказа",
@@ -267,7 +267,11 @@
     "processedLabel": "Обработано",
     "card": "Карта",
     "transactionId": "ID транзакции",
-    "trackActivity": "Отслеживайте свою торговую активность"
+    "trackActivity": "Отслеживайте свою торговую активность",
+    "warnTitle": "Пожалуйста, не покидайте страницу",
+    "warnSubtitle": "в противном случае операция будет отменена!!!",
+    "warnStay": "Оставайтесь здесь и ждите, пока администратор отправит номер карты! ;D",
+    "warnAutoMessage": "Сообщение от администратора придет автоматически, пожалуйста, подождите"
   },
   "landing": {
     "welcome": "Добро пожаловать в",
@@ -312,7 +316,7 @@
   },
   "trading": {
     "dashboard": "Панель",
-    "purchaseCoins": "Купить монеты",
+    "purchaseCoins": "Купить USDT",
     "selectCurrency": "Выберите валюту",
     "totalValue": "Итоговая сумма"
   },

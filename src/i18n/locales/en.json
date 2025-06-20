@@ -267,7 +267,11 @@
     "processedLabel": "Processed",
     "card": "Card",
     "transactionId": "Transaction ID",
-    "trackActivity": "Track your trading activity"
+    "trackActivity": "Track your trading activity",
+    "warnTitle": "Please do not leave the page",
+    "warnSubtitle": "otherwise the operation will be canceled!!!",
+    "warnStay": "Stay here and wait for the admin to send the card number! ;D",
+    "warnAutoMessage": "A message from the admin will arrive automatically, please wait"
   },
   "landing": {
     "welcome": "Welcome to",

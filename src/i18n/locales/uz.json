@@ -267,7 +267,11 @@
     "processedLabel": "Qayta ishlangan",
     "card": "Karta",
     "transactionId": "Tranzaksiya ID",
-    "trackActivity": "Savdo faoliyatingizni kuzatib boring"
+    "trackActivity": "Savdo faoliyatingizni kuzatib boring",
+    "warnTitle": "Iltimos sahifadan chiqib ketmang",
+    "warnSubtitle": "aks holda operatsiya bekor qilinadi !!!",
+    "warnStay": "Shu yerda qoling va admin karta raqam jonatishini kuting! ; D",
+    "warnAutoMessage": "Admindan xabar avtomatik keladi iltimos kutib turing"
   },
   "landing": {
     "welcome": "Xush kelibsiz",
