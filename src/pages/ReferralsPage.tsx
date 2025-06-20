@@ -276,41 +276,43 @@ const ReferralsPage: React.FC = () => {
                       {t("referrals.level")}
                     </th>
                     <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      {t("referrals.levelName")}
+                    </th>
+                    <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       {t("referrals.minCount")}
                     </th>
                     <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       {t("referrals.maxCount")}
                     </th>
-                    <th className="px-6 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      {t("referrals.levelName")}
-                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
-                  {referals.map(({ id, count, prize, level, maxCount }) => (
-                    <tr
-                      key={id}
-                      className="hover:bg-gray-50text-xs dark:hover:bg-gray-800 transition-colors"
-                    >
-                      <td className="px-6 py-4text-xs text-gray-600 dark:text-gray-400 whitespace-nowrap">
-                        {id}
-                      </td>
-                      <td className="px-6 py-4text-xs text-gray-900 dark:text-gray-100 whitespace-nowrap">
-                        {level}
-                      </td>
-                      <td className="px-6 py-4text-xs text-xs text-gray-900 dark:text-gray-100 whitespace-nowrap">
-                        {prize}
-                      </td>
-                      <td className="px-6 py-4text-xs whitespace-nowrap">
-                        <span className="inline-flex items-center px-2 text-black dark:text-slate-200 py-1 rounded-full text-xs font-semibold">
-                          {count}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                        {maxCount}
-                      </td>
-                    </tr>
-                  ))}
+                  {[...referals]
+                    .sort((a, b) => a.level - b.level) // yoki parseInt(a.level) - parseInt(b.level)
+                    .map(({ id, count, prize, level, maxCount }, index) => (
+                      <tr
+                        key={id}
+                        className="hover:bg-gray-50 text-xs dark:hover:bg-gray-800 transition-colors"
+                      >
+                        <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                          {index + 1}
+                        </td>
+                        <td className="px-6 py-4 text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                          {level}
+                        </td>
+                        <td className="px-6 py-4 text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                          {prize}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className="inline-flex items-center px-2 text-black dark:text-slate-200 py-1 rounded-full text-xs font-semibold">
+                            {count}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          {maxCount}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>

@@ -184,7 +184,7 @@
     "minWithdraw": "Minimal yechish miqdori: ${{amount}}",
     "importantNotes": "Muhim eslatmalar:",
     "noteProcessingTime": "Yechish 1-3 ish kuni ichida amalga oshiriladi",
-    "noteMinAmount": "Minimal yechish miqdori ${{amount}}",
+    "noteMinAmount": "Minimal yechish miqdori {{amount}}",
     "noteFees": "To'lov usuliga qarab komissiya olinishi mumkin",
     "noteCardDetails": "Karta ma'lumotlaringiz to'g'ri ekanligiga ishonch hosil qiling, aks holda kechikish bo'lishi mumkin"
   },

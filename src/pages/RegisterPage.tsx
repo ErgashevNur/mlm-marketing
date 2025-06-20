@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Mail,
@@ -34,7 +34,7 @@ const RegisterPage: React.FC = () => {
 
   useEffect(() => {
     if (timeLeft <= 0) {
-      setIsExpired(true);
+      // <Navigate to={"/login"} />;
       return;
     }
 

@@ -123,64 +123,23 @@ const Dashboard: React.FC = () => {
     return visiblePart + hiddenPart + domain;
   }
 
-  // const googleRefSistem = async () => {
-  //   try {
-  //     const googleRefId = await localStorage.getItem("referral_id");
-  //     const token = localStorage.getItem("token");
-
-  //     if (googleRefId) {
-  //       const res = await fetch(
-  //         `${import.meta.env.VITE_API_KEY}/referal/google/${googleRefId}`,
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       console.log(res);
-  //     }
-
-  //     console.log(googleRefId);
-
-  //     // localStorage.removeItem("referral_id");
-  //   } catch (error: any) {
-  //     // console.error("Google referral xatolik:", error);
-  //     toast.error(error.message || "Kutilmagan xatolik");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-  // googleRefSistem();
-
   const googleRefSistem = async () => {
     try {
-      const googleRefId = localStorage.getItem("referral_id");
+      const googleRefId = await localStorage.getItem("referral_id");
       const token = localStorage.getItem("token");
 
       if (googleRefId) {
-        const res = await fetch(
+        await fetch(
           `${import.meta.env.VITE_API_KEY}/referal/google/${googleRefId}`,
           {
             method: "GET",
             headers: {
+              "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
-            redirect: "follow", // 🔁 redirectni qo‘shdik
           }
         );
-
-        if (res.redirected) {
-          console.warn("Redirect qilingan:", res.url);
-        }
-
-        const data = await res.json();
-        console.log("Referral javobi:", data);
       }
-
-      console.log("Referral ID:", googleRefId);
 
       // localStorage.removeItem("referral_id");
     } catch (error: any) {
@@ -190,9 +149,7 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    googleRefSistem();
-  }, []);
+  googleRefSistem();
 
   return (
     <div className="space-y-6">
@@ -201,13 +158,12 @@ const Dashboard: React.FC = () => {
           <div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
               <div className="flex flex-col gap-2">
-                <h1>{userLevel?.prize} </h1>
                 {t("dashboard.welcomeBack")}, {user?.name}!
               </div>
             </h1>
           </div>
           <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-            {user?.createdAt && formatDate(user.createdAt)}
+            <h1>{userLevel?.prize} </h1>
           </div>
         </div>
       </div>

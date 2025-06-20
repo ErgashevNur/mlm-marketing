@@ -127,10 +127,10 @@
     "active": "Active",
     "inactive": "Inactive",
     "referalevel": "Referal level",
-    "minCount": "Minimum count",
+    "minCount": "Min USDT",
     "levelName": "Level name",
     "level": "Level",
-    "maxCount": "Maximum count"
+    "maxCount": "Max USDT"
   },
   "plans": {
     "choosePlan": "Choose Your Plan",
@@ -184,7 +184,7 @@
     "minWithdraw": "Minimum withdrawal: 1 USDT",
     "importantNotes": "Important Notes:",
     "noteProcessingTime": "Withdrawals are processed within 1-3 business days",
-    "noteMinAmount": "Minimum withdrawal amount is ${{amount}}",
+    "noteMinAmount": "Minimum withdrawal amount is {{amount}}",
     "noteFees": "Processing fees may apply depending on your payment method",
     "noteCardDetails": "Ensure your card details are correct to avoid delays"
   },

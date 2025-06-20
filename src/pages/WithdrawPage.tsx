@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Wallet, CreditCard, Calendar } from "lucide-react";
+import { Wallet, CreditCard, Calendar, Copy, CheckCircle } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import StatCard from "../components/StatCard";
 import { toast } from "sonner";
 import CardInfo from "../components/CardInfo";
-
+import logo from "../../public/logo.svg";
 const WithdrawPage: React.FC = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -249,10 +249,10 @@ const WithdrawPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 {t("withdraw.cardNumber")}
               </label>
-              <div className="relative">
+              <div className="relative flex items-center">
                 <CreditCard
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"
                   size={20}
@@ -312,7 +312,13 @@ const WithdrawPage: React.FC = () => {
             </h4>
             <ul className="text-sm text-blue-800 dark:text-blue-300 space-y-1">
               <li>• {t("withdraw.noteProcessingTime")}</li>
-              <li>• {t("withdraw.noteMinAmount", { amount: 10 })}</li>
+              <li className="flex items-center gap-1">
+                •
+                {t("withdraw.noteMinAmount", {
+                  amount: minimumValue?.minValue,
+                })}
+                <img width={15} height={15} src={logo} alt="" />
+              </li>
               <li>• {t("withdraw.noteFees")}</li>
               <li>• {t("withdraw.noteCardDetails")}</li>
             </ul>
