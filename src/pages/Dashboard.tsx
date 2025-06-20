@@ -244,7 +244,7 @@ const Dashboard: React.FC = () => {
                 },
                 {
                   name: t("common.earnings"),
-                  href: "/dashboard/referrals",
+                  href: "/dashboard/earnings",
                   color: "bg-green-500 hover:bg-green-600",
                   icon: <img src="/CoinLogo.png" alt="" className="w-5" />,
                 },
