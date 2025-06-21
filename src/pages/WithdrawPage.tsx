@@ -7,6 +7,7 @@ import {
   Copy,
   CheckCircle,
   Headset,
+  X,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import StatCard from "../components/StatCard";
@@ -34,6 +35,8 @@ const WithdrawPage: React.FC = () => {
 
   const isEnoughCoin = user.coin < (minimumValue?.minValue ?? 0);
   const [socials, setSocials] = useState([]);
+
+  const [have, setHave] = useState(false);
 
   const getCurrencies = async () => {
     try {
@@ -134,6 +137,31 @@ const WithdrawPage: React.FC = () => {
     }
   };
 
+  const sendRequest = async () => {
+    try {
+      const req = await fetch("https://mlm-backend.pixl.uz/take-off/pending", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!req.ok) {
+        throw new Error(`Server error: ${req.status}`);
+      }
+
+      const text = await req.json();
+
+      setHave(text);
+    } catch (error) {
+      console.error("Error fetching pending requests:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    sendRequest();
+  }, []);
   useEffect(() => {}, [withdrawHistory]);
 
   const token = localStorage.getItem("token");
@@ -421,6 +449,17 @@ const WithdrawPage: React.FC = () => {
           })}
         </div>
       </div>
+      {have && (
+        <div className="w-96 h-40 fixed top-[40%] left-[40%] bg-white border-2 rounded-md items-center flex justify-center">
+          <X
+            onClick={() => setHave(false)}
+            className="absolute top-3 right-3 cursor-pointer"
+          />
+          <p className="text-[15px] text-center">
+            Sizning avvalgi so'rovingiz ko'rib chiqilmoqda!
+          </p>
+        </div>
+      )}
     </div>
   );
 };
