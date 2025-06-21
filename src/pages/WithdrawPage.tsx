@@ -26,7 +26,7 @@ const WithdrawPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [withdrawHistory, setWithdrawHistory] = useState([]);
-  const [selectedCurrency, setSelectedCurrency] = useState("USDT");
+  const [selectedCurrency, setSelectedCurrency] = useState("");
   const [coinData, setCoinData] = useState<any[]>([]);
   const [calculatedValue, setCalculatedValue] = useState("");
 
@@ -264,12 +264,18 @@ const WithdrawPage: React.FC = () => {
                     }
                   }}
                 />
+
                 <select
                   value={selectedCurrency}
                   onChange={(e) => setSelectedCurrency(e.target.value)}
-                  className="ml-2 px-3 py-[15px] w-full border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-                  style={{ minWidth: 80 }}
+                  className={`ml-2 px-3 py-[15px] w-full border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white ${
+                    coinData.length === 0 ? "hidden" : ""
+                  }`}
+                  style={{ min180Width: 80 }}
                 >
+                  <option value="" disabled hidden>
+                    {t("withdraw.selectCurrency")}
+                  </option>
                   {coinData.map((c) => (
                     <option key={c.currency} value={c.currency}>
                       {c.currency}

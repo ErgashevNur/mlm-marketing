@@ -352,6 +352,7 @@
     "tariff": "Тариф",
     "tariffImage": "Тариф суреті",
     "serverError": "Сервер қатесі: {{status}}",
-    "fetchError": "Бонус тарихын алуда қате"
+    "fetchError": "Бонус тарихын алуда қате",
+    "selectCurrency": "Валютаны таңдаңыз"
   }
 }

@@ -353,6 +353,7 @@
     "tariff": "Tariff",
     "tariffImage": "Tariff Image",
     "serverError": "Server error: {{status}}",
-    "fetchError": "Error fetching bonus history"
+    "fetchError": "Error fetching bonus history",
+    "selectCurrency": "Select Currency"
   }
 }

@@ -368,6 +368,8 @@
     "tariff": "Tarif",
     "tariffImage": "Tarif rasmi",
     "serverError": "Server xatosi: {{status}}",
-    "fetchError": "Bonus tarixini olishda xatolik"
+    "fetchError": "Bonus tarixini olishda xatolik",
+
+    "selectCurrency": "请选择货币"
   }
 }
