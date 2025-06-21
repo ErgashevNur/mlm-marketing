@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Search, Coins, ShoppingCart, Eye } from "lucide-react";
+import { Search, Coins, ShoppingCart, Eye, Headset } from "lucide-react";
 import { useCart } from "../contexts/CartContext";
 import { toast } from "sonner";
+import { FaFacebook, FaInstagram, FaTelegram, FaTwitter } from "react-icons/fa6";
 
 const ProductsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -271,6 +272,33 @@ const ProductsPage: React.FC = () => {
             </form>
           </div>
         )}
+      </div>
+      <div className="fixed bottom-6 right-6 z-50 group w-16 h-16">
+        {/* Asosiy icon */}
+        <div className="w-16 h-16 cursor-pointer flex items-center justify-center bg-blue-600 text-white rounded-full shadow-lg relative z-20">
+          <Headset size={28} />
+        </div>
+
+        {/* Hoverda tepaga chiqadigan iconlar */}
+        <div
+          className="absolute bottom-full left-1/2 -translate-x-1/2 flex flex-col items-center gap-2
+                opacity-0 translate-y-2 scale-95
+                group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100
+                transition-all duration-300 ease-in-out"
+        >
+          <div className="w-10 h-10 flex items-center justify-center bg-sky-500 text-white rounded-full shadow cursor-pointer">
+            <FaTelegram />
+          </div>
+          <div className="w-10 h-10 flex items-center justify-center bg-pink-500 text-white rounded-full shadow cursor-pointer">
+            <FaInstagram />
+          </div>
+          <div className="w-10 h-10 flex items-center justify-center bg-blue-700 text-white rounded-full shadow cursor-pointer">
+            <FaFacebook />
+          </div>
+          <div className="w-10 h-10 mb-3 flex items-center justify-center bg-blue-400 text-white rounded-full shadow cursor-pointer">
+            <FaTwitter />
+          </div>
+        </div>
       </div>
     </div>
   );
