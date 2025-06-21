@@ -30,9 +30,9 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   const [currentLanguage, setCurrentLanguage] = useState<Language>(lang);
 
   const languages = [
-    { code: "uz" as Language, name: "O'zbekcha", flag: "🇺🇿", currency: "UZS" },
     { code: "en" as Language, name: "English", flag: "🇺🇸", currency: "USD" },
     { code: "ru" as Language, name: "Русский", flag: "🇷🇺", currency: "RUB" },
+    { code: "uz" as Language, name: "O'zbekcha", flag: "🇺🇿", currency: "UZS" },
     { code: "kk" as Language, name: "Қазақша", flag: "🇰🇿", currency: "KZT" },
     { code: "ky" as Language, name: "Кыргызча", flag: "🇰🇬", currency: "KGS" },
     { code: "tg" as Language, name: "Тоҷикӣ", flag: "🇹🇯", currency: "TJS" },
