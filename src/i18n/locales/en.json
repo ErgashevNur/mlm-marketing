@@ -160,7 +160,7 @@
     "withdrawFunds": "Withdraw Funds",
     "availableBalance": "Available Balance",
     "withdrawAmount": "Withdraw Amount",
-    "cardNumber": "Card Number",
+    "cardNumber": "Card or Wallet",
     "cardHolder": "Card Holder Name",
     "requestWithdraw": "Request Withdrawal",
     "withdrawHistory": "Withdrawal History",

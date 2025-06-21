@@ -160,7 +160,7 @@
     "withdrawFunds": "Вывод средств",
     "availableBalance": "Доступный баланс",
     "withdrawAmount": "Сумма вывода",
-    "cardNumber": "Номер карты",
+    "cardNumber": "Карта или кошелёк",
     "cardHolder": "Имя держателя карты",
     "requestWithdraw": "Запросить вывод",
     "withdrawHistory": "История выводов",

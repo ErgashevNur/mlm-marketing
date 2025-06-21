@@ -162,7 +162,7 @@
     "withdrawFunds": "提现资金",
     "availableBalance": "可用余额",
     "withdrawAmount": "提现金额",
-    "cardNumber": "卡号",
+    "cardNumber": "卡或钱包 ",
     "cardHolder": "持卡人姓名",
     "requestWithdraw": "申请提现",
     "withdrawHistory": "提现历史",
