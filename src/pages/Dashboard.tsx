@@ -90,9 +90,14 @@ const Dashboard: React.FC = () => {
       }
 
       const data = await response.json();
-      setCanClaimBonus(data.status);
+      console.log(data.map((item: any) => item.nextTimeHours));
+
+      setCanClaimBonus(data.nextTimeHours);
+
       // console.log(t("dashboard.bonusReceivedLog"), data);
-      toast.warning(data.status);
+      toast.warning(data.map((item: any) => item.nextTimeHours).join(", "), {
+        description: "Hour",
+      });
     } catch (error) {
       // console.error(t("dashboard.errorLog"), error);
       alert(t("dashboard.bonusError") || "Bonus olishda xatolik yuz berdi.");
