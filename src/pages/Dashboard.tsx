@@ -95,9 +95,11 @@ const Dashboard: React.FC = () => {
       setCanClaimBonus(data.nextTimeHours);
 
       // console.log(t("dashboard.bonusReceivedLog"), data);
-      toast.warning(data.map((item: any) => item.nextTimeHours).join(", "), {
-        description: "Hour",
-      });
+      toast.warning(
+        `Next bonus - ${data
+          .map((item: any) => item.nextTimeHours)
+          .join(", ")} - Hour`
+      );
     } catch (error) {
       // console.error(t("dashboard.errorLog"), error);
       alert(t("dashboard.bonusError") || "Bonus olishda xatolik yuz berdi.");
