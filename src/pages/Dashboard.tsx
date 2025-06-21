@@ -262,13 +262,13 @@ const Dashboard: React.FC = () => {
                       {maskEmail(data.email)}
                     </span>
                     <span className="flex items-center gap-2 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200">
-                      {data.coin}
                       <img
                         src="/CoinLogo.png"
                         alt="coin"
                         className="w-5 h-5 object-contain"
                       />
                       <span className="hidden sm:inline">USDT</span>
+                      {data.coin}
                     </span>
                   </div>
                 ))}
