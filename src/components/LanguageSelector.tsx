@@ -26,7 +26,14 @@ const LanguageSelector: React.FC = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full w-40 left-50 right-0 mt-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
+        <div
+          className={`
+          absolute w-40 z-50 max-h-64 overflow-y-auto rounded-lg shadow-lg border
+          bg-white dark:bg-slate-800 border-gray-200 dark:border-gray-700
+          bottom-full mb-2             /* Default: mobile - open upward */
+          sm:top-full sm:bottom-auto sm:mb-0 sm:mt-2  /* Desktop: open downward */
+        `}
+        >
           {languages.map((language) => (
             <button
               key={language.code}

@@ -22,6 +22,7 @@ export default function BonusHistory() {
   const [historyProducts, setHistoryProducts] = useState([]);
   const [historyPlans, setHistoryPlans] = useState([]);
   const [socials, setSocials] = useState([]);
+
   const getCurrencies = async () => {
     try {
       const response = await fetch("https://mlm-backend.pixl.uz/suport");
@@ -61,6 +62,8 @@ export default function BonusHistory() {
       }
 
       const data = await response.json();
+      console.log(data);
+
       setHistoryUser(data);
     } catch (error) {
       toast.error("Bonus history olishda xatolik:", error);
@@ -213,11 +216,11 @@ export default function BonusHistory() {
                     <p>Not found</p>
                   </div>
                 ) : (
-                  historyUser.map(({ id, userId, date, coin }) => (
+                  historyUser.map(({ id, tariff, date, coin }) => (
                     <div key={id} className="flex items-center justify-between">
                       <div className="flex items-center gap-5">
                         <p className="text-lg font-semibold flex items-center gap-3 text-gray-800 dark:text-white">
-                          ID-{userId}
+                          {tariff.translations[0]?.name}
                         </p>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                           {moment(date).format("YYYY-MM-DD HH:mm")}
@@ -418,7 +421,6 @@ export default function BonusHistory() {
         </div>
 
         {/* Sotib olingan tariflar */}
-
         <div className="relative transition-all duration-500">
           <button
             onClick={handleToggleTariffs}

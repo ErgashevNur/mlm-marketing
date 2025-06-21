@@ -131,7 +131,7 @@ const ProfilePage: React.FC = () => {
       <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border dark:border-gray-500 border-gray-100">
         {/* Tabs */}
         <div className="overflow-x-auto">
-          <nav className="flex min-w-max space-x-2 sm:space-x-3 sm:px-2">
+          <nav className="flex flex-col sm:flex-row w-full sm:w-auto space-y-2 sm:space-y-0 sm:space-x-3 sm:px-2">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (

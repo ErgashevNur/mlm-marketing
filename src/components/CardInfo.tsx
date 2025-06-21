@@ -48,23 +48,28 @@ export default function CardInfo({
   };
   return (
     <>
-      <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-        <div className="flex items-center space-x-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg w-full">
+        {/* Left section: Icon, amount, user info */}
+        <div className="flex flex-wrap items-start sm:items-center gap-4 sm:gap-6">
           {getStatusIcon(status)}
+
+          {/* Amount */}
           <div>
-            <p className="font-medium flex items-center gap-1 text-gray-900 dark:text-white">
+            <p className="font-medium flex items-center gap-2 text-gray-900 dark:text-white">
               <img
                 src="/CoinLogo.png"
                 className="w-4 h-4"
                 alt={t("withdraw.coinAlt")}
               />
-              {how_much}
+              <span className="text-sm sm:text-base">{how_much}</span>
             </p>
           </div>
+
+          {/* Name & card */}
           <div>
-            <p className="font-medium flex flex-col gap-1 text-gray-900 dark:text-white">
-              <span className="text-sm">{fullName}</span>
-              <span className="text-xs">
+            <p className="font-medium text-gray-900 dark:text-white">
+              <span className="text-sm block">{fullName}</span>
+              <span className="text-xs block">
                 {t("withdraw.cardNumberMask", {
                   first: cardNumber.slice(0, 4),
                   last: cardNumber.slice(-4),
@@ -73,8 +78,10 @@ export default function CardInfo({
             </p>
           </div>
         </div>
-        <div className="text-right flex items-end gap-3 flex-col">
-          <div className="flex items-center gap-3 text-right">
+
+        {/* Right section: status, date, comment button */}
+        <div className="flex flex-col items-start sm:items-end gap-2 w-full sm:w-auto">
+          <div className="flex flex-wrap items-center gap-2 sm:justify-end">
             <span
               className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(
                 status
@@ -84,24 +91,27 @@ export default function CardInfo({
               {status === "PENDING" && t("withdraw.processing")}
               {status === "CANCELLED" && t("withdraw.rejected")}
             </span>
+
             {requestDate && (
               <p className="text-[10px] bg-gray-300 text-gray-900 inline-flex items-center px-2 py-0.5 rounded-full font-medium">
-                {/* {t("withdraw.requestDateLabel")}:{" "} */}
                 {new Date(requestDate).toLocaleDateString()}
               </p>
             )}
           </div>
+
           <button
             type="button"
-            className="text-xs bg-blue-100 text-blue-800 inline-flex items-center px-3 py-0.5 rounded-full font-medium mt-2"
+            className="text-xs bg-blue-100 text-blue-800 inline-flex items-center px-3 py-0.5 rounded-full font-medium"
             onClick={() => setShowModal(true)}
             title={t("withdraw.showComment")}
             aria-label={t("withdraw.showComment")}
           >
-            <Mail className="w-5" />
+            <Mail className="w-4 h-4 mr-1" />
+            {t("withdraw.showComment")}
           </button>
         </div>
       </div>
+
       {/* Modal for comment */}
       {showModal && (
         <div className="fixed bg-gray-900/50 inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
@@ -125,12 +135,6 @@ export default function CardInfo({
           </div>
         </div>
       )}
-      {/* Status va data commenti */}
-      {/* <div className="mt-1 text-xs text-gray-400 dark:text-gray-500 px-2">
-        status: {status} | data: {requestDate}
-        status: {status} | date:{" "}
-        {requestDate ? new Date(requestDate).toLocaleDateString() : "-"}
-      </div> */}
     </>
   );
 }
