@@ -14,6 +14,7 @@ import { useAuth } from "../contexts/AuthContext";
 import StatCard from "../components/StatCard";
 import { toast } from "sonner";
 import { FaInstagram, FaTelegram } from "react-icons/fa6";
+import { IoShareSocial } from "react-icons/io5";
 
 // Define the Friend interface for type safety
 interface Friend {
@@ -444,7 +445,9 @@ const ReferralsPage: React.FC = () => {
                 <FaInstagram />
               ) : name === "Telegram" ? (
                 <FaTelegram />
-              ) : null;
+              ) : (
+                <IoShareSocial />
+              );
             const bgColor =
               name === "Instagram"
                 ? "bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500"

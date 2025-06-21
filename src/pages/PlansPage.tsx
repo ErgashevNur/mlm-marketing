@@ -3,6 +3,7 @@ import { Eye, Calendar, Sparkles, Star, Headset } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import PlanModal from "../components/PlanModal";
 import { FaInstagram, FaTelegram } from "react-icons/fa6";
+import { IoShareSocial } from "react-icons/io5";
 
 interface Translation {
   id: number;
@@ -216,7 +217,9 @@ const PlansPage: React.FC = () => {
                 <FaInstagram />
               ) : name === "Telegram" ? (
                 <FaTelegram />
-              ) : null;
+              ) : (
+                <IoShareSocial />
+              );
             const bgColor =
               name === "Instagram"
                 ? "bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500"

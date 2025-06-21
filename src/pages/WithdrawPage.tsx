@@ -19,6 +19,7 @@ import {
   FaTelegram,
   FaTwitter,
 } from "react-icons/fa6";
+import { IoShareSocial } from "react-icons/io5";
 const WithdrawPage: React.FC = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -407,7 +408,9 @@ const WithdrawPage: React.FC = () => {
                 <FaInstagram />
               ) : name === "Telegram" ? (
                 <FaTelegram />
-              ) : null;
+              ) : (
+                <IoShareSocial />
+              );
             const bgColor =
               name === "Instagram"
                 ? "bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500"

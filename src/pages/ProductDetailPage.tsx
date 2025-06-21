@@ -5,6 +5,7 @@ import { ArrowLeft, Star, CheckCircle, Headset } from "lucide-react";
 import { useCart } from "../contexts/CartContext";
 import { toast } from "sonner";
 import { FaInstagram, FaTelegram } from "react-icons/fa6";
+import { IoShareSocial } from "react-icons/io5";
 
 const ProductDetailPage: React.FC = () => {
   const { t } = useTranslation();
@@ -278,7 +279,9 @@ const ProductDetailPage: React.FC = () => {
                 <FaInstagram />
               ) : name === "Telegram" ? (
                 <FaTelegram />
-              ) : null;
+              ) : (
+                <IoShareSocial />
+              );
             const bgColor =
               name === "Instagram"
                 ? "bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500"
