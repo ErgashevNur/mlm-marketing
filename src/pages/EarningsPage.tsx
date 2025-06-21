@@ -474,7 +474,7 @@ const EarningsPage: React.FC = () => {
                     {t("trading.totalValue")}
                   </span>
                   <span className="text-xl sm:text-2xl font-bold">
-                    {getCalculatedValue()}
+                    {getCalculatedValue()} {currency}
                   </span>
                 </div>
                 <button
