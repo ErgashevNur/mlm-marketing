@@ -145,7 +145,7 @@
     "selectPlan": "Выбрать тариф",
     "popular": "Популярный",
     "dailyProfit": "Дневная прибыль",
-    "coin": "cost",
+    "coin": "Стоимость",
     "referralBonus": "Реферальный бонус",
     "term": "Срок",
     "createdAt": "Дата создания",
@@ -172,7 +172,7 @@
     "success": "Завершено",
     "comment": "Комментарий",
     "noComment": "Комментарий отсутствует",
-    "coinAlt": "Монета",
+    "coinAlt": "USDT",
     "cardNumberMask": "{{first}} **** ****{{last}}",
     "unknownStatus": "Неизвестный статус",
     "showComment": "Показать комментарий",
@@ -251,7 +251,7 @@
     "resend": "Отправить повторно",
     "calculating": "Вычисление...",
     "amountPlaceholder": "Введите сумму монет",
-    "coinAmount": "Сумма монет",
+    "coinAmount": "Сумма USDT",
     "amount": "Сумма",
     "currency": "Валюта",
     "orderSummary": "Сводка заказа",
@@ -281,8 +281,8 @@
     "signIn": "Войти",
     "whyChoose": "Почему выбирают MLM PLATFORM?",
     "whyDesc": "Узнайте, почему наша платформа — лучший выбор для заработка и роста дохода.",
-    "earnCoinsDaily": "Зарабатывайте монеты ежедневно",
-    "earnCoinsDailyDesc": "Получайте ежедневные бонусы монет в зависимости от вашего тарифа",
+    "earnCoinsDaily": "Зарабатывайте USDT ежедневно",
+    "earnCoinsDailyDesc": "Получайте ежедневные бонусы USDT в зависимости от вашего тарифа",
     "referralSystem": "Реферальная система",
     "referralSystemDesc": "Приглашайте друзей и получайте бонусы за каждого успешного реферала",
     "trackEarnings": "Отслеживайте доход",
@@ -296,7 +296,7 @@
     "choosePlan": "Выберите тариф",
     "choosePlanDesc": "Выберите идеальный тариф и начните зарабатывать монеты ежедневно. Обновляйте тариф в любое время для получения большего.",
     "mostPopular": "Самый популярный",
-    "coinsDaily": "{{count}} монет ежедневно",
+    "coinsDaily": "{{count}} USDT ежедневно",
     "startEarningToday": "Начать зарабатывать сегодня",
     "readyToStart": "Готовы начать зарабатывать?",
     "ctaDesc": "Присоединяйтесь к тысячам пользователей, которые уже зарабатывают монеты ежедневно и увеличивают свой доход с MLM PLATFORM.",
@@ -316,8 +316,8 @@
   },
   "trading": {
     "dashboard": "Панель",
-    "purchaseCoins": "Купить монеты",
-    "selectCurrency": "Выберите валюту",
+    "purchaseCoins": "Купить USDT",
+    "selectCurrency": "Выберите USDT",
     "totalValue": "Итоговая сумма"
   },
   "historyPage": {
@@ -327,7 +327,7 @@
     "purchasedTariffs": "Купленные тарифы",
     "notFound": "Не найдено",
     "id": "ID",
-    "coin": "монета",
+    "coin": "USDT",
     "user": "Пользователь",
     "name": "Имя",
     "email": "Email",
@@ -355,6 +355,6 @@
     "tariffImage": "Изображение тарифа",
     "serverError": "Ошибка сервера: {{status}}",
     "fetchError": "Ошибка при загрузке истории бонусов",
-    "selectCurrency": "Выберите валюту"
+    "selectCurrency": "Выберите USDT"
   }
 }
