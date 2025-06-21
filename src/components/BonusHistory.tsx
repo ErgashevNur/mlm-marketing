@@ -225,7 +225,7 @@ export default function BonusHistory() {
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-bold text-green-600">
-                          {coin} coin
+                          {coin} USDT
                         </p>
                       </div>
                     </div>
