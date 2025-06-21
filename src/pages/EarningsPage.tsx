@@ -730,7 +730,7 @@ const EarningsPage: React.FC = () => {
                             </div>
                             <input
                               type="file"
-                              accept="image/*,.pdf"
+                              accept=".png, .jpg"
                               onChange={(e) => {
                                 const file = e.target.files?.[0];
                                 if (file) handleFileSelect(file);
