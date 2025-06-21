@@ -246,14 +246,37 @@ const Dashboard: React.FC = () => {
         {/* Chap tomon: Statistics Chart */}
         <div className="lg:col-span-6">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 h-full">
-            <StatisticsChart />
+            {/* <StatisticsChart /> */}
+            <div className="scroll-container bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 flex-1 overflow-auto max-h-[330px]">
+              <div className="grid gap-3">
+                {statistika.map((data: any, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-3 shadow-sm hover:shadow-md transition"
+                  >
+                    <span className="text-sm sm:text-base font-medium text-gray-800 dark:text-gray-100 truncate max-w-[50%]">
+                      {maskEmail(data.email)}
+                    </span>
+                    <span className="flex items-center gap-2 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200">
+                      {data.coin}
+                      <img
+                        src="/CoinLogo.png"
+                        alt="coin"
+                        className="w-5 h-5 object-contain"
+                      />
+                      <span className="hidden sm:inline">USDT</span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
         {/* O'ng tomon: Quick Actions + User Statistics */}
         <div className="lg:col-span-6 flex flex-col justify-between gap-6 h-full">
           {/* Quick Actions */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border lg:pb-36 border-gray-200 dark:border-gray-700 p-6">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
               {t("dashboard.quickActions")}
             </h2>
@@ -294,7 +317,7 @@ const Dashboard: React.FC = () => {
           </div>
 
           {/* Statistika */}
-          <div className="scroll-container bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 flex-1 overflow-auto max-h-[330px]">
+          {/* <div className="scroll-container bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 flex-1 overflow-auto max-h-[330px]">
             <div className="grid gap-3">
               {statistika.map((data: any, index: number) => (
                 <div
@@ -316,7 +339,7 @@ const Dashboard: React.FC = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
