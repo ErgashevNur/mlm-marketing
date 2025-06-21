@@ -415,7 +415,7 @@ const EarningsPage: React.FC = () => {
               <button
                 onClick={handleDeposit}
                 disabled={isDepositDisabled || !coinAmount.trim()}
-                className={`w-full bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-bold text-sm sm:text-base py-2.5 sm:py-4 px-4 sm:px-8 rounded-xl sm:rounded-2xl flex items-center justify-center gap-2 sm:gap-3 transition-all duration-200 transform ${
+                className={`w-full hidden bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-bold text-sm sm:text-base py-2.5 sm:py-4 px-4 sm:px-8 rounded-xl sm:rounded-2xl md:flex items-center justify-center gap-2 sm:gap-3 transition-all duration-200 transform ${
                   isDepositDisabled
                     ? "opacity-60 cursor-not-allowed hover:scale-100"
                     : "hover:scale-[1.02] shadow-lg"
@@ -434,6 +434,16 @@ const EarningsPage: React.FC = () => {
                   </>
                 )}
               </button>
+
+              <div className="justify-between text-center  md:hidden items-center py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl px-4">
+                <span className="text-gray-900  dark:text-white font-semibold">
+                  {t("trading.totalValue")}
+                  {": "}
+                </span>
+                <span className="text-xl sm:text-2xl font-bold">
+                  {getCalculatedValue()}
+                </span>
+              </div>
             </div>
 
             {/* Calculation Section */}
@@ -458,14 +468,36 @@ const EarningsPage: React.FC = () => {
                     {currency}
                   </span>
                 </div>
-                <div className="flex justify-between items-center py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl px-4">
-                  <span className="text-gray-900 dark:text-white font-semibold">
+                <div className="justify-between hidden md:flex items-center py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl px-4">
+                  <span className="text-gray-900  dark:text-white font-semibold">
                     {t("trading.totalValue")}
                   </span>
                   <span className="text-xl sm:text-2xl font-bold">
                     {getCalculatedValue()}
                   </span>
                 </div>
+                <button
+                  onClick={handleDeposit}
+                  disabled={isDepositDisabled || !coinAmount.trim()}
+                  className={`w-full md:hidden bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-bold text-sm sm:text-base py-2.5 sm:py-4 px-4 sm:px-8 rounded-xl sm:rounded-2xl flex items-center justify-center gap-2 sm:gap-3 transition-all duration-200 transform ${
+                    isDepositDisabled
+                      ? "opacity-60 cursor-not-allowed hover:scale-100"
+                      : "hover:scale-[1.02] shadow-lg"
+                  }`}
+                >
+                  {isDepositDisabled ? (
+                    <>
+                      {depositTimer > 0
+                        ? `${t("earningsPage.resend")}`
+                        : t("earningsPage.sendRequest")}
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="w-5 h-5" />
+                      {t("earningsPage.sendRequest")}
+                    </>
+                  )}
+                </button>
               </div>
             </div>
           </div>

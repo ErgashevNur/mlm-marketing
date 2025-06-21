@@ -21,6 +21,7 @@
     "view": "Batafsil",
     "success": "Buyurtma muvaffaqiyatli yuborildi!"
   },
+
   "auth": {
     "welcome": "MLM Platform ga xush kelibsiz",
     "subtitle": "Sizning marketing platformangiz",
@@ -53,6 +54,7 @@
     "instruction3": "Kod 3 daqiqa davomida amal qiladi",
     "instruction4": "Vaqt tugagandan so'ng qayta yuborishingiz mumkin"
   },
+
   "dashboard": {
     "welcomeBack": "Xush kelibsiz",
     "yourCoin": "Sizning USDT'ingiz",
@@ -87,6 +89,7 @@
     "bonusNotAvailableFallback": "Bonus mavjud emas",
     "activeUsers": "Faol foydalanuvchilar"
   },
+
   "profile": {
     "personalInfo": "Shaxsiy ma'lumotlar",
     "name": "Ism",
@@ -100,6 +103,7 @@
     "language": "Til",
     "theme": "Mavzu"
   },
+
   "earnings": {
     "dailyEarnings": "Kunlik daromad",
     "monthlyEarnings": "Oylik daromad",
@@ -109,6 +113,7 @@
     "amount": "Miqdor",
     "source": "Manba"
   },
+
   "referrals": {
     "invitedFriends": "Taklif qilingan do'stlar",
     "totalReferrals": "Jami takliflar",
@@ -132,6 +137,7 @@
     "level": "Daraja",
     "maxCount": "Maksimal soni"
   },
+
   "plans": {
     "choosePlan": "Tarifni tanlang",
     "choosePlanDesc": "Marketing ehtiyojlaringiz uchun eng yaxshi tarifni tanlang. Barcha tariflar asosiy funksiyalarimizni o'z ichiga oladi, lekin cheklov va bonuslari har xil.",
@@ -156,6 +162,7 @@
     "buyPlan": "Faollashtirish ({{coin}} USDT)",
     "days": "kun"
   },
+
   "withdraw": {
     "withdrawFunds": "Pul yechish",
     "availableBalance": "Mavjud balans",
@@ -188,6 +195,7 @@
     "noteFees": "To'lov usuliga qarab komissiya olinishi mumkin",
     "noteCardDetails": "Karta ma'lumotlaringiz to'g'ri ekanligiga ishonch hosil qiling, aks holda kechikish bo'lishi mumkin"
   },
+
   "statistics": {
     "overview": "Statistika sharhi",
     "lineChart": "Chiziqli grafik",
@@ -208,6 +216,7 @@
     "tablet": "Planshet",
     "other": "Boshqa"
   },
+
   "productsPage": {
     "backToProducts": "Mahsulotlarga qaytish",
     "description": "Tavsif",
@@ -232,6 +241,7 @@
     "view": "Ko'rish",
     "add": "Qo'shish"
   },
+
   "referralsPage": {
     "pleaseLogin": "Referallarni ko'rish uchun iltimos, tizimga kiring.",
     "referralKeyMissing": "Xatolik: Referal kaliti topilmadi.",
@@ -244,6 +254,7 @@
     "noReferralFriends": "Referal do'stlar topilmadi.",
     "UserLevel": "Foydalanuvchi darajasi"
   },
+
   "earningsPage": {
     "title": "Narxi",
     "enterAmount": "USDT to'ldirish uchun quyidagi miqdorni kiriting!",
@@ -273,6 +284,7 @@
     "warnStay": "Shu yerda qoling va admin karta raqam jonatishini kuting! ; D",
     "warnAutoMessage": "Admindan xabar avtomatik keladi iltimos kutib turing"
   },
+
   "landing": {
     "welcome": "Xush kelibsiz",
     "platform": "MLM PLATFORM",
@@ -314,12 +326,14 @@
     "cookiePolicy": "Cookie siyosati",
     "copyright": "Barcha huquqlar himoyalangan."
   },
+
   "trading": {
     "dashboard": "Boshqaruv paneli",
     "purchaseCoins": "USDT sotib olish",
     "selectCurrency": "Sizga qulay pul birligini tanlang.",
     "totalValue": "Umumiy qiymat"
   },
+
   "historyPage": {
     "bonuses": "Bonuslar",
     "bonusesFromReferrals": "Referallardan olingan bonuslar",
