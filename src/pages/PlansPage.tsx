@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Eye, Calendar, Sparkles, Star, Headset } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import PlanModal from "../components/PlanModal";
-import { FaFacebook, FaInstagram, FaTelegram, FaTwitter } from "react-icons/fa6";
+import { FaInstagram, FaTelegram } from "react-icons/fa6";
 
 interface Translation {
   id: number;
@@ -31,6 +31,25 @@ const PlansPage: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [socials, setSocials] = useState([]);
+  const getCurrencies = async () => {
+    try {
+      const response = await fetch("https://mlm-backend.pixl.uz/suport");
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch currency data");
+      }
+
+      const data = await response.json();
+      setSocials(data);
+    } catch (error) {
+      console.error("Error fetching currency:", error.message);
+      return null;
+    }
+  };
+  useEffect(() => {
+    getCurrencies();
+  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -181,30 +200,42 @@ const PlansPage: React.FC = () => {
       )}
 
       <div className="fixed bottom-6 right-6 z-50 group w-16 h-16">
-        {/* Asosiy icon */}
         <div className="w-16 h-16 cursor-pointer flex items-center justify-center bg-blue-600 text-white rounded-full shadow-lg relative z-20">
           <Headset size={28} />
         </div>
 
-        {/* Hoverda tepaga chiqadigan iconlar */}
         <div
-          className="absolute bottom-full left-1/2 -translate-x-1/2 flex flex-col items-center gap-2
-                opacity-0 translate-y-2 scale-95
-                group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100
-                transition-all duration-300 ease-in-out"
+          className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2
+                          opacity-0 translate-y-2 scale-95
+                          group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100
+                          transition-all duration-300 ease-in-out"
         >
-          <div className="w-10 h-10 flex items-center justify-center bg-sky-500 text-white rounded-full shadow cursor-pointer">
-            <FaTelegram />
-          </div>
-          <div className="w-10 h-10 flex items-center justify-center bg-pink-500 text-white rounded-full shadow cursor-pointer">
-            <FaInstagram />
-          </div>
-          <div className="w-10 h-10 flex items-center justify-center bg-blue-700 text-white rounded-full shadow cursor-pointer">
-            <FaFacebook />
-          </div>
-          <div className="w-10 h-10 mb-3 flex items-center justify-center bg-blue-400 text-white rounded-full shadow cursor-pointer">
-            <FaTwitter />
-          </div>
+          {socials.map(({ link, name }) => {
+            const icon =
+              name === "Instagram" ? (
+                <FaInstagram />
+              ) : name === "Telegram" ? (
+                <FaTelegram />
+              ) : null;
+            const bgColor =
+              name === "Instagram"
+                ? "bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500"
+                : name === "Telegram"
+                ? "bg-blue-500"
+                : "bg-gray-400";
+
+            return (
+              <a
+                key={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-10 h-10 flex items-center justify-center ${bgColor} text-white rounded-full shadow cursor-pointer`}
+                href={link}
+              >
+                {icon}
+              </a>
+            );
+          })}
         </div>
       </div>
     </div>
