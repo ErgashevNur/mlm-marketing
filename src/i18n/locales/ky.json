@@ -163,7 +163,7 @@
     "availableBalance": "Жеткиликтүү баланс",
     "withdrawAmount": "Алуу суммасы",
     "cardNumber": "Карта же капчык",
-    "cardHolder": "Карта ээсинин аты",
+    "cardHolder": " Карта алуучунун аты (милдеттүү эмес, крипто)",
     "requestWithdraw": "Алуу өтүнүчү",
     "withdrawHistory": "Алуу тарыхы",
     "status": "Абалы",

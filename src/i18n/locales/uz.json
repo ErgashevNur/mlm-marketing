@@ -168,7 +168,7 @@
     "availableBalance": "Mavjud balans",
     "withdrawAmount": "Yechish miqdori",
     "cardNumber": "Karta yoki hamyon",
-    "cardHolder": "Karta egasining ismi",
+    "cardHolder": " Karta oluvchining ismi (ixtiyoriy, kripto)",
     "requestWithdraw": "Yechish so'rovi",
     "withdrawHistory": "Yechish tarixi",
     "status": "Holat",

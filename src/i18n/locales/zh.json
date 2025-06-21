@@ -163,7 +163,7 @@
     "availableBalance": "可用余额",
     "withdrawAmount": "提现金额",
     "cardNumber": "卡或钱包 ",
-    "cardHolder": "持卡人姓名",
+    "cardHolder": " 持卡人姓名（可选，加密）",
     "requestWithdraw": "申请提现",
     "withdrawHistory": "提现历史",
     "status": "状态",

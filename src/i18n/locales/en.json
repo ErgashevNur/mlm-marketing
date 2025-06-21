@@ -161,7 +161,7 @@
     "availableBalance": "Available Balance",
     "withdrawAmount": "Withdraw Amount",
     "cardNumber": "Card or Wallet",
-    "cardHolder": "Card Holder Name",
+    "cardHolder": " Card recipient name (optional, crypto)",
     "requestWithdraw": "Request Withdrawal",
     "withdrawHistory": "Withdrawal History",
     "status": "Status",

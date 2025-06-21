@@ -163,7 +163,7 @@
     "availableBalance": "Баланси дастрас",
     "withdrawAmount": "Миқдори гирифтанӣ",
     "cardNumber": "Корти бонкӣ ё ҳамён",
-    "cardHolder": "Номи соҳиби корт",
+    "cardHolder": " Номи гирандаи корти (ихтиёрӣ, крипто)",
     "requestWithdraw": "Дархости гирифтан",
     "withdrawHistory": "Таърихи гирифтан",
     "status": "Вазъият",

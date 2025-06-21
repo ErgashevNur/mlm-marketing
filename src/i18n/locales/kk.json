@@ -163,7 +163,7 @@
     "availableBalance": "Қолжетімді баланс",
     "withdrawAmount": "Алу сомасы",
     "cardNumber": "Карта немесе әмиян",
-    "cardHolder": "Карта иесінің аты",
+    "cardHolder": " Карта алушының аты (міндетті емес, крипто)",
     "requestWithdraw": "Алу сұранысы",
     "withdrawHistory": "Алу тарихы",
     "status": "Күйі",
