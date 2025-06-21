@@ -16,7 +16,6 @@ const Dashboard: React.FC = () => {
   const [canClaimBonus, setCanClaimBonus] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [socials, setSocials] = useState([]);
-  const [ref, setRef] = useState();
 
   console.log(user);
 
@@ -30,32 +29,6 @@ const Dashboard: React.FC = () => {
       if (req.status === 200) {
         const res = await req.json();
         setStatistika(res);
-      } else {
-        const errorText = await req.text();
-        throw new Error(`Xatolik: ${req.status} - ${errorText}`);
-      }
-    } catch (error: any) {
-      toast.error("So'rovda xatolik: " + error.message);
-    }
-  };
-
-  const refData = async () => {
-    try {
-      const token = localStorage.getItem("token"); // yoki qayerda token saqlangan bo‘lsa
-
-      const req = await fetch(`${import.meta.env.VITE_API_KEY}/referal/user`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // tokenni header orqali yuborish
-        },
-      });
-
-      if (req.status === 200) {
-        const res = await req.json();
-
-        setRef(res);
-        // console.log(res);
       } else {
         const errorText = await req.text();
         throw new Error(`Xatolik: ${req.status} - ${errorText}`);
@@ -266,10 +239,9 @@ const Dashboard: React.FC = () => {
         />
         <StatCard
           title={t("dashboard.totalReferrals")}
-          value={0}
+          value={user.referalCoin}
           icon={Users}
           color="purple"
-          subtitle={`${ref}`}
         />
       </div>
 

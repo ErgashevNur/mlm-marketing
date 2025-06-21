@@ -355,6 +355,6 @@
     "tariffImage": "Изображение тарифа",
     "serverError": "Ошибка сервера: {{status}}",
     "fetchError": "Ошибка при загрузке истории бонусов",
-    "selectCurrency": "Выберите USDT"
+    "selectCurrency": "Выберите"
   }
 }

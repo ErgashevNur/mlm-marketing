@@ -370,6 +370,6 @@
     "serverError": "Server xatosi: {{status}}",
     "fetchError": "Bonus tarixini olishda xatolik",
 
-    "selectCurrency": "请选择货币"
+    "selectCurrency": "Valyutani tanlang"
   }
 }

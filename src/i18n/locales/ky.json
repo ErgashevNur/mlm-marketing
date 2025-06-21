@@ -353,6 +353,6 @@
     "tariffImage": "Тариф сүрөтү",
     "serverError": "Сервер катасы: {{status}}",
     "fetchError": "Бонус тарыхын алууда ката",
-    "selectCurrency": "Валютаны тандаңыз"
+    "selectCurrency": "Валютаны"
   }
 }

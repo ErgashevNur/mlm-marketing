@@ -357,6 +357,7 @@
     "tariff": "套餐",
     "tariffImage": "套餐图片",
     "serverError": "服务器错误：{{status}}",
-    "fetchError": "获取奖励历史记录时出错"
+    "fetchError": "获取奖励历史记录时出错",
+    "selectCurrency": "请选择货币"
   }
 }
