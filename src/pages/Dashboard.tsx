@@ -53,6 +53,7 @@ const Dashboard: React.FC = () => {
 
       if (req.status === 200) {
         const res = await req.json();
+
         setRef(res);
         // console.log(res);
       } else {
@@ -63,8 +64,6 @@ const Dashboard: React.FC = () => {
       toast.error("So'rovda xatolik: " + error.message);
     }
   };
-
-  refData();
 
   const getTotal = async () => {
     try {
@@ -205,6 +204,9 @@ const Dashboard: React.FC = () => {
     googleRefSistem();
     getCurrencies();
   }, []);
+
+  console.log();
+
   return (
     <div className="space-y-6">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
@@ -260,13 +262,14 @@ const Dashboard: React.FC = () => {
           value={user?.coin || 0}
           img={"/CoinLogo.png"}
           color="blue"
-          subtitle={`+${user?.coin || 0} ${t("dashboard.dailyBonus")}`}
+          // subtitle={`+${user?.coin || 0} ${t("dashboard.dailyBonus")}`}
         />
         <StatCard
           title={t("dashboard.totalReferrals")}
-          value={user?.referrals?.length}
+          value={0}
           icon={Users}
           color="purple"
+          subtitle={`${ref}`}
         />
       </div>
 
