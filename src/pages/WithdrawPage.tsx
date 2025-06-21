@@ -299,26 +299,9 @@ const WithdrawPage: React.FC = () => {
                 />
                 <input
                   name="cardNumber"
-                  type={
-                    ["USDT", "BITCOIN", "TONCOIN"].includes(selectedCurrency)
-                      ? "text"
-                      : "number"
-                  }
+                  type="text"
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder={t("withdraw.cardNumber")}
-                  onInput={(e) => {
-                    const input = e.target as HTMLInputElement;
-                    const maxLen = 16;
-
-                    if (
-                      !["USDT", "BITCOIN", "TONCOIN"].includes(
-                        selectedCurrency
-                      ) &&
-                      input.value.length > maxLen
-                    ) {
-                      input.value = input.value.slice(0, maxLen);
-                    }
-                  }}
                 />
               </div>
             </div>
