@@ -17,6 +17,8 @@ const Dashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [socials, setSocials] = useState([]);
 
+  console.log(user);
+
   const userLevel = JSON.parse(localStorage.getItem("UserLevel"));
 
   const getUser = async () => {
@@ -35,6 +37,32 @@ const Dashboard: React.FC = () => {
       toast.error("So'rovda xatolik: " + error.message);
     }
   };
+
+  const refData = async () => {
+    try {
+      const token = localStorage.getItem("token"); // yoki qayerda token saqlangan bo‘lsa
+
+      const req = await fetch(`${import.meta.env.VITE_API_KEY}/referal/user`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // tokenni header orqali yuborish
+        },
+      });
+
+      if (req.status === 200) {
+        const res = await req.json();
+        console.log(res);
+      } else {
+        const errorText = await req.text();
+        throw new Error(`Xatolik: ${req.status} - ${errorText}`);
+      }
+    } catch (error: any) {
+      toast.error("So'rovda xatolik: " + error.message);
+    }
+  };
+
+  refData();
 
   const getTotal = async () => {
     try {

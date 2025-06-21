@@ -457,7 +457,8 @@ const EarningsPage: React.FC = () => {
                     {t("earningsPage.amount")}
                   </span>
                   <span className="text-gray-900 dark:text-white font-medium">
-                    {coinAmount} {currency}
+                    {/* {coinAmount} {currency} */}
+                    USDT
                   </span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b">
