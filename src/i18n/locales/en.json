@@ -54,11 +54,11 @@
     "instruction3": "The code is valid for 3 minutes",
     "instruction4": "You can resend after the time expires"
   },
-  "": {
+  "dashboard": {
     "yourCoin": "Your USDT",
     "totalEarnings": "Total Earnings",
     "todayEarnings": "Today's Earnings",
-    "totalReferrals": "Total Referrals",
+    "totalReferrals": "Referal USDT",
     "currentBalance": "Current Balance",
     "currentPlan": "Current Plan",
     "daysRemaining": "days remaining",

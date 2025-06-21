@@ -66,6 +66,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       const data = await response.json();
+
+      console.log(data);
+
       if (response.ok) {
         localStorage.setItem("UserLevel", JSON.stringify(data.referalLevel));
         const user = data.data || data.data?.user || data;

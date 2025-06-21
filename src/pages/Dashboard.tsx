@@ -235,13 +235,14 @@ const Dashboard: React.FC = () => {
           value={user?.coin || 0}
           img={"/CoinLogo.png"}
           color="blue"
-          // subtitle={`+${user?.coin || 0} ${t("dashboard.dailyBonus")}`}
+          subtitle="USDT"
         />
         <StatCard
           title={t("dashboard.totalReferrals")}
-          value={user.referalCoin}
+          value={user?.referalCoin}
           icon={Users}
           color="purple"
+          subtitle="USDT"
         />
       </div>
 
