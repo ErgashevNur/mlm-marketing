@@ -423,9 +423,8 @@ const EarningsPage: React.FC = () => {
               >
                 {isDepositDisabled ? (
                   <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                     {depositTimer > 0
-                      ? `${t("earningsPage.resend")} (${depositTimer}s)`
+                      ? `${t("earningsPage.resend")}`
                       : t("earningsPage.sendRequest")}
                   </>
                 ) : (
@@ -448,7 +447,7 @@ const EarningsPage: React.FC = () => {
                     {t("earningsPage.amount")}
                   </span>
                   <span className="text-gray-900 dark:text-white font-medium">
-                    {coinAmount} USDT {currency}
+                    {coinAmount} {currency}
                   </span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b">
@@ -765,9 +764,16 @@ const EarningsPage: React.FC = () => {
           <div className="border relative bg-slate-300 p-16 text-center rounded-2xl">
             <button
               disabled={disabled}
-              className="absolute right-5 top-5"
+              className="absolute right-5 gap-3 top-5 flex items-center text-sm text-gray-700"
               onClick={() => setWarn(false)}
             >
+              {depositTimer > 0 && (
+                <span className="mt-1 text-xs text-gray-600">
+                  {`${Math.floor(depositTimer / 60)}:${(depositTimer % 60)
+                    .toString()
+                    .padStart(2, "0")}`}
+                </span>
+              )}
               {disabled ? <Ban /> : <X />}
             </button>
             <h2>
@@ -793,7 +799,7 @@ const EarningsPage: React.FC = () => {
                 <>
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                   {depositTimer > 0
-                    ? `${t("earningsPage.resend")} (${depositTimer}s)`
+                    ? `${t("earningsPage.resend")}`
                     : t("earningsPage.sendRequest")}
                 </>
               ) : (
@@ -806,6 +812,7 @@ const EarningsPage: React.FC = () => {
           </div>
         </div>
       )}
+
       <div className="fixed bottom-6 right-6 z-50 group w-16 h-16">
         <div className="w-16 h-16 cursor-pointer flex items-center justify-center bg-blue-600 text-white rounded-full shadow-lg relative z-20">
           <Headset size={28} />
