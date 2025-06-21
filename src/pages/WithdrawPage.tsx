@@ -274,7 +274,7 @@ const WithdrawPage: React.FC = () => {
                   style={{ min180Width: 80 }}
                 >
                   <option value="" disabled hidden>
-                    {t("withdraw.selectCurrency")}
+                    {t("historyPage.selectCurrency")}
                   </option>
                   {coinData.map((c) => (
                     <option key={c.currency} value={c.currency}>
