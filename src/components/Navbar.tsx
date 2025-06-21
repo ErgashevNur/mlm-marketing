@@ -230,7 +230,7 @@ const Navbar: React.FC = () => {
                   <img src="/CoinLogo.png" className="w-5 mr-2" alt="coin" />
                   {user?.coin?.toLocaleString()}
                 </span>
-                <p className="font-mono font-bold text-xs uppercase bg-cyan-500 text-gray-800 rounded-full px-2 py-1">
+                <p className="font-mono font-bold text-xs uppercase bg-[#53ae93] text-gray-800 rounded-full px-2 py-1">
                   USDT
                 </p>
               </div>
