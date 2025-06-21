@@ -16,6 +16,7 @@ const Dashboard: React.FC = () => {
   const [canClaimBonus, setCanClaimBonus] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [socials, setSocials] = useState([]);
+  const [ref, setRef] = useState();
 
   console.log(user);
 
@@ -52,7 +53,8 @@ const Dashboard: React.FC = () => {
 
       if (req.status === 200) {
         const res = await req.json();
-        console.log(res);
+        setRef(res);
+        // console.log(res);
       } else {
         const errorText = await req.text();
         throw new Error(`Xatolik: ${req.status} - ${errorText}`);
@@ -230,10 +232,6 @@ const Dashboard: React.FC = () => {
               <h3 className="text-lg font-semibold">
                 {t("dashboard.dailyBonusAvailable")}
               </h3>
-              <p className="text-yellow-100">
-                {t("dashboard.claimYour")} {user?.dailyBonus ?? 0}{" "}
-                {t("dashboard.coinsToday")}
-              </p>
             </div>
           </div>
           <button
