@@ -17,8 +17,6 @@ const Dashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [socials, setSocials] = useState([]);
 
-  console.log(user);
-
   const userLevel = JSON.parse(localStorage.getItem("UserLevel"));
 
   const getUser = async () => {
@@ -92,7 +90,7 @@ const Dashboard: React.FC = () => {
       }
 
       const data = await response.json();
-      console.log(data.map((item: any) => item.nextTimeHours));
+      // console.log(data.map((item: any) => item.nextTimeHours));
 
       setCanClaimBonus(data.nextTimeHours);
 
@@ -171,8 +169,6 @@ const Dashboard: React.FC = () => {
     googleRefSistem();
     getCurrencies();
   }, []);
-
-  console.log();
 
   return (
     <div className="space-y-6">
@@ -262,7 +258,9 @@ const Dashboard: React.FC = () => {
                         alt="coin"
                         className="w-5 h-5 object-contain"
                       />
-                      <span className="xs:inline text-[10px] sm:inline">USDT</span>
+                      <span className="xs:inline text-[10px] sm:inline">
+                        USDT
+                      </span>
                       {data.coin}
                     </span>
                   </div>

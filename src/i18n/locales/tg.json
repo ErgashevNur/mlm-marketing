@@ -359,5 +359,27 @@
     "serverError": "Хатои сервер: {{status}}",
     "fetchError": "Хатогӣ ҳангоми гирифтани таърихи бонус",
     "selectCurrency": "Асъорро интихоб кунед"
+  },
+
+  "bonusHistory": {
+    "bonuses": "Бонусҳо",
+    "bonusesFromReferrals": "Бонусҳои аз рефералҳо гирифташуда",
+    "purchasedProducts": "Маҳсулоти харидшуда",
+    "purchasedTariffs": "Тарифҳои харидшуда",
+    "notFound": "Ёфт нашуд",
+    "pending": "Интизор",
+    "id": "ID",
+    "quantity": "Шумора",
+    "reviews": "Шарҳҳо",
+    "coin": "Танга",
+    "term": "Муддат",
+    "dailyProfit": "Даромади рӯзона",
+    "referralBonus": "Бонуси рефералӣ",
+    "price": "Нарх",
+    "start": "Оғоз",
+    "end": "Анҷом",
+    "lastBonus": "Бонуси охирин",
+    "active": "Фаъол",
+    "completed": "Анҷом ёфтааст"
   }
 }

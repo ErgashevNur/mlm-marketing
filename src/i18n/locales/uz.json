@@ -371,5 +371,27 @@
     "fetchError": "Bonus tarixini olishda xatolik",
 
     "selectCurrency": "Valyutani tanlang"
+  },
+
+  "BonusHistory": {
+    "bonuses": "Bonuslar",
+    "bonusesFromReferrals": "Referallardan olingan bonuslar",
+    "purchasedProducts": "Sotib olingan mahsulotlar",
+    "purchasedTariffs": "Sotib olingan tariflar",
+    "notFound": "Topilmadi",
+    "pending": "Kutmoqda",
+    "id": "ID",
+    "quantity": "Soni",
+    "reviews": "Sharhlar",
+    "coin": "Coin",
+    "term": "Muddati",
+    "dailyProfit": "Kunlik daromad",
+    "referralBonus": "Referral bonus",
+    "price": "Narxi",
+    "start": "Boshlanish",
+    "end": "Tugash",
+    "lastBonus": "Oxirgi bonus",
+    "active": "Faol",
+    "completed": "Tugallangan"
   }
 }

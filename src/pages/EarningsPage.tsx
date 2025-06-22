@@ -444,7 +444,7 @@ const EarningsPage: React.FC = () => {
                   {": "}
                 </span>
                 <span className="text-xl sm:text-2xl font-bold">
-                  {getCalculatedValue()}
+                  {getCalculatedValue()} {currency}
                 </span>
               </div>
             </div>

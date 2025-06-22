@@ -13,10 +13,11 @@ import {
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
+import { toast } from "sonner";
 
 const RegisterPage: React.FC = () => {
   const { t } = useTranslation();
-  const { register, loginWithGoogle, loginWithFacebook, isLoading } = useAuth();
+  const { register, loginWithGoogle, isLoading } = useAuth();
   const { isDarkMode } = useTheme();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,6 +39,8 @@ const RegisterPage: React.FC = () => {
       return;
     }
 
+    // console.log(isLoading);
+
     const interval = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
@@ -57,38 +60,18 @@ const RegisterPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       alert(t("auth.passwordsDoNotMatch"));
       return;
     }
+
     const referal: any = localStorage.getItem("referral_id");
 
-    try {
-      setShowModal(true);
-      console.log(1);
-      if (referal) {
-        const response: any = await register(name, email, password, referal);
+    const response = await register(name, email, password, referal);
 
-        console.log(response.message);
-        if (response.message === "success") {
-          console.log(1);
-        } else {
-          setShowModal(false);
-          console.log(2);
-        }
-      } else {
-        const response: any = await register(name, email, password);
-
-        console.log(response.message);
-        if (response.message === "success") {
-          console.log(1);
-        } else {
-          setShowModal(false);
-          console.log(2);
-        }
-      }
-    } catch (error) {
-      // Error handling is managed by the register function via toast
+    if (response.success) {
+      setShowModal(true); // Modal ochilsin
     }
   };
 

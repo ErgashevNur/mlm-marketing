@@ -67,7 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       const data = await response.json();
 
-      console.log(data);
+      // console.log(data);
 
       if (response.ok) {
         localStorage.setItem("UserLevel", JSON.stringify(data.referalLevel));
@@ -104,7 +104,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       const data = await res.json();
-      console.log();
 
       if (!res.ok) throw new Error(data.message || "Login failed");
 
@@ -120,12 +119,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  // AuthContext.tsx (register funksiyasi ichida)
+
   const register = async (
     name: string,
     email: string,
     password: string,
     referal?: string
-  ) => {
+  ): Promise<{ success: boolean; message: string; status?: number }> => {
     setIsLoading(true);
     try {
       const res = await fetch(
@@ -145,10 +146,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       toast.success(data.message || "Registration successful!");
       localStorage.setItem("email", email);
-      // setUser(data.data?.user || null);
-      // localStorage.setItem("user-data", JSON.stringify(data.data.user));
+
+      return { success: true, message: data.message, status: res.status };
     } catch (error: any) {
-      toast.error(error.message);
+      const errorMessage = error.message || "Xatolik yuz berdi!";
+      toast.error(errorMessage);
+      return { success: false, message: errorMessage };
     } finally {
       setIsLoading(false);
     }

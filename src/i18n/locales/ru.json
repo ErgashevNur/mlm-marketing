@@ -356,5 +356,27 @@
     "serverError": "Ошибка сервера: {{status}}",
     "fetchError": "Ошибка при загрузке истории бонусов",
     "selectCurrency": "Выберите"
+  },
+
+  "BonusHistory": {
+    "bonuses": "Бонусы",
+    "bonusesFromReferrals": "Бонусы, полученные от рефералов",
+    "purchasedProducts": "Купленные продукты",
+    "purchasedTariffs": "Купленные тарифы",
+    "notFound": "Не найдено",
+    "pending": "В ожидании",
+    "id": "ID",
+    "quantity": "Количество",
+    "reviews": "Отзывы",
+    "coin": "Монета",
+    "term": "Срок",
+    "dailyProfit": "Ежедневный доход",
+    "referralBonus": "Реферальный бонус",
+    "price": "Цена",
+    "start": "Начало",
+    "end": "Окончание",
+    "lastBonus": "Последний бонус",
+    "active": "Активный",
+    "completed": "Завершено"
   }
 }

@@ -55,6 +55,7 @@
     "instruction4": "You can resend after the time expires"
   },
   "dashboard": {
+    "welcomeBack": "Welcome back",
     "yourCoin": "Your USDT",
     "totalEarnings": "Total Earnings",
     "todayEarnings": "Today's Earnings",
@@ -355,5 +356,27 @@
     "serverError": "Server error: {{status}}",
     "fetchError": "Error fetching bonus history",
     "selectCurrency": "Select"
+  },
+
+  "BonusHistory": {
+    "bonuses": "Bonuses",
+    "bonusesFromReferrals": "Bonuses received from referrals",
+    "purchasedProducts": "Purchased Products",
+    "purchasedTariffs": "Purchased Tariffs",
+    "notFound": "Not found",
+    "pending": "pending",
+    "id": "ID",
+    "quantity": "Quantity",
+    "reviews": "Reviews",
+    "coin": "Coin",
+    "term": "Term",
+    "dailyProfit": "Daily Profit",
+    "referralBonus": "Referral Bonus",
+    "price": "Price",
+    "start": "Start",
+    "end": "End",
+    "lastBonus": "Last Bonus",
+    "active": "Active",
+    "completed": "Completed"
   }
 }

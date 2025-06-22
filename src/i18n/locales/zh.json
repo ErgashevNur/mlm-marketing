@@ -359,5 +359,27 @@
     "serverError": "服务器错误：{{status}}",
     "fetchError": "获取奖励历史记录时出错",
     "selectCurrency": "请选择货币"
+  },
+
+  "BonusHistory": {
+    "bonuses": "奖金",
+    "bonusesFromReferrals": "从推荐获得的奖金",
+    "purchasedProducts": "购买的产品",
+    "purchasedTariffs": "购买的套餐",
+    "notFound": "未找到",
+    "pending": "待处理",
+    "id": "ID",
+    "quantity": "数量",
+    "reviews": "评论",
+    "coin": "币",
+    "term": "期限",
+    "dailyProfit": "每日收入",
+    "referralBonus": "推荐奖金",
+    "price": "价格",
+    "start": "开始",
+    "end": "结束",
+    "lastBonus": "最后奖金",
+    "active": "活跃",
+    "completed": "已完成"
   }
 }

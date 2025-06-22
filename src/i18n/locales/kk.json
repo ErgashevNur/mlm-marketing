@@ -358,5 +358,27 @@
     "serverError": "Сервер қатесі: {{status}}",
     "fetchError": "Бонус тарихын алуда қате",
     "selectCurrency": "Валютаны"
+  },
+
+  "BonusHistory": {
+    "bonuses": "Бонустар",
+    "bonusesFromReferrals": "Рефералдардан алынған бонустар",
+    "purchasedProducts": "Сатып алынған өнімдер",
+    "purchasedTariffs": "Сатып алынған тарифтер",
+    "notFound": "Табылмады",
+    "pending": "Күтуде",
+    "id": "ID",
+    "quantity": "Саны",
+    "reviews": "Пікірлер",
+    "coin": "Тиын",
+    "term": "Мерзімі",
+    "dailyProfit": "Күнделікті табыс",
+    "referralBonus": "Рефералдық бонус",
+    "price": "Бағасы",
+    "start": "Бастау",
+    "end": "Аяқтау",
+    "lastBonus": "Соңғы бонус",
+    "active": "Белсенді",
+    "completed": "Аяқталды"
   }
 }
