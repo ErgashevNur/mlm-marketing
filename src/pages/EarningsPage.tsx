@@ -31,7 +31,7 @@ const EarningsPage: React.FC = () => {
   const socketRef = useRef(null); // socketni saqlab turish uchun
   const [balance, setBalance] = useState(0);
   const [coinAmount, setCoinAmount] = useState("");
-  const [currency, setCurrency] = useState("USD");
+  const [currency, setCurrency] = useState("");
   const [coinData, setCoinData] = useState<any>();
   const [data, setData] = useState([]);
   const [isDepositDisabled, setIsDepositDisabled] = useState(false);
@@ -382,6 +382,9 @@ const EarningsPage: React.FC = () => {
                   onChange={(e) => setCurrency(e.target.value)}
                   className="w-full bg-white/10 dark:bg-gray-800 border border-indigo-600 rounded-xl sm:rounded-2xl px-3 py-2 sm:px-6 sm:py-4 text-sm sm:text-base text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
                 >
+                  <option value="" disabled hidden>
+                    {t("earningsPage.SelectCurr")}
+                  </option>
                   {coinData?.map((curr: any) => (
                     <option
                       key={curr.id}

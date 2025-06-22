@@ -269,7 +269,8 @@
     "processedLabel": "Иштелип чыкты",
     "card": "Карта",
     "transactionId": "Транзакция ID",
-    "trackActivity": "Сатууну көзөмөлдөңүз"
+    "trackActivity": "Сатууну көзөмөлдөңүз",
+    "SelectCurr": "Тандаңыз"
   },
   "landing": {
     "welcome": "Кош келдиңиз",

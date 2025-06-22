@@ -271,7 +271,8 @@
     "warnTitle": "Please do not leave the page",
     "warnSubtitle": "otherwise the operation will be canceled!!!",
     "warnStay": "Stay here and wait for the admin to send the card number! ;D",
-    "warnAutoMessage": "A message from the admin will arrive automatically, please wait"
+    "warnAutoMessage": "A message from the admin will arrive automatically, please wait",
+    "SelectCurr": "Select"
   },
   "landing": {
     "welcome": "Welcome to",
