@@ -802,27 +802,30 @@ const EarningsPage: React.FC = () => {
       {/* warning message page, page written by_codenur */}
       {warn && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-30">
-          <div className="border relative bg-slate-300 p-16 text-center rounded-2xl">
+          <div className="border relative bg-slate-300 dark:bg-gray-800 p-16 text-center rounded-2xl">
             <button
               disabled={disabled}
               className="absolute right-5 gap-3 top-5 flex items-center text-sm text-gray-700"
               onClick={() => setWarn(false)}
             >
               {depositTimer > 0 && (
-                <span className="mt-1 text-xs text-gray-600">
+                <span className="mt-1 text-xs text-gray-700 dark:text-gray-400">
                   {`${Math.floor(depositTimer / 60)}:${(depositTimer % 60)
                     .toString()
                     .padStart(2, "0")}`}
                 </span>
               )}
-              {disabled ? <Ban /> : <X />}
+              {disabled ? (
+                <Ban className="dark:text-gray-400" />
+              ) : (
+                <X className="dark:text-gray-400" />
+              )}
             </button>
             <h2>
               <strong>{t("earningsPage.warnTitle")}</strong>{" "}
-              {t("earningsPage.warnSubtitle")}
             </h2>
             <p>
-              <span>{t("earningsPage.warnStay")}</span>
+              {t("earningsPage.warnSubtitle")}
               <br />
               {t("earningsPage.warnAutoMessage")}
             </p>

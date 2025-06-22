@@ -272,8 +272,7 @@
     "transactionId": "交易ID",
     "trackActivity": "跟踪您的交易活动",
     "warnTitle": "请不要离开页面",
-    "warnSubtitle": "否则操作将被取消！！！",
-    "warnStay": "请留在此处，等待管理员发送卡号！ ;D",
+    "warnSubtitle": "正在提交卡片信息，可能需要几分钟时间。",
     "warnAutoMessage": "管理员的消息将自动到达，请稍候",
     "SelectCurr": "请选择"
   },

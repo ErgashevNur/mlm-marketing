@@ -280,8 +280,7 @@
     "transactionId": "Tranzaksiya ID",
     "trackActivity": "Savdo faoliyatingizni kuzatib boring",
     "warnTitle": "Iltimos sahifadan chiqib ketmang",
-    "warnSubtitle": "aks holda operatsiya bekor qilinadi !!!",
-    "warnStay": "Shu yerda qoling va admin karta raqam jonatishini kuting! ; D",
+    "warnSubtitle": "Karta ma’lumotlarini taqdim etish jarayoni ketmoqda, bu bir necha daqiqa vaqt olishi mumkin.",
     "warnAutoMessage": "Admindan xabar avtomatik keladi iltimos kutib turing",
     "SelectCurr": "Tanlang"
   },
