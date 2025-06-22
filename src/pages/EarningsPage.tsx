@@ -648,24 +648,29 @@ const EarningsPage: React.FC = () => {
                         Payment Card
                       </span>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <div className="font-mono text-lg tracking-wider">
-                        {/* {formatCardNumber(modalData.cardNumber)} */}
-                        {t("earningsPage.card")} <br />
-                        {cardNum?.cardNumber
-                          ? cardNum.cardNumber.replace(/(.{4})/g, "$1 ").trim()
-                          : ""}
+                    <div className="bg-blue-600 text-white rounded-xl p-4 space-y-2">
+                      {/* Sarlavha */}
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-xs text-white">
+                          {t("earningsPage.card")}{" "}
+                          {/* Masalan: "Карта" yoki "Wallet" */}
+                        </span>
+
+                        <button
+                          onClick={() =>
+                            handleCopyCardNumber(cardNum?.cardNumber || "")
+                          }
+                          className="p-2 bg-white/20 hover:bg-white/30 rounded-lg transition"
+                          title="Copy to clipboard"
+                        >
+                          <Copy className="w-5 h-5 text-white" />
+                        </button>
                       </div>
 
-                      <button
-                        onClick={() =>
-                          handleCopyCardNumber(cardNum?.cardNumber || "")
-                        }
-                        className="ml-4 p-2 bg-white/20 hover:bg-white/30 rounded-lg transition"
-                        title="Copy to clipboard"
-                      >
-                        <Copy className="w-5 h-5 text-white" />
-                      </button>
+                      {/* Raqam yoki manzil */}
+                      <div className="font-mono text-sm break-words whitespace-pre-wrap">
+                        {cardNum?.cardNumber || ""}
+                      </div>
                     </div>
                   </div>
 
