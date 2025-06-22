@@ -84,6 +84,13 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
 
+          <Link
+            to="/about"
+            className="inline-block hover:bg-gray-300 hover:font-bold text-gray-700 dark:text-gray-300 px-3 py-2 rounded-md text-sm font-normal"
+          >
+            About
+          </Link>
+
           {/* Center: Desktop navigation */}
           {user && (
             <div className="hidden lg:flex items-center space-x-4">

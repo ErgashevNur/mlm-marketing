@@ -29,6 +29,7 @@ import AuthCallback from "./components/AuthCallback";
 import OauthToken from "./components/OauthToken";
 
 import "./i18n/config";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
                 <Routes>
                   {/* Public routes */}
                   <Route path="/" element={<LandingPage />} />
+                  <Route path="/about" element={<AboutPage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegisterPage />} />
 
