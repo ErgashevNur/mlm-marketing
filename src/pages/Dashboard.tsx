@@ -109,8 +109,7 @@ const Dashboard: React.FC = () => {
 
     // claimDailyBonus();
   };
-
-  function maskEmail(email: any) {
+  function maskEmail(email: string): string {
     if (!email || email.length < 3) return email;
 
     const atIndex = email.indexOf("@");
@@ -119,14 +118,9 @@ const Dashboard: React.FC = () => {
     const username = email.substring(0, atIndex);
     const domain = email.substring(atIndex);
 
-    if (username.length <= 3) {
-      return email; // Agar username 3 ta yoki kamroq harf bo'lsa, o'zgartirmaslik
-    }
-
     const visiblePart = username.substring(0, 3);
-    const hiddenPart = "*".repeat(username.length - 3);
 
-    return visiblePart + hiddenPart + domain;
+    return `${visiblePart}*****${domain}`;
   }
 
   const googleRefSistem = async () => {
@@ -247,27 +241,28 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Chap tomon: Statistics Chart */}
-        <div className="lg:col-span-6">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 h-full">
-            {/* <StatisticsChart /> */}
-            <div className="scroll-container bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 flex-1 overflow-auto max-h-[330px]">
+        <div className="lg:col-span-6 w-full">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 h-full">
+            <div className="dark:border-gray-700 p-4 sm:p-3 flex-1 overflow-auto max-h-[330px]">
               <div className="grid gap-3">
                 {statistika.map((data: any, index: number) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-3 shadow-sm hover:shadow-md transition"
+                    className="flex sm:flex-row sm:items-center justify-between dark:bg-gray-900 border  dark:border-gray-700 rounded-xl px-3 py-3 sm:px-4 shadow-sm hover:shadow-md transition"
                   >
-                    <span className="text-sm sm:text-base font-medium text-gray-800 dark:text-gray-100 truncate max-w-[50%]">
+                    {/* Email qismi */}
+                    <span className="text-sm sm:text-base font-medium text-gray-800 dark:text-gray-100 truncate max-w-full sm:max-w-[50%] mb-1 sm:mb-0">
                       {maskEmail(data.email)}
                     </span>
+
+                    {/* Coin qismi */}
                     <span className="flex items-center gap-2 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200">
                       <img
                         src="/CoinLogo.png"
                         alt="coin"
                         className="w-5 h-5 object-contain"
                       />
-                      <span className="hidden sm:inline">USDT</span>
+                      <span className="xs:inline text-[10px] sm:inline">USDT</span>
                       {data.coin}
                     </span>
                   </div>
