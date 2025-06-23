@@ -22,6 +22,8 @@ export default function BonusHistory() {
   const [historyReferal, setHistoryReferal] = useState([]);
   const [historyProducts, setHistoryProducts] = useState([]);
   const [historyPlans, setHistoryPlans] = useState([]);
+  console.log(historyPlans);
+
   const [socials, setSocials] = useState([]);
 
   const { t } = useTranslation();
@@ -460,12 +462,12 @@ export default function BonusHistory() {
                       </div>
                       <span
                         className={`inline-block px-3 py-1 rounded-md text-xs font-medium ${
-                          plan.status === "active"
+                          plan.status === true
                             ? "bg-green-100 text-green-700 dark:bg-green-800/10 dark:text-green-300"
                             : "bg-red-100 text-red-700 dark:bg-red-800/10 dark:text-red-300"
                         }`}
                       >
-                        {plan.status === "active"
+                        {plan.status === true
                           ? t("BonusHistory.active")
                           : t("BonusHistory.completed")}
                       </span>
