@@ -4,9 +4,7 @@ import { Users, Gift, Headset } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import StatCard from "../components/StatCard";
 import { toast } from "sonner";
-import StatisticsChart from "../components/StatisticsChart";
-import { FaInstagram, FaTelegram, FaTwitter } from "react-icons/fa6";
-import { FaFacebook } from "react-icons/fa";
+import { FaInstagram, FaTelegram } from "react-icons/fa6";
 
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
@@ -107,6 +105,7 @@ const Dashboard: React.FC = () => {
 
     // claimDailyBonus();
   };
+
   function maskEmail(email: string): string {
     if (!email || email.length < 3) return email;
 
@@ -172,6 +171,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Welcome Section */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between">
           <div>
@@ -187,6 +187,7 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
+      {/* Daily Bonus Section */}
       <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl p-6 text-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -219,6 +220,7 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
+      {/* Info Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         <StatCard
           title={t("dashboard.yourCoin")}
@@ -236,10 +238,15 @@ const Dashboard: React.FC = () => {
         />
       </div>
 
+      {/* Statistics Section */}
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-6 w-full">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 h-full">
-            <div className="dark:border-gray-700 p-4 sm:p-3 flex-1 overflow-auto max-h-[330px]">
+            <div className="dark:border-gray-700 lg:p-6 sm:p-3 flex-1 overflow-auto max-h-[330px]">
+              <h2 className="text-lg font-bold text-gray-900 pt-3s dark:text-white mb-4">
+                {t("dashboard.Statistics")}
+              </h2>
+
               <div className="grid gap-3">
                 {statistika.map((data: any, index: number) => (
                   <div

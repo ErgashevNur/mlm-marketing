@@ -86,7 +86,8 @@
     "errorLog": "错误日志",
     "bonusNotAvailable": "奖励不可用",
     "bonusNotAvailableFallback": "奖励不可用",
-    "activeUsers": "活跃用户"
+    "activeUsers": "活跃用户",
+    "Statistics": "本周最赚钱参与者排行榜"
   },
   "profile": {
     "personalInfo": "个人信息",

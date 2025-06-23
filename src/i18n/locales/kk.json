@@ -86,7 +86,8 @@
     "errorLog": "Қате журналы",
     "bonusNotAvailable": "Бонус қолжетімсіз",
     "bonusNotAvailableFallback": "Бонус қолжетімсіз",
-    "activeUsers": "Белсенді қолданушылар"
+    "activeUsers": "Белсенді қолданушылар",
+    "Statistics": "Аптаның ең табысты қатысушыларының рейтингі"
   },
   "profile": {
     "personalInfo": "Жеке ақпарат",

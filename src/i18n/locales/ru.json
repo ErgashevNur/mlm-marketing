@@ -85,7 +85,8 @@
     "errorLog": "Лог ошибки",
     "bonusNotAvailable": "Бонус недоступен",
     "bonusNotAvailableFallback": "Бонус недоступен",
-    "activeUsers": "Активные пользователи"
+    "activeUsers": "Активные пользователи",
+    "Statistics": "Рейтинг самых прибыльных участников недели"
   },
   "profile": {
     "personalInfo": "Личная информация",

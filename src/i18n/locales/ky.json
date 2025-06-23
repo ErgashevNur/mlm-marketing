@@ -86,7 +86,8 @@
     "errorLog": "Ката журналы",
     "bonusNotAvailable": "Бонус жеткиликтүү эмес",
     "bonusNotAvailableFallback": "Бонус жеткиликтүү эмес",
-    "activeUsers": "Активдүү колдонуучулар"
+    "activeUsers": "Активдүү колдонуучулар",
+    "Statistics": "Аптанын эң көп пайда тапкан катышуучуларынын рейтинги"
   },
   "profile": {
     "personalInfo": "Жеке маалымат",

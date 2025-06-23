@@ -86,7 +86,8 @@
     "errorLog": "Журнали хатогӣ",
     "bonusNotAvailable": "Бонус дастрас нест",
     "bonusNotAvailableFallback": "Бонус дастрас нест",
-    "activeUsers": "Фаъол истифодабарандагон"
+    "activeUsers": "Фаъол истифодабарандагон",
+    "Statistics": "Рейтинги фоидаовартарин иштирокчиёни ҳафта"
   },
   "profile": {
     "personalInfo": "Маълумоти шахсӣ",

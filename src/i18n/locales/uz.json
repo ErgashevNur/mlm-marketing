@@ -87,7 +87,8 @@
     "errorLog": "Xatolik logi",
     "bonusNotAvailable": "Bonus mavjud emas",
     "bonusNotAvailableFallback": "Bonus mavjud emas",
-    "activeUsers": "Faol foydalanuvchilar"
+    "activeUsers": "Faol foydalanuvchilar",
+    "Statistics": "Haftaning eng ko‘p foyda ko‘rgan ishtirokchilari reytingi"
   },
 
   "profile": {

@@ -86,7 +86,8 @@
     "errorLog": "Error log",
     "bonusNotAvailable": "Bonus not available",
     "bonusNotAvailableFallback": "Bonus not available",
-    "activeUsers": "Active users"
+    "activeUsers": "Active users",
+    "Statistics": "Ranking of the most profitable participants of the week"
   },
   "profile": {
     "personalInfo": "Personal Information",
