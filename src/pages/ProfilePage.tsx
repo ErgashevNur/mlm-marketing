@@ -31,7 +31,7 @@ const ProfilePage: React.FC = () => {
     { id: "personal", name: t("profile.personalInfo"), icon: User },
     { id: "settings", name: t("profile.accountSettings"), icon: Settings },
   ];
-  const { user } = useAuth();
+  const { user }: any = useAuth();
   const [activeTab, setActiveTab] = useState("personal");
 
   const [showOld, setShowOld] = useState(false);
@@ -48,7 +48,7 @@ const ProfilePage: React.FC = () => {
 
       const data = await response.json();
       setSocials(data);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching currency:", error.message);
       return null;
     }
@@ -59,7 +59,7 @@ const ProfilePage: React.FC = () => {
 
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = (id) => {
+  const handleCopy = (id: any) => {
     const link = `${import.meta.env.VITE_REFERAL_KEY}/referal/${id}`;
     navigator.clipboard.writeText(link);
     setCopied(true);
@@ -69,7 +69,7 @@ const ProfilePage: React.FC = () => {
 
   const [isModal, setISModal] = useState(false);
 
-  const changePassword = async (e) => {
+  const changePassword = async (e: any) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -109,7 +109,7 @@ const ProfilePage: React.FC = () => {
 
         toast.success("Parol muvaffaqiyatli yangilandi!");
         setISModal(false);
-      } catch (err) {
+      } catch (err: any) {
         toast.error("Tarmoqda xatolik: " + err.message);
       }
     }
@@ -159,17 +159,17 @@ const ProfilePage: React.FC = () => {
               {/* Profile Info */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center sm:space-x-6 space-y-4 sm:space-y-0">
                 <div className="w-20 h-20 bg-gradient-to-br border-2 from-blue-500 to-purple-500 rounded-full flex items-center justify-center overflow-hidden">
-                  {localStorage.getItem("avatar") ? (
+                  {/* {localStorage.getItem("avatar") ? (
                     <img
                       src={localStorage.getItem("avatar")}
                       alt=""
                       className="w-full h-full object-cover"
                     />
-                  ) : (
-                    <span className="text-2xl font-bold text-white">
-                      {user.name.charAt(0).toUpperCase()}
-                    </span>
-                  )}
+                  ) : ( */}
+                  <span className="text-2xl font-bold text-white">
+                    {user.name.charAt(0).toUpperCase()}
+                  </span>
+                  {/* )} */}
                 </div>
                 <div className="flex-1">
                   <h2 className="text-xl dark:text-gray-200 font-semibold text-gray-900 capitalize">
@@ -223,9 +223,7 @@ const ProfilePage: React.FC = () => {
                     </p>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                       <p className="text-gray-900 text-xs dark:text-white font-mono break-all">
-                        {`${import.meta.env.VITE_REFERAL_KEY}/referal/${
-                          user.id
-                        }`}
+                        {`${import.meta.env.VITE_REFERAL_KEY}/ref/${user.id}`}
                       </p>
                       <button
                         onClick={() => handleCopy(user.id)}

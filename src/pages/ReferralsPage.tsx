@@ -100,7 +100,7 @@ const ReferralsPage: React.FC = () => {
       await navigator.clipboard.writeText(referralLink);
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2000);
-    } catch (err) {
+    } catch (err: any) {
       toast.error("Failed to copy link:", err);
     }
   };
@@ -157,7 +157,7 @@ const ReferralsPage: React.FC = () => {
 
       const data = await response.json();
       setSocials(data);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching currency:", error.message);
       return null;
     }
@@ -304,7 +304,7 @@ const ReferralsPage: React.FC = () => {
                 </thead>
                 <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                   {[...referals]
-                    .sort((a, b) => a.level - b.level) // yoki parseInt(a.level) - parseInt(b.level)
+                    .sort((a: any, b: any) => a.level - b.level) // yoki parseInt(a.level) - parseInt(b.level)
                     .map(({ id, count, prize, level, maxCount }, index) => (
                       <tr
                         key={id}

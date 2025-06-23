@@ -392,6 +392,7 @@
     "redirecting": "重定向，请稍候...",
     "Successfullylogged": "成功登录系统",
     "card_copied": "卡号已复制！",
-    "order_success": "订单已成功发送！"
+    "order_success": "订单已成功发送！",
+    "withdraw_success": "请求已成功发送！"
   }
 }

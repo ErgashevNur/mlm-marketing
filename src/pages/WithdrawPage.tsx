@@ -1,25 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Wallet,
-  CreditCard,
-  Calendar,
-  Copy,
-  CheckCircle,
-  Headset,
-  X,
-} from "lucide-react";
+import { Wallet, CreditCard, Calendar, Headset, X } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import StatCard from "../components/StatCard";
 import { toast } from "sonner";
 import CardInfo from "../components/CardInfo";
 import logo from "../../public/logo.svg";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaTelegram,
-  FaTwitter,
-} from "react-icons/fa6";
+import { FaInstagram, FaTelegram } from "react-icons/fa6";
 import { IoShareSocial } from "react-icons/io5";
 const WithdrawPage: React.FC = () => {
   const { t } = useTranslation();
@@ -48,7 +35,7 @@ const WithdrawPage: React.FC = () => {
 
       const data = await response.json();
       setSocials(data);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching currency:", error.message);
       return null;
     }
@@ -129,9 +116,9 @@ const WithdrawPage: React.FC = () => {
       await req.json();
       e.target.reset();
 
-      toast.success("So'rov muvaffaqiyatli yuborildi!");
+      toast.success(t("AuthCallback.withdraw_success"));
       setWithdrawHistory((prev) => [...prev, obj]);
-      console.log(withdrawHistory);
+      // console.log(withdrawHistory);
     } catch (error: any) {
       toast.error("So'rov yuborishda xatolik: " + error.message);
     }
@@ -154,7 +141,7 @@ const WithdrawPage: React.FC = () => {
       const text = await req.json();
 
       setHave(text);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching pending requests:", error.message);
     }
   };
@@ -177,7 +164,7 @@ const WithdrawPage: React.FC = () => {
 
         const data = await req.json();
         setWithdrawHistory(data);
-      } catch (error) {
+      } catch (error: any) {
         toast.error("Error fetching products:", error);
       }
     };

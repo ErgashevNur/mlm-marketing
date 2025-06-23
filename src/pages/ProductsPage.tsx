@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Search, Coins, ShoppingCart, Eye, Headset } from "lucide-react";
+import { Search, ShoppingCart, Eye, Headset } from "lucide-react";
 import { useCart } from "../contexts/CartContext";
 import { toast } from "sonner";
 import { FaInstagram, FaTelegram } from "react-icons/fa6";
@@ -61,7 +61,7 @@ const ProductsPage: React.FC = () => {
       }
 
       await req.json();
-      toast.success("Buyurtma muvaffaqiyatli yuborildi!");
+      toast.success(t("AuthCallback.order_success"));
     } catch (error: any) {
       toast.error("Buyurtma yuborishda xatolik: " + error.message);
     } finally {
@@ -81,7 +81,7 @@ const ProductsPage: React.FC = () => {
     return matchesSearch && matchesCategory;
   });
 
-  const openOrderModal = (userInfo) => {
+  const openOrderModal = (userInfo: any) => {
     setOrder(userInfo);
     setOrderModal(true);
   };
@@ -116,7 +116,7 @@ const ProductsPage: React.FC = () => {
 
       const data = await response.json();
       setSocials(data);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching currency:", error.message);
       return null;
     }

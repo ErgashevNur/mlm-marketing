@@ -391,6 +391,7 @@
     "redirecting": "Redirecting, please wait...",
     "Successfullylogged": "Successfully logged into the system",
     "card_copied": "Card number copied!",
-    "order_success": "The order was successfully sent!"
+    "order_success": "The order was successfully sent!",
+    "withdraw_success": "The request was successfully sent!"
   }
 }
