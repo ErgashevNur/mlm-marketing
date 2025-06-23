@@ -83,43 +83,6 @@ export default function AboutPage() {
         </section>
 
         {/* БЕЗОПАСНОСТЬ */}
-        <section className="py-16 px-6 bg-gray-100 dark:bg-gray-900">
-          <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-10 items-center">
-            <div className="flex-1">
-              <h2 className="text-3xl font-semibold mb-4">
-                Гарантия безопасности
-              </h2>
-              <p className="text-gray-700 dark:text-gray-400 mb-2">
-                Все данные пользователей защищены современными технологиями
-                безопасности.
-              </p>
-              <p className="text-gray-700 dark:text-gray-400">
-                Регистрация, вход, транзакции — всё работает под защитой.
-              </p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 text-center border border-gray-200 dark:border-gray-700">
-              <Lock className="w-10 h-10 mx-auto text-indigo-600 mb-2" />
-              <p className="font-semibold">Двойной уровень защиты</p>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className="py-20 text-center">
-          <h2 className="text-2xl font-bold mb-4">
-            Присоединяйтесь к нам сегодня!
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto mb-6">
-            MLM PLATFORM предлагает вам не только продукты, но и настоящую
-            возможность заработать.
-          </p>
-          <a
-            href="/register"
-            className="inline-block px-6 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition"
-          >
-            Зарегистрироваться
-          </a>
-        </section>
       </div>
     </>
   );
