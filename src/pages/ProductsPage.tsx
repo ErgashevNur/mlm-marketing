@@ -33,7 +33,7 @@ const ProductsPage: React.FC = () => {
     fetchProducts();
   }, []);
 
-  const ordered = async (e) => {
+  const ordered = async (e: any) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -62,7 +62,7 @@ const ProductsPage: React.FC = () => {
 
       await req.json();
       toast.success("Buyurtma muvaffaqiyatli yuborildi!");
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Buyurtma yuborishda xatolik: " + error.message);
     } finally {
       setOrderModal(false);

@@ -66,7 +66,7 @@ const ProductDetailPage: React.FC = () => {
           const data = await res.json();
           setApiProduct(data);
         }
-      } catch (e) {
+      } catch (e: any) {
         toast.error(e.message);
       }
     };
@@ -83,11 +83,12 @@ const ProductDetailPage: React.FC = () => {
 
       const data = await response.json();
       setSocials(data);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching currency:", error.message);
       return null;
     }
   };
+
   useEffect(() => {
     getCurrencies();
   }, []);

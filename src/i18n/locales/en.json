@@ -379,5 +379,18 @@
     "lastBonus": "Last Bonus",
     "active": "Active",
     "completed": "Completed"
+  },
+
+  "AuthCallback": {
+    "token_not_found": "Token not found",
+    "login_success": "Successfully logged in!",
+    "register_success": "You have successfully registered in the system!",
+    "register_error": "This account has already been registered!",
+    "user_not_found": "User not found",
+    "error_occurred": "An error occurred",
+    "redirecting": "Redirecting, please wait...",
+    "Successfullylogged": "Successfully logged into the system",
+    "card_copied": "Card number copied!",
+    "order_success": "The order was successfully sent!"
   }
 }

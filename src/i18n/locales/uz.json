@@ -313,7 +313,6 @@
     "startEarningToday": "Bugun ishlashni boshlang",
     "readyToStart": "Ishlashni boshlashga tayyormisiz?",
     "ctaDesc": "Har kuni tanga ishlayotgan va daromadini oshirayotgan minglab foydalanuvchilarga qo'shiling.",
-    "platform": "Platforma",
     "dashboard": "Boshqaruv paneli",
     "products": "Mahsulotlar",
     "plans": "Tariflar",
@@ -394,5 +393,17 @@
     "lastBonus": "Oxirgi bonus",
     "active": "Faol",
     "completed": "Tugallangan"
+  },
+  "AuthCallback": {
+    "token_not_found": "Token topilmadi",
+    "login_success": "Tizimga muvaffaqiyatli kirdingiz!",
+    "register_success": "Tizimdan muvaffaqiyatli royhatdan otdingiz!",
+    "register_error": "Bu akkaunt ro'yhatdan royhatdan o'tilgan!",
+    "user_not_found": "Foydalanuvchi topilmadi",
+    "error_occurred": "Xatolik yuz berdi",
+    "redirecting": "Redirecting, iltimos kuting...",
+    "Successfullylogged": "Tizimga muvaffaqiyatli kirildi",
+    "card_copied": "Karta raqami nusxalandi!",
+    "order_success": "Buyurtma muvaffaqiyatli yuborildi!"
   }
 }

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 interface User {
@@ -43,6 +44,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
   const [user, setUser] = useState<User | null>(
     JSON.parse(localStorage.getItem("user-data") || "null")
   );
@@ -111,9 +113,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       localStorage.setItem("token", data.token);
       sessionStorage.setItem("token2", data.token);
       localStorage.setItem("user-data", JSON.stringify(data.data.user));
-      toast.success(data.message);
+      toast.success(t("AuthCallback.login_success"));
     } catch (error: any) {
-      toast.error(error.message || "Login error");
+      toast.error(t("AuthCallback.user_not_found"));
     } finally {
       setIsLoading(false);
     }
@@ -144,13 +146,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       if (!res.ok) throw new Error(data.message || "Registration failed");
 
-      toast.success(data.message || "Registration successful!");
+      toast.success(t("AuthCallback.register_success"));
       localStorage.setItem("email", email);
 
       return { success: true, message: data.message, status: res.status };
     } catch (error: any) {
       const errorMessage = error.message || "Xatolik yuz berdi!";
-      toast.error(errorMessage);
+      toast.error(t("AuthCallback.register_error"));
       return { success: false, message: errorMessage };
     } finally {
       setIsLoading(false);
@@ -168,7 +170,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         import.meta.env.VITE_API_KEY
       }/authorization/google`;
     } catch (error: any) {
-      toast.warning(error.message || "Registration failed");
+      toast.warning("AuthCallback.error_occurred");
       throw error; // Re-throw the error for handleSubmit to catch
     } finally {
       setIsLoading(false);

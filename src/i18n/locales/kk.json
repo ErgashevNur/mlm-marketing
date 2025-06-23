@@ -303,7 +303,6 @@
     "startEarningToday": "Бүгіннен бастаңыз",
     "readyToStart": "Табыс табуды бастауға дайынсыз ба?",
     "ctaDesc": "Күн сайын монета табатын және табысын арттыратын мыңдаған пайдаланушыларға қосылыңыз.",
-    "platform": "Платформа",
     "dashboard": "Басқару панелі",
     "products": "Өнімдер",
     "plans": "Тарифтер",
@@ -381,5 +380,17 @@
     "lastBonus": "Соңғы бонус",
     "active": "Белсенді",
     "completed": "Аяқталды"
+  },
+  "AuthCallback": {
+    "token_not_found": "Токен табылмады",
+    "login_success": "Жүйеге сәтті кірдіңіз!",
+    "register_success": "Жүйеге сәтті тіркелдіңіз!",
+    "register_error": "Бұл аккаунт бұрын тіркелген!",
+    "user_not_found": "Пайдаланушы табылмады",
+    "error_occurred": "Қате орын алды",
+    "redirecting": "Қайта бағыттау, күте тұрыңыз...",
+    "Successfullylogged": "Zhüyеge sättі kіrdі",
+    "card_copied": "Карта нөмірі көшірілді!",
+    "order_success": "Тапсырыс сәтті жіберілді!"
   }
 }

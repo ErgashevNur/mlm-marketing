@@ -38,11 +38,12 @@ export default function BonusHistory() {
 
       const data = await response.json();
       setSocials(data);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching currency:", error.message);
       return null;
     }
   };
+
   useEffect(() => {
     getCurrencies();
   }, []);
@@ -70,7 +71,7 @@ export default function BonusHistory() {
       // console.log(data);
 
       setHistoryUser(data);
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Bonus history olishda xatolik:", error);
       return null;
     }
@@ -97,7 +98,7 @@ export default function BonusHistory() {
 
       const data = await response.json();
       setHistoryReferal(data);
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Bonus history olishda xatolik:", error);
       return null;
     }
@@ -124,11 +125,12 @@ export default function BonusHistory() {
 
       const data = await response.json();
       setHistoryProducts(data);
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Bonus history olishda xatolik:", error);
       return null;
     }
   };
+
   const getPlans = async () => {
     const token = localStorage.getItem("token");
 
@@ -150,7 +152,7 @@ export default function BonusHistory() {
 
       const data = await response.json();
       setHistoryPlans(data);
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Bonus history olishda xatolik:", error);
       return null;
     }

@@ -304,7 +304,6 @@
     "startEarningToday": "立即开始赚钱",
     "readyToStart": "准备好开始赚钱了吗？",
     "ctaDesc": "加入数千名每天赚取金币、提升收入的用户行列。",
-    "platform": "平台",
     "dashboard": "仪表盘",
     "products": "产品",
     "plans": "套餐",
@@ -382,5 +381,17 @@
     "lastBonus": "最后奖金",
     "active": "活跃",
     "completed": "已完成"
+  },
+  "AuthCallback": {
+    "token_not_found": "令牌未找到",
+    "login_success": "登录成功！",
+    "register_success": "您已成功注册系统！",
+    "register_error": "该账户已注册！",
+    "user_not_found": "用户未找到",
+    "error_occurred": "发生错误",
+    "redirecting": "重定向，请稍候...",
+    "Successfullylogged": "成功登录系统",
+    "card_copied": "卡号已复制！",
+    "order_success": "订单已成功发送！"
   }
 }

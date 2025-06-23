@@ -17,12 +17,7 @@ import {
 } from "lucide-react";
 import { io } from "socket.io-client";
 import { toast } from "sonner";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaTelegram,
-  FaTwitter,
-} from "react-icons/fa6";
+import { FaInstagram, FaTelegram } from "react-icons/fa6";
 import { IoShareSocial } from "react-icons/io5";
 
 const EarningsPage: React.FC = () => {
@@ -321,7 +316,7 @@ const EarningsPage: React.FC = () => {
       .writeText(cardNumber)
       .then(() => {
         // Muvaffaqiyatli nusxalandi
-        toast.success("Karta raqami nusxalandi!");
+        toast.success(t("AuthCallback.card_copied"));
       })
       .catch((err) => {
         // Xatolik yuz berdi

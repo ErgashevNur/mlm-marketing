@@ -27,10 +27,10 @@ const Dashboard: React.FC = () => {
         setStatistika(res);
       } else {
         const errorText = await req.text();
-        throw new Error(`Xatolik: ${req.status} - ${errorText}`);
+        throw new Error(`${req.status} - ${errorText}`);
       }
     } catch (error: any) {
-      toast.error("So'rovda xatolik: " + error.message);
+      toast.error(error.message);
     }
   };
 
@@ -88,19 +88,22 @@ const Dashboard: React.FC = () => {
       }
 
       const data = await response.json();
-      // console.log(data.map((item: any) => item.nextTimeHours));
-
       setCanClaimBonus(data.nextTimeHours);
 
+      if (data.some((item: any) => item.status === true)) {
+        toast.success("Bonusingiz qabul qilindi");
+      } else {
+        toast.warning(
+          `Next bonus - ${data
+            .map((item: any) => item.nextTimeHours)
+            .join(", ")} - Hour`
+        );
+      }
+
       // console.log(t("dashboard.bonusReceivedLog"), data);
-      toast.warning(
-        `Next bonus - ${data
-          .map((item: any) => item.nextTimeHours)
-          .join(", ")} - Hour`
-      );
     } catch (error) {
       // console.error(t("dashboard.errorLog"), error);
-      alert(t("dashboard.bonusError") || "Bonus olishda xatolik yuz berdi.");
+      alert(t("dashboard.bonusError"));
     }
 
     // claimDailyBonus();
@@ -347,6 +350,7 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
+      {/* Quick action */}
       <div className="fixed bottom-6 right-6 z-50 group w-16 h-16">
         <div className="w-16 h-16 cursor-pointer flex items-center justify-center bg-blue-600 text-white rounded-full shadow-lg relative z-20">
           <Headset size={28} />
