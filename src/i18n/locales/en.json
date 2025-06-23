@@ -20,7 +20,8 @@
     "required": "is required",
     "bonusHistory": "History",
     "view": "More details",
-    "success": "Order successfully submitted!"
+    "success": "Order successfully submitted!",
+    "about": "About"
   },
   "auth": {
     "welcome": "Welcome to ",
@@ -128,11 +129,12 @@
     "pending": "Pending",
     "active": "Active",
     "inactive": "Inactive",
-    "referalevel": "Referal level",
-    "minCount": "Min USDT",
+    "referalevel": "High-level  → Referral cycle",
+    "minCount": "Min balance",
     "levelName": "Level name",
     "level": "Level",
-    "maxCount": "Max USDT"
+    "maxCount": "Max balance",
+    "prizeName": "Prize name"
   },
   "plans": {
     "choosePlan": "Choose Your Plan",

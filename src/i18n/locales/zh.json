@@ -20,7 +20,8 @@
     "required": "必填",
     "bonusHistory": "奖励记录",
     "view": "详细信息",
-    "success": "订单提交成功！"
+    "success": "订单提交成功！",
+    "about": " 关于我们"
   },
   "auth": {
     "welcome": "欢迎来到 ",
@@ -128,12 +129,13 @@
     "pending": "待处理",
     "active": "激活",
     "inactive": "未激活",
-    "referalevel": "推荐等级",
+    "referalevel": "高级推荐循环",
     "minCount": "最小数量",
     "levelName": "奖品",
     "level": "等级",
     "maxCount": "最大数量",
-    "UserLevel": "用户等级"
+    "UserLevel": "用户等级",
+    "prizeName": "礼物名称"
   },
   "plans": {
     "choosePlan": "选择计划",

@@ -19,7 +19,8 @@
     "share": "Ulashish",
     "bonusHistory": "Tarixlar",
     "view": "Batafsil",
-    "success": "Buyurtma muvaffaqiyatli yuborildi!"
+    "success": "Buyurtma muvaffaqiyatli yuborildi!",
+    "about": "Biz haqimizda"
   },
 
   "auth": {
@@ -132,11 +133,12 @@
     "pending": "Kutilmoqda",
     "active": "Faol",
     "inactive": "Nofaol",
-    "referalevel": "Referal daraja",
+    "referalevel": "Referal aylanma → Yuqori daraja",
     "minCount": "Minimal soni",
     "levelName": "Sovrin",
     "level": "Daraja",
-    "maxCount": "Maksimal soni"
+    "maxCount": "Maksimal soni",
+    "prizeName": "Sovg'a nomi"
   },
 
   "plans": {

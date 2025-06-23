@@ -20,6 +20,7 @@ import {
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
 import LanguageSelector from "./LanguageSelector";
+import { AiOutlineUnderline } from "react-icons/ai";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
@@ -32,6 +33,7 @@ const Navbar: React.FC = () => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const navigationItems = [
+    { name: t("common.about"), href: "/about", icon: AiOutlineUnderline },
     { name: t("common.dashboard"), href: "/dashboard", icon: LayoutDashboard },
     { name: t("common.products"), href: "/dashboard/products", icon: Package },
     { name: t("common.referrals"), href: "/dashboard/referrals", icon: Users },
@@ -84,16 +86,16 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
 
-          <Link
+          {/* <Link
             to="/about"
             className="inline-block hover:bg-gray-300 hover:font-bold text-gray-700 dark:text-gray-300 px-3 py-2 rounded-md text-sm font-normal"
           >
             About
-          </Link>
+          </Link> */}
 
           {/* Center: Desktop navigation */}
           {user && (
-            <div className="hidden lg:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center truncate space-x-4">
               {navigationItems.map((item) => {
                 const Icon = item.icon;
                 return (
