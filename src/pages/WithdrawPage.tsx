@@ -222,7 +222,7 @@ const WithdrawPage: React.FC = () => {
           icon={Wallet}
           color="blue"
           value={user?.coin}
-          subtitle="USTD"
+          subtitle="USDT"
         />
         <StatCard
           title={t("withdraw.thisMonth")}

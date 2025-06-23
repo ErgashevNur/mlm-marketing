@@ -392,6 +392,7 @@
     "Successfullylogged": "Успешно вошел в систему",
     "card_copied": "Номер карты скопирован!",
     "order_success": "Заказ успешно отправлен!",
-    "withdraw_success": "Запрос успешно отправлен!"
+    "withdraw_success": "Запрос успешно отправлен!",
+    "next_bonus_time": "Следующий бонус - {hour} - час(ов)"
   }
 }

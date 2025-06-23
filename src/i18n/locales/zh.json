@@ -395,6 +395,7 @@
     "Successfullylogged": "成功登录系统",
     "card_copied": "卡号已复制！",
     "order_success": "订单已成功发送！",
-    "withdraw_success": "请求已成功发送！"
+    "withdraw_success": "请求已成功发送！",
+    "next_bonus_time": "下一个奖励 - {hour} - 小时"
   }
 }

@@ -394,6 +394,7 @@
     "Successfullylogged": "Sіstemaga іygіlіktüü kіrdі",
     "card_copied": "Карта номери көчүрүлдү!",
     "order_success": "Буйрутма ийгиликтүү жөнөтүлдү!",
-    "withdraw_success_ky": "Сурам ийгиликтүү жөнөтүлдү!"
+    "withdraw_success_ky": "Сурам ийгиликтүү жөнөтүлдү!",
+    "next_bonus_time": "Кийинки бонус - {hour} - саат"
   }
 }

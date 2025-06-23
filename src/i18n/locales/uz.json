@@ -407,6 +407,7 @@
     "Successfullylogged": "Tizimga muvaffaqiyatli kirildi",
     "card_copied": "Karta raqami nusxalandi!",
     "order_success": "Buyurtma muvaffaqiyatli yuborildi!",
-    "withdraw_success": "So'rov muvaffaqiyatli yuborildi!"
+    "withdraw_success": "So'rov muvaffaqiyatli yuborildi!",
+    "next_bonus_time": "Keyingi bonus - {hour} - soat"
   }
 }

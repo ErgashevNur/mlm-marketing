@@ -94,9 +94,9 @@ const Dashboard: React.FC = () => {
         toast.success("Bonusingiz qabul qilindi");
       } else {
         toast.warning(
-          `Next bonus - ${data
-            .map((item: any) => item.nextTimeHours)
-            .join(", ")} - Hour`
+          t("AuthCallback.next_bonus_time", {
+            time: data.map((item: any) => item.nextTimeHours).join(", "),
+          })
         );
       }
 
