@@ -436,6 +436,7 @@ const WithdrawPage: React.FC = () => {
           })}
         </div>
       </div>
+
       {have && (
         <div className="w-96 h-40 fixed top-[40%] left-[40%] bg-white border-2 rounded-md items-center flex justify-center">
           <X
@@ -443,7 +444,7 @@ const WithdrawPage: React.FC = () => {
             className="absolute top-3 right-3 cursor-pointer"
           />
           <p className="text-[15px] text-center">
-            Sizning avvalgi so'rovingiz ko'rib chiqilmoqda!
+            {t("AuthCallback.previous_request_review")}
           </p>
         </div>
       )}

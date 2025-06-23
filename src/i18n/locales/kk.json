@@ -395,6 +395,7 @@
     "card_copied": "Карта нөмірі көшірілді!",
     "order_success": "Тапсырыс сәтті жіберілді!",
     "withdraw_success": "Сұраныс сәтті жіберілді!",
-    "next_bonus_time": "Келесі бонус - {hour} - сағат"
+    "next_bonus_time": "Келесі бонус - {hour} - сағат",
+    "previous_request_review": "Алдыңғы сұранысыңыз қарастырылып жатыр!"
   }
 }

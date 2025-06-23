@@ -395,6 +395,7 @@
     "card_copied": "Card number copied!",
     "order_success": "The order was successfully sent!",
     "withdraw_success": "The request was successfully sent!",
-    "next_bonus_time": "Next bonus - {time} - Hour"
+    "next_bonus_time": "Next bonus - {{time}} - Hour",
+    "previous_request_review": "Your previous request is being reviewed!"
   }
 }

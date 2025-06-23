@@ -408,6 +408,7 @@
     "card_copied": "Karta raqami nusxalandi!",
     "order_success": "Buyurtma muvaffaqiyatli yuborildi!",
     "withdraw_success": "So'rov muvaffaqiyatli yuborildi!",
-    "next_bonus_time": "Keyingi bonus - {hour} - soat"
+    "next_bonus_time": "Keyingi bonus - {hour} - soat",
+    "previous_request_review": "Sizning avvalgi so'rovingiz ko'rib chiqilmoqda!"
   }
 }
