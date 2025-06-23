@@ -377,7 +377,7 @@ const WithdrawPage: React.FC = () => {
         </div>
 
         {/* Withdrawal History */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <div className="bg-white max-h-[640px] overflow-y-auto dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
             {t("withdraw.withdrawHistory")}
           </h2>
