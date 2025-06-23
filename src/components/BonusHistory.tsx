@@ -455,7 +455,7 @@ export default function BonusHistory() {
                         />
                         <div>
                           <h3 className="font-semibold text-gray-900 dark:text-white">
-                            Tarif #{plan.tariff.id}
+                            Tarif {plan.tariff.translations[0].name}
                           </h3>
                           <p className="text-sm text-gray-500 dark:text-gray-400">
                             {plan.user.name}
