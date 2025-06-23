@@ -222,58 +222,7 @@ const ReferralsPage: React.FC = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-        {/* Referral Link */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 sm:p-6">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            {t("referrals.referralLink")}
-          </h2>
-
-          <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border dark:border-gray-700">
-              <input
-                type="text"
-                value={referralLink}
-                readOnly
-                className="flex-1 bg-transparent text-sm text-gray-700 dark:text-gray-200 focus:outline-none"
-              />
-              <button
-                onClick={copyReferralLink}
-                className="flex items-center justify-center px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
-              >
-                {copiedLink ? (
-                  <>
-                    <CheckCircle className="mr-1" size={16} />
-                    {t("common.copied")}
-                  </>
-                ) : (
-                  <>
-                    <Copy className="mr-1" size={16} />
-                    {t("common.copy")}
-                  </>
-                )}
-              </button>
-            </div>
-
-            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
-              <button
-                onClick={shareOnTelegram}
-                className="flex-1 flex items-center justify-center px-4 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors"
-              >
-                <MessageCircle className="mr-2" size={18} />
-                {t("referrals.shareOnTelegram")}
-              </button>
-              <button
-                onClick={shareOnWhatsApp}
-                className="flex-1 flex items-center justify-center px-4 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium transition-colors"
-              >
-                <Phone className="mr-2" size={18} />
-                {t("referrals.shareOnWhatsApp")}
-              </button>
-            </div>
-          </div>
-        </div>
-
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-4 sm:gap-6">
         {/* Referral Stats */}
         <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 sm:p-6">
           <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">
@@ -282,7 +231,7 @@ const ReferralsPage: React.FC = () => {
 
           <div className="overflow-x-auto">
             <div className="max-h-[360px] overflow-y-auto rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-              <table className="w-[550px] text-[10px] divide-gray-200 dark:divide-gray-700">
+              <table className="w-[100%] text-[10px] divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-100 truncate dark:bg-gray-800 sticky top-0 z-10">
                   <tr>
                     <th className="px-5 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -331,6 +280,56 @@ const ReferralsPage: React.FC = () => {
                     ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+        {/* Referral Link */}
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            {t("referrals.referralLink")}
+          </h2>
+
+          <div className="space-y-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border dark:border-gray-700">
+              <input
+                type="text"
+                value={referralLink}
+                readOnly
+                className="flex-1 bg-transparent text-sm text-gray-700 dark:text-gray-200 focus:outline-none"
+              />
+              <button
+                onClick={copyReferralLink}
+                className="flex items-center justify-center px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
+              >
+                {copiedLink ? (
+                  <>
+                    <CheckCircle className="mr-1" size={16} />
+                    {t("common.copied")}
+                  </>
+                ) : (
+                  <>
+                    <Copy className="mr-1" size={16} />
+                    {t("common.copy")}
+                  </>
+                )}
+              </button>
+            </div>
+
+            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+              <button
+                onClick={shareOnTelegram}
+                className="flex-1 flex items-center justify-center px-4 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors"
+              >
+                <MessageCircle className="mr-2" size={18} />
+                {t("referrals.shareOnTelegram")}
+              </button>
+              <button
+                onClick={shareOnWhatsApp}
+                className="flex-1 flex items-center justify-center px-4 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium transition-colors"
+              >
+                <Phone className="mr-2" size={18} />
+                {t("referrals.shareOnWhatsApp")}
+              </button>
             </div>
           </div>
         </div>
