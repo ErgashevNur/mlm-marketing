@@ -237,7 +237,7 @@ const Dashboard: React.FC = () => {
           value={user?.referalCoin}
           icon={Users}
           color="purple"
-          subtitle="REF"
+          subtitle="USDT"
         />
       </div>
 
