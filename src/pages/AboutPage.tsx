@@ -1,88 +1,134 @@
-import { BadgeDollarSign, Gift, Lock, TrendingUp, Users } from "lucide-react";
+import { BadgeDollarSign, Gift, TrendingUp, Users } from "lucide-react";
+import { Fragment, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Navbar from "../components/Navbar";
 
 export default function AboutPage() {
+  const { i18n } = useTranslation();
+  const [informations, setInformations] = useState(null);
+  const getAboutInformations = async () => {
+    await fetch(`${import.meta.env.VITE_API_KEY}/about`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setInformations(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {});
+  };
+
+  useEffect(() => {
+    getAboutInformations();
+  }, []);
+
   return (
     <>
       <Navbar />
-
       <div className="bg-white dark:bg-black text-gray-900 dark:text-white">
         {/* HERO */}
         <section className="text-center py-20 px-6 bg-gray-50 dark:bg-gray-900">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-indigo-600">
-            MLM PLATFORM — торговля и заработок нового поколения
-          </h1>
-          <p className="max-w-3xl mx-auto text-gray-600 dark:text-gray-400 text-lg">
-            Косметика, мази, тарифы, ежедневные бонусы и партнёрская система —
-            всё в одном месте.
-          </p>
+          {informations?.aboutTranslation.map((info) => {
+            if (info.language === i18n.language) {
+              return (
+                <Fragment key={info.id}>
+                  <h1 className="text-4xl md:text-5xl font-bold mb-4 text-indigo-600">
+                    {info.heroTitle}
+                  </h1>
+                  <p className="max-w-3xl mx-auto text-gray-600 dark:text-gray-400 text-lg">
+                    {info.heroDescription}
+                  </p>
+                </Fragment>
+              );
+            }
+          })}
         </section>
 
         {/* О КОМПАНИИ */}
-        <section className="py-16 px-6 max-w-6xl mx-auto">
+        <section className="py-16  px-6 max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div className="space-y-4">
-              <h2 className="text-3xl font-semibold">О нашей компании</h2>
-              <p className="text-gray-700 dark:text-gray-300">
-                MLM PLATFORM — это современная торговая платформа, где продаются
-                косметические средства, мази и лечебные препараты. У нас вы
-                можете не только покупать, но и зарабатывать.
-              </p>
-              <p className="text-gray-700 dark:text-gray-300">
-                Пользователи, оформившие ежемесячный тариф, получают бонусные
-                монеты каждый день.
-              </p>
-            </div>
-            <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6 text-center">
-              <TrendingUp className="w-10 h-10 mx-auto text-indigo-500 mb-4" />
-              <p className="text-lg font-semibold">Рост и доход для каждого</p>
-            </div>
+            {informations?.aboutTranslation.map((info) => {
+              if (info.language === i18n.language) {
+                return (
+                  <Fragment key={info.id}>
+                    <div className="space-y-4">
+                      <h2 className="text-3xl font-semibold">
+                        {info.aboutCompanyTitle}
+                      </h2>
+                      <p className="text-gray-700 dark:text-gray-300">
+                        {info.aboutCompanyDescription}
+                      </p>
+                    </div>
+                    <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6 text-center">
+                      <TrendingUp className="w-10 h-10 mx-auto text-indigo-500 mb-4" />
+                      <p className="text-lg font-semibold">
+                        {info.aboutCompanyExpence}
+                      </p>
+                    </div>
+                  </Fragment>
+                );
+              }
+            })}
           </div>
         </section>
 
         {/* НАША СИСТЕМА */}
         <section className="py-16 px-6 bg-gray-50 dark:bg-gray-950">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-semibold text-center mb-10">
-              Как работает наша система?
-            </h2>
-            <div className="grid md:grid-cols-3 gap-6 text-center">
-              <FeatureBox
-                icon={
-                  <BadgeDollarSign className="w-8 h-8 mx-auto text-indigo-500" />
-                }
-                title="Доход через тарифы"
-                text="Покупая тариф, вы ежедневно получаете бонусные токены."
-              />
-              <FeatureBox
-                icon={<Users className="w-8 h-8 mx-auto text-indigo-500" />}
-                title="Партнёрская система"
-                text="Получайте 2% бонус за каждого приглашённого, купившего USDT."
-              />
-              <FeatureBox
-                icon={<Gift className="w-8 h-8 mx-auto text-indigo-500" />}
-                title="Уровни и подарки"
-                text="Достигайте уровня в партнёрской сети и получайте подарки."
-              />
-            </div>
-          </div>
+          {informations?.aboutTranslation.map((info) => {
+            if (info.language === i18n.language) {
+              return (
+                <div className="max-w-6xl mx-auto" key={info.id}>
+                  <h2 className="text-3xl font-semibold text-center mb-10">
+                    {info.howWorkSystem}
+                  </h2>
+                  <div className="grid md:grid-cols-3 gap-6 text-center">
+                    <FeatureBox
+                      icon={
+                        <BadgeDollarSign className="w-8 h-8 mx-auto text-indigo-500" />
+                      }
+                      title={info.withPlansTitle}
+                      text={info.withPlansDescription}
+                    />
+                    <FeatureBox
+                      icon={
+                        <Users className="w-8 h-8 mx-auto text-indigo-500" />
+                      }
+                      title={info.referalTitle}
+                      text={info.referalDescription}
+                    />
+                    <FeatureBox
+                      icon={
+                        <Gift className="w-8 h-8 mx-auto text-indigo-500" />
+                      }
+                      title={info.levelTitle}
+                      text={info.levelDescription}
+                    />
+                  </div>
+                </div>
+              );
+            }
+          })}
         </section>
 
         {/* ВАЛЮТА */}
         <section className="py-16 px-6 max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-semibold mb-6">
-            USDT — внутренняя валюта платформы
-          </h2>
-          <p className="text-gray-700 dark:text-gray-400 mb-4">
-            Вы можете купить USDT за любую валюту или криптовалюту и
-            использовать её для покупок или заработка.
-          </p>
-          <p className="text-gray-700 dark:text-gray-400">
-            Все транзакции безопасны и обрабатываются мгновенно.
-          </p>
+          {informations?.aboutTranslation.map((info) => {
+            if (info.language === i18n.language) {
+              return (
+                <Fragment key={info.id}>
+                  <h2 className="text-3xl font-semibold mb-6">
+                    {info.USDTTitle}
+                  </h2>
+                  <p className="text-gray-700 dark:text-gray-400 mb-4">
+                    {info.USDTDescription}
+                  </p>
+                </Fragment>
+              );
+            }
+          })}
         </section>
-
-        {/* БЕЗОПАСНОСТЬ */}
       </div>
     </>
   );
