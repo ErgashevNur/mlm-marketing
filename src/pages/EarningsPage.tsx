@@ -477,6 +477,7 @@ const EarningsPage: React.FC = () => {
                 </div>
                 <button
                   onClick={handleDeposit}
+                  disabled={isDepositDisabled || !coinAmount.trim()}
                   className={`w-full md:hidden bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-bold text-sm sm:text-base py-2.5 sm:py-4 px-4 sm:px-8 rounded-xl sm:rounded-2xl flex items-center justify-center gap-2 sm:gap-3 transition-all duration-200 transform ${
                     isDepositDisabled
                       ? "opacity-60 cursor-not-allowed hover:scale-100"
