@@ -157,7 +157,8 @@
     "name": "Название",
     "usage": "Использование",
     "buyPlan": "Активация {{coin}} USDT",
-    "days": "дней"
+    "days": "дней",
+    "reyting": "Рейтинг"
   },
   "withdraw": {
     "withdrawFunds": "Вывод средств",
@@ -393,7 +394,8 @@
     "card_copied": "Номер карты скопирован!",
     "order_success": "Заказ успешно отправлен!",
     "withdraw_success": "Запрос успешно отправлен!",
-    "next_bonus_time": "Следующий бонус - {hour} - час(ов)",
-    "previous_request_review": "Ваш предыдущий запрос рассматривается!"
+    "next_bonus_time": "Следующий бонус - {{time}} - час(ов)",
+    "previous_request_review": "Ваш предыдущий запрос рассматривается!",
+    "bonus_accepted": "Ваш бонус принят"
   }
 }

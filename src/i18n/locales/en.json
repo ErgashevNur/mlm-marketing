@@ -158,7 +158,8 @@
     "name": "Name",
     "usage": "Usage",
     "buyPlan": "Activation {{coin}} USDT",
-    "days": "days"
+    "days": "days",
+    "reyting": "Rating"
   },
   "withdraw": {
     "withdrawFunds": "Withdraw Funds",
@@ -396,6 +397,7 @@
     "order_success": "The order was successfully sent!",
     "withdraw_success": "The request was successfully sent!",
     "next_bonus_time": "Next bonus - {{time}} - Hour",
-    "previous_request_review": "Your previous request is being reviewed!"
+    "previous_request_review": "Your previous request is being reviewed!",
+    "bonus_accepted": "Your bonus has been accepted"
   }
 }

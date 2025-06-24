@@ -159,7 +159,8 @@
     "name": "Аты",
     "usage": "Колдонуу",
     "buyPlan": "Иштетүү ({{coin}} USDT)",
-    "days": "күн"
+    "days": "күн",
+    "reyting": "Рейтинг"
   },
   "withdraw": {
     "withdrawFunds": "Акча алуу",
@@ -395,7 +396,8 @@
     "card_copied": "Карта номери көчүрүлдү!",
     "order_success": "Буйрутма ийгиликтүү жөнөтүлдү!",
     "withdraw_success_ky": "Сурам ийгиликтүү жөнөтүлдү!",
-    "next_bonus_time": "Кийинки бонус - {hour} - саат",
-    "previous_request_review": "Мурунку сурамыңыз каралып жатат!"
+    "next_bonus_time": "Кийинки бонус - {{time}} - саат",
+    "previous_request_review": "Мурунку сурамыңыз каралып жатат!",
+    "bonus_accepted": "Бонусиңиз кабыл алынды"
   }
 }

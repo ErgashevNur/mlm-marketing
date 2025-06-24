@@ -2,6 +2,9 @@ import React from "react";
 import { X, Calendar, Gift, FileText, Target, Star } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { FcStatistics } from "react-icons/fc";
+import { SiStatista } from "react-icons/si";
+import { LuChartNoAxesCombined } from "react-icons/lu";
 
 interface Translation {
   id: number;
@@ -231,6 +234,22 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                   <Calendar className="w-6 h-6 text-gray-600" />
                   <h3 className="text-xl font-semibold text-gray-900">
                     {t("plans.createdAt")}
+                  </h3>
+                </div>
+                <p className="text-gray-700 text-lg font-medium">
+                  {new Date(plan.createdAt).toLocaleDateString(lng || "en", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+              </div>
+
+              <div className="bg-gray-50 p-6 rounded-xl">
+                <div className="flex items-center space-x-3 mb-4">
+                  <LuChartNoAxesCombined className="w-6 h-6 text-gray-600" />
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {t("plans.reyting")}
                   </h3>
                 </div>
                 <p className="text-gray-700 text-lg font-medium">

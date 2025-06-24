@@ -163,7 +163,8 @@
     "name": "Nomi",
     "usage": "Foydalanish",
     "buyPlan": "Faollashtirish ({{coin}} USDT)",
-    "days": "kun"
+    "days": "kun",
+    "reyting": "Reyting"
   },
 
   "withdraw": {
@@ -408,7 +409,8 @@
     "card_copied": "Karta raqami nusxalandi!",
     "order_success": "Buyurtma muvaffaqiyatli yuborildi!",
     "withdraw_success": "So'rov muvaffaqiyatli yuborildi!",
-    "next_bonus_time": "Keyingi bonus - {hour} - soat",
-    "previous_request_review": "Sizning avvalgi so'rovingiz ko'rib chiqilmoqda!"
+    "next_bonus_time": "Keyingi bonus - {{time}} - soat",
+    "previous_request_review": "Sizning avvalgi so'rovingiz ko'rib chiqilmoqda!",
+    "bonus_accepted": "Bonusingiz qabul qilindi"
   }
 }

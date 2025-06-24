@@ -91,7 +91,7 @@ const Dashboard: React.FC = () => {
       setCanClaimBonus(data.nextTimeHours);
 
       if (data.some((item: any) => item.status === true)) {
-        toast.success("Bonusingiz qabul qilindi");
+        toast.success(t("AuthCallback.bonus_accepted"));
       } else {
         toast.warning(
           t("AuthCallback.next_bonus_time", {

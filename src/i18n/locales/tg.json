@@ -159,7 +159,8 @@
     "name": "Ном",
     "usage": "Истифода",
     "buyPlan": "Фаъолсозӣ {{coin}} USDT",
-    "days": "рӯз"
+    "days": "рӯз",
+    "reyting": "Рейтинг"
   },
   "withdraw": {
     "withdrawFunds": "Пул гирифтан",
@@ -396,7 +397,8 @@
     "card_copied": "Рақами корти нусхабардорӣ шуд!",
     "order_success": "Дархости шумо бо муваффақият фиристода шуд!",
     "withdraw_success": "Дархост бо муваффақият фиристода шуд!",
-    "next_bonus_time": "Бонуси навбатӣ - {hour} - соат",
-    "previous_request_review": "Дархости қаблии шумо дар ҳоли баррасӣ аст!"
+    "next_bonus_time": "Бонуси навбатӣ - {{time}} - соат",
+    "previous_request_review": "Дархости қаблии шумо дар ҳоли баррасӣ аст!",
+    "bonus_accepted": "Бонуси шумо қабул шуд"
   }
 }

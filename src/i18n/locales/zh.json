@@ -159,7 +159,8 @@
     "name": "名称",
     "usage": "用法",
     "buyPlan": "激活 {{coin}} USDT",
-    "days": "天"
+    "days": "天",
+    "reyting": "评分"
   },
   "withdraw": {
     "withdrawFunds": "提现资金",
@@ -396,7 +397,8 @@
     "card_copied": "卡号已复制！",
     "order_success": "订单已成功发送！",
     "withdraw_success": "请求已成功发送！",
-    "next_bonus_time": "下一个奖励 - {hour} - 小时",
-    "previous_request_review": "您的先前请求正在审核中！"
+    "next_bonus_time": "下一个奖励 - {{time}} - 小时",
+    "previous_request_review": "您的先前请求正在审核中！",
+    "bonus_accepted": "您的奖金已被接受"
   }
 }
