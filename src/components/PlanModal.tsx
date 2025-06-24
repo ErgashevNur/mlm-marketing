@@ -252,13 +252,9 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                     {t("plans.reyting")}
                   </h3>
                 </div>
-                <p className="text-gray-700 text-lg font-medium">
-                  {new Date(plan.createdAt).toLocaleDateString(lng || "en", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </p>
+                {[...Array(Math.floor(plan.rating))].map((_, i) => (
+                  <span key={i}>⭐</span>
+                ))}
               </div>
             </div>
           </div>
