@@ -394,8 +394,7 @@
     "card_copied": "Номер карты скопирован!",
     "order_success": "Заказ успешно отправлен!",
     "withdraw_success": "Запрос успешно отправлен!",
-    "next_bonus_time": "Следующий бонус - {{time}} - час(ов)",
-    "previous_request_review": "Ваш предыдущий запрос рассматривается!",
-    "bonus_accepted": "Ваш бонус принят"
+    "next_bonus_time": "Вы можете получить бонус через {{time}}",
+    "previous_request_review": "Ваш предыдущий запрос рассматривается!"
   }
 }

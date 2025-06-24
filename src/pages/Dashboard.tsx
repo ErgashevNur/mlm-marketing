@@ -80,30 +80,33 @@ const Dashboard: React.FC = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error(
-          t("dashboard.serverError", { status: response.status }) ||
-            "Server xatosi: " + response.status
-        );
+      const data = await response.json();
+      console.log("BONUS RESPONSE:", data);
+
+      if (!Array.isArray(data) || !data[0]) {
+        toast.error("Ma'lumotlar topilmadi.");
+        return;
       }
 
-      const data = await response.json();
-      setCanClaimBonus(data.nextTimeHours);
+      const status = data[0].status;
+      const remainingTime = data[0].remainingTime;
+      console.log(remainingTime);
 
-      if (data.some((item: any) => item.status === true)) {
-        toast.success(t("AuthCallback.bonus_accepted"));
+      if (status === true) {
+        toast.success(
+          t("dashboard.bonusReceived") || "Bonusingiz qabul qilindi"
+        );
       } else {
-        toast.warning(
-          t("AuthCallback.next_bonus_time", {
-            time: data.map((item: any) => item.nextTimeHours).join(", "),
-          })
+        // Dastlabki toast
+        toast.message(
+          t("AuthCallback.next_bonus_time", { time: remainingTime })
         );
       }
     } catch (error) {
-      alert(t("dashboard.bonusError"));
+      console.error("BONUS ERROR:", error);
+      alert(t("dashboard.bonusError") || "Bonusni olishda xatolik yuz berdi.");
     }
   };
-
   function maskEmail(email: string): string {
     if (!email || email.length < 3) return email;
 

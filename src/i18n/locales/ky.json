@@ -396,8 +396,7 @@
     "card_copied": "Карта номери көчүрүлдү!",
     "order_success": "Буйрутма ийгиликтүү жөнөтүлдү!",
     "withdraw_success_ky": "Сурам ийгиликтүү жөнөтүлдү!",
-    "next_bonus_time": "Кийинки бонус - {{time}} - саат",
-    "previous_request_review": "Мурунку сурамыңыз каралып жатат!",
-    "bonus_accepted": "Бонусиңиз кабыл алынды"
+    "next_bonus_time": "Сиз бонусуңузду {{time}} өткөндөн кийин ала аласыз",
+    "previous_request_review": "Мурунку сурамыңыз каралып жатат!"
   }
 }
