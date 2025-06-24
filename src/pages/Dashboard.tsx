@@ -99,14 +99,9 @@ const Dashboard: React.FC = () => {
           })
         );
       }
-
-      // console.log(t("dashboard.bonusReceivedLog"), data);
     } catch (error) {
-      // console.error(t("dashboard.errorLog"), error);
       alert(t("dashboard.bonusError"));
     }
-
-    // claimDailyBonus();
   };
 
   function maskEmail(email: string): string {
@@ -159,7 +154,7 @@ const Dashboard: React.FC = () => {
 
       const data = await response.json();
       setSocials(data);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching currency:", error.message);
       return null;
     }
