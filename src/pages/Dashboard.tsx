@@ -124,7 +124,9 @@ const Dashboard: React.FC = () => {
       }
     } catch (error) {
       console.error("BONUS ERROR:", error);
-      alert(t("dashboard.bonusError") || "Bonusni olishda xatolik yuz berdi.");
+      toast.error(
+        t("dashboard.bonusError") || "Bonusni olishda xatolik yuz berdi."
+      );
     }
   };
 
