@@ -926,13 +926,16 @@ const EarningsPage: React.FC = () => {
                   <X className="dark:text-gray-400" />
                 )}
               </button>
+
               <h2 className="font-bold text-lg">
                 {t("earningsPage.warnTitle")}
               </h2>
+
               <p className="text-sm">
                 {t("earningsPage.warnSubtitle")}
                 <br />
               </p>
+
               <button
                 onClick={handleDeposit}
                 disabled={

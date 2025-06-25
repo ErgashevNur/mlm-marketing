@@ -303,7 +303,7 @@
     "warnAutoMessage": "Admindan xabar avtomatik keladi iltimos kutib turing",
     "SelectCurr": "Tanlang",
     "warnTitle": "Ogohlantirish",
-    "warnSubtitle": "So‘rov yuborishdan oldin, ma'lumotlaringizni tekshirib chiqing.",
+    "warnSubtitle": "Iltimos, sahifani tark etmang. Karta ma'lumotlarini yuborish jarayoni ketmoqda va bu bir necha daqiqa davom etishi mumkin.",
     "closeWarning": "Ogohlantirish oynasini yopish",
     "uploadReceipt": "Chekni yuklash",
     "removeFile": "Faylni olib tashlash",
@@ -438,7 +438,7 @@
     "active": "Faol",
     "completed": "Tugallangan"
   },
-  
+
   "AuthCallback": {
     "token_not_found": "Token topilmadi",
     "login_success": "Tizimga muvaffaqiyatli kirdingiz!",

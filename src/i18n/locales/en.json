@@ -301,7 +301,7 @@
     "transactionId": "Transaction ID",
     "trackActivity": "Track your trading activity",
     "warnTitle": "Please do not leave the page",
-    "warnSubtitle": "The process of submitting card information is in progress, this may take a few minutes.",
+    "warnSubtitle": "Please do not leave the page. The card data submission process is in progress and may take a few minutes.",
     "warnAutoMessage": "A message from the admin will arrive automatically, please wait",
     "SelectCurr": "Select",
     "tokenNotFound": "Authentication token not found",
