@@ -327,7 +327,8 @@
     "loadingPaymentInfo": "To‘lov ma'lumotlari yuklanmoqda...",
     "claimNow": "Hozir olish",
     "noBonusData": "Bugungi bonus ma'lumotlari topilmadi.",
-    "noMonthlyTariff": "Sizda oylik tarif mavjud emas."
+    "noMonthlyTariff": "Sizda oylik tarif mavjud emas.",
+    "cardCopied": "Karta raqami vaqtinchalik xotiraga nusxalandi"
   },
 
   "landing": {

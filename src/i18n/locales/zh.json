@@ -319,7 +319,8 @@
     "loadingPaymentInfo": "正在加载支付信息...",
     "claimNow": "立即领取",
     "noBonusData": "未找到今日奖金数据。",
-    "noMonthlyTariff": "您没有月度套餐。"
+    "noMonthlyTariff": "您没有月度套餐。",
+    "cardCopied": "卡号已复制到剪贴板"
   },
   "landing": {
     "welcome": "欢迎来到",
