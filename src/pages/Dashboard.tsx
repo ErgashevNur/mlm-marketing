@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import StatCard from "../components/StatCard";
 import { toast } from "sonner";
 import { FaInstagram, FaTelegram } from "react-icons/fa6";
+import CountdownTimer from "../components/CountdownTimer";
 
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
@@ -14,6 +15,12 @@ const Dashboard: React.FC = () => {
   const [canClaimBonus, setCanClaimBonus] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [socials, setSocials] = useState([]);
+  const [dailyBonus, setDailyBonus] = useState(null);
+  const [time, setTime] = useState([]);
+
+  console.log("Qolgan vaqt:", time?.[0]?.remainingTime);
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const userLevel = JSON.parse(localStorage.getItem("UserLevel"));
 
@@ -81,7 +88,7 @@ const Dashboard: React.FC = () => {
       );
 
       const data = await response.json();
-      console.log("BONUS RESPONSE:", data);
+      setTime(data);
 
       if (!Array.isArray(data) || !data[0]) {
         toast.error("Ma'lumotlar topilmadi.");
@@ -90,14 +97,27 @@ const Dashboard: React.FC = () => {
 
       const status = data[0].status;
       const remainingTime = data[0].remainingTime;
-      console.log(remainingTime);
 
       if (status === true) {
+        // 👉 Bonus olindi — localStorage tozalanadi
+        localStorage.removeItem("bonus_start_time");
+        localStorage.removeItem("bonus_duration_seconds");
+
         toast.success(
           t("dashboard.bonusReceived") || "Bonusingiz qabul qilindi"
         );
       } else {
-        // Dastlabki toast
+        // ❗ Bonus hali olinmagan — vaqtni saqlaymiz
+        localStorage.setItem(
+          "bonus_start_time",
+          `${Math.floor(Date.now() / 1000)}`
+        );
+        localStorage.setItem(
+          "bonus_duration_seconds",
+          `${hmsToSeconds(remainingTime)}`
+        );
+
+        // Toast ko‘rsatamiz
         toast.message(
           t("AuthCallback.next_bonus_time", { time: remainingTime })
         );
@@ -107,6 +127,7 @@ const Dashboard: React.FC = () => {
       alert(t("dashboard.bonusError") || "Bonusni olishda xatolik yuz berdi.");
     }
   };
+
   function maskEmail(email: string): string {
     if (!email || email.length < 3) return email;
 
@@ -138,8 +159,6 @@ const Dashboard: React.FC = () => {
           }
         );
       }
-
-      // localStorage.removeItem("referral_id");
     } catch (error: any) {
       toast.error(error.message || "Kutilmagan xatolik");
     } finally {
@@ -163,12 +182,39 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  const getDailyBonus = async () => {
+    try {
+      const token = localStorage.getItem("token"); // yoki kontekstdan olingan token
+      const req = await fetch(`${import.meta.env.VITE_API_KEY}/bonus/view`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // tokenni headerga qo‘shish
+        },
+      });
+
+      if (req.status === 200) {
+        const res = await req.json();
+        setDailyBonus(res);
+      } else {
+        const errorText = await req.text();
+        throw new Error(`${req.status} - ${errorText}`);
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     getUser();
     getTotal();
     googleRefSistem();
     getCurrencies();
   }, []);
+
+  useEffect(() => {
+    console.log("Keldi:", time?.[0]?.remainingTime);
+  }, [time]);
 
   return (
     <div className="space-y-6">
@@ -199,10 +245,21 @@ const Dashboard: React.FC = () => {
               <h3 className="text-lg font-semibold">
                 {t("dashboard.dailyBonusAvailable")}
               </h3>
+              {time?.[0]?.remainingTime ||
+              localStorage.getItem("bonus_start_time") ? (
+                <CountdownTimer
+                  timeString={time?.[0]?.remainingTime || "00:00:00"}
+                />
+              ) : (
+                <p className="text-white font-bold">Taymer yuklanmoqda...</p>
+              )}
             </div>
           </div>
           <button
-            onClick={handleClaimBonuss}
+            onClick={() => {
+              setIsOpen(true);
+              getDailyBonus();
+            }}
             disabled={!canClaimBonus}
             className={`px-6 py-3 font-semibold rounded-lg transition-colors ${
               canClaimBonus
@@ -388,6 +445,42 @@ const Dashboard: React.FC = () => {
           })}
         </div>
       </div>
+      {isOpen && (
+        <div className="w-full h-screen fixed flex top-0 items-center justify-center bg-white/50 backdrop-blur-md left-0">
+          <div className="w-[400px] flex flex-col gap-5 border shadow-md h-[350px] rounded-md p-5 bg-white">
+            {dailyBonus?.daily?.map((el, index) => (
+              <div
+                key={index}
+                className="w-full flex items-center justify-between"
+              >
+                <h1 className="text-xl font-bold">{el.tariff_name[0].name}</h1>
+                <span className="text-yellow-400 font-bold">
+                  {el.dailyProfit}
+                </span>
+              </div>
+            ))}
+
+            {/* Umumiy bonusni chiqarish qismi */}
+            <div className="w-full flex items-center justify-between border-t pt-3 mt-auto">
+              <button
+                onClick={() => {
+                  handleClaimBonuss();
+                  setIsOpen(false);
+                }}
+                className="text-lg font-semibold border px-10 py-2 rounded-md"
+              >
+                {t("dashboard.claimNow")}
+              </button>
+              <span className="text-green-600 text-xl font-bold">
+                {dailyBonus?.daily?.reduce(
+                  (acc, el) => acc + Number(el.dailyProfit),
+                  0
+                )}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
