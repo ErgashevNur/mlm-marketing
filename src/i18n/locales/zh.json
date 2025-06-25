@@ -320,7 +320,8 @@
     "claimNow": "立即领取",
     "noBonusData": "未找到今日奖金数据。",
     "noMonthlyTariff": "您没有月度套餐。",
-    "cardCopied": "卡号已复制到剪贴板"
+    "cardCopied": "卡号已复制到剪贴板",
+    "dataSentSuccessfully": "数据发送成功"
   },
   "landing": {
     "welcome": "欢迎来到",

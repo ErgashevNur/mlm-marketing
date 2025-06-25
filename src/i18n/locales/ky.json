@@ -318,7 +318,8 @@
     "loadingPaymentInfo": "Төлөм маалыматтары жүктөлүүдө...",
     "claimNow": "Азыр алуу",
     "noBonusData": "Бүгүнкү бонус боюнча маалымат табылган жок.",
-    "noMonthlyTariff": "Сизде айлык тариф жок."
+    "noMonthlyTariff": "Сизде айлык тариф жок.",
+    "dataSentSuccessfully": "Маалыматтар ийгиликтүү жөнөтүлдү"
   },
   "landing": {
     "welcome": "Кош келдиңиз",

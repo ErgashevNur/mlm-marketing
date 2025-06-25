@@ -328,7 +328,8 @@
     "claimNow": "Hozir olish",
     "noBonusData": "Bugungi bonus ma'lumotlari topilmadi.",
     "noMonthlyTariff": "Sizda oylik tarif mavjud emas.",
-    "cardCopied": "Karta raqami vaqtinchalik xotiraga nusxalandi"
+    "cardCopied": "Karta raqami vaqtinchalik xotiraga nusxalandi",
+    "dataSentSuccessfully": "Ma'lumotlar muvaffaqiyatli yuborildi"
   },
 
   "landing": {
