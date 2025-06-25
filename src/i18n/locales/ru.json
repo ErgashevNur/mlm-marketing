@@ -158,7 +158,8 @@
     "usage": "Использование",
     "buyPlan": "Активация {{coin}} USDT",
     "days": "дней",
-    "reyting": "Рейтинг"
+    "reyting": "Рейтинг",
+    "review": "Количество оценок"
   },
   "withdraw": {
     "withdrawFunds": "Вывод средств",

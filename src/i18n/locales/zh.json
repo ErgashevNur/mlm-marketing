@@ -160,7 +160,8 @@
     "usage": "用法",
     "buyPlan": "激活 {{coin}} USDT",
     "days": "天",
-    "reyting": "评分"
+    "reyting": "评分",
+    "review": " 评分数量"
   },
   "withdraw": {
     "withdrawFunds": "提现资金",

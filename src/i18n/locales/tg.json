@@ -160,7 +160,8 @@
     "usage": "Истифода",
     "buyPlan": "Фаъолсозӣ {{coin}} USDT",
     "days": "рӯз",
-    "reyting": "Рейтинг"
+    "reyting": "Рейтинг",
+    "review": "Шумораи баҳогузорӣ"
   },
   "withdraw": {
     "withdrawFunds": "Пул гирифтан",

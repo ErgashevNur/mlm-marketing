@@ -160,7 +160,8 @@
     "usage": "Қолдану",
     "buyPlan": "Белсендіру ({{coin}} USDT)",
     "days": "күн",
-    "reyting": "Рейтинг"
+    "reyting": "Рейтинг",
+    "review": "Бағалар саны"
   },
   "withdraw": {
     "withdrawFunds": "Ақша алу",

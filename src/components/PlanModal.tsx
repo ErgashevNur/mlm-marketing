@@ -249,12 +249,15 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                 <div className="flex items-center space-x-3 mb-4">
                   <LuChartNoAxesCombined className="w-6 h-6 text-gray-600" />
                   <h3 className="text-xl font-semibold text-gray-900">
-                    {t("plans.reyting")}
+                    {t("plans.reyting")}{" "}
                   </h3>
                 </div>
                 {[...Array(Math.floor(plan.rating))].map((_, i) => (
                   <span key={i}>⭐</span>
                 ))}
+                <span className="text-xs ml-5">
+                  ({plan.review} {t("plans.review")})
+                </span>
               </div>
             </div>
           </div>
