@@ -72,7 +72,7 @@ export default function BonusHistory() {
 
       setHistoryUser(data);
     } catch (error: any) {
-      toast.error("Bonus history olishda xatolik:", error);
+      toast.error(t("AuthCallback.error_occurred"));
       return null;
     }
   };

@@ -101,7 +101,16 @@
     "changePassword": "Тағйир додани калидвожа",
     "notifications": "Огоҳиҳо",
     "language": "Забон",
-    "theme": "Мавзӯъ"
+    "theme": "Мавзӯъ",
+    "changePasswordTitle": "Тағйири гузарвожа",
+    "enterOldPassword": "Гузарвожаи кӯҳнаро ворид кунед*",
+    "oldPasswordPlaceholder": "Гузарвожаи кӯҳнаро ворид кунед...",
+    "enterNewPassword": "Гузарвожаи навро ворид кунед*",
+    "newPasswordPlaceholder": "Гузарвожаи навро ворид кунед...",
+    "confirmNewPassword": "Гузарвожаи навро тасдиқ кунед*",
+    "confirmPasswordPlaceholder": "Гузарвожаи навро тасдиқ кунед...",
+    "sendButton": "Фиристодан",
+    "manageAccountInfo": "Маълумот ва танзимоти ҳисоби худро идора кунед"
   },
   "earnings": {
     "dailyEarnings": "Даромади ҳаррӯза",
@@ -239,7 +248,14 @@
     "coins": "USDT",
     "view": "Дидан",
     "add": "Илова кардан",
-    "SelectCurr": "Интихоб кунед"
+    "SelectCurr": "Интихоб кунед",
+    "verifyIdentity": "Шахсияти худро тасдиқ кунед!",
+    "yourPhoneNumber": "Рақами телефони шумо",
+    "enterPhoneNumber": "Рақами телефони худро ворид кунед...",
+    "yourSocialLink": "Суроғаи шабакаи иҷтимоии шумо",
+    "enterSocialLink": "Суроғаи шабакаи иҷтимоиро ворид кунед...",
+    "submit": "Фиристодан",
+    "cancel": "Бекор кардан"
   },
   "referralsPage": {
     "pleaseLogin": "Барои дидани рефералҳо, лутфан ворид шавед.",
@@ -300,7 +316,10 @@
     "paymentInstruction": "Лутфан дар муҳлати муқарраршуда ба рақами корт пардохт намоед.",
     "noRefreshWarning": "Диққат! Саҳифаро навсозӣ накунед ё набандед.",
     "confirmPayment": "Ман пардохт кардам",
-    "loadingPaymentInfo": "Маълумоти пардохт бор шуда истодааст..."
+    "loadingPaymentInfo": "Маълумоти пардохт бор шуда истодааст...",
+    "claimNow": "Ҳозир гирифтан",
+    "noBonusData": "Маълумоти бонуси рӯзона ёфт нашуд.",
+    "noMonthlyTariff": "Шумо тарофаи моҳона надоред."
   },
   "landing": {
     "welcome": "Хуш омадед",

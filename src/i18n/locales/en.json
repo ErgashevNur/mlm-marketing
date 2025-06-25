@@ -23,6 +23,7 @@
     "success": "Order successfully submitted!",
     "about": "About"
   },
+
   "auth": {
     "welcome": "Welcome to ",
     "subtitle": "Your Marketing Platform",
@@ -55,6 +56,7 @@
     "instruction3": "The code is valid for 3 minutes",
     "instruction4": "You can resend after the time expires"
   },
+
   "dashboard": {
     "welcomeBack": "Welcome back",
     "yourCoin": "Your USDT",
@@ -90,6 +92,7 @@
     "activeUsers": "Active users",
     "Statistics": "Ranking of the most profitable participants of the week"
   },
+
   "profile": {
     "personalInfo": "Personal Information",
     "name": "Name",
@@ -101,8 +104,17 @@
     "changePassword": "Change Password",
     "notifications": "Notifications",
     "language": "Language",
-    "theme": "Theme"
+    "theme": "Theme",
+    "sendButton": "Send",
+    "changePasswordTitle": "Change your password",
+    "oldPasswordPlaceholder": "Enter your old password...",
+    "enterNewPassword": "Enter your new password*",
+    "newPasswordPlaceholder": "Enter your new password...",
+    "confirmNewPassword": "Confirm your new password*",
+    "confirmPasswordPlaceholder": "Confirm your new password...",
+    "manageAccountInfo": "Manage your account information and settings"
   },
+
   "earnings": {
     "dailyEarnings": "Daily Earnings",
     "monthlyEarnings": "Monthly Earnings",
@@ -112,6 +124,7 @@
     "amount": "Amount",
     "source": "Source"
   },
+
   "referrals": {
     "invitedFriends": "Invited Friends",
     "totalReferrals": "Total Referrals",
@@ -136,6 +149,7 @@
     "maxCount": "Max balance",
     "prizeName": "Prize name"
   },
+
   "plans": {
     "choosePlan": "Choose Your Plan",
     "choosePlanDesc": "Choose the perfect plan for your marketing needs. All plans include our core features with different limits and bonuses.",
@@ -162,6 +176,7 @@
     "reyting": "Rating",
     "review": "Number of ratings"
   },
+
   "withdraw": {
     "withdrawFunds": "Withdraw Funds",
     "availableBalance": "Available Balance",
@@ -194,6 +209,7 @@
     "noteFees": "Processing fees may apply depending on your payment method",
     "noteCardDetails": "Ensure your card details are correct to avoid delays"
   },
+
   "statistics": {
     "overview": "Statistics Overview",
     "lineChart": "Line Chart",
@@ -214,6 +230,7 @@
     "tablet": "Tablet",
     "other": "Other"
   },
+
   "productsPage": {
     "backToProducts": "Back to Products",
     "description": "Description",
@@ -236,8 +253,16 @@
     "featured": "Featured",
     "coins": "USDT",
     "view": "View",
-    "add": "Add"
+    "add": "Add",
+    "verifyIdentity": "Verify your identity!",
+    "yourPhoneNumber": "Your phone number",
+    "enterPhoneNumber": "Enter your phone number...",
+    "yourSocialLink": "Your social media link",
+    "enterSocialLink": "Enter your social media link...",
+    "submit": "Submit",
+    "cancel": "Cancel"
   },
+
   "referralsPage": {
     "pleaseLogin": "Please log in to view referrals.",
     "referralKeyMissing": "Error: Referral key is missing.",
@@ -250,6 +275,7 @@
     "noReferralFriends": "No referral friends found.",
     "UserLevel": "User Level"
   },
+
   "earningsPage": {
     "title": "Price",
     "enterAmount": "Enter the USDT amount below to top up your USDT!",
@@ -315,7 +341,10 @@
     "uploadSuccessMessage": "Your document or cardholder name has been submitted and is being processed.",
     "closeWarning": "Close warning modal",
     "or": "or",
-    "uploadFile": "Upload file"
+    "uploadFile": "Upload file",
+    "claimNow": "Claim now",
+    "noBonusData": "No daily bonus data found.",
+    "noMonthlyTariff": "You do not have a monthly tariff."
   },
 
   "landing": {

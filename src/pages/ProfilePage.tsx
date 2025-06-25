@@ -123,7 +123,7 @@ const ProfilePage: React.FC = () => {
           {t("common.profile")}
         </h1>
         <p className="text-gray-600 dark:text-gray-100">
-          Manage your account information and settings
+          {t("profile.manageAccountInfo")}
         </p>
       </div>
 
@@ -317,21 +317,22 @@ const ProfilePage: React.FC = () => {
         <div className="w-full h-screen fixed top-[-20px] backdrop-blur left-0 flex items-center justify-center bg-white/70 z-50 dark:bg-gray-900/0 dark:text-white">
           <div className="w-[90%] sm:w-[400px] h-auto border dark:border-gray-500 rounded-md bg-white dark:bg-transparent p-4 sm:p-5">
             <h1 className="text-lg sm:text-xl font-semibold w-full flex items-center mb-4 sm:mb-5 justify-between">
-              Change your password
+              {t("profile.changePasswordTitle")}
               <X onClick={() => setISModal(false)} className="cursor-pointer" />
             </h1>
             <form
               onSubmit={changePassword}
               className="flex w-full flex-col gap-4 items-start"
             >
+              {/* Eski parol */}
               <label className="flex w-full flex-col gap-2 items-start">
-                <span className="text-sm">Eski parolni kiriting*</span>
+                <span className="text-sm">{t("profile.enterOldPassword")}</span>
                 <div className="relative w-full flex items-center gap-2">
                   <input
                     type={showOld ? "text" : "password"}
                     name="oldPassword"
                     className="w-full p-[6px] rounded-[6px] placeholder:text-sm outline-none px-2 bg-transparent dark:text-white text-black border dark:border-gray-500"
-                    placeholder="Eski parolni kiritng..."
+                    placeholder={t("profile.oldPasswordPlaceholder")}
                   />
                   <span
                     className="absolute right-3 cursor-pointer"
@@ -342,14 +343,15 @@ const ProfilePage: React.FC = () => {
                 </div>
               </label>
 
+              {/* Yangi parol */}
               <label className="flex w-full flex-col gap-2 items-start">
-                <span className="text-sm">Yangi parolni kiriting*</span>
+                <span className="text-sm">{t("profile.enterNewPassword")}</span>
                 <div className="relative w-full flex items-center gap-2">
                   <input
                     type={showNew ? "text" : "password"}
                     name="newPassword"
                     className="w-full p-[6px] rounded-[6px] placeholder:text-sm outline-none px-2 bg-transparent dark:text-white text-black border dark:border-gray-500"
-                    placeholder="Yangi parolni kiritng..."
+                    placeholder={t("profile.newPasswordPlaceholder")}
                   />
                   <span
                     className="absolute right-3 cursor-pointer"
@@ -360,14 +362,17 @@ const ProfilePage: React.FC = () => {
                 </div>
               </label>
 
+              {/* Tasdiqlash */}
               <label className="flex w-full flex-col gap-2 items-start">
-                <span className="text-sm">Yangi parolni tasdiqlang*</span>
+                <span className="text-sm">
+                  {t("profile.confirmNewPassword")}
+                </span>
                 <div className="relative w-full flex items-center gap-2">
                   <input
                     type={showConfirm ? "text" : "password"}
                     name="confirmPassword"
                     className="w-full p-[6px] rounded-[6px] placeholder:text-sm outline-none px-2 bg-transparent dark:text-white text-black border dark:border-gray-500"
-                    placeholder="Yangi parolni tasdiqlang..."
+                    placeholder={t("profile.confirmPasswordPlaceholder")}
                   />
                   <span
                     className="absolute right-3 cursor-pointer"
@@ -378,11 +383,12 @@ const ProfilePage: React.FC = () => {
                 </div>
               </label>
 
+              {/* Submit tugmasi */}
               <button
                 type="submit"
                 className="flex items-center gap-2 mx-auto border dark:border-gray-500 px-6 py-2 text-sm rounded-[6px]"
               >
-                Send <Send size={15} />
+                {t("profile.sendButton")} <Send size={15} />
               </button>
             </form>
           </div>

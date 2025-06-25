@@ -101,23 +101,16 @@
     "changePassword": "Құпия сөзді өзгерту",
     "notifications": "Хабарландырулар",
     "language": "Тіл",
-    "theme": "Тақырып"
-  },
-  "earnings": {
-    "dailyEarnings": "Күнделікті табыс",
-    "monthlyEarnings": "Айлық табыс",
-    "totalEarnings": "Жалпы табыс",
-    "earningsHistory": "Табыс тарихы",
-    "date": "Күні",
-    "amount": "Сома",
-    "source": "Көзі"
-  },
-  "referrals": {
-    "invitedFriends": "Шақырылған достар",
-    "totalReferrals": "Барлық рефералдар",
-    "pendingPayments": "Күтіп тұрған төлемдер",
-    "paidReferrals": "Төленген рефералдар",
-    "bonusEarned": "Табылған бонус",
+    "theme": "Тақырып",
+    "changePasswordTitle": "Құпиясөзді өзгерту",
+    "enterOldPassword": "Ескі құпиясөзді енгізіңіз*",
+    "oldPasswordPlaceholder": "Ескі құпиясөзді енгізіңіз...",
+    "enterNewPassword": "Жаңа құпиясөзді енгізіңіз*",
+    "newPasswordPlaceholder": "Жаңа құпиясөзді енгізіңіз...",
+    "confirmNewPassword": "Жаңа құпиясөзді растаңыз*",
+    "confirmPasswordPlaceholder": "Жаңа құпиясөзді растаңыз...",
+    "sendButton": "Жіберу",
+    "manageAccountInfo": "Тіркелгі ақпараты мен баптауларын басқарыңыз",
     "referralLink": "Сіздің реферал сілтемеңіз",
     "shareOnTelegram": "Telegram-да бөлісу",
     "shareOnWhatsApp": "WhatsApp-та бөлісу",
@@ -238,7 +231,14 @@
     "featured": "Таңдаулы",
     "coins": "USDT",
     "view": "Көру",
-    "add": "Қосу"
+    "add": "Қосу",
+    "verifyIdentity": "Жеке басыңызды растаңыз!",
+    "yourPhoneNumber": "Сіздің телефон нөміріңіз",
+    "enterPhoneNumber": "Телефон нөміріңізді енгізіңіз...",
+    "yourSocialLink": "Әлеуметтік желідегі сілтеме",
+    "enterSocialLink": "Әлеуметтік желі сілтемесін енгізіңіз...",
+    "cancel": "Бас тарту",
+    "submit": "Жіберу"
   },
   "referralsPage": {
     "pleaseLogin": "Рефералдарды көру үшін алдымен кіріңіз.",
@@ -299,8 +299,12 @@
     "paymentInstruction": "Жоғарыдағы карта нөміріне белгіленген уақыт ішінде төлем жасаңыз.",
     "noRefreshWarning": "Назар аударыңыз! Бетті жаңартпаңыз немесе жаппаңыз.",
     "confirmPayment": "Мен төледім",
-    "loadingPaymentInfo": "Төлем туралы ақпарат жүктелуде..."
+    "loadingPaymentInfo": "Төлем туралы ақпарат жүктелуде...",
+    "claimNow": "Қазір алу",
+    "noBonusData": "Бүгінгі бонус туралы мәлімет табылмады.",
+    "noMonthlyTariff": "Сізде айлық тариф жоқ."
   },
+
   "landing": {
     "welcome": "Қош келдіңіз",
     "platform": "MLM PLATFORM",
@@ -341,12 +345,14 @@
     "cookiePolicy": "Cookie саясаты",
     "copyright": "Барлық құқықтар қорғалған."
   },
+
   "trading": {
     "dashboard": "Басқару панелі",
     "purchaseCoins": "USDT сатып алу",
     "selectCurrency": "Сізге ыңғайлы валютаны таңдаңыз.",
     "totalValue": "Жалпы құны"
   },
+
   "historyPage": {
     "bonuses": "Бонустар",
     "bonusesFromReferrals": "Рефералдардан алынған бонустар",
@@ -406,6 +412,7 @@
     "active": "Белсенді",
     "completed": "Аяқталды"
   },
+
   "AuthCallback": {
     "token_not_found": "Токен табылмады",
     "login_success": "Жүйеге сәтті кірдіңіз!",

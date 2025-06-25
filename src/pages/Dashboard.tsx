@@ -124,9 +124,9 @@ const Dashboard: React.FC = () => {
       }
     } catch (error) {
       console.error("BONUS ERROR:", error);
-      toast.error(
-        t("dashboard.bonusError") || "Bonusni olishda xatolik yuz berdi."
-      );
+      // toast.error(
+      //   t("dashboard.bonusError") || "Bonusni olishda xatolik yuz berdi."
+      // );
     }
   };
 
@@ -302,7 +302,7 @@ const Dashboard: React.FC = () => {
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-6 w-full">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 h-full">
-            <div className="dark:border-gray-700 lg:p-6 sm:p-3 flex-1 overflow-auto max-h-[330px]">
+            <div className="dark:border-gray-700 lg:p-6 sm:p-3 flex-1 overflow-auto max-h-[330px] p-5">
               <h2 className="text-lg font-bold text-gray-900 pt-3s dark:text-white mb-4">
                 {t("dashboard.Statistics")}
               </h2>
@@ -422,6 +422,7 @@ const Dashboard: React.FC = () => {
           })}
         </div>
       </div>
+
       {isOpen && (
         <div className="w-full h-screen fixed flex top-0 items-center justify-center bg-white/50 backdrop-blur-md left-0">
           <div className="w-[400px] flex flex-col gap-5 border shadow-md h-[350px] rounded-md p-5 bg-white">

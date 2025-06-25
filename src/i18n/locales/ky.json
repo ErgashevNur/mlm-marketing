@@ -101,7 +101,16 @@
     "changePassword": "Сырсөздү өзгөртүү",
     "notifications": "Билдирүүлөр",
     "language": "Тил",
-    "theme": "Тема"
+    "theme": "Тема",
+    "changePasswordTitle": "Сырсөздү өзгөртүү",
+    "enterOldPassword": "Эски сырсөздү киргизиңиз*",
+    "oldPasswordPlaceholder": "Эски сырсөздү киргизиңиз...",
+    "enterNewPassword": "Жаңы сырсөздү киргизиңиз*",
+    "newPasswordPlaceholder": "Жаңы сырсөздү киргизиңиз...",
+    "confirmNewPassword": "Жаңы сырсөздү ырастоо*",
+    "confirmPasswordPlaceholder": "Жаңы сырсөздү ырастоо...",
+    "sendButton": "Жөнөтүү",
+    "manageAccountInfo": "Эсеп жазууңуздун маалыматын жана жөндөөлөрүн башкарыңыз"
   },
   "earnings": {
     "dailyEarnings": "Күндүк киреше",
@@ -238,7 +247,14 @@
     "featured": "Тандалган",
     "coins": "USDT",
     "view": "Көрүү",
-    "add": "Кошуу"
+    "add": "Кошуу",
+    "verifyIdentity": "Шахсиятыңызды ырастоо!",
+    "yourPhoneNumber": "Сиздин телефон номериңиз",
+    "enterPhoneNumber": "Телефон номериңизди киргизиңиз...",
+    "yourSocialLink": "Сиздин социалдык тармак шилтемеңиз",
+    "enterSocialLink": "Социалдык тармак шилтемесин киргизиңиз...",
+    "submit": "Жөнөтүү",
+    "cancel": "Жокко чыгаруу"
   },
   "referralsPage": {
     "pleaseLogin": "Рефералдарды көрүү үчүн кирүүңүз керек.",
@@ -299,7 +315,10 @@
     "paymentInstruction": "Жогорудагы карта номерине белгиленген убакыт ичинде төлөм жасаңыз.",
     "noRefreshWarning": "Көңүл буруңуз! Баракчаны жаңыртпаңыз же жаппаңыз.",
     "confirmPayment": "Мен төлөдүм",
-    "loadingPaymentInfo": "Төлөм маалыматтары жүктөлүүдө..."
+    "loadingPaymentInfo": "Төлөм маалыматтары жүктөлүүдө...",
+    "claimNow": "Азыр алуу",
+    "noBonusData": "Бүгүнкү бонус боюнча маалымат табылган жок.",
+    "noMonthlyTariff": "Сизде айлык тариф жок."
   },
   "landing": {
     "welcome": "Кош келдиңиз",
@@ -341,12 +360,14 @@
     "cookiePolicy": "Cookie саясаты",
     "copyright": "Бардык укуктар корголгон."
   },
+
   "trading": {
     "dashboard": "Башкаруу панели",
     "purchaseCoins": "USDT сатып алуу",
     "selectCurrency": "Сизге ыңгайлуу валюта тандаңыз.",
     "totalValue": "Жалпы сумма"
   },
+
   "historyPage": {
     "bonuses": "Бонустар",
     "bonusesFromReferrals": "Рефералдардан алынган бонустар",
@@ -406,6 +427,7 @@
     "active": "Активдүү",
     "completed": "Аяктады"
   },
+
   "AuthCallback": {
     "token_not_found": "Токен табылган жок",
     "login_success": "Системага ийгиликтүү кирдиңиз!",

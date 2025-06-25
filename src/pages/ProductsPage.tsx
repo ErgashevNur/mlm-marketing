@@ -250,28 +250,30 @@ const ProductsPage: React.FC = () => {
         {orderModal && (
           <div className="w-[420px] h-[350px] border border-gray-200 dark:border-gray-700 absolute inset-0 top-60 left-1/2 -translate-x-1/2 p-6 rounded-2xl shadow-xl bg-white dark:bg-slate-900 text-gray-900 dark:text-white">
             <h1 className="flex items-center gap-3 text-2xl font-semibold mb-6">
-              Shaxsingizni tasdiqlang!
+              {t("productsPage.verifyIdentity")}
             </h1>
             <form onSubmit={ordered} className="space-y-5">
               <div className="flex flex-col gap-2">
-                <label className="font-medium">Telefon raqamingiz</label>
+                <label className="font-medium">
+                  {t("productsPage.yourPhoneNumber")}
+                </label>
                 <input
                   type="number"
                   name="contactNumber"
                   className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Telefon raqamingizni kiriting..."
+                  placeholder={t("productsPage.enterPhoneNumber")}
                   required
                 />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="font-medium">
-                  Ijtimoiy tarmoq manzilingiz
+                  {t("productsPage.yourSocialLink")}
                 </label>
                 <input
                   type="text"
                   name="contactLink"
                   className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Manzilingizni kiriting..."
+                  placeholder={t("productsPage.enterSocialLink")}
                   required
                 />
               </div>
@@ -280,14 +282,14 @@ const ProductsPage: React.FC = () => {
                   type="submit"
                   className="w-full bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold py-2 rounded-lg shadow-sm"
                 >
-                  Yuborish
+                  {t("productsPage.submit")}
                 </button>
                 <button
-                  type="submit"
+                  type="button"
                   onClick={() => setOrderModal(false)}
                   className="w-full bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold py-2 rounded-lg shadow-sm"
                 >
-                  Bekor qilish
+                  {t("productsPage.cancel")}
                 </button>
               </div>
             </form>

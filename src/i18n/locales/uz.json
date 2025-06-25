@@ -103,7 +103,16 @@
     "changePassword": "Parolni o'zgartirish",
     "notifications": "Bildirishnomalar",
     "language": "Til",
-    "theme": "Mavzu"
+    "theme": "Mavzu",
+    "changePasswordTitle": "Parolingizni o‘zgartiring",
+    "enterOldPassword": "Eski parolni kiriting*",
+    "oldPasswordPlaceholder": "Eski parolni kiriting...",
+    "enterNewPassword": "Yangi parolni kiriting*",
+    "newPasswordPlaceholder": "Yangi parolni kiriting...",
+    "confirmNewPassword": "Yangi parolni tasdiqlang*",
+    "confirmPasswordPlaceholder": "Yangi parolni tasdiqlang...",
+    "sendButton": "Yuborish",
+    "manageAccountInfo": "Hisob maʼlumotlari va sozlamalarni boshqaring"
   },
 
   "earnings": {
@@ -244,7 +253,14 @@
     "featured": "Tavsiya etilgan",
     "coins": "USDT",
     "view": "Ko'rish",
-    "add": "Qo'shish"
+    "add": "Qo'shish",
+    "verifyIdentity": "Shaxsingizni tasdiqlang!",
+    "yourPhoneNumber": "Telefon raqamingiz",
+    "enterPhoneNumber": "Telefon raqamingizni kiriting...",
+    "yourSocialLink": "Ijtimoiy tarmoq manzilingiz",
+    "enterSocialLink": "Manzilingizni kiriting...",
+    "submit": "Yuborish",
+    "cancel": "Bekor qilish"
   },
 
   "referralsPage": {
@@ -308,7 +324,10 @@
     "paymentInstruction": "Iltimos, yuqoridagi karta raqamiga belgilangan vaqt ichida to‘lovni amalga oshiring.",
     "noRefreshWarning": "Diqqat! Sahifani yangilamang yoki yopmang.",
     "confirmPayment": "To‘lov amalga oshirildi",
-    "loadingPaymentInfo": "To‘lov ma'lumotlari yuklanmoqda..."
+    "loadingPaymentInfo": "To‘lov ma'lumotlari yuklanmoqda...",
+    "claimNow": "Hozir olish",
+    "noBonusData": "Bugungi bonus ma'lumotlari topilmadi.",
+    "noMonthlyTariff": "Sizda oylik tarif mavjud emas."
   },
 
   "landing": {
@@ -419,6 +438,7 @@
     "active": "Faol",
     "completed": "Tugallangan"
   },
+  
   "AuthCallback": {
     "token_not_found": "Token topilmadi",
     "login_success": "Tizimga muvaffaqiyatli kirdingiz!",

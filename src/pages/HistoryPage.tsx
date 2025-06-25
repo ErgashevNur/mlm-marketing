@@ -102,10 +102,7 @@ export default function BonusHistory() {
       const data = await response.json();
       setHistoryUser(data);
     } catch (error) {
-      toast.error(
-        "Bonus history olishda xatolik: " +
-          (error instanceof Error ? error.message : String(error))
-      );
+      toast.error(t("AuthCallback.error_occurred"));
       return null;
     }
   };
@@ -132,10 +129,7 @@ export default function BonusHistory() {
       const data = await response.json();
       setHistoryReferal(data);
     } catch (error) {
-      toast.error(
-        "Bonus history olishda xatolik: " +
-          (error instanceof Error ? error.message : String(error))
-      );
+      toast.error(t("AuthCallback.error_occurred"));
       return null;
     }
   };
@@ -162,10 +156,7 @@ export default function BonusHistory() {
       const data = await response.json();
       setHistoryProducts(data);
     } catch (error) {
-      toast.error(
-        "Bonus history olishda xatolik: " +
-          (error instanceof Error ? error.message : String(error))
-      );
+      toast.error(t("AuthCallback.error_occurred"));
       return null;
     }
   };
@@ -192,10 +183,7 @@ export default function BonusHistory() {
       const data = await response.json();
       setHistoryPlans(data);
     } catch (error) {
-      toast.error(
-        "Bonus history olishda xatolik: " +
-          (error instanceof Error ? error.message : String(error))
-      );
+      toast.error(t("AuthCallback.error_occurred"));
       return null;
     }
   };

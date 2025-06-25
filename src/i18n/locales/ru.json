@@ -100,7 +100,16 @@
     "changePassword": "Изменить пароль",
     "notifications": "Уведомления",
     "language": "Язык",
-    "theme": "Тема"
+    "theme": "Тема",
+    "sendButton": "Отправить",
+    "changePasswordTitle": "Изменить пароль",
+    "enterOldPassword": "Введите старый пароль*",
+    "oldPasswordPlaceholder": "Введите старый пароль...",
+    "enterNewPassword": "Введите новый пароль*",
+    "newPasswordPlaceholder": "Введите новый пароль...",
+    "confirmNewPassword": "Подтвердите новый пароль*",
+    "confirmPasswordPlaceholder": "Подтвердите новый пароль...",
+    "manageAccountInfo": "Управляйте информацией и настройками аккаунта"
   },
   "earnings": {
     "dailyEarnings": "Дневной заработок",
@@ -235,7 +244,14 @@
     "featured": "Рекомендуемое",
     "coins": "USDT",
     "view": "Просмотр",
-    "add": "Добавить"
+    "add": "Добавить",
+    "verifyIdentity": "Подтвердите свою личность!",
+    "yourPhoneNumber": "Ваш номер телефона",
+    "enterPhoneNumber": "Введите номер телефона...",
+    "yourSocialLink": "Ссылка на вашу соцсеть",
+    "enterSocialLink": "Введите ссылку на соцсеть...",
+    "submit": "Отправить",
+    "cancel": "Отмена"
   },
   "referralsPage": {
     "pleaseLogin": "Пожалуйста, войдите, чтобы просматривать рефералов.",
@@ -297,7 +313,10 @@
     "paymentInstruction": "Пожалуйста, следуйте инструкциям для завершения оплаты.",
     "noRefreshWarning": "Не обновляйте эту страницу!",
     "confirmPayment": "Подтвердить оплату",
-    "loadingPaymentInfo": "Загрузка информации о платеже..."
+    "loadingPaymentInfo": "Загрузка информации о платеже...",
+    "claimNow": "Получить сейчас",
+    "noBonusData": "Данные о ежедневном бонусе не найдены.",
+    "noMonthlyTariff": "У вас нет месячного тарифа."
   },
   "landing": {
     "welcome": "Добро пожаловать в",
@@ -339,12 +358,14 @@
     "cookiePolicy": "Политика использования файлов cookie",
     "copyright": "Все права защищены."
   },
+
   "trading": {
     "dashboard": "Панель",
     "purchaseCoins": "Купить USDT",
     "selectCurrency": "Выберите USDT",
     "totalValue": "Итоговая сумма"
   },
+
   "historyPage": {
     "bonuses": "Бонусы",
     "bonusesFromReferrals": "Бонусы от рефералов",
@@ -404,6 +425,7 @@
     "active": "Активный",
     "completed": "Завершено"
   },
+
   "AuthCallback": {
     "token_not_found": "Токен не найден",
     "login_success": "Успешно вошли в систему!",
