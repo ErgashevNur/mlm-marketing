@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Users, Gift, Headset } from "lucide-react";
+import { Users, Gift, Headset, X } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import StatCard from "../components/StatCard";
 import { toast } from "sonner";
@@ -379,31 +379,6 @@ const Dashboard: React.FC = () => {
               ))}
             </div>
           </div>
-
-          {/* Statistika */}
-          {/* <div className="scroll-container bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 flex-1 overflow-auto max-h-[330px]">
-            <div className="grid gap-3">
-              {statistika.map((data: any, index: number) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-xl px-4 py-3 shadow-sm hover:shadow-md transition"
-                >
-                  <span className="text-sm sm:text-base font-medium text-gray-800 dark:text-gray-100 truncate max-w-[50%]">
-                    {maskEmail(data.email)}
-                  </span>
-                  <span className="flex items-center gap-2 text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200">
-                    {data.coin}
-                    <img
-                      src="/CoinLogo.png"
-                      alt="coin"
-                      className="w-5 h-5 object-contain"
-                    />
-                    <span className="hidden sm:inline">USDT</span>
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div> */}
         </div>
       </div>
 
@@ -450,35 +425,58 @@ const Dashboard: React.FC = () => {
       {isOpen && (
         <div className="w-full h-screen fixed flex top-0 items-center justify-center bg-white/50 backdrop-blur-md left-0">
           <div className="w-[400px] flex flex-col gap-5 border shadow-md h-[350px] rounded-md p-5 bg-white">
+            {/* Daily Bonus Header */}
+            <div className="flex items-center justify-between bg-gradient-to-r from-blue-500 to-purple-600 text-white p-3 rounded-md mb-4">
+              <div className="flex w-full items-center justify-between gap-2">
+                <h2 className="text-xl font-bold">🎁 Daily Bonus</h2>
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                  }}
+                >
+                  <X />
+                </button>
+              </div>
+            </div>
+
+            {/* Plans and Rewards */}
             {dailyBonus?.daily?.map((el, index) => (
               <div
                 key={index}
-                className="w-full flex items-center justify-between"
+                className="w-full flex shadow-md py-2 px-2 items-center justify-between"
               >
-                <h1 className="text-xl font-bold">{el.tariff_name[0].name}</h1>
-                <span className="text-yellow-400 font-bold">
+                <div className="flex items-center gap-2">
+                  <div>
+                    <h1 className="text-xl font-bold">
+                      {el.tariff_name[0].name}
+                    </h1>
+                  </div>
+                </div>
+                <span className="text-yellow-500 font-bold">
                   {el.dailyProfit}
                 </span>
               </div>
             ))}
 
-            {/* Umumiy bonusni chiqarish qismi */}
+            {/* Claim Button and Total Bonus */}
             <div className="w-full flex items-center justify-between border-t pt-3 mt-auto">
               <button
                 onClick={() => {
                   handleClaimBonuss();
                   setIsOpen(false);
                 }}
-                className="text-lg font-semibold border px-10 py-2 rounded-md"
+                className="flex items-center gap-2 text-lg font-semibold bg-green-500 text-white px-10 py-2 rounded-md hover:bg-green-600"
               >
                 {t("dashboard.claimNow")}
               </button>
-              <span className="text-green-600 text-xl font-bold">
-                {dailyBonus?.daily?.reduce(
-                  (acc, el) => acc + Number(el.dailyProfit),
-                  0
-                )}
-              </span>
+              <div className="flex flex-col items-end">
+                <span className="text-green-600 text-xl font-bold">
+                  {dailyBonus?.daily?.reduce(
+                    (acc, el) => acc + Number(el.dailyProfit),
+                    0
+                  )}
+                </span>
+              </div>
             </div>
           </div>
         </div>
