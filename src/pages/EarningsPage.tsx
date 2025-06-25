@@ -119,7 +119,7 @@ const EarningsPage: React.FC = () => {
       setCardNum(data.cardNumber);
       setPaymentId(data.paymentId);
       setIsModalOpen(true);
-      setTimeLeft(300); // Reset timer to 5 minutes
+      setTimeLeft(600); // Reset timer to 5 minutes
       setWarn(false);
       if (Notification.permission === "granted") {
         new Notification(data.paymentId, {
