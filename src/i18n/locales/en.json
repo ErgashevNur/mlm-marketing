@@ -276,8 +276,47 @@
     "warnTitle": "Please do not leave the page",
     "warnSubtitle": "The process of submitting card information is in progress, this may take a few minutes.",
     "warnAutoMessage": "A message from the admin will arrive automatically, please wait",
-    "SelectCurr": "Select"
+    "SelectCurr": "Select",
+    "tokenNotFound": "Authentication token not found",
+    "errorFetchingCurrency": "Failed to fetch currency data",
+    "errorFetchingData": "Failed to fetch payment data",
+    "errorFetchingCoinData": "Failed to fetch coin data",
+    "provideAmountAndCurrency": "Please provide both amount and currency",
+    "invalidCryptoAmount": "Invalid cryptocurrency amount or address",
+    "invalidAmount": "Please enter a valid amount",
+    "socketNotConnected": "Connection to server failed",
+    "paymentVerification": "Payment Verification",
+    "paymentCard": "Payment Card",
+    "paymentInstruction": "Please complete the payment within the given time, otherwise the transaction will be canceled!",
+    "noRefreshWarning": "Do not refresh this page, or you will need to restart the transaction!",
+    "confirmPayment": "I have made the payment",
+    "loadingPaymentInfo": "Loading payment information...",
+    "copyCard": "Copy card number",
+    "cardCopied": "Card number copied to clipboard",
+    "noCardNumber": "No card number available to copy",
+    "copyError": "Failed to copy card number",
+    "invalidFileType": "Please upload a PNG, JPG, or PDF file",
+    "provideFileOrName": "Please provide a file or cardholder name",
+    "imageUrlNotFound": "Failed to retrieve uploaded file URL",
+    "errorSendingData": "Failed to send data",
+    "dataSentSuccessfully": "Data sent successfully",
+    "dataUploadError": "Error uploading data",
+    "uploadReceipt": "Upload Receipt",
+    "removeFile": "Remove file",
+    "dropFile": "Drop your file here",
+    "dragDropFile": "Drag & drop your file",
+    "fileTypes": "or click to browse (JPG, PNG, PDF)",
+    "cardholderName": "Cardholder Name",
+    "cardholderPlaceholder": "Enter cardholder's name",
+    "submitDocument": "Submit Document or Name",
+    "uploading": "Uploading...",
+    "uploadSuccess": "Upload Successful!",
+    "uploadSuccessMessage": "Your document or cardholder name has been submitted and is being processed.",
+    "closeWarning": "Close warning modal",
+    "or": "or",
+    "uploadFile": "Upload file"
   },
+
   "landing": {
     "welcome": "Welcome to",
     "platform": "MLM PLATFORM",
@@ -318,12 +357,14 @@
     "cookiePolicy": "Cookie Policy",
     "copyright": "All rights reserved."
   },
+
   "trading": {
     "dashboard": "Dashboard",
     "purchaseCoins": "Purchase USDT",
     "selectCurrency": "Choose the currency that is convenient for you.",
     "totalValue": "Total Value"
   },
+
   "historyPage": {
     "bonuses": "Bonuses",
     "bonusesFromReferrals": "Bonuses received from referrals",
