@@ -252,10 +252,20 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
                     {t("plans.reyting")}{" "}
                   </h3>
                 </div>
-                {[...Array(Math.floor(plan.rating))].map((_, i) => (
-                  <span key={i}>⭐</span>
-                ))}
-                <span className="text-xs ml-5">
+                <div className="flex items-center">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i}>
+                      <Star
+                        className={`w-5 h-5 ${
+                          i < Math.floor(plan?.rating ?? 0)
+                            ? "text-yellow-400 fill-current"
+                            : "text-gray-300 dark:text-gray-600"
+                        }`}
+                      />
+                    </span>
+                  ))}
+                </div>
+                <span className="text-xs">
                   ({plan.review} {t("plans.review")})
                 </span>
               </div>
