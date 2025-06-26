@@ -2,8 +2,6 @@ import React from "react";
 import { X, Calendar, Gift, FileText, Target, Star } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { FcStatistics } from "react-icons/fc";
-import { SiStatista } from "react-icons/si";
 import { LuChartNoAxesCombined } from "react-icons/lu";
 
 interface Translation {
@@ -50,7 +48,7 @@ const PlanModal: React.FC<PlanModalProps> = ({ plan, isOpen, onClose }) => {
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("https://mlm-backend.pixl.uz/orders", {
+      const response = await fetch(`${import.meta.env.VITE_API_KEY}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

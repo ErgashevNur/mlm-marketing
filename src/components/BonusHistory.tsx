@@ -30,7 +30,7 @@ export default function BonusHistory() {
 
   const getCurrencies = async () => {
     try {
-      const response = await fetch("https://mlm-backend.pixl.uz/suport");
+      const response = await fetch(`${import.meta.env.VITE_API_KEY}/suport`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch currency data");
@@ -53,7 +53,7 @@ export default function BonusHistory() {
 
     try {
       const response = await fetch(
-        "https://mlm-backend.pixl.uz/bonus-history/user",
+        `${import.meta.env.VITE_API_KEY}/bonus-history/user`,
         {
           method: "GET",
           headers: {
@@ -82,7 +82,7 @@ export default function BonusHistory() {
 
     try {
       const response = await fetch(
-        "https://mlm-backend.pixl.uz/bonus-history/referal",
+        `${import.meta.env.VITE_API_KEY}/bonus-history/referal`,
         {
           method: "GET",
           headers: {
@@ -109,7 +109,7 @@ export default function BonusHistory() {
 
     try {
       const response = await fetch(
-        "https://mlm-backend.pixl.uz/product-history/user",
+        `${import.meta.env.VITE_API_KEY}/product-history/user`,
         {
           method: "GET",
           headers: {
@@ -136,7 +136,7 @@ export default function BonusHistory() {
 
     try {
       const response = await fetch(
-        "https://mlm-backend.pixl.uz/tariff-history/user",
+        `${import.meta.env.VITE_API_KEY}/tariff-history/user`,
         {
           method: "GET",
           headers: {
@@ -329,92 +329,98 @@ export default function BonusHistory() {
               md:absolute md:left-0 md:top-full`}
             >
               <div className="text-sm flex flex-col gap-5 text-gray-800 dark:text-gray-100 max-h-[500px] overflow-auto">
-                {historyProducts.map((order) => (
-                  <div
-                    key={order.id}
-                    className="border dark:border-gray-700 rounded-xl p-5 bg-white dark:bg-gray-900 shadow-sm space-y-4 w-full max-w-3xl mx-auto"
-                  >
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                      <div>
-                        <h2 className="font-semibold text-lg text-gray-900 dark:text-white">
-                          {order.user.name}
-                        </h2>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {order.user.email}
-                        </p>
-                      </div>
-                      <span
-                        className={`text-[10px] px-2 py-1 rounded-full font-medium ${
-                          order.isChecked === "pending"
-                            ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-800/10 dark:text-yellow-300"
-                            : "bg-green-100 text-green-800 dark:bg-green-800/10 dark:text-green-300"
-                        }`}
-                      >
-                        {order.isChecked === "pending"
-                          ? t("BonusHistory.pending")
-                          : order.isChecked}
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
-                      <div className="flex items-center gap-1">
-                        <p className="text-gray-500 dark:text-gray-400">
-                          {t("BonusHistory.id")}:
-                        </p>
-                        <p>{order.main_products.id}</p>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <p>⭐ {order.main_products.rating}</p>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <p className="text-gray-500 dark:text-gray-400">
-                          {t("BonusHistory.quantity")}:
-                        </p>
-                        <p>{order.main_products.count}</p>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <p className="text-gray-500 dark:text-gray-400">
-                          {t("BonusHistory.reviews")}:
-                        </p>
-                        <p>{order.main_products.rewiev}</p>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <p className="text-gray-500 dark:text-gray-400">
-                          {t("BonusHistory.amount")}:
-                        </p>
-                        <p>{order.main_products.coin} 🪙</p>
-                      </div>
-                    </div>
-                    <div className="flex flex-col gap-2 text-sm text-gray-700 dark:text-gray-300">
-                      <div className="flex items-center gap-2">
-                        <PhoneCall
-                          size={16}
-                          className="text-gray-500 dark:text-gray-400"
-                        />
-                        <span>{order.contactNumber}</span>
-                      </div>
-                      <div className="flex items-center gap-2 break-all">
-                        <Link
-                          size={16}
-                          className="text-gray-500 dark:text-gray-400"
-                        />
-                        <a
-                          href={order.contactLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 dark:text-blue-400 hover:underline"
+                {historyProducts.length === 0 ? (
+                  <div className="text-center text-gray-500 dark:text-gray-400">
+                    <p>{t("BonusHistory.notFound")}</p>
+                  </div>
+                ) : (
+                  historyProducts.map((order) => (
+                    <div
+                      key={order.id}
+                      className="border dark:border-gray-700 rounded-xl p-5 bg-white dark:bg-gray-900 shadow-sm space-y-4 w-full max-w-3xl mx-auto"
+                    >
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <div>
+                          <h2 className="font-semibold text-lg text-gray-900 dark:text-white">
+                            {order.user.name}
+                          </h2>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {order.user.email}
+                          </p>
+                        </div>
+                        <span
+                          className={`text-[10px] px-2 py-1 rounded-full font-medium ${
+                            order.isChecked === "pending"
+                              ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-800/10 dark:text-yellow-300"
+                              : "bg-green-100 text-green-800 dark:bg-green-800/10 dark:text-green-300"
+                          }`}
                         >
-                          {order.contactLink}
-                        </a>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                        <Clock size={14} />
-                        <span>
-                          {new Date(order.orderedAt).toLocaleString()}
+                          {order.isChecked === "pending"
+                            ? t("BonusHistory.pending")
+                            : order.isChecked}
                         </span>
                       </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
+                        <div className="flex items-center gap-1">
+                          <p className="text-gray-500 dark:text-gray-400">
+                            {t("BonusHistory.id")}:
+                          </p>
+                          <p>{order.main_products.id}</p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <p>⭐ {order.main_products.rating}</p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <p className="text-gray-500 dark:text-gray-400">
+                            {t("BonusHistory.quantity")}:
+                          </p>
+                          <p>{order.main_products.count}</p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <p className="text-gray-500 dark:text-gray-400">
+                            {t("BonusHistory.reviews")}:
+                          </p>
+                          <p>{order.main_products.rewiev}</p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <p className="text-gray-500 dark:text-gray-400">
+                            {t("BonusHistory.amount")}:
+                          </p>
+                          <p>{order.main_products.coin} 🪙</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-2 text-sm text-gray-700 dark:text-gray-300">
+                        <div className="flex items-center gap-2">
+                          <PhoneCall
+                            size={16}
+                            className="text-gray-500 dark:text-gray-400"
+                          />
+                          <span>{order.contactNumber}</span>
+                        </div>
+                        <div className="flex items-center gap-2 break-all">
+                          <Link
+                            size={16}
+                            className="text-gray-500 dark:text-gray-400"
+                          />
+                          <a
+                            href={order.contactLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 dark:text-blue-400 hover:underline"
+                          >
+                            {order.contactLink}
+                          </a>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                          <Clock size={14} />
+                          <span>
+                            {new Date(order.orderedAt).toLocaleString()}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </div>
           )}
@@ -441,97 +447,104 @@ export default function BonusHistory() {
               md:absolute md:left-0 md:top-full`}
             >
               <div className="text-sm text-gray-800 dark:text-gray-100 flex flex-col gap-5 max-h-[500px] overflow-auto">
-                {historyPlans.map((plan) => (
-                  <div
-                    key={plan.id}
-                    className="p-4 border-b dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm"
-                  >
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-4">
-                        <img
-                          src={plan.tariff.photo_url}
-                          alt="Tarif rasmi"
-                          className="w-16 h-16 object-cover rounded-md border dark:border-gray-600"
-                        />
+                {historyPlans.length === 0 ? (
+                  <div className="text-center text-gray-500 dark:text-gray-400">
+                    <p>{t("BonusHistory.notFound")}</p>
+                  </div>
+                ) : (
+                  historyPlans.map((plan) => (
+                    <div
+                      key={plan.id}
+                      className="p-4 border-b dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm"
+                    >
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-4">
+                          <img
+                            src={plan.tariff.photo_url}
+                            alt="Tarif rasmi"
+                            className="w-16 h-16 object-cover rounded-md border dark:border-gray-600"
+                          />
+                          <div>
+                            <h3 className="font-semibold text-gray-900 dark:text-white">
+                              Tarif {plan.tariff.translations[0].name}
+                            </h3>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                              {plan.user.name}
+                            </p>
+                          </div>
+                        </div>
+                        <span
+                          className={`inline-block px-3 py-1 rounded-md text-xs font-medium ${
+                            plan.status === true
+                              ? "bg-green-100 text-green-700 dark:bg-green-800/10 dark:text-green-300"
+                              : "bg-red-100 text-red-700 dark:bg-red-800/10 dark:text-red-300"
+                          }`}
+                        >
+                          {plan.status === true
+                            ? t("BonusHistory.active")
+                            : t("BonusHistory.completed")}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 text-sm text-gray-800 dark:text-gray-200">
                         <div>
-                          <h3 className="font-semibold text-gray-900 dark:text-white">
-                            Tarif {plan.tariff.translations[0].name}
-                          </h3>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {plan.user.name}
+                          <p className="text-gray-500 dark:text-gray-400">
+                            {t("BonusHistory.term")}
+                          </p>
+                          <p>
+                            {plan.tariff.term} {t("BonusHistory.days")}
                           </p>
                         </div>
+                        <div>
+                          <p className="text-gray-500 dark:text-gray-400">
+                            {t("BonusHistory.dailyProfit")}
+                          </p>
+                          <p>+{plan.tariff.dailyProfit} USDT</p>
+                        </div>
+                        <div>
+                          <p className="text-gray-500 dark:text-gray-400">
+                            {t("BonusHistory.referralBonus")}
+                          </p>
+                          <p>{plan.tariff.referral_bonus}%</p>
+                        </div>
+                        <div>
+                          <p className="text-gray-500 dark:text-gray-400">
+                            {t("BonusHistory.amount")}
+                          </p>
+                          <p>{plan.tariff.coin} USDT</p>
+                        </div>
                       </div>
-                      <span
-                        className={`inline-block px-3 py-1 rounded-md text-xs font-medium ${
-                          plan.status === true
-                            ? "bg-green-100 text-green-700 dark:bg-green-800/10 dark:text-green-300"
-                            : "bg-red-100 text-red-700 dark:bg-red-800/10 dark:text-red-300"
-                        }`}
-                      >
-                        {plan.status === true
-                          ? t("BonusHistory.active")
-                          : t("BonusHistory.completed")}
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 text-sm text-gray-800 dark:text-gray-200">
-                      <div>
-                        <p className="text-gray-500 dark:text-gray-400">
-                          {t("BonusHistory.term")}
-                        </p>
-                        <p>
-                          {plan.tariff.term} {t("BonusHistory.days")}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-gray-500 dark:text-gray-400">
-                          {t("BonusHistory.dailyProfit")}
-                        </p>
-                        <p>+{plan.tariff.dailyProfit} USDT</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-500 dark:text-gray-400">
-                          {t("BonusHistory.referralBonus")}
-                        </p>
-                        <p>{plan.tariff.referral_bonus}%</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-500 dark:text-gray-400">
-                          {t("BonusHistory.amount")}
-                        </p>
-                        <p>{plan.tariff.coin} USDT</p>
-                      </div>
-                    </div>
-                    <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1 mb-3">
-                      <div className="flex items-center gap-1">
-                        <Clock size={14} />
-                        <span>
-                          {t("BonusHistory.start")}:{" "}
-                          {new Date(plan.start_time).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <CalendarCheck size={14} />
-                        <span>
-                          {t("BonusHistory.end")}:{" "}
-                          {new Date(plan.end_time).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <BadgeCheck size={14} />
-                        <span>
-                          {t("BonusHistory.lastBonus")}:{" "}
-                          {new Date(plan.lastBonusDate).toLocaleString()}
-                        </span>
+                      <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1 mb-3">
+                        <div className="flex items-center gap-1">
+                          <Clock size={14} />
+                          <span>
+                            {t("BonusHistory.start")}:{" "}
+                            {new Date(plan.start_time).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <CalendarCheck size={14} />
+                          <span>
+                            {t("BonusHistory.end")}:{" "}
+                            {new Date(plan.end_time).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <BadgeCheck size={14} />
+                          <span>
+                            {t("BonusHistory.lastBonus")}:{" "}
+                            {new Date(plan.lastBonusDate).toLocaleString()}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </div>
           )}
         </div>
       </div>
+
       <div className="fixed bottom-6 right-6 z-50 group w-16 h-16">
         <div className="w-16 h-16 cursor-pointer flex items-center justify-center bg-blue-600 text-white rounded-full shadow-lg relative z-20">
           <Headset size={28} />
