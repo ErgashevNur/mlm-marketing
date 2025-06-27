@@ -48,7 +48,7 @@ const EarningsPage: React.FC = () => {
   // Fetch socials data
   const getCurrencies = async () => {
     try {
-      const response = await fetch("https://mlm-backend.pixl.uz/suport");
+      const response = await fetch(`${import.meta.env.VITE_API_KEY}/suport`);
       if (!response.ok) {
         throw new Error(t("earningsPage.errorFetchingCurrency"));
       }
@@ -72,7 +72,7 @@ const EarningsPage: React.FC = () => {
       toast.error(t("earningsPage.tokenNotFound"));
       return;
     }
-    fetch("https://mlm-backend.pixl.uz/payments/user", {
+    fetch(`${import.meta.env.VITE_API_KEY}/payments/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const EarningsPage: React.FC = () => {
       toast.error(t("earningsPage.tokenNotFound"));
       return;
     }
-    const socket = io("https://mlm-backend.pixl.uz/", {
+    const socket = io(`${import.meta.env.VITE_API_KEY}/`, {
       auth: { token },
     });
     socketRef.current = socket;
@@ -140,7 +140,7 @@ const EarningsPage: React.FC = () => {
         if (!token) {
           throw new Error(t("earningsPage.tokenNotFound"));
         }
-        const res = await fetch("https://mlm-backend.pixl.uz/coin", {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/coin`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -299,7 +299,7 @@ const EarningsPage: React.FC = () => {
         const formData = new FormData();
         formData.append("file", selectedFile);
         const uploadRes = await fetch(
-          "https://mlm-backend.pixl.uz/upload/single",
+          `${import.meta.env.VITE_API_KEY}/upload/single`,
           {
             method: "POST",
             headers: {
@@ -321,7 +321,7 @@ const EarningsPage: React.FC = () => {
         payload = { ...payload, fullName: cardholderName };
       }
       const scrinshotRes = await fetch(
-        "https://mlm-backend.pixl.uz/payments/scrinshot",
+        `${import.meta.env.VITE_API_KEY}/payments/scrinshot`,
         {
           method: "POST",
           headers: {

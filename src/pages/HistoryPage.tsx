@@ -85,7 +85,7 @@ export default function BonusHistory() {
 
     try {
       const response = await fetch(
-        "https://mlm-backend.pixl.uz/bonus-history/user",
+        `${import.meta.env.VITE_API_KEY}/bonus-history/user`,
         {
           method: "GET",
           headers: {
@@ -112,7 +112,7 @@ export default function BonusHistory() {
 
     try {
       const response = await fetch(
-        "https://mlm-backend.pixl.uz/bonus-history/referal",
+        `${import.meta.env.VITE_API_KEY}/bonus-history/referal`,
         {
           method: "GET",
           headers: {
@@ -139,7 +139,7 @@ export default function BonusHistory() {
 
     try {
       const response = await fetch(
-        "https://mlm-backend.pixl.uz/product-history/user",
+        "/product-history/user",
         {
           method: "GET",
           headers: {

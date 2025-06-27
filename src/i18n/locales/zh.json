@@ -88,7 +88,16 @@
     "bonusNotAvailable": "奖励不可用",
     "bonusNotAvailableFallback": "奖励不可用",
     "activeUsers": "活跃用户",
-    "Statistics": "本周最赚钱参与者排行榜"
+    "Statistics": "本周最赚钱参与者排行榜",
+
+    "daily_bonuses_title": "🎁 您的每日奖励",
+    "daily_bonuses_description": "根据您的套餐，您将获得每日奖励。请在24小时内点击“领取”按钮以激活。",
+    "time_limit_text": "⏳ {{time_limit_value}}期限！",
+    "warning_title": "警告：",
+    "warning_message": "如果您未能在指定时间内领取奖励，它将被取消。",
+    "action_button_text": "领取",
+    "close_button": "关闭",
+    "time_limit_value_24_hours": "24小时"
   },
   "profile": {
     "personalInfo": "个人信息",

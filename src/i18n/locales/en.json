@@ -68,7 +68,7 @@
     "daysRemaining": "days remaining",
     "recentActivity": "Recent Activity",
     "quickActions": "Quick Actions",
-    "dailyBonus": "daily bonus",
+    "dailyBonus": "Daily bonus",
     "browseProducts": "Browse Products",
     "inviteFriends": "Invite Friends",
     "withdrawFunds": "Withdraw Funds",
@@ -90,7 +90,16 @@
     "bonusNotAvailable": "Bonus not available",
     "bonusNotAvailableFallback": "Bonus not available",
     "activeUsers": "Active users",
-    "Statistics": "Ranking of the most profitable participants of the week"
+    "Statistics": "Ranking of the most profitable participants of the week",
+
+    "daily_bonuses_title": "🎁 Your Daily Bonuses",
+    "daily_bonuses_description": "Based on your tariff, you are allocated a daily bonus. To activate it, click the \"Receive\" button within 24 hours.",
+    "time_limit_text": "⏳ {{time_limit_value}} limit!",
+    "warning_title": "Warning:",
+    "warning_message": "If you do not accept the bonus within the specified time, it will be canceled.",
+    "action_button_text": "Receive",
+    "close_button": "Close",
+    "time_limit_value_24_hours": "24 hours"
   },
 
   "profile": {

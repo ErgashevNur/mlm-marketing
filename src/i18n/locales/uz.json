@@ -89,7 +89,16 @@
     "bonusNotAvailable": "Bonus mavjud emas",
     "bonusNotAvailableFallback": "Bonus mavjud emas",
     "activeUsers": "Faol foydalanuvchilar",
-    "Statistics": "Haftaning eng ko‘p foyda ko‘rgan ishtirokchilari reytingi"
+    "Statistics": "Haftaning eng ko‘p foyda ko‘rgan ishtirokchilari reytingi",
+
+    "daily_bonuses_title": "🎁 Kunlik Bonuslaringiz",
+    "daily_bonuses_description": "Tarifingiz asosida sizga kunlik bonus ajratiladi, uni faollashtirish uchun 24 soat ichida «Qabul qilish» tugmasini bosing.",
+    "time_limit_text": "⏳ {{time_limit_value}} muddat!",
+    "warning_title": "Ogohlantirish:",
+    "warning_message": "Agar belgilangan vaqt ichida bonusni qabul qilmasangiz, u bekor qilinadi.",
+    "action_button_text": "Qabul qilish",
+    "close_button": "Yopish",
+    "time_limit_value_24_hours": "24 soat"
   },
 
   "profile": {
