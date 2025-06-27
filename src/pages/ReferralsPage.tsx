@@ -52,7 +52,7 @@ const ReferralsPage: React.FC = () => {
       </div>
     );
   }
-  const referralLink = `${referralKey}ref/${user.id}`;
+  const referralLink = `${referralKey}/ref/${user.id}`;
 
   // Fetch referral friends from API
   useEffect(() => {
