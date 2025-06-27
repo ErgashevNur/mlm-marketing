@@ -206,10 +206,18 @@ const ProductsPage: React.FC = () => {
 
                 <div className="p-4">
                   <h3 className="text-md font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
-                    {product.translations?.[0]?.name}
+                    {
+                      product.translations?.find(
+                        (t) => t.language === localStorage.getItem("i18nextLng")
+                      )?.name
+                    }
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">
-                    {product.translations?.[0]?.description}
+                    {
+                      product.translations?.find(
+                        (t) => t.language === localStorage.getItem("i18nextLng")
+                      )?.description
+                    }
                   </p>
 
                   <div className="mb-3">
