@@ -37,7 +37,7 @@ const Dashboard: React.FC = () => {
         throw new Error(`${req.status} - ${errorText}`);
       }
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(t("AuthCallback.error_occurred"));
     }
   };
 
@@ -54,7 +54,7 @@ const Dashboard: React.FC = () => {
         throw new Error(`Xatolik: ${req.status} - ${errorText}`);
       }
     } catch (error: any) {
-      toast.error("So'rovda xatolik: " + error.message);
+      toast.error(t("AuthCallback.error_occurred"));
     }
   };
 
@@ -91,7 +91,7 @@ const Dashboard: React.FC = () => {
       setTime(data);
 
       if (!Array.isArray(data) || !data[0]) {
-        toast.error("Ma'lumotlar topilmadi.");
+        toast.error(t("AuthCallback.error_occurred"));
         return;
       }
 
@@ -123,7 +123,7 @@ const Dashboard: React.FC = () => {
         );
       }
     } catch (error) {
-      console.error("BONUS ERROR:", error);
+      console.error(t("AuthCallback.error_occurred"));
       // toast.error(
       //   t("dashboard.bonusError") || "Bonusni olishda xatolik yuz berdi."
       // );
@@ -162,7 +162,7 @@ const Dashboard: React.FC = () => {
         );
       }
     } catch (error: any) {
-      toast.error(error.message || "Kutilmagan xatolik");
+      toast.error(t("AuthCallback.error_occurred"));
     } finally {
       setIsLoading(false);
     }
@@ -179,7 +179,7 @@ const Dashboard: React.FC = () => {
       const data = await response.json();
       setSocials(data);
     } catch (error: any) {
-      console.error("Error fetching currency:", error.message);
+      console.error(t("AuthCallback.error_occurred"));
       return null;
     }
   };
@@ -203,7 +203,7 @@ const Dashboard: React.FC = () => {
         throw new Error(`${req.status} - ${errorText}`);
       }
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(t("AuthCallback.error_occurred"));
     }
   };
 

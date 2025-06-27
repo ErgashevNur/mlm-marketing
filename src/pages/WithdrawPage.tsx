@@ -120,7 +120,7 @@ const WithdrawPage: React.FC = () => {
       setWithdrawHistory((prev) => [...prev, obj]);
       // console.log(withdrawHistory);
     } catch (error: any) {
-      toast.error("So'rov yuborishda xatolik: " + error.message);
+      toast.error(t("AuthCallback.error_occurred"));
     }
   };
 
@@ -165,7 +165,7 @@ const WithdrawPage: React.FC = () => {
         const data = await req.json();
         setWithdrawHistory(data);
       } catch (error: any) {
-        toast.error("Error fetching products:", error);
+        toast.error(t("AuthCallback.error_occurred"));
       }
     };
 

@@ -428,6 +428,8 @@
     "order_success": "Тапсырыс сәтті жіберілді!",
     "withdraw_success": "Сұраныс сәтті жіберілді!",
     "next_bonus_time": "Сіз бонусыңызды {{time}} өткен соң ала аласыз",
-    "previous_request_review": "Алдыңғы сұранысыңыз қарастырылып жатыр!"
+    "previous_request_review": "Алдыңғы сұранысыңыз қарастырылып жатыр!",
+    "Referral_link_copied": "Реферал сілтемесі көшірілді!",
+    "Password_updated_successfully": "Құпия сөз сәтті жаңартылды!"
   }
 }

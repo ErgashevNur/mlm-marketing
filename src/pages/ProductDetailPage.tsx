@@ -67,7 +67,7 @@ const ProductDetailPage: React.FC = () => {
           setApiProduct(data);
         }
       } catch (e: any) {
-        toast.error(e.message);
+        toast.error(t("AuthCallback.error_occurred"));
       }
     };
     fetchProduct();

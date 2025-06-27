@@ -63,7 +63,7 @@ const ProfilePage: React.FC = () => {
     const link = `${import.meta.env.VITE_REFERAL_KEY}/referal/${id}`;
     navigator.clipboard.writeText(link);
     setCopied(true);
-    toast.success("Referral link nusxalandi!");
+    toast.success(t("AuthCallback.Referral_link_copied"));
     setTimeout(() => setCopied(false), 2000); // 2 soniyadan so‘ng icon qaytadi
   };
 
@@ -83,7 +83,7 @@ const ProfilePage: React.FC = () => {
     if (result) {
       const { target, message } = result;
       e.target[target]?.focus();
-      toast.error(message);
+      toast.error(t("AuthCallback.error_occurred"));
     } else {
       try {
         const res = await fetch(
@@ -103,14 +103,14 @@ const ProfilePage: React.FC = () => {
         const data = await res.json();
 
         if (!res.ok) {
-          toast.error(data.message || "Parolni yangilashda xatolik yuz berdi");
+          toast.error(t("AuthCallback.error_occurred"));
           return;
         }
 
-        toast.success("Parol muvaffaqiyatli yangilandi!");
+        toast.success(t("AuthCallback.Password_updated_successfully"));
         setISModal(false);
       } catch (err: any) {
-        toast.error("Tarmoqda xatolik: " + err.message);
+        toast.error(t("AuthCallback.error_occurred"));
       }
     }
   };

@@ -17,7 +17,7 @@ function OauthToken() {
       toast.success(t("AuthCallback.Successfullylogged"));
       navigate("/dashboard");
     } else {
-      toast.error("Token is not defined");
+      toast.error(t("AuthCallback.token_not_found"));
       navigate("/login");
     }
   }, [location, navigate]);

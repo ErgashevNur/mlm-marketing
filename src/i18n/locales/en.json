@@ -468,6 +468,8 @@
     "order_success": "The order was successfully sent!",
     "withdraw_success": "The request was successfully sent!",
     "next_bonus_time": "You can claim your bonus after {{time}}",
-    "previous_request_review": "Your previous request is being reviewed!"
+    "previous_request_review": "Your previous request is being reviewed!",
+    "Referral_link_copied": "Referral link copied!",
+    "Password_updated_successfully": "Password updated successfully!"
   }
 }

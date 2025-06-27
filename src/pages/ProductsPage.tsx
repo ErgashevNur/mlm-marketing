@@ -63,7 +63,7 @@ const ProductsPage: React.FC = () => {
       await req.json();
       toast.success(t("AuthCallback.order_success"));
     } catch (error: any) {
-      toast.error("Buyurtma yuborishda xatolik: " + error.message);
+      toast.error(t("AuthCallback.error_occurred"));
     } finally {
       setOrderModal(false);
     }

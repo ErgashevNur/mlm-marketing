@@ -441,6 +441,8 @@
     "order_success": "Заказ успешно отправлен!",
     "withdraw_success": "Запрос успешно отправлен!",
     "next_bonus_time": "Вы можете получить бонус через {{time}}",
-    "previous_request_review": "Ваш предыдущий запрос рассматривается!"
+    "previous_request_review": "Ваш предыдущий запрос рассматривается!",
+    "Password_updated_successfully": "Пароль успешно обновлен!",
+    "Referral_link_copied": "Реферальная ссылка скопирована!"
   }
 }

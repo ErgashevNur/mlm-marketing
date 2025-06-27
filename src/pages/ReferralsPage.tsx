@@ -101,7 +101,7 @@ const ReferralsPage: React.FC = () => {
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2000);
     } catch (err: any) {
-      toast.error("Failed to copy link:", err);
+      toast.error(t("AuthCallback.error_occurred"));
     }
   };
 
@@ -143,7 +143,7 @@ const ReferralsPage: React.FC = () => {
         setReferals(res);
       })
       .catch(({ message }) => {
-        toast.error(message);
+        toast.error(t("AuthCallback.error_occurred"));
       });
   };
 
