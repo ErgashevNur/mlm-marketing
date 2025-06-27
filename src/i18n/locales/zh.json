@@ -454,6 +454,8 @@
     "next_bonus_time": "您可以在 {{time}} 后领取奖金",
     "previous_request_review": "您的先前请求正在审核中！",
     "Referral_link_copied": "推荐链接已复制！",
-    "Password_updated_successfully": "密码更新成功！"
+    "Password_updated_successfully": "密码更新成功！",
+
+    "yourUsdtIsTooLow": "您的USDT太低了"
   }
 }

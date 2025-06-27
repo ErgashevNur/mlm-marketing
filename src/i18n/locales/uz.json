@@ -467,6 +467,8 @@
     "next_bonus_time": "Bonusingizni {{time}} dan keyin olishingiz mumkin",
     "previous_request_review": "Sizning avvalgi so'rovingiz ko'rib chiqilmoqda!",
     "Referral_link_copied": "Referral link nusxalandi!",
-    "Password_updated_successfully": "Parol muvaffaqiyatli yangilandi!"
+    "Password_updated_successfully": "Parol muvaffaqiyatli yangilandi!",
+
+    "yourUsdtIsTooLow": "Sizning USDT balansingiz juda kam"
   }
 }

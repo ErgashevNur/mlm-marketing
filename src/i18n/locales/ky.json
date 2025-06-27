@@ -456,6 +456,8 @@
     "next_bonus_time": "Сиз бонусуңузду {{time}} өткөндөн кийин ала аласыз",
     "previous_request_review": "Мурунку сурамыңыз каралып жатат!",
     "Referral_link_copied": "Реферал шилтемеси көчүрүлдү!",
-    "Password_updated_successfully": "Сыр сөз ийгиликтүү жаңыртылды!"
+    "Password_updated_successfully": "Сыр сөз ийгиликтүү жаңыртылды!",
+
+    "yourUsdtIsTooLow": "Сиздин USDTңиз өтө төмөн"
   }
 }

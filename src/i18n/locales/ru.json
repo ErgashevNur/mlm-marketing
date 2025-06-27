@@ -454,6 +454,8 @@
     "next_bonus_time": "Вы можете получить бонус через {{time}}",
     "previous_request_review": "Ваш предыдущий запрос рассматривается!",
     "Password_updated_successfully": "Пароль успешно обновлен!",
-    "Referral_link_copied": "Реферальная ссылка скопирована!"
+    "Referral_link_copied": "Реферальная ссылка скопирована!",
+
+    "yourUsdtIsTooLow": "Ваш USDT слишком низок"
   }
 }
