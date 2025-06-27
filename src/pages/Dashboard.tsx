@@ -553,14 +553,10 @@ const Dashboard: React.FC = () => {
                       handleClaimBonus();
                       setIsOpen(false);
                     }}
-                    disabled={isLoading || !canClaimBonus}
-                    className={`flex items-center gap-2 text-lg font-semibold px-10 py-2 rounded-md transition-colors ${
-                      isLoading || !canClaimBonus
-                        ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-                        : "bg-green-500 text-white hover:bg-green-600"
-                    }`}
+                    // disabled={isLoading || !canClaimBonus}
+                    className="flex items-center gap-2 text-lg font-semibold px-10 py-2 rounded-md transition-colors bg-green-500 text-white hover:bg-green-600"
                   >
-                    {isLoading ? "Loading..." : t("dashboard.claimNow")}
+                    {t("dashboard.claimNow")}
                   </button>
                   <div className="flex flex-col items-end">
                     <span className="text-green-600 text-xl font-bold">
