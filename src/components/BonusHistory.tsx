@@ -504,7 +504,7 @@ export default function BonusHistory() {
                           <p className="text-gray-500 dark:text-gray-400">
                             {t("BonusHistory.referralBonus")}
                           </p>
-                          <p>{plan.tariff.referral_bonus}%</p>
+                          <p>{plan.tariff.referral_bonus} USDT</p>
                         </div>
                         <div>
                           <p className="text-gray-500 dark:text-gray-400">
