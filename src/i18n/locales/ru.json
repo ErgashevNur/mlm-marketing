@@ -261,6 +261,8 @@
     "enterPhoneNumber": "Введите номер телефона...",
     "yourSocialLink": "Ссылка на вашу соцсеть",
     "enterSocialLink": "Введите ссылку на соцсеть...",
+    "yourCountry": "Название страны",
+    "yourCity": "Адрес вашего города",
     "submit": "Отправить",
     "cancel": "Отмена"
   },

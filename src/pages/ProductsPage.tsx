@@ -41,6 +41,8 @@ const ProductsPage: React.FC = () => {
       productId: order.id,
       contactNumber: formData.get("contactNumber"),
       contactLink: formData.get("contactLink"),
+      country: formData.get("country"),
+      city: formData.get("city"),
     };
 
     const token = localStorage.getItem("token");
@@ -243,7 +245,6 @@ const ProductsPage: React.FC = () => {
                       view
                     </Link>
                     <Link
-                      // to="/dashboard/checkout"
                       onClick={() => {
                         openOrderModal(product);
                       }}
@@ -259,51 +260,87 @@ const ProductsPage: React.FC = () => {
           </div>
         )}
         {orderModal && (
-          <div className="w-[420px] h-[350px] border border-gray-200 dark:border-gray-700 absolute inset-0 top-60 left-1/2 -translate-x-1/2 p-6 rounded-2xl shadow-xl bg-white dark:bg-slate-900 text-gray-900 dark:text-white">
-            <h1 className="flex items-center gap-3 text-2xl font-semibold mb-6">
-              {t("productsPage.verifyIdentity")}
-            </h1>
-            <form onSubmit={ordered} className="space-y-5">
-              <div className="flex flex-col gap-2">
-                <label className="font-medium">
-                  {t("productsPage.yourPhoneNumber")}
-                </label>
-                <input
-                  type="number"
-                  name="contactNumber"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder={t("productsPage.enterPhoneNumber")}
-                  required
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className="font-medium">
-                  {t("productsPage.yourSocialLink")}
-                </label>
-                <input
-                  type="text"
-                  name="contactLink"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder={t("productsPage.enterSocialLink")}
-                  required
-                />
-              </div>
-              <div className="pt-4 flex items-center w-full gap-3">
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold py-2 rounded-lg shadow-sm"
-                >
-                  {t("productsPage.submit")}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setOrderModal(false)}
-                  className="w-full bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold py-2 rounded-lg shadow-sm"
-                >
-                  {t("productsPage.cancel")}
-                </button>
-              </div>
-            </form>
+          <div className="fixed inset-0 flex items-center justify-center bg-black/30 z-50">
+            <div className="w-[90%] max-w-md border border-gray-200 dark:border-gray-700 p-6 rounded-3xl shadow-2xl bg-white dark:bg-slate-900 text-gray-900 dark:text-white relative animate-fadeInUp">
+              <h1 className="flex items-center gap-3 text-2xl font-bold mb-6 text-center">
+                {t("productsPage.verifyIdentity")}
+              </h1>
+
+              <form onSubmit={ordered} className="space-y-5">
+                {/* Country */}
+                <div className="flex flex-col gap-1">
+                  <label className="font-medium text-sm text-gray-700 dark:text-gray-300">
+                    {t("productsPage.yourCountry")}
+                  </label>
+                  <input
+                    type="text"
+                    name="country"
+                    className="w-full px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={`${t("productsPage.yourCountry")}...`}
+                    required
+                  />
+                </div>
+
+                {/* City */}
+                <div className="flex flex-col gap-1">
+                  <label className="font-medium text-sm text-gray-700 dark:text-gray-300">
+                    {t("productsPage.yourCity")}
+                  </label>
+                  <input
+                    type="text"
+                    name="city"
+                    className="w-full px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={`${t("productsPage.yourCity")}...`}
+                    required
+                  />
+                </div>
+
+                {/* Social link */}
+                <div className="flex flex-col gap-1">
+                  <label className="font-medium text-sm text-gray-700 dark:text-gray-300">
+                    {t("productsPage.yourSocialLink")}
+                  </label>
+                  <input
+                    type="text"
+                    name="contactLink"
+                    className="w-full px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={t("productsPage.enterSocialLink")}
+                    required
+                  />
+                </div>
+
+                {/* Phone number */}
+                <div className="flex flex-col gap-1">
+                  <label className="font-medium text-sm text-gray-700 dark:text-gray-300">
+                    {t("productsPage.yourPhoneNumber")}
+                  </label>
+                  <input
+                    type="number"
+                    name="contactNumber"
+                    className="w-full px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={t("productsPage.enterPhoneNumber")}
+                    required
+                  />
+                </div>
+
+                {/* Buttons */}
+                <div className="flex items-center justify-between pt-4 gap-3">
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-600 hover:bg-blue-700 transition-all text-white font-semibold py-2 rounded-xl shadow-md"
+                  >
+                    {t("productsPage.submit")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setOrderModal(false)}
+                    className="w-full bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 transition-all text-gray-800 dark:text-white font-semibold py-2 rounded-xl shadow-md"
+                  >
+                    {t("productsPage.cancel")}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         )}
       </div>

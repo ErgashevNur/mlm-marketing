@@ -264,6 +264,8 @@
     "enterPhoneNumber": "请输入您的电话号码...",
     "yourSocialLink": "您的社交媒体链接",
     "enterSocialLink": "请输入您的社交媒体链接...",
+    "yourCountry": "国家名称",
+    "yourCity": "您所在城市的地址",
     "submit": "提交",
     "cancel": "取消"
   },
