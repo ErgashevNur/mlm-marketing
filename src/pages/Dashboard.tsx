@@ -158,7 +158,7 @@ const Dashboard: React.FC = () => {
         setCanClaimBonus(false);
 
         toast.success(
-          t("dashboard.bonusReceived") || "Bonusingiz qabul qilindi"
+          t("dashboard.bonusHistory") || "Bonusingiz qabul qilindi"
         );
       } else {
         // Bonus not yet available - save time
