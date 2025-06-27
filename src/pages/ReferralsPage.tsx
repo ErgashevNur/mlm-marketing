@@ -238,7 +238,7 @@ const ReferralsPage: React.FC = () => {
                       {t("referrals.level")}
                     </th>
                     <th className="px-5 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      {t("referrals.levelName")}
+                      {t("referrals.level")}
                     </th>
                     <th className="px-5 py-3 text-left font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       {t("referrals.prizeName")}
