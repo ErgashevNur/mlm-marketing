@@ -57,11 +57,14 @@ const ProductDetailPage: React.FC = () => {
     const fetchProduct = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`https://mlm-backend.pixl.uz/products/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_KEY}/products/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (res.ok) {
           const data = await res.json();
           setApiProduct(data);
@@ -75,7 +78,7 @@ const ProductDetailPage: React.FC = () => {
 
   const getCurrencies = async () => {
     try {
-      const response = await fetch("https://mlm-backend.pixl.uz/suport");
+      const response = await fetch(`${import.meta.env.VITE_API_KEY}/suport`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch currency data");

@@ -99,7 +99,9 @@
     "warning_message": "If you do not accept the bonus within the specified time, it will be canceled.",
     "action_button_text": "Receive",
     "close_button": "Close",
-    "time_limit_value_24_hours": "24 hours"
+    "time_limit_value_24_hours": "24 hours",
+
+    "noStatistics": "No statistics available yet"
   },
 
   "profile": {
@@ -152,10 +154,10 @@
     "active": "Active",
     "inactive": "Inactive",
     "referalevel": "High-level  → Referral cycle",
-    "minCount": "Min balance",
+    "minCount": "Min amount",
     "levelName": "Level name",
     "level": "Level",
-    "maxCount": "Max balance",
+    "maxCount": "Max amount",
     "prizeName": "Prize name"
   },
 

@@ -130,7 +130,7 @@ const ReferralsPage: React.FC = () => {
 
   const getReferals = async () => {
     const token = localStorage.getItem("token");
-    await fetch("https://mlm-backend.pixl.uz/referal-level", {
+    await fetch(`${import.meta.env.VITE_API_KEY}/referal-level`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -149,7 +149,7 @@ const ReferralsPage: React.FC = () => {
 
   const getCurrencies = async () => {
     try {
-      const response = await fetch("https://mlm-backend.pixl.uz/suport");
+      const response = await fetch(`${import.meta.env.VITE_API_KEY}/suport`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch currency data");

@@ -27,7 +27,7 @@ const WithdrawPage: React.FC = () => {
 
   const getCurrencies = async () => {
     try {
-      const response = await fetch("https://mlm-backend.pixl.uz/suport");
+      const response = await fetch(`${import.meta.env.VITE_API_KEY}/suport`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch currency data");
@@ -47,11 +47,14 @@ const WithdrawPage: React.FC = () => {
   const minimum = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("https://mlm-backend.pixl.uz/min-take-off", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_KEY}/min-take-off`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Minimum qiymatni olishda xatolik yuz berdi");
@@ -100,7 +103,7 @@ const WithdrawPage: React.FC = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const req = await fetch("https://mlm-backend.pixl.uz/take-off", {
+      const req = await fetch(`${import.meta.env.VITE_API_KEY}/take-off`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -126,13 +129,16 @@ const WithdrawPage: React.FC = () => {
 
   const sendRequest = async () => {
     try {
-      const req = await fetch("https://mlm-backend.pixl.uz/take-off/pending", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const req = await fetch(
+        `${import.meta.env.VITE_API_KEY}/take-off/pending`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!req.ok) {
         throw new Error(`Server error: ${req.status}`);
@@ -155,12 +161,15 @@ const WithdrawPage: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const req = await fetch("https://mlm-backend.pixl.uz/take-off/user", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const req = await fetch(
+          `${import.meta.env.VITE_API_KEY}/take-off/user`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = await req.json();
         setWithdrawHistory(data);
@@ -176,7 +185,7 @@ const WithdrawPage: React.FC = () => {
     const fetchCoinData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("https://mlm-backend.pixl.uz/coin", {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/coin`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -98,7 +98,9 @@
     "warning_message": "Agar belgilangan vaqt ichida bonusni qabul qilmasangiz, u bekor qilinadi.",
     "action_button_text": "Qabul qilish",
     "close_button": "Yopish",
-    "time_limit_value_24_hours": "24 soat"
+    "time_limit_value_24_hours": "24 soat",
+
+    "noStatistics": "Hozircha statistika mavjud emas"
   },
 
   "profile": {
@@ -152,10 +154,10 @@
     "active": "Faol",
     "inactive": "Nofaol",
     "referalevel": "Referal aylanma → Yuqori daraja",
-    "minCount": "Minimal soni",
+    "minCount": "Minimal Summa",
     "levelName": "Daraja nomi",
     "level": "Daraja",
-    "maxCount": "Maksimal soni",
+    "maxCount": "Maksimal Summa",
     "prizeName": "Sovg'a nomi"
   },
 

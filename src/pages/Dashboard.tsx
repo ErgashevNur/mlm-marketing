@@ -228,7 +228,7 @@ const Dashboard: React.FC = () => {
 
   const getCurrencies = async () => {
     try {
-      const response = await fetch("https://mlm-backend.pixl.uz/suport");
+      const response = await fetch(`${import.meta.env.VITE_API_KEY}/suport`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch currency data");

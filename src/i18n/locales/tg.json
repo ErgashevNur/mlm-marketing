@@ -97,7 +97,9 @@
     "warning_message": "Агар шумо бонусро дар муддати муайяншуда қабул накунед, он бекор карда мешавад.",
     "action_button_text": "Қабул кардан",
     "close_button": "Пӯшидан",
-    "time_limit_value_24_hours": "24 соат"
+    "time_limit_value_24_hours": "24 соат",
+
+    "noStatistics": "Ҳоло омор мавҷуд нест"
   },
   "profile": {
     "personalInfo": "Маълумоти шахсӣ",
@@ -148,9 +150,9 @@
     "active": "Фаол",
     "inactive": "Ғайрифаол",
     "referalevel": "Давраи роҳхати → Сатҳи баланд",
-    "minCount": "Миқдори ҳадди ақал",
     "levelName": "Номи сатҳ",
     "level": "Сатҳ",
+    "minCount": "Миқдори ҳадди ақал",
     "maxCount": "Миқдори ҳадди аксар",
     "UserLevel": "Сатҳи истифодабаранда",
     "prizeName": "Номи туҳфа"

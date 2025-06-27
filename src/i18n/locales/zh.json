@@ -97,7 +97,9 @@
     "warning_message": "如果您未能在指定时间内领取奖励，它将被取消。",
     "action_button_text": "领取",
     "close_button": "关闭",
-    "time_limit_value_24_hours": "24小时"
+    "time_limit_value_24_hours": "24小时",
+
+    "noStatistics": "暂无统计数据"
   },
   "profile": {
     "personalInfo": "个人信息",
@@ -148,9 +150,9 @@
     "active": "激活",
     "inactive": "未激活",
     "referalevel": "高级推荐循环",
-    "minCount": "最小数量",
     "levelName": "等级名称",
     "level": "等级",
+    "minCount": "最小数量",
     "maxCount": "最大数量",
     "UserLevel": "用户等级",
     "prizeName": "礼物名称"

@@ -138,16 +138,13 @@ export default function BonusHistory() {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await fetch(
-        "/product-history/user",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch("/product-history/user", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Serverdan xatolik: " + response.status);
@@ -166,7 +163,7 @@ export default function BonusHistory() {
 
     try {
       const response = await fetch(
-        "https://mlm-backend.pixl.uz/tariff-history/user",
+        `${import.meta.env.VITE_API_KEY}/tariff-history/user`,
         {
           method: "GET",
           headers: {

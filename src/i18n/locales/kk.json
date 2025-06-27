@@ -97,7 +97,9 @@
     "warning_message": "Егер белгіленген уақыт ішінде бонусты қабылдамасаңыз, ол жойылады.",
     "action_button_text": "Қабылдау",
     "close_button": "Жабу",
-    "time_limit_value_24_hours": "24 сағат"
+    "time_limit_value_24_hours": "24 сағат",
+
+    "noStatistics": "Әзірге статистика жоқ"
   },
   "profile": {
     "personalInfo": "Жеке ақпарат",

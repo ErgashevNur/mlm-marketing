@@ -40,7 +40,7 @@ const ProfilePage: React.FC = () => {
   const [socials, setSocials] = useState([]);
   const getCurrencies = async () => {
     try {
-      const response = await fetch("https://mlm-backend.pixl.uz/suport");
+      const response = await fetch(`${import.meta.env.VITE_API_KEY}/suport`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch currency data");
@@ -87,7 +87,7 @@ const ProfilePage: React.FC = () => {
     } else {
       try {
         const res = await fetch(
-          "https://mlm-backend.pixl.uz/users/up-password",
+          `${import.meta.env.VITE_API_KEY}/users/up-password`,
           {
             method: "POST",
             headers: {

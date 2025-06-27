@@ -21,7 +21,7 @@ const ProductsPage: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("https://mlm-backend.pixl.uz/products");
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/products`);
         const data = await res.json();
         setProducts(Array.isArray(data) ? data : []);
       } catch (error) {
@@ -46,14 +46,17 @@ const ProductsPage: React.FC = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const req = await fetch("https://mlm-backend.pixl.uz/orders-product", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(obj),
-      });
+      const req = await fetch(
+        `${import.meta.env.VITE_API_KEY}/orders-product`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(obj),
+        }
+      );
 
       if (!req.ok) {
         const errorText = await req.text();
@@ -108,7 +111,7 @@ const ProductsPage: React.FC = () => {
 
   const getCurrencies = async () => {
     try {
-      const response = await fetch("https://mlm-backend.pixl.uz/suport");
+      const response = await fetch(`${import.meta.env.VITE_API_KEY}/suport`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch currency data");
