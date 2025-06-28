@@ -325,7 +325,7 @@
     "fileTypes": "Ruxsat etilgan formatlar: .png, .jpg, .pdf",
     "uploadFile": "Faylni yuklash",
     "or": "yoki",
-    "cardholderName": "Karta egasi ismi",
+    "cardholderName": "Karta egasi ism familiyasi",
     "cardholderPlaceholder": "Masalan: Alisher Qodirov",
     "submitDocument": "Hujjatni yuborish",
     "uploading": "Yuklanmoqda...",

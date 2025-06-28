@@ -314,7 +314,7 @@
     "fileTypes": "Допустимые форматы: .png, .jpg, .pdf",
     "uploadFile": "Загрузить файл",
     "or": "или",
-    "cardholderName": "Имя владельца карты",
+    "cardholderName": "Имя и фамилия держателя карты",
     "cardholderPlaceholder": "например, Иван Иванов",
     "submitDocument": "Отправить документ",
     "uploading": "Загрузка...",

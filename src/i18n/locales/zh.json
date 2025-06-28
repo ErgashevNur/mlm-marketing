@@ -317,7 +317,7 @@
     "fileTypes": "支持格式：.png, .jpg, .pdf",
     "uploadFile": "上传文件",
     "or": "或",
-    "cardholderName": "持卡人姓名",
+    "cardholderName": "持卡人全名",
     "cardholderPlaceholder": "例如：张伟",
     "submitDocument": "提交文件",
     "uploading": "正在上传...",
