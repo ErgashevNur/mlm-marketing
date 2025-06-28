@@ -42,7 +42,7 @@ Loyha quyidagi texnologiyalar yordamida qurilgan:
 1. **Repozitoriyani klonlash:**
 
 ```bash
-git clone https://github.com/ErgashevNur/mlm-platform.git
+git clone https://github.com/ErgashevNur/mlm-marketing.git
 cd mlm-platform
 ```
 
