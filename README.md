@@ -83,6 +83,13 @@ mlm-platform/
 
 `.env` faylida quyidagi sozlamalar mavjud:
 
+`.env` faylni `admin` papkasiga yarating va quyidagicha to‘ldiring:
+
+VITE_API_KEY=https://mlm-backend.pixl.uz
+VITE_REFERAL_KEY= mlm-marketing-theta.vercel.app
+VITE_KEY_IMG= MLM PLATFORM
+VITE_LOGO=/logo.svg
+
 - API endpoints
 - Referal link konfiguratsiyasi
 - Boshqa loyha sozlamalari
@@ -129,3 +136,7 @@ Savollar yoki takliflar uchun:
 ---
 
 ⭐ Agar loyha foydali bo'lsa, yulduzcha qo'yishni unutmang!
+
+```
+
+```
